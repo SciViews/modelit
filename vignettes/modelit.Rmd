@@ -1,0 +1,24 @@
+---
+title: "modelit - Statistical Models for SciViews::R"
+author: "Philippe Grosjean (phgrosjean@sciviews.org)"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_caption: yes
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{modelit - Statistical Models for SciViews::R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(modelit)
+```
