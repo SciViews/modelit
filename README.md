@@ -1,5 +1,5 @@
 
-# modelit
+# modelit <a href='https://www.sciviews.org/modelit'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/SciViews/modelit/workflows/R-CMD-check/badge.svg)](https://github.com/SciViews/modelit/actions)
