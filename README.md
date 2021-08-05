@@ -3,6 +3,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/SciViews/modelit/workflows/R-CMD-check/badge.svg)](https://github.com/SciViews/modelit/actions)
+[![Codecov test coverage](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main)
 <!-- badges: end -->
 
 The goal of modelit is to ...
