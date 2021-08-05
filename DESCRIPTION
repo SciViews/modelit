@@ -1,5 +1,5 @@
 Package: modelit
-Title: Statistical Models Within SciViews::R
+Title: Statistical Models Within 'SciViews::R'
 Version: 0.0.0.9000
 Authors@R: 
     person("Philippe", "Grosjean", role = c("aut", "cre"),

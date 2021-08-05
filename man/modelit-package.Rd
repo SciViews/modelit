@@ -4,7 +4,7 @@
 \name{modelit-package}
 \alias{modelit}
 \alias{modelit-package}
-\title{modelit: Statistical Models Within SciViews::R}
+\title{modelit: Statistical Models Within 'SciViews::R'}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 

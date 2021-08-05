@@ -24,7 +24,7 @@ You can also install the latest development version. Make sure you have the {rem
 install.packages("remotes")
 ```
 
-Use `install_github()` to install the {svMisc} package from GitHub (source from **master** branch will be recompiled on your machine):
+Use `install_github()` to install the {modelit} package from GitHub (source from **main** branch will be recompiled on your machine):
 
 ```r
 remotes::install_github("SciViews/modelit")
