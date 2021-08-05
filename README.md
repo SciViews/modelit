@@ -2,6 +2,7 @@
 # modelit
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/SciViews/modelit/workflows/R-CMD-check/badge.svg)](https://github.com/SciViews/modelit/actions)
 <!-- badges: end -->
 
 The goal of modelit is to ...
