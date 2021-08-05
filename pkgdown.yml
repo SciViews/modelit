@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   modelit: modelit.html
-last_built: 2021-08-05T12:55Z
+last_built: 2021-08-05T13:53Z
 urls:
   reference: https://www.sciviews.org/modelit/reference
   article: https://www.sciviews.org/modelit/articles
