@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.sciviews.org/modelit/index.html</loc>
+    <loc>https://www.sciviews.org/modelit/404.html</loc>
   </url>
   <url>
-    <loc>https://www.sciviews.org/modelit/reference/modelit-package.html</loc>
+    <loc>https://www.sciviews.org/modelit/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/TODO.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/articles/index.html</loc>
   </url>
   <url>
     <loc>https://www.sciviews.org/modelit/articles/modelit.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/index.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/modelit-package.html</loc>
   </url>
 </urlset>
