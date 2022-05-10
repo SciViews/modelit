@@ -4,12 +4,21 @@
 \name{modelit-package}
 \alias{modelit}
 \alias{modelit-package}
-\title{modelit: Statistical Models Within 'SciViews::R'}
+\title{modelit: 'SciViews' - Statistical Models Within 'SciViews::R'}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Create and Use Statistical Models (Linear, General, Nonlinear, ...)
   by using a SciViews::R common formula interface and label-aware functions.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/SciViews/modelit}
+  \item \url{https://www.sciviews.org/modelit/}
+  \item Report bugs at \url{https://github.com/SciViews/modelit/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Philippe Grosjean \email{phgrosjean@sciviews.org} (\href{https://orcid.org/0000-0002-2694-9471}{ORCID})
