@@ -1,3 +1,13 @@
+# modelit 1.0.0
+
+-   `autoplot()` and `chart()` for objects **lm**, **glm** and **nls**: both the plot of the model and several residual analyses, plus a composed 2x2 plot for residuals analysis.
+
+-   `as.function()` for **lm** and **nls** objects.
+
+-   Reexportation of several functions from {modelr}: `add_predictions()`, `add_residuals()`, `geom_ref_line()`, `rmse()`, `rsquare()`, `mae()` and `qae()`.
+
+-   `fit_model()` to easily fit a {parsnip} model, and a series of methods like `summary()`, `anova()` or `chart()` directly implemented for these objects.
+
 # modelit 0.1.0
 
 -   Added hex sticker (logo) with:

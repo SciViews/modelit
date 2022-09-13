@@ -8,8 +8,12 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Create and Use Statistical Models (Linear, General, Nonlinear, ...)
-  by using a SciViews::R common formula interface and label-aware functions.
+Create and Use Statistical Models (Linear, General, Nonlinear, ...) by using a SciViews::R common formula interface and label-aware functions.
+}
+\details{
+The {modelit} package provides an extension to base R functions for model
+fitting like \code{\link[=lm]{lm()}}, \code{\link[=glm]{glm()}} or \code{\link[=nls]{nls()}} with enhanced plots and utilitarian
+functions.
 }
 \seealso{
 Useful links:
