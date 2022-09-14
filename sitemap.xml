@@ -28,9 +28,27 @@
     <loc>https://www.sciviews.org/modelit/news/index.html</loc>
   </url>
   <url>
+    <loc>https://www.sciviews.org/modelit/reference/as.function.lm.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/as.function.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/chart.lm.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/chart.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/fit_model.html</loc>
+  </url>
+  <url>
     <loc>https://www.sciviews.org/modelit/reference/index.html</loc>
   </url>
   <url>
     <loc>https://www.sciviews.org/modelit/reference/modelit-package.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/modelr-reexport.html</loc>
   </url>
 </urlset>
