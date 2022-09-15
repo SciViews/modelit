@@ -1,8 +1,8 @@
-# modelit <a href='https://www.sciviews.org/modelit'><img src="man/figures/logo.png" align="right" height="139"/></a>
+# modelit - Easy data modelling with regression <a href='https://www.sciviews.org/modelit'><img src="man/figures/logo.png" align="right" height="139"/></a>
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/SciViews/modelit/workflows/R-CMD-check/badge.svg)](https://github.com/SciViews/modelit/actions) [![Codecov test coverage](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main) [![CRAN status](https://www.r-pkg.org/badges/version/modelit)](https://CRAN.R-project.org/package=modelit) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main) [![CRAN status](https://www.r-pkg.org/badges/version/modelit)](https://CRAN.R-project.org/package=modelit) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
 <!-- badges: end -->
 
