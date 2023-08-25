@@ -1,3 +1,9 @@
+# modelit 1.1.0
+
+-   `tabularise_default()`, `tabularise_coef()`, `tabularise_glance()`, `tabularise_tidy()` for **nls** objects
+
+-   `tabularise_default()`, `tabularise_coef()` for **summary.nls** objects
+
 # modelit 1.0.0
 
 -   `autoplot()` and `chart()` for objects **lm**, **glm** and **nls**: both the plot of the model and several residual analyses, plus a composed 2x2 plot for residuals analysis.

@@ -7,22 +7,28 @@
 \method{tabularise_glance}{nls}(
   data,
   header = TRUE,
+  equation = header,
   lang = getOption("data.io_lang", "en"),
   ...,
   env = parent.frame()
 )
 }
 \arguments{
-\item{data}{a nls object}
+\item{data}{a nls object.}
 
 \item{header}{If TRUE, add a title to the table.}
 
+\item{equation}{Add equation of the model to the table. If TRUE, \code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a character string.}
+
 \item{lang}{The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.}
 
-\item{...}{Additional arguments. Not used.}
+\item{...}{Additional arguments passed to \code{\link[=nls_equation]{nls_equation()}}}
 
-\item{env}{The environment where to evaluate formulas (you probably do not need to change the default).
-#' @seealso \code{\link[tabularise:tabularise_glance]{tabularise::tabularise_glance()}} \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}}
+\item{env}{The environment where to evaluate formulas (you probably do not need to change the default).}
+}
+\value{
+A \strong{flextable} object you can print in different forms or rearrange
+with the {flextable} functions.
 }
 \description{
 Extract the information contained in a nls object in one row of a rectangular table as it could be obtained by \code{\link[generics:glance]{generics::glance()}}. Here, the table is nicely formatted as an (almost) publication-ready form (good for informal reports, notebooks, etc).
@@ -37,5 +43,7 @@ chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
 library(tabularise)
 tabularise$glance(chick1_logis)
 tabularise$glance(chick1_logis, lang = "fr")
-
+}
+\seealso{
+\code{\link[tabularise:tabularise_glance]{tabularise::tabularise_glance()}} \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}
 }

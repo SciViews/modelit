@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.nls.R
 \name{tabularise_default.summary.nls}
 \alias{tabularise_default.summary.nls}
-\title{Tabularise a summary.nls object into a flextable object}
+\title{Tabularise a summary.nls object}
 \usage{
 \method{tabularise_default}{summary.nls}(
   data,
@@ -15,26 +15,27 @@
 )
 }
 \arguments{
-\item{data}{A summary.nls object}
+\item{data}{A summary.nls object.}
 
-\item{header}{If TRUE add a title to the table}
+\item{header}{If TRUE add a title to the table.}
 
-\item{footer}{If TRUE add a footer to the table}
+\item{footer}{If TRUE add a footer to the table.}
 
-\item{lang}{The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.}
+\item{lang}{The language to use. The default value can be set with, e.g. options(data.io_lang = "fr") for French.}
 
-\item{show.signif.stars}{If TRUE add the significance stars to the table}
+\item{show.signif.stars}{If TRUE add the significance stars to the table.}
 
-\item{...}{Unused argument}
+\item{...}{Not used.}
 
-\item{env}{The environment where to evaluate the function}
+\item{env}{The environment where to evaluate the function.}
 }
 \value{
-A \strong{flextable} object you can print in different form or rearrange
+A \strong{flextable} object you can print in different forms or rearrange
 with the {flextable} functions.
 }
 \description{
-This method tabularises a summary.nls object as a flextable.
+This function tabularises_default() tabularises a \code{summary.nls} object. This table looks like print.summary.nls().
+The \code{\link[=tabularise_coef]{tabularise_coef()}} function offers more customisation options for this object.
 }
 \examples{
 data("ChickWeight", package = "datasets")
@@ -42,7 +43,14 @@ chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 
 # Adjust a logistic curve
 chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
+slogis <- summary(chick1_logis)
+# tabularise
+# More practical
 library(tabularise)
-tabularise(summary(chick1_logis))
+tabularise(slogis)
+tabularise(slogis, footer = FALSE)
 
+}
+\seealso{
+\code{\link[tabularise:tabularise]{tabularise::tabularise()}} \code{\link[tabularise:tabularise_tidy]{tabularise::tabularise_tidy()}} \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}
 }

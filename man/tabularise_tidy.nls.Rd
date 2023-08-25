@@ -11,6 +11,10 @@
 
 \item{...}{arguments of \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}}
 }
+\value{
+A \strong{flextable} object you can print in different forms or rearrange
+with the {flextable} functions.
+}
 \description{
 Extract the information contained in a nls object into a rectangular table as it could be obtained by \code{\link[generics:tidy]{generics::tidy()}}. Here, the table is nicely formatted as an (almost) publication-ready form (good for informal reports, notebooks, etc).
 }
@@ -25,5 +29,5 @@ tabularise$tidy(chick1_logis)
 tabularise$tidy(chick1_logis, lang = "fr")
 }
 \seealso{
-\code{\link[tabularise:tabularise_tidy]{tabularise::tabularise_tidy()}} \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}
+\code{\link[tabularise:tabularise]{tabularise::tabularise()}} \code{\link[tabularise:tabularise_tidy]{tabularise::tabularise_tidy()}} \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}
 }

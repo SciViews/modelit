@@ -7,6 +7,7 @@
 \method{tabularise_coef}{summary.nls}(
   data,
   header = TRUE,
+  equation = header,
   lang = getOption("data.io_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
@@ -18,25 +19,33 @@
 
 \item{header}{If TRUE, add a title to the table.}
 
+\item{equation}{Add equation of the model to the table. If TRUE, \code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a character string.}
+
 \item{lang}{The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.}
 
 \item{show.signif.stars}{If TRUE, add the significance stars to the table.}
 
-\item{...}{Additional arguments. Not used.}
+\item{...}{Additional arguments passed to \code{\link[=nls_equation]{nls_equation()}}}
 
 \item{env}{The environment where to evaluate formulas (you probably do not need to change the default).}
 }
+\value{
+A \strong{flextable} object you can print in different forms or rearrange
+with the {flextable} functions.
+}
 \description{
-This method extracts and formats the table of coefficients from summary.nls object, similar to \code{\link[stats:coef]{stats::coef()}}, but in flextable object.
+This function extracts and formats the table of coefficients from a summary.nls object, similar to \code{\link[stats:coef]{stats::coef()}}, but in flextable object.
 }
 \examples{
-# example code
 data("ChickWeight", package = "datasets")
 chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 # Adjust a logistic curve
 chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-chick1_logis_sum <- summary(chick1_logis)
+slogis <- summary(chick1_logis)
+
+# More practical and pretty
 library(tabularise)
-tabularise$coef(chick1_logis_sum)
+tabularise$coef(slogis)
+tabularise$coef(slogis, header = FALSE, equation = TRUE)
 
 }
