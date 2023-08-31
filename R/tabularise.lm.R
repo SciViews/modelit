@@ -1,5 +1,3 @@
-# Use the same logic as for nls and summary nls objects
-
 #' Create a rich-formatted table using the coefficients of the lm object
 #'
 #' @description
@@ -59,7 +57,7 @@ tabularise_coef.lm <- function(data,
   ft <- flextable(co) |>
     colformat_sci()
 
-  ft <- header_labels(ft, lang = lang)
+  ft <- header_labels_lm(ft, lang = lang)
 
   # Header and equation ----
   if (isTRUE(equation)) {
@@ -202,7 +200,7 @@ tabularise_tidy.lm <- function(data,
   ft <- colformat_sci(ft, j = "p.value", lod = 2e-16)
 
   # Rename headers labels
-  ft <- header_labels(ft, lang = lang)
+  ft <- header_labels_lm(ft, lang = lang)
 
   # headers
   if (isTRUE(equation)) {
@@ -285,7 +283,7 @@ tabularise_tidy.lm <- function(data,
 tabularise_glance.lm <- function(data,
   header = TRUE,
   title = TRUE,
-  equation = FALSE,
+  equation = TRUE,
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
@@ -321,7 +319,7 @@ tabularise_glance.lm <- function(data,
   #ft <- colformat_sci(ft, j = "p.value", lod = 2e-16)
 
   # Rename headers labels
-  ft <- header_labels(ft, lang = lang)
+  ft <- header_labels_lm(ft, lang = lang)
 
   # headers
   if (isTRUE(equation)) {
@@ -479,11 +477,11 @@ add_header_lm <- function(x,
 }
 
 ## Internal function change the labels of header ----
-header_labels <- function(x, lang = lang, ...) {
+header_labels_lm <- function(x, lang = lang, ...) {
 
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-      "header_labels()")) }
+      "header_labels_lm()")) }
 
   # choose de lang ----
   info_lang <- .infos_lang.lm(lang = lang)
@@ -513,7 +511,7 @@ add_signif_stars <- function(x, i = NULL, j = NULL, part = "body", align = "righ
 
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-      "header_labels()"))}
+      "add_signif_stars()"))}
 
   ft <- x
 

@@ -8,7 +8,7 @@
   data,
   header = TRUE,
   title = TRUE,
-  equation = FALSE,
+  equation = TRUE,
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
