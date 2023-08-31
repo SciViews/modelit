@@ -1,9 +1,13 @@
-#' Create a rich-formatted table using the coefficients of the lm object
+# when we calculate a glm with the glm function, we obtain an object of
+# type `glm` and `lm`. So tabularise() using the `lm` method
+# The equatiomatic package is not capable of extracting an equation from an object of type summary.glm
+
+#' @title Create a rich-formatted table using the coefficients of the glm object
 #'
 #' @description
-#' This function extracts and formats the table of coefficients from an lm object, similar to [stats::coef()], but in flextable.
+#' This function extracts and formats the table of coefficients from an glm object, similar to [stats::coef()], but in flextable.
 #'
-#' @param data An **lm** object
+#' @param data An **glm** object
 #' @param header If `TRUE` (by default), add a header to the table
 #' @param title If `TRUE` (by default), add a title to the table header
 #' @param equation If `TRUE` (by default), add a equation to the table header. The equation can also be passed in the form of a character string.
@@ -20,13 +24,13 @@
 #' with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
-#' @method tabularise_coef lm
+#' @method tabularise_coef glm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' library(tabularise)
 #' tabularise$coef(is.lm)
 #'
-tabularise_coef.lm <- function(data,
+tabularise_coef.glm <- function(data,
   header = TRUE,
   title = header,
   equation = header,
@@ -38,7 +42,7 @@ tabularise_coef.lm <- function(data,
   env = parent.frame()) {
 
   # Choose de lang ----
-  info_lang <- .infos_lang.lm(lang = lang)
+  info_lang <- .infos_lang.glm(lang = lang)
 
   # Extract coef ----
   {
@@ -101,28 +105,47 @@ tabularise_coef.lm <- function(data,
   autofit(ft, part = c("header", "body"))
 }
 
-#' Create a rich-formatted table from an lm object
+#' Create a rich-formatted table from an glm object
 #'
 #' @param data An **lm** object
-#' @param ... Additional arguments passed to [modelit::tabularise_coef.lm()]
+#' @param lang The natural language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
+#' @param footer If `TRUE` (by default), add a footer to the table
+#' @param ... Additional arguments passed to [modelit::tabularise_coef.glm()]
 #'
 #' @return  **flextable** object you can print in different form or rearrange
 #' with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
-#' @method tabularise_default lm
+#' @method tabularise_default glm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' library(tabularise)
 #' tabularise(is.lm)
-#'
-tabularise_default.lm <- function(data, ...) {
-  tabularise_coef.lm(data = data, ...)
+tabularise_default.glm <- function(data,
+  lang = getOption("data.io_lang", "en"),
+  footer = TRUE, ...) {
+  ft <- tabularise_coef.glm(data = data, ...)
+
+  if(isTRUE(footer)) {
+    info_lang <- .infos_lang.glm(lang = lang)
+
+    digits <- max(3L, getOption("digits") - 3L)
+    footer <- info_lang[["footer"]]
+    vals <- c(
+     paste(footer[["df"]], data$df.null, footer[["total"]], data$df.residual, footer[["residual"]]),
+      paste(footer[["null.deviance"]], format(signif(data$null.deviance, digits))),
+      paste(footer[["resid.deviance"]], format(signif(data$deviance,
+        digits)), footer[["AIC"]], format(signif(data$aic, digits)))
+      )
+    ft <- add_footer_lines(ft, values = vals)
+  }
+
+  autofit(ft, part = c("header", "body"))
 }
 
-#' Tidy version of the lm object into a flextable object
+#' Tidy version of the glm object into a flextable object
 #'
-#' @param data An **lm** object
+#' @param data An **glm** object
 #' @param header If `TRUE` (by default), add a header to the table
 #' @param title If `TRUE` (by default), add a title to the table header
 #' @param equation If `TRUE` (by default), add a equation to the table header. The equation can also be passed in the form of a character string.
@@ -143,12 +166,12 @@ tabularise_default.lm <- function(data, ...) {
 #' @export
 #' @importFrom tabularise tabularise_tidy colformat_sci
 #' @importFrom rlang .data
-#' @method tabularise_tidy lm
+#' @method tabularise_tidy glm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' library(tabularise)
 #' tabularise$tidy(is.lm)
-tabularise_tidy.lm <- function(data,
+tabularise_tidy.glm <- function(data,
   header = TRUE,
   title = header,
   equation = header,
@@ -169,7 +192,7 @@ tabularise_tidy.lm <- function(data,
     )}
 
   # Choose de lang ----
-  info_lang <- .infos_lang.lm(lang = lang)
+  info_lang <- .infos_lang.glm(lang = lang)
 
   # Extract labels of data or origdata
   if (isTRUE(auto.labs)) {
@@ -186,6 +209,11 @@ tabularise_tidy.lm <- function(data,
     data_t <- data_t[,
       c("term", "estimate", "conf.low",
         "conf.high", "std.error", "statistic", "p.value")]
+  }
+
+  s <- colnames(coef(summary(data)))
+  if(any(s %in% "z value")){
+    colnames(data_t)[colnames(data_t) == "statistic"] ="statistic2"
   }
 
   # Use flextable ----
@@ -256,9 +284,9 @@ tabularise_tidy.lm <- function(data,
   ft
 }
 
-#' Glance version of the lm object into a flextable object
+#' Glance version of the glm object into a flextable object
 #'
-#' @param data An **lm** object
+#' @param data An **glm** object
 #' @param header If `TRUE` (by default), add a header to the table
 #' @param title If `TRUE` (by default), add a title to the table header
 #' @param equation If `TRUE` (by default), add a equation to the table header. The equation can also be passed in the form of a character string.
@@ -275,12 +303,12 @@ tabularise_tidy.lm <- function(data,
 #' with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_glance colformat_sci
-#' @method tabularise_glance lm
+#' @method tabularise_glance glm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' library(tabularise)
 #' tabularise$glance(is.lm)
-tabularise_glance.lm <- function(data,
+tabularise_glance.glm <- function(data,
   header = TRUE,
   title = TRUE,
   equation = TRUE,
@@ -298,7 +326,7 @@ tabularise_glance.lm <- function(data,
     )}
 
   # Choose de lang ----
-  info_lang <- .infos_lang.lm(lang = lang)
+  info_lang <- .infos_lang.glm(lang = lang)
 
   # Extract labels of data or origdata
   if (isTRUE(auto.labs)) {
@@ -358,10 +386,10 @@ tabularise_glance.lm <- function(data,
   ft
 }
 
-#' Create a rich-formatted table using the table of coefficients of the summary.lm object
+#' Create a rich-formatted table using the table of coefficients of the summary.glm object
 #'
-#' @param data An **summary.lm** object
-#' @param ... Additional arguments passed to [modelit::tabularise_tidy.lm()]
+#' @param data An **summary.glm** object
+#' @param ... Additional arguments passed to [modelit::tabularise_tidy.glm()]
 #' @param env The environment where to evaluate the model.
 #'
 #' @return  **flextable** object you can print in different form or rearrange
@@ -369,32 +397,32 @@ tabularise_glance.lm <- function(data,
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
-#' @method tabularise_coef summary.lm
+#' @method tabularise_coef summary.glm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' is.sum <- summary(is.lm)
 #' library(tabularise)
 #' tabularise$coef(is.sum)
-tabularise_coef.summary.lm <- function(data,
+tabularise_coef.summary.glm <- function(data,
   ...,
   env = parent.frame()) {
 
   if ( !requireNamespace("broom", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm")
+      "broom", "glm")
     )}
 
   lm_original <- data$call
   data <- eval(lm_original, envir = env)
 
-  tabularise_tidy.lm(data = data, ...)
+  tabularise_tidy.glm(data = data, ...)
 }
 
-#' Create a rich-formatted table from an summary.lm object
+#' Create a rich-formatted table from an summary.glm object
 #'
-#' @param data An **summary.lm** object
-#' @param ... Additional arguments passed to [modelit::tabularise_coef.summary.lm()]
+#' @param data An **summary.glm** object
+#' @param ... Additional arguments passed to [modelit::tabularise_coef.summary.glm()]
 #' @param env The environment where to evaluate the model.
 #'
 #' @return  **flextable** object you can print in different form or rearrange
@@ -402,71 +430,79 @@ tabularise_coef.summary.lm <- function(data,
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data
-#' @method tabularise_default summary.lm
+#' @method tabularise_default summary.glm
 #'
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' is.sum <- summary(is.lm)
 #' library(tabularise)
 #' tabularise(is.sum)
-tabularise_default.summary.lm <- function(data,
+tabularise_default.summary.glm <- function(data,
   ...,
   env = parent.frame()) {
 
   if ( !requireNamespace("broom", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm")
+      "broom", "glm")
     )}
 
-  tabularise_coef.summary.lm(data = data, ...)
+  tabularise_coef.summary.glm(data = data, ...)
 }
 
 
-# Internal function ----
-
 ## Internale function : Choose the lang and the infos_lang ----
-.infos_lang.lm <- function(lang) {
+.infos_lang.glm <- function(lang) {
   lang <- tolower(lang)
 
   if (lang != "fr") lang <- "en" # Only en or fr for now
 
   if (lang == "fr") {
-    info_lang <- infos_fr.lm
+    info_lang <- infos_fr.glm
   } else {
-    info_lang <- infos_en.lm
+    info_lang <- infos_en.glm
   }
 
   info_lang
 }
 
-infos_en.lm <- list(
+infos_en.glm <- list(
   labs = c(
     term = "Term",
     estimate = "Estimate",
     conf.low = "Lower bound (CI)",
     conf.high = "Upper bound (CI)",
     std.error = "Standard Error",
-    t.value = "t value",
+    t.value = "*t* value",
     sigma = "RSE",
     r.squared = "R^2^",
     adj.r.squared = "Adj.R^2^",
     AIC = "AIC",
     BIC = "BIC",
-    deviance = "Deviance",
-    logLik = "Log-likelihood",
     statistic = "*t* value",
+    statistic2 = "*z* value",
     p.value = "*p* value",
+    deviance = "D\u00e9viance",
+    logLik = "Log-Likelihood",
+    null.deviance = "Null deviance",
+    df.null = "Null df",
     df = "Num. df",
     df.residual = "Denum. df",
     nobs = "N",
     "(Intercept)" = "Intercept"),
+  footer = c(
+    "df" = "Degrees of freedom:",
+    "total" = "Total (i.e. Null)",
+    "residual" = "Residual",
+    "null.deviance" = "Null deviance:",
+    "resid.deviance" = "Residual Deviance:",
+    AIC = "AIC:"),
   "(Intercept)" = "Intercept",
   "summary" = "Model summary",
-  "header" = "Linear model"
+  "header" = "Generalized Linear Model"
 )
 
-infos_fr.lm <- list(
+infos_fr.glm <- list(
   labs = c(
     term = "Terme",
     estimate = "Valeur estim\u00e9e",
@@ -478,17 +514,27 @@ infos_fr.lm <- list(
     sigma = "RSE",
     r.squared = "R^2^",
     adj.r.squared = "R^2^ ajust\u00e9",
-    AIC = "AIC",
-    BIC = "BIC",
-    statistic = " Valeur de *t*",
     deviance = "D\u00e9viance",
     logLik = "Log-vraisemblance",
+    null.deviance = "D\u00e9viance nulle",
+    df.null = "Ddl nulle",
+    AIC = "AIC",
+    BIC = "BIC",
+    statistic = "Valeur de *t*",
+    statistic2 = "Valeur de *z*",
     df = "Ddl num.",
     df.residual = "Ddl d\u00e9nom.",
     nobs = "N",
     "(Intercept)" = "Ordonn\u00e9e \u00e0 l'origine"
   ),
+  footer = c(
+    "df" = "Degr\u00e9s de libert\u00e9 :",
+    "total" = "Totaux (i.e. Nulle)",
+    "residual" = "R\u00e9sidus",
+    "null.deviance" = "D\u00e9viance nulle :",
+    "resid.deviance" = "D\u00e9viance r\u00e9siduelle :",
+    AIC = "AIC :"),
   "(Intercept)" = "Ordonn\u00e9e \u00e0 l'origine",
   "summary" = "R\u00e9sum\u00e9 du mod\u00e8le",
-  "header" = "Mod\u00e8le lin\u00e9aire"
+  "header" = "Mod\u00e8le lin\u00e9aire g\u00e9n\u00e9ralis\u00e9"
 )
