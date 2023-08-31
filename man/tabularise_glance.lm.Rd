@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.lm.R
 \name{tabularise_glance.lm}
 \alias{tabularise_glance.lm}
-\title{Tidy version of the lm object into a flextable object}
+\title{Glance version of the lm object into a flextable object}
 \usage{
 \method{tabularise_glance}{lm}(
   data,
@@ -45,7 +45,7 @@ now).}
 with the {flextable} functions.
 }
 \description{
-Tidy version of the lm object into a flextable object
+Glance version of the lm object into a flextable object
 }
 \examples{
 is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)

@@ -57,7 +57,7 @@ tabularise_coef.lm <- function(data,
   ft <- flextable(co) |>
     colformat_sci()
 
-  ft <- header_labels_lm(ft, lang = lang)
+  ft <- .header_labels(ft, info_lang = info_lang)
 
   # Header and equation ----
   if (isTRUE(equation)) {
@@ -67,12 +67,12 @@ tabularise_coef.lm <- function(data,
       equa <- equatiomatic::extract_eq(data, ...)
     }
 
-    ft <- add_header_lm(ft, data = data,
-      lang = lang, header = header, title = title, equation = equa)
+    ft <- .add_header(ft, data = data,
+      info_lang = info_lang, header = header, title = title, equation = equa)
   } else {
     equa <- NULL
-    ft <- add_header_lm(ft, data = data,
-      lang = lang, header = header, title = title, equation = equation)
+    ft <- .add_header(ft, data = data,
+      info_lang = info_lang, header = header, title = title, equation = equation)
   }
 
   if (isTRUE(auto.labs)) {
@@ -151,7 +151,7 @@ tabularise_default.lm <- function(data, ...) {
 tabularise_tidy.lm <- function(data,
   header = TRUE,
   title = TRUE,
-  equation = FALSE,
+  equation = TRUE,
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
@@ -200,7 +200,7 @@ tabularise_tidy.lm <- function(data,
   ft <- colformat_sci(ft, j = "p.value", lod = 2e-16)
 
   # Rename headers labels
-  ft <- header_labels_lm(ft, lang = lang)
+  ft <- .header_labels(ft, info_lang = info_lang)
 
   # headers
   if (isTRUE(equation)) {
@@ -210,12 +210,12 @@ tabularise_tidy.lm <- function(data,
       equa <- equatiomatic::extract_eq(data, ...)
     }
 
-    ft <- add_header_lm(ft, data = data,
-      lang = lang, header = header, equation = equa)
+    ft <- .add_header(ft, data = data,
+      info_lang = info_lang, header = header, equation = equa)
   } else {
     equa <- NULL
-    ft <- add_header_lm(ft, data = data,
-      lang = lang, header = header, equation = equation)
+    ft <- .add_header(ft, data = data,
+      info_lang = info_lang, header = header, equation = equation)
   }
 
   if (isTRUE(auto.labs)) {
@@ -244,7 +244,7 @@ tabularise_tidy.lm <- function(data,
 
   # Add information on the p.value (with internal function) ----
   if (ncol_keys(ft) > ncol(data_t)) {
-    ft <- add_signif_stars(ft, j = "signif")
+    ft <- .add_signif_stars(ft, j = "signif")
   }
 
   # Adjust cell with autofit() ----
@@ -256,7 +256,7 @@ tabularise_tidy.lm <- function(data,
   ft
 }
 
-#' Tidy version of the lm object into a flextable object
+#' Glance version of the lm object into a flextable object
 #'
 #' @param data An **lm** object
 #' @param header If `TRUE` (by default), add a header to the table
@@ -319,7 +319,7 @@ tabularise_glance.lm <- function(data,
   #ft <- colformat_sci(ft, j = "p.value", lod = 2e-16)
 
   # Rename headers labels
-  ft <- header_labels_lm(ft, lang = lang)
+  ft <- .header_labels(ft, info_lang = info_lang)
 
   # headers
   if (isTRUE(equation)) {
@@ -329,12 +329,12 @@ tabularise_glance.lm <- function(data,
       equa <- equatiomatic::extract_eq(data, ...)
     }
 
-    ft <- add_header_lm(ft, data = data,
-      lang = lang, header = header, equation = equa)
+    ft <- .add_header(ft, data = data,
+      info_lang = info_lang, header = header, equation = equa)
   } else {
     equa <- NULL
-    ft <- add_header_lm(ft, data = data,
-      lang = lang, header = header, equation = equation)
+    ft <- .add_header(ft, data = data, info_lang = info_lang,
+      header = header, equation = equation)
   }
 
   if (isTRUE(auto.labs)) {
@@ -424,150 +424,6 @@ tabularise_default.summary.lm <- function(data,
 
 
 # Internal function ----
-## Internal function to add header and equation ----
-add_header_lm <- function(x,
-  lang,
-  header = TRUE,
-  title = header,
-  equation,
-  ...) {
-
-  if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.",
-      "add_header_lm()")) }
-
-  info_lang <- .infos_lang.lm(lang = lang)
-
-  ft <- x
-
-  if (isTRUE(header)) {
-    if (is.character(equation)) {
-      ft <- add_header_lines(ft,
-        values = as_paragraph(
-          as_equation(equation)
-        ))
-      ft <- align(ft, i = 1, align = "right", part = "header")
-    }
-
-    if (isTRUE(title)) {
-      ft <- add_header_lines(ft, values = info_lang[["header"]])
-      ft <- align(ft, i = 1, align = "right", part = "header")
-    }
-
-    if (is.character(title)) {
-      ft <- add_header_lines(ft,
-        values = as_paragraph(title))
-      ft <- align(ft, i = 1, align = "right", part = "header")
-    }
-
-  }
-
-  h_nrow <- nrow_part(ft, part = "header")
-
-  if (h_nrow > 2) {
-    ft |>
-      border_inner_h(border = officer::fp_border(width = 0), part = "header") |>
-      hline(i= nrow_part(ft, "header")-1,
-        border = officer::fp_border(width = 1.5, color = "#666666"),
-        part = "header") ->
-      ft
-  }
-
-  ft
-}
-
-## Internal function change the labels of header ----
-header_labels_lm <- function(x, lang = lang, ...) {
-
-  if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.",
-      "header_labels_lm()")) }
-
-  # choose de lang ----
-  info_lang <- .infos_lang.lm(lang = lang)
-
-  ft <- x
-
-  hlabs <- info_lang[["labs"]]
-  hlabs_red <- hlabs[names(hlabs) %in% ft$header$col_keys]
-
-  for (i in seq_along(hlabs_red))
-    ft <- mk_par(ft, i = 1, j = names(hlabs_red)[i],
-      value = para_md(hlabs_red[i]), part = "header")
-  ft
-}
-
-# Internal function of flextable
-pvalue_format <- function(x){
-  #x <- get(as.character(substitute(x)), inherits = TRUE)
-  z <- cut(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf), labels = c("***", " **", "  *", "  .", "   "))
-  z <- as.character(z)
-  z[is.na(x)] <- ""
-  z
-}
-
-# Internal function to add pvalue signif
-add_signif_stars <- function(x, i = NULL, j = NULL, part = "body", align = "right", ...) {
-
-  if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.",
-      "add_signif_stars()"))}
-
-  ft <- x
-
-  ft <- mk_par(ft, i =i,  j = j, value =  as_paragraph(
-    pvalue_format(.data$p.value)))
-  ft <- add_footer_lines(ft,
-    values = c("0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"))
-  ft <- align(ft, i = 1, align = align, part = "footer")
-
-  ft
-}
-
-## Internal function : Extract labels and units  ----
-.labels <- function(x, units = TRUE, ...) {
-  labels <- sapply(x, data.io::label, units = units)
-
-  if (any(labels != "")) {
-    # Use a \n before labels and the units
-    if (isTRUE(units))
-      labels <- sub(" +\\[([^]]+)\\]$", "\n[\\1]", labels)
-    # set names if empty
-    labels[labels == ""] <- names(x)[labels == ""]
-    # Specific case for I() using in a formula
-    labels[grepl("^I\\(.*\\)$", names(labels))] <- names(labels)[grepl("^I\\(.*\\)$", names(labels))]
-  }
-
-  if (all(labels == "")) {
-    labels <- NULL
-  }
-  labels
-}
-
-## Intenal function
-.labels2 <- function(x, origdata = NULL, labs = NULL) {
-
-  labs_auto <- NULL
-  labs_auto <- .labels(x$model)
-
-  if (!is.null(origdata)) {
-    labs_auto <- .labels(origdata)
-  }
-
-  if (!is.null(labs)) {
-    if (!is.character(labs))
-      stop("labs is not character vector")
-    if (is.null(names(labs)))
-      stop("labs must be named character vector")
-    if (any(names(labs) %in% ""))
-      stop("all element must be named")
-    labs_res <- c(labs, labs_auto[!names(labs_auto) %in% names(labs)])
-  } else {
-    labs_res <- labs_auto
-  }
-
-  labs_res
-}
 
 ## Internale function : Choose the lang and the infos_lang ----
 .infos_lang.lm <- function(lang) {
@@ -597,6 +453,8 @@ infos_en.lm <- list(
     adj.r.squared = "Adj.R^2^",
     AIC = "AIC",
     BIC = "BIC",
+    deviance = "Deviance",
+    logLik = "Log-likelihood",
     statistic = "F value",
     p.value = "P value",
     df = "Num. df",
@@ -623,6 +481,8 @@ infos_fr.lm <- list(
     AIC = "AIC",
     BIC = "BIC",
     statistic = " Valeur de F",
+    deviance = "D\u00e9viance",
+    logLik = "Log-vraisemblance",
     df = "Ddl num.",
     df.residual = "Ddl d\u00e9nom.",
     nobs = "N",
@@ -632,31 +492,3 @@ infos_fr.lm <- list(
   "summary" = "R\u00e9sum\u00e9 du mod\u00e8le",
   "header" = "Mod\u00e8le lin\u00e9aire"
 )
-
-
-.params_equa <- function(x, intercept = "alpha", greek = "beta") {
-  vals <- NULL
-
-  if (intercept != greek) {
-    if (grepl(intercept, x)) {
-      it <- paste0("\\\\", intercept)
-      res <- regmatches(x,
-        gregexpr(it, x))[[1]]
-
-      vals <- paste0("$",res, "$")
-      }
-    }
-
-  if (grepl(greek, x)) {
-    g <- paste0("\\\\", greek,"_\\{\\d+\\}")
-    res <- regmatches(x,
-      gregexpr(g, x)
-      )[[1]]
-    res1 <- paste0("$",res, "$")
-    vals <- c(vals, res1)
-  }
-
-  vals
-
-}
-
