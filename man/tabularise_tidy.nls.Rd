@@ -7,7 +7,7 @@
 \method{tabularise_tidy}{nls}(data, ...)
 }
 \arguments{
-\item{data}{An nls object}
+\item{data}{A \strong{nls} object}
 
 \item{...}{arguments of \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}}
 }

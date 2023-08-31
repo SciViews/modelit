@@ -1,17 +1,17 @@
-#' @title Tabularise a summary.nls object
+#' @title Create a rich-formatted table from a summary.nls object
 #'
 #' @description
 #' This function tabularises_default() tabularises a `summary.nls` object. This table looks like print.summary.nls().
 #' The [tabularise_coef()] function offers more customisation options for this object.
 #'
-#' @param data A summary.nls object.
-#' @param header If TRUE add a title to the table.
-#' @param footer If TRUE add a footer to the table.
+#' @param data A **summary.nls** object.
+#' @param header If `TRUE` (by default), add a header to the table
+#' @param footer If `TRUE` (by default), add a footer to the table.
 #' @param lang The language to use. The default value can be set with, e.g. options(data.io_lang = "fr") for French.
-#' @param show.signif.stars If TRUE add the significance stars to the table.
-#' @param ... Not used.
-#' @param env The environment where to evaluate the function.
-#' @importFrom tabularise tabularise_default
+#' @param show.signif.stars If `TRUE` (by default), add the significance stars to the table.
+#' @param ... Additional arguments (Not used).
+#' @param env The environment where to evaluate lazyeval expressions (unused for now).
+#' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_default summary.nls
 #' @seealso [tabularise::tabularise()] [tabularise::tabularise_tidy()] [tabularise_coef.summary.nls()]
@@ -92,22 +92,22 @@ tabularise_default.summary.nls <- function(data,
   ft
 }
 
-#' @title Tabularise a table of coefficients from summary.nls object
+#' @title Create a rich-formatted table using the table of coefficients of the summary.nls object
 #'
 #' @description
 #' This function extracts and formats the table of coefficients from a summary.nls object, similar to [stats::coef()], but in flextable object.
 #'
-#' @param data A summary.nls object.
-#' @param header If TRUE, add a title to the table.
+#' @param data A **summary.nls** object.
+#' @param header If `TRUE` (by default), add a title to the table.
 #' @param equation Add equation of the model to the table. If TRUE, [nls_equation()] is used. The equation can also be passed in the form of a character string.
 #' @param lang The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.
-#' @param show.signif.stars If TRUE, add the significance stars to the table.
+#' @param show.signif.stars If `TRUE` (by default), add the significance stars to the table.
 #' @param ... Additional arguments passed to [nls_equation()]
-#' @param env The environment where to evaluate formulas (you probably do not need to change the default).
+#' @param env The environment where to evaluate lazyeval expressions (unused for now).
 #' @return A **flextable** object you can print in different forms or rearrange
 #' with the {flextable} functions.
 #' @export
-#' @importFrom tabularise tabularise_coef
+#' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_coef summary.nls
 #' @examples
@@ -183,22 +183,22 @@ tabularise_coef.summary.nls <- function(
   ft
 }
 
-#' @title Tabularise a nls object
+#' @title Create a rich-formatted table from a nls object
 #'
 #' @description
 #' This method extracts and formats the nls object, similar to print(), but in flextable object.
 #'
-#' @param data A nls object.
-#' @param header If TRUE, add a title to the table.
-#' @param footer If TRUE, add a footer to the table.
+#' @param data A **nls** object.
+#' @param header If `TRUE` (by default), add a title to the table.
+#' @param footer If `TRUE` (by default), add a footer to the table.
 #' @param lang The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.
 #' @param ... Additional arguments. Not used.
-#' @param env The environment where to evaluate formulas (you probably do not need to change the default).
+#' @param env The environment where to evaluate lazyeval expressions (unused for now).
 #'
 #' @return A **flextable** object you can print in different forms or rearrange
 #' with the {flextable} functions.
 #' @export
-#' @importFrom tabularise tabularise_default
+#' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_default nls
 #' @examples
@@ -263,22 +263,22 @@ tabularise_default.nls <- function(data,
   autofit(ft, part = c("header", "body"))
 }
 
-#' @title Tabularise a table of coefficients from nls object
+#' @title Create a rich-formatted table using the coefficients of the nls object
 #'
 #' @description
 #' This method extracts and formats the coefficients from nls object, similar to [stats::coef()], but in flextable object.
 #'
-#' @param data A nls object.
-#' @param header If TRUE, add a title to the table.
-#' @param equation If TRUE, add the equation of the model
+#' @param data A **nls** object.
+#' @param header If `TRUE` (by default), add a title to the table.
+#' @param equation If `TRUE` (by default), add the equation of the model
 #' @param lang The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.
-#' @param ... Additional arguments. Not used.
-#' @param env The environment where to evaluate formulas (you probably do not need to change the default).
+#' @param ... Additional arguments.
+#' @param env The environment where to evaluate lazyeval expressions (unused for now).
 #'
 #' @return A **flextable** object you can print in different forms or rearrange
 #' with the {flextable} functions.
 #' @export
-#' @importFrom tabularise tabularise_coef
+#' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_coef nls
 #' @examples
@@ -324,13 +324,13 @@ tabularise_coef.nls <- function(data,
 #' @description
 #' Extract the information contained in a nls object into a rectangular table as it could be obtained by [generics::tidy()]. Here, the table is nicely formatted as an (almost) publication-ready form (good for informal reports, notebooks, etc).
 #'
-#' @param data An nls object
+#' @param data A **nls** object
 #' @param ... arguments of [tabularise_coef.summary.nls()]
 #' @seealso [tabularise::tabularise()] [tabularise::tabularise_tidy()] [tabularise_coef.summary.nls()]
 #' @return A **flextable** object you can print in different forms or rearrange
 #' with the {flextable} functions.
 #' @export
-#' @importFrom tabularise tabularise_tidy
+#' @importFrom tabularise tabularise_tidy colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_tidy nls
 #' @examples
@@ -353,18 +353,18 @@ tabularise_tidy.nls <- function(data,
 #' @description
 #' Extract the information contained in a nls object in one row of a rectangular table as it could be obtained by [generics::glance()]. Here, the table is nicely formatted as an (almost) publication-ready form (good for informal reports, notebooks, etc).
 #'
-#' @param data a nls object.
-#' @param header If TRUE, add a title to the table.
+#' @param data a **nls** object.
+#' @param header If `TRUE` (by default), add a title to the table.
 #' @param equation Add equation of the model to the table. If TRUE, [nls_equation()] is used. The equation can also be passed in the form of a character string.
 #' @param lang The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.
 #' @param ... Additional arguments passed to [nls_equation()]
-#' @param env The environment where to evaluate formulas (you probably do not need to change the default).
+#' @param env The environment where to evaluate lazyeval expressions (unused for now).
 #'
 #' @seealso [tabularise::tabularise_glance()] [tabularise_coef.summary.nls()]
 #' @return A **flextable** object you can print in different forms or rearrange
 #' with the {flextable} functions.
 #' @export
-#' @importFrom tabularise tabularise_glance
+#' @importFrom tabularise tabularise_glance colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_glance nls
 #' @examples

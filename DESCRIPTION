@@ -34,7 +34,8 @@ Suggests:
     testthat (>= 3.0.0)
 Remotes: 
     SciViews/chart,
-    SciViews/svFlow
+    SciViews/svFlow,
+    SciViews/tabularise
 License: GPL (>= 2)
 URL: https://github.com/SciViews/modelit, https://www.sciviews.org/modelit/
 BugReports: https://github.com/SciViews/modelit/issues

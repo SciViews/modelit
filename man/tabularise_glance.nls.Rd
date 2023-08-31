@@ -14,9 +14,9 @@
 )
 }
 \arguments{
-\item{data}{a nls object.}
+\item{data}{a \strong{nls} object.}
 
-\item{header}{If TRUE, add a title to the table.}
+\item{header}{If \code{TRUE} (by default), add a title to the table.}
 
 \item{equation}{Add equation of the model to the table. If TRUE, \code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a character string.}
 
@@ -24,7 +24,7 @@
 
 \item{...}{Additional arguments passed to \code{\link[=nls_equation]{nls_equation()}}}
 
-\item{env}{The environment where to evaluate formulas (you probably do not need to change the default).}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for now).}
 }
 \value{
 A \strong{flextable} object you can print in different forms or rearrange
