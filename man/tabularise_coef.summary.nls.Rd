@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.nls.R
 \name{tabularise_coef.summary.nls}
 \alias{tabularise_coef.summary.nls}
-\title{Tabularise a table of coefficients from summary.nls object}
+\title{Create a rich-formatted table using the table of coefficients of the summary.nls object}
 \usage{
 \method{tabularise_coef}{summary.nls}(
   data,
@@ -15,19 +15,19 @@
 )
 }
 \arguments{
-\item{data}{A summary.nls object.}
+\item{data}{A \strong{summary.nls} object.}
 
-\item{header}{If TRUE, add a title to the table.}
+\item{header}{If \code{TRUE} (by default), add a title to the table.}
 
 \item{equation}{Add equation of the model to the table. If TRUE, \code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a character string.}
 
 \item{lang}{The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.}
 
-\item{show.signif.stars}{If TRUE, add the significance stars to the table.}
+\item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars to the table.}
 
 \item{...}{Additional arguments passed to \code{\link[=nls_equation]{nls_equation()}}}
 
-\item{env}{The environment where to evaluate formulas (you probably do not need to change the default).}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for now).}
 }
 \value{
 A \strong{flextable} object you can print in different forms or rearrange

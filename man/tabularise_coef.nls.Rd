@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.nls.R
 \name{tabularise_coef.nls}
 \alias{tabularise_coef.nls}
-\title{Tabularise a table of coefficients from nls object}
+\title{Create a rich-formatted table using the coefficients of the nls object}
 \usage{
 \method{tabularise_coef}{nls}(
   data,
@@ -14,17 +14,17 @@
 )
 }
 \arguments{
-\item{data}{A nls object.}
+\item{data}{A \strong{nls} object.}
 
-\item{header}{If TRUE, add a title to the table.}
+\item{header}{If \code{TRUE} (by default), add a title to the table.}
 
-\item{equation}{If TRUE, add the equation of the model}
+\item{equation}{If \code{TRUE} (by default), add the equation of the model}
 
 \item{lang}{The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.}
 
-\item{...}{Additional arguments. Not used.}
+\item{...}{Additional arguments.}
 
-\item{env}{The environment where to evaluate formulas (you probably do not need to change the default).}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for now).}
 }
 \value{
 A \strong{flextable} object you can print in different forms or rearrange

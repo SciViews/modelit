@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.nls.R
 \name{tabularise_default.summary.nls}
 \alias{tabularise_default.summary.nls}
-\title{Tabularise a summary.nls object}
+\title{Create a rich-formatted table from a summary.nls object}
 \usage{
 \method{tabularise_default}{summary.nls}(
   data,
@@ -15,19 +15,19 @@
 )
 }
 \arguments{
-\item{data}{A summary.nls object.}
+\item{data}{A \strong{summary.nls} object.}
 
-\item{header}{If TRUE add a title to the table.}
+\item{header}{If \code{TRUE} (by default), add a header to the table}
 
-\item{footer}{If TRUE add a footer to the table.}
+\item{footer}{If \code{TRUE} (by default), add a footer to the table.}
 
 \item{lang}{The language to use. The default value can be set with, e.g. options(data.io_lang = "fr") for French.}
 
-\item{show.signif.stars}{If TRUE add the significance stars to the table.}
+\item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars to the table.}
 
-\item{...}{Not used.}
+\item{...}{Additional arguments (Not used).}
 
-\item{env}{The environment where to evaluate the function.}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for now).}
 }
 \value{
 A \strong{flextable} object you can print in different forms or rearrange

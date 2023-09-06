@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.nls.R
 \name{tabularise_default.nls}
 \alias{tabularise_default.nls}
-\title{Tabularise a nls object}
+\title{Create a rich-formatted table from a nls object}
 \usage{
 \method{tabularise_default}{nls}(
   data,
@@ -14,17 +14,17 @@
 )
 }
 \arguments{
-\item{data}{A nls object.}
+\item{data}{A \strong{nls} object.}
 
-\item{header}{If TRUE, add a title to the table.}
+\item{header}{If \code{TRUE} (by default), add a title to the table.}
 
-\item{footer}{If TRUE, add a footer to the table.}
+\item{footer}{If \code{TRUE} (by default), add a footer to the table.}
 
 \item{lang}{The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.}
 
 \item{...}{Additional arguments. Not used.}
 
-\item{env}{The environment where to evaluate formulas (you probably do not need to change the default).}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for now).}
 }
 \value{
 A \strong{flextable} object you can print in different forms or rearrange
