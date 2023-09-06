@@ -6,7 +6,7 @@
 \alias{modelit-package}
 \title{modelit: 'SciViews' - Statistical Models Within 'SciViews::R'}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Create and Use Statistical Models (Linear, General, Nonlinear, ...) by using a SciViews::R common formula interface and label-aware functions.
 }
