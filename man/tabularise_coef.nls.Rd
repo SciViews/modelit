@@ -20,7 +20,7 @@
 
 \item{equation}{If \code{TRUE} (by default), add the equation of the model}
 
-\item{lang}{The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.}
+\item{lang}{The language to use. The default value can be set with, e.g., \code{options(data.io_lang = "fr")} for French.}
 
 \item{...}{Additional arguments.}
 

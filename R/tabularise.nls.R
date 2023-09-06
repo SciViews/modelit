@@ -1,13 +1,13 @@
 #' @title Create a rich-formatted table from a summary.nls object
 #'
 #' @description
-#' This function tabularises_default() tabularises a `summary.nls` object. This table looks like print.summary.nls().
-#' The [tabularise_coef()] function offers more customisation options for this object.
+#' This function `tabularises_default()` tabularizes a **summary.nls** object. This table looks like the output of `print.summary.nls()` but richly formatted.
+#' The [tabularise_coef()] function offers more customization options for this object.
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a header to the table
 #' @param footer If `TRUE` (by default), add a footer to the table.
-#' @param lang The language to use. The default value can be set with, e.g. options(data.io_lang = "fr") for French.
+#' @param lang The language to use. The default value can be set with, e.g. `options(data.io_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE` (by default), add the significance stars to the table.
 #' @param ... Additional arguments (Not used).
 #' @param env The environment where to evaluate lazyeval expressions (unused for now).
@@ -100,7 +100,7 @@ tabularise_default.summary.nls <- function(data,
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
 #' @param equation Add equation of the model to the table. If TRUE, [nls_equation()] is used. The equation can also be passed in the form of a character string.
-#' @param lang The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.
+#' @param lang The language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE` (by default), add the significance stars to the table.
 #' @param ... Additional arguments passed to [nls_equation()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for now).
@@ -191,7 +191,7 @@ tabularise_coef.summary.nls <- function(
 #' @param data A **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
 #' @param footer If `TRUE` (by default), add a footer to the table.
-#' @param lang The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.
+#' @param lang The language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments. Not used.
 #' @param env The environment where to evaluate lazyeval expressions (unused for now).
 #'
@@ -271,7 +271,7 @@ tabularise_default.nls <- function(data,
 #' @param data A **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
 #' @param equation If `TRUE` (by default), add the equation of the model
-#' @param lang The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.
+#' @param lang The language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments.
 #' @param env The environment where to evaluate lazyeval expressions (unused for now).
 #'
@@ -356,7 +356,7 @@ tabularise_tidy.nls <- function(data,
 #' @param data a **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
 #' @param equation Add equation of the model to the table. If TRUE, [nls_equation()] is used. The equation can also be passed in the form of a character string.
-#' @param lang The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.
+#' @param lang The language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [nls_equation()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for now).
 #'

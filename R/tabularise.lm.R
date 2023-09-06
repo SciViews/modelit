@@ -129,8 +129,8 @@ tabularise_default.lm <- function(data, ...) {
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically of the object.
 #' @param origdata The original dataset this model was fitted to. By default is `NULL`
 #' @param labs Labs to change the names of elements in the `term` column of the table. By default is `NULL`
-#' @param conf.int If `TRUE`, add the confidence interal.Default is `FALSE`.
-#' @param conf.level The confidence level to use for the confidence interval if conf.int = TRUE. Default is 0.95.
+#' @param conf.int If `TRUE`, add the confidence interval.Default is `FALSE`.
+#' @param conf.level The confidence level to use for the confidence interval if `conf.int = TRUE`. Default is 0.95.
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE` (by default), add the significance stars to the table.

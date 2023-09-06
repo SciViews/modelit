@@ -35,9 +35,9 @@
 
 \item{labs}{Labs to change the names of elements in the \code{term} column of the table. By default is \code{NULL}}
 
-\item{conf.int}{If \code{TRUE}, add the confidence interal.Default is \code{FALSE}.}
+\item{conf.int}{If \code{TRUE}, add the confidence interval.Default is \code{FALSE}.}
 
-\item{conf.level}{The confidence level to use for the confidence interval if conf.int = TRUE. Default is 0.95.}
+\item{conf.level}{The confidence level to use for the confidence interval if \code{conf.int = TRUE}. Default is 0.95.}
 
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}

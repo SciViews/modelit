@@ -4,6 +4,10 @@
 
 -   `tabularise_default()`, `tabularise_coef()` for **summary.lm** objects
 
+-   `tabularise_coef()`, `tabularise_glance()`, `tabularise_tidy()` for **glm** objects
+
+-   `tabularise_coef()` for **summary.glm** objects
+
 # modelit 1.1.0
 
 -   `tabularise_default()`, `tabularise_coef()`, `tabularise_glance()`, `tabularise_tidy()` for **nls** objects

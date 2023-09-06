@@ -21,7 +21,7 @@
 
 \item{footer}{If \code{TRUE} (by default), add a footer to the table.}
 
-\item{lang}{The language to use. The default value can be set with, e.g. options(data.io_lang = "fr") for French.}
+\item{lang}{The language to use. The default value can be set with, e.g. \code{options(data.io_lang = "fr")} for French.}
 
 \item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars to the table.}
 
@@ -34,8 +34,8 @@ A \strong{flextable} object you can print in different forms or rearrange
 with the {flextable} functions.
 }
 \description{
-This function tabularises_default() tabularises a \code{summary.nls} object. This table looks like print.summary.nls().
-The \code{\link[=tabularise_coef]{tabularise_coef()}} function offers more customisation options for this object.
+This function \code{tabularises_default()} tabularizes a \strong{summary.nls} object. This table looks like the output of \code{print.summary.nls()} but richly formatted.
+The \code{\link[=tabularise_coef]{tabularise_coef()}} function offers more customization options for this object.
 }
 \examples{
 data("ChickWeight", package = "datasets")

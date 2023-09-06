@@ -20,7 +20,7 @@
 
 \item{equation}{Add equation of the model to the table. If TRUE, \code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a character string.}
 
-\item{lang}{The language to use. The default value can be set with, e.g., options(data.io_lang = "fr") for French.}
+\item{lang}{The language to use. The default value can be set with, e.g., \code{options(data.io_lang = "fr")} for French.}
 
 \item{...}{Additional arguments passed to \code{\link[=nls_equation]{nls_equation()}}}
 
