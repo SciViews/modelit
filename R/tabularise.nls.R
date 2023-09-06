@@ -730,7 +730,7 @@ header_labels <- function(x, lang, ...) {
   labels_auto <- info_lang[["labs"]]
   labels_red <- labels_auto[names(labels_auto) %in% ft$header$col_keys]
 
-  for(i in seq_along(labels_red))
+  for (i in seq_along(labels_red))
     ft <- mk_par(ft, i = 1, j = names(labels_red)[i],
       value = para_md(labels_red[i]), part = "header")
 

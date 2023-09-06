@@ -1,6 +1,6 @@
 Package: modelit
 Type: Package
-Version: 1.1.0
+Version: 1.2.0
 Title: 'SciViews' - Statistical Models Within 'SciViews::R'
 Description: Create and Use Statistical Models (Linear, General, Nonlinear, ...)
   by using a SciViews::R common formula interface and label-aware functions.
@@ -23,7 +23,9 @@ Imports:
     rlang,
     flextable,
     methods,
-    officer
+    officer,
+    equatiomatic,
+    data.io
 Suggests:
     datasets,
     parsnip,
@@ -35,7 +37,8 @@ Suggests:
 Remotes: 
     SciViews/chart,
     SciViews/svFlow,
-    SciViews/tabularise
+    SciViews/tabularise,
+    SciViews/data.io
 License: GPL (>= 2)
 URL: https://github.com/SciViews/modelit, https://www.sciviews.org/modelit/
 BugReports: https://github.com/SciViews/modelit/issues

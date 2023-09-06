@@ -16,6 +16,8 @@
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
+#' @importFrom data.io label
+#' @importFrom equatiomatic extract_eq
 #' @importFrom flextable add_footer_lines
 #' @importFrom flextable add_header_lines
 #' @importFrom flextable align
