@@ -51,4 +51,25 @@
   <url>
     <loc>https://www.sciviews.org/modelit/reference/modelr-reexport.html</loc>
   </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/nls_equation.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_coef.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_coef.summary.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_default.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_default.summary.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_glance.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_tidy.nls.html</loc>
+  </url>
 </urlset>
