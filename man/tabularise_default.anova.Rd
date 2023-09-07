@@ -4,12 +4,40 @@
 \alias{tabularise_default.anova}
 \title{Create a rich-formatted table from an anova object}
 \usage{
-\method{tabularise_default}{anova}(data, ...)
+\method{tabularise_default}{anova}(
+  data,
+  header = TRUE,
+  title = header,
+  auto.labs = TRUE,
+  origdata = NULL,
+  labs = NULL,
+  lang = getOption("data.io_lang", "en"),
+  show.signif.stars = getOption("show.signif.stars", TRUE),
+  ...,
+  env = parent.frame()
+)
 }
 \arguments{
 \item{data}{An \strong{anova} object}
 
-\item{...}{Additional arguments passed to \code{\link[=tabularise_tidy.anova]{tabularise_tidy.anova()}}}
+\item{header}{If \code{TRUE} (by default), add a header to the table}
+
+\item{title}{If \code{TRUE} (by default), add a title to the table header}
+
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically of the object}
+
+\item{origdata}{The original dataset this model was fitted to. By default is \code{NULL}}
+
+\item{labs}{Labs to change the names of elements in the \code{term} column of the table. By default is \code{NULL}}
+
+\item{lang}{The natural language to use. The default value can be set with,
+e.g., \code{options(data.io_lang = "fr")} for French.}
+
+\item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars to the table.}
+
+\item{...}{Additional arguments (unused for now)}
+
+\item{env}{The environment where to evaluate lazyeval expressions (unused for now)}
 }
 \value{
 \strong{flextable} object you can print in different form or rearrange
