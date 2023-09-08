@@ -1,3 +1,9 @@
+# modelit 1.3.0
+
+-   `tabularise_default()` and `tabularise_tidy()` added for **anova** objects.
+
+-   `tabularise_tidy()` added for **aov** objects.
+
 # modelit 1.2.0
 
 -   `tabularise_default()`, `tabularise_coef()`, `tabularise_glance()`, `tabularise_tidy()` for **lm** objects

@@ -19,7 +19,6 @@ with the {flextable} functions.
 Tidy version of the aov object into a flextable object
 }
 \examples{
-is.aov <- aov(data = iris, Petal.Length ~ Species)
-library(tabularise)
-tabularise$tidy(is.aov)
+iris_aov <- aov(data = iris, Petal.Length ~ Species)
+tabularise::tabularise$tidy(iris_aov)
 }

@@ -24,30 +24,34 @@
 
 \item{title}{If \code{TRUE} (by default), add a title to the table header}
 
-\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically of the object}
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) from
+\verb{origdata=}.}
 
-\item{origdata}{The original dataset this model was fitted to. By default is \code{NULL}}
+\item{origdata}{The original data set used for the ANOVA (used for changing
+the labels). By default, it is \code{NULL}.}
 
-\item{labs}{Labs to change the names of elements in the \code{term} column of the table. By default is \code{NULL}}
+\item{labs}{Labels to use to change the names of elements in the \code{term}
+column. By default, it is \code{NULL}.}
 
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
 
-\item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars to the table.}
+\item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
+The default is taken from \code{getOption("show.signif.stars")}.}
 
-\item{...}{Additional arguments (unused for now)}
+\item{...}{Additional arguments (not used for now)}
 
-\item{env}{The environment where to evaluate lazyeval expressions (unused for now)}
+\item{env}{The environment where to evaluate lazyeval expressions (not used
+for now)}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
+A \strong{flextable} object you can print in different form or rearrange
 with the {flextable} functions.
 }
 \description{
 Tidy version of the anova object into a flextable object
 }
 \examples{
-is.lm <- anova(lm(data = iris, Petal.Length ~ Species))
-library(tabularise)
-tabularise$tidy(is.lm)
+iris_anova <- anova(lm(data = iris, Petal.Length ~ Species))
+tabularise::tabularise$tidy(iris_anova)
 }

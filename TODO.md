@@ -1,15 +1,11 @@
 # modelit To Do list
 
--   `chart()` for nls
-
--   `as.function()` for lm and glm
+-   tabularise for anova and aov => rework and decide where to place (inbferit, modelit, elsewhere...?) + car::Anova
 
 -   chart() for lm with categorical variables
 
 -   multiple comparisons
 
 -   train/test
-
--   Nice tables also
 
 -   Add various SS models
