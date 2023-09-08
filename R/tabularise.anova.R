@@ -385,7 +385,7 @@ infos_fr.anova <- list(
     rss = "R\u00e9sidus de la somme des carr\u00e9s",
     "df" = "Ddl",
     "sumsq" = "Somme des carr\u00e9s",
-    "meansq" = "Carr\u00e9 moyens",
+    "meansq" = "Carr\u00e9 moyen",
     "p.value" = "Valeur de *p*",
     num.df = "Ddl num.",
     NumDF = "Ddl num.",
