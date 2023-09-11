@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.glm.R
 \name{tabularise_coef.glm}
 \alias{tabularise_coef.glm}
-\title{Create a rich-formatted table using the coefficients of the glm object}
+\title{Create a rich-formatted table using the coefficients of a glm object}
 \usage{
 \method{tabularise_coef}{glm}(
   data,
@@ -18,38 +18,42 @@
 )
 }
 \arguments{
-\item{data}{An \strong{glm} object}
+\item{data}{A \strong{glm} object}
 
 \item{header}{If \code{TRUE} (by default), add a header to the table}
 
 \item{title}{If \code{TRUE} (by default), add a title to the table header}
 
-\item{equation}{If \code{TRUE} (by default), add a equation to the table header. The equation can also be passed in the form of a character string.}
+\item{equation}{If \code{TRUE} (by default), add an equation to the table header.
+The equation can also be passed in the form of a character string (LaTeX).}
 
-\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically of the object.}
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from \verb{origdata=}.}
 
-\item{origdata}{The original dataset this model was fitted to. By default is \code{NULL}}
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and labels of the original data set are not used.}
 
-\item{labs}{Labs to change the names of elements in the \code{term} column of the table. By default is \code{NULL}}
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default, it is \code{NULL} and no change is performed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
 
-\item{...}{Additional arguments}
+\item{...}{Additional arguments (not used yet).}
 
 \item{env}{The environment where to evaluate lazyeval expressions (unused for
 now).}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object is returned. You can print it in different
+formats (HTML, LaTeX, Word, PowerPoint) or rearrange it with the
+{flextable} functions.
 }
 \description{
-This function extracts and formats the table of coefficients from an glm object, similar to \code{\link[stats:coef]{stats::coef()}}, but in flextable.
+Extract and format the table of coefficients from a \strong{glm} object, similar
+to \code{\link[stats:coef]{stats::coef()}}, but in a rich-formatted \strong{flextable} object.
 }
 \examples{
-is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
-library(tabularise)
-tabularise$coef(is.lm)
-
+iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
+tabularise::tabularise$coef(iris_glm)
 }

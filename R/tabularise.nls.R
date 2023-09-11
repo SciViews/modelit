@@ -1,4 +1,4 @@
-#' @title Create a rich-formatted table from a summary.nls object
+#' Create a rich-formatted table from a summary.nls object
 #'
 #' @description
 #' This function `tabularises_default()` tabularizes a **summary.nls** object. This table looks like the output of `print.summary.nls()` but richly formatted.
@@ -639,23 +639,25 @@ infos_fr.nls <- list(
 # Internal function of flextable
 pvalue_format <- function(x){
   #x <- get(as.character(substitute(x)), inherits = TRUE)
-  z <- cut(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf), labels = c("***", " **", "  *", "  .", "   "))
+  z <- cut(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
+    labels = c("***", " **", "  *", "  .", "   "))
   z <- as.character(z)
   z[is.na(x)] <- ""
   z
 }
 
-# Internal function to add header and equation
-add_header_nls <- function(x, data, lang = lang, header = TRUE, equation = header, ...) {
+add_header_nls <- function(x, data, lang = lang, header = TRUE,
+equation = header, ...) {
 
-  if (!inherits(x, "flextable")) {
+  if (!inherits(x, "flextable"))
     stop(sprintf("Function `%s` supports only flextable objects.",
-      "add_header_nls()")) }
+      "add_header_nls()"))
 
-  # choose de lang ----
+  # Choose the language
   lang <- tolower(lang)
 
-  if (lang != "fr") lang <- "en" # Only en or fr for now
+  if (lang != "fr")
+    lang <- "en" # Only en or fr for now
 
   if (lang == "fr") {
     info_lang <- infos_fr.nls
@@ -667,18 +669,12 @@ add_header_nls <- function(x, data, lang = lang, header = TRUE, equation = heade
 
   if (isTRUE(equation)) {
     ssequa <- nls_equation(data, ...)
-    ft <- add_header_lines(ft,
-      values = as_paragraph(
-        as_equation(ssequa)
-      ))
+    ft <- add_header_lines(ft, values = as_paragraph(as_equation(ssequa)))
     ft <- align(ft, i = 1, align = "right", part = "header")
   }
 
   if (is.character(equation)) {
-    ft <- add_header_lines(ft,
-      values = as_paragraph(
-        as_equation(equation)
-      ))
+    ft <- add_header_lines(ft, values = as_paragraph(as_equation(equation)))
     ft <- align(ft, i = 1, align = "right", part = "header")
   }
 
@@ -687,7 +683,7 @@ add_header_nls <- function(x, data, lang = lang, header = TRUE, equation = heade
 
     rhs <- as.character(rlang::f_rhs(formula(data)))[1]
 
-    if(!is.na(ss[rhs])) {
+    if (!is.na(ss[rhs])) {
       ft <- add_header_lines(ft, values = ss[rhs])
       ft <- align(ft, i = 1, align = "right", part = "header")
     }
@@ -698,7 +694,7 @@ add_header_nls <- function(x, data, lang = lang, header = TRUE, equation = heade
   if (h_nrow > 2) {
     ft |>
       border_inner_h(border = officer::fp_border(width = 0), part = "header") |>
-      hline(i= nrow_part(ft, "header")-1,
+      hline(i = nrow_part(ft, "header") - 1,
         border = officer::fp_border(width = 1.5, color = "#666666"),
         part = "header") ->
       ft
@@ -710,14 +706,15 @@ add_header_nls <- function(x, data, lang = lang, header = TRUE, equation = heade
 # Internal function to change the labels (accept markdown)
 header_labels <- function(x, lang, ...) {
 
-  if (!inherits(x, "flextable")) {
+  if (!inherits(x, "flextable"))
     stop(sprintf("Function `%s` supports only flextable objects.",
-      "header_labels()")) }
+      "header_labels()"))
 
-  # choose de lang ----
+  # Choose thev language
   lang <- tolower(lang)
 
-  if (lang != "fr") lang <- "en" # Only en or fr for now
+  if (lang != "fr")
+    lang <- "en" # Only en or fr for now
 
   if (lang == "fr") {
     info_lang <- infos_fr.nls
@@ -738,16 +735,17 @@ header_labels <- function(x, lang, ...) {
 }
 
 # Internal function to add pvalue signif
-add_signif_stars <- function(x, i = NULL, j = NULL, part = "body", align = "right", ...) {
+add_signif_stars <- function(x, i = NULL, j = NULL, part = "body",
+align = "right", ...) {
 
-  if (!inherits(x, "flextable")) {
+  if (!inherits(x, "flextable"))
     stop(sprintf("Function `%s` supports only flextable objects.",
-      "header_labels()"))}
+      "header_labels()"))
 
   ft <- x
 
-  ft <- mk_par(ft, i =i,  j = j, value =  as_paragraph(
-    pvalue_format(.data$p.value)))
+  ft <- mk_par(ft, i = i,  j = j,
+    value =  as_paragraph(pvalue_format(.data$p.value)))
   ft <- add_footer_lines(ft,
     values = c("0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"))
   ft <- align(ft, i = 1, align = align, part = "footer")

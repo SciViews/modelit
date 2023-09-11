@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.glm.R
 \name{tabularise_default.glm}
 \alias{tabularise_default.glm}
-\title{Create a rich-formatted table from an glm object}
+\title{Create a rich-formatted table from a glm object}
 \usage{
 \method{tabularise_default}{glm}(
   data,
@@ -12,23 +12,24 @@
 )
 }
 \arguments{
-\item{data}{An \strong{lm} object}
+\item{data}{A \strong{glm} object}
 
-\item{lang}{The natural language to use. The default value can be set with, e.g., \code{options(data.io_lang = "fr")} for French.}
+\item{lang}{The natural language to use. The default value can be set with,
+e.g., \code{options(data.io_lang = "fr")} for French.}
 
 \item{footer}{If \code{TRUE} (by default), add a footer to the table}
 
 \item{...}{Additional arguments passed to \code{\link[=tabularise_coef.glm]{tabularise_coef.glm()}}}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object is returned. You can print it in different
+formats (HTML, LaTeX, Word, PowerPoint) or rearrange it with the
+{flextable} functions.
 }
 \description{
-Create a rich-formatted table from an glm object
+Create a rich-formatted table from a glm object
 }
 \examples{
-is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
-library(tabularise)
-tabularise(is.lm)
+iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
+tabularise::tabularise(iris_glm)
 }

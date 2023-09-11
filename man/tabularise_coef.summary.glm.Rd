@@ -7,22 +7,23 @@
 \method{tabularise_coef}{summary.glm}(data, ..., env = parent.frame())
 }
 \arguments{
-\item{data}{An \strong{summary.glm} object}
+\item{data}{A \strong{summary.glm} object}
 
 \item{...}{Additional arguments passed to \code{\link[=tabularise_tidy.glm]{tabularise_tidy.glm()}}}
 
 \item{env}{The environment where to evaluate the model.}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different formats
+(HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+functions.
 }
 \description{
-Create a rich-formatted table using the table of coefficients of the summary.glm object
+Create a rich-formatted {flextable} object with the table of coefficients
+from the \code{\link[=summary]{summary()}} of a \strong{glm} object.
 }
 \examples{
-is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
-is.sum <- summary(is.lm)
-library(tabularise)
-tabularise$coef(is.sum)
+iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
+iris_glm_sum <- summary(iris_glm)
+tabularise::tabularise$coef(iris_glm_sum)
 }

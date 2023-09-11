@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.glm.R
 \name{tabularise_glance.glm}
 \alias{tabularise_glance.glm}
-\title{Glance version of the glm object into a flextable object}
+\title{Create a glance version of the glm object as a rich-formatted table}
 \usage{
 \method{tabularise_glance}{glm}(
   data,
@@ -18,19 +18,23 @@
 )
 }
 \arguments{
-\item{data}{An \strong{glm} object}
+\item{data}{A \strong{glm} object}
 
-\item{header}{If \code{TRUE} (by default), add a header to the table}
+\item{header}{If \code{TRUE} (by default), add an header to the table}
 
 \item{title}{If \code{TRUE} (by default), add a title to the table header}
 
-\item{equation}{If \code{TRUE} (by default), add a equation to the table header. The equation can also be passed in the form of a character string.}
+\item{equation}{If \code{TRUE} (by default), add an equation to the table header.
+The equation can also be passed in the form of a character string (LaTeX).}
 
-\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically of the object.}
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from \verb{origdata=}.}
 
-\item{origdata}{The original dataset this model was fitted to. By default is \code{NULL}}
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and original labels are not used.}
 
-\item{labs}{Labs to change the names of elements in the \code{term} column of the table. By default is \code{NULL}}
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
@@ -41,14 +45,16 @@ e.g., \code{options(data.io_lang = "fr")} for French.}
 now).}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object is produced that you can print in different
+formats (HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+functions.
 }
 \description{
-Glance version of the glm object into a flextable object
+Turn the glance of \strong{glm} object into a rich-formatted table with
+{flextable}. The table can be printed in different formats (HTML, LaTeX,
+Word, PowerPoint), or rearranged later on.
 }
 \examples{
-is.lm <- glm(data = iris, Petal.Length ~ Sepal.Length)
-library(tabularise)
-tabularise$glance(is.lm)
+iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
+tabularise::tabularise$glance(iris_glm)
 }

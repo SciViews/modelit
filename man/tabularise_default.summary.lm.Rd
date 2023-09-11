@@ -7,22 +7,21 @@
 \method{tabularise_default}{summary.lm}(data, ..., env = parent.frame())
 }
 \arguments{
-\item{data}{An \strong{summary.lm} object}
+\item{data}{A \strong{summary.lm} object}
 
 \item{...}{Additional arguments passed to \code{\link[=tabularise_coef.summary.lm]{tabularise_coef.summary.lm()}}}
 
 \item{env}{The environment where to evaluate the model.}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object you can print in different formats (HTML,
+LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
 }
 \description{
 Create a rich-formatted table from an summary.lm object
 }
 \examples{
-is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-is.sum <- summary(is.lm)
-library(tabularise)
-tabularise(is.sum)
+iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+iris_lm_sum <- summary(iris_lm)
+tabularise::tabularise(iris_lm_sum)
 }

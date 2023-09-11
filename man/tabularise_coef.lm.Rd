@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.lm.R
 \name{tabularise_coef.lm}
 \alias{tabularise_coef.lm}
-\title{Create a rich-formatted table using the coefficients of the lm object}
+\title{Create a rich-formatted table using the coefficients of an lm object}
 \usage{
 \method{tabularise_coef}{lm}(
   data,
@@ -24,13 +24,17 @@
 
 \item{title}{If \code{TRUE} (by default), add a title to the table header}
 
-\item{equation}{If \code{TRUE} (by default), add a equation to the table header. The equation can also be passed in the form of a character string.}
+\item{equation}{If \code{TRUE} (by default), add a equation to the table header.
+The equation can also be passed in the form of a character string.}
 
-\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically of the object.}
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from \verb{origdata=}.}
 
-\item{origdata}{The original dataset this model was fitted to. By default is \code{NULL}}
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and no label is used.}
 
-\item{labs}{Labs to change the names of elements in the \code{term} column of the table. By default is \code{NULL}}
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
@@ -41,15 +45,16 @@ e.g., \code{options(data.io_lang = "fr")} for French.}
 now).}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different formats
+(HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+functions.
 }
 \description{
-This function extracts and formats the table of coefficients from an lm object, similar to \code{\link[stats:coef]{stats::coef()}}, but in flextable.
+This function extracts and formats the table of coefficients from an \strong{lm}
+object, similar to \code{\link[stats:coef]{stats::coef()}}, but in a rich-formatted table using
+{flextable}.
 }
 \examples{
-is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-library(tabularise)
-tabularise$coef(is.lm)
-
+iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+tabularise::tabularise$coef(iris_lm)
 }

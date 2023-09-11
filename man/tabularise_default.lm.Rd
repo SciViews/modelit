@@ -12,15 +12,14 @@
 \item{...}{Additional arguments passed to \code{\link[=tabularise_coef.lm]{tabularise_coef.lm()}}}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different formats (HTML,
+LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
 }
 \description{
-Create a rich-formatted table from an lm object
+The default \code{\link[=tabularise]{tabularise()}} method for \strong{lm} objects create a minimalist
+table with result of the analysis in a rich-formatted tabular presentation.
 }
 \examples{
-is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-library(tabularise)
-tabularise(is.lm)
-
+iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+tabularise::tabularise(iris_lm)
 }

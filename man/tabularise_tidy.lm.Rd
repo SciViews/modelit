@@ -23,26 +23,33 @@
 \arguments{
 \item{data}{An \strong{lm} object}
 
-\item{header}{If \code{TRUE} (by default), add a header to the table}
+\item{header}{If \code{TRUE} (by default), add an header to the table}
 
 \item{title}{If \code{TRUE} (by default), add a title to the table header}
 
-\item{equation}{If \code{TRUE} (by default), add a equation to the table header. The equation can also be passed in the form of a character string.}
+\item{equation}{If \code{TRUE} (by default), add an equation to the table header.
+The equation can also be passed in the form of a character string (LaTeX).}
 
-\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically of the object.}
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from \verb{origdata=}.}
 
-\item{origdata}{The original dataset this model was fitted to. By default is \code{NULL}}
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and no label is used.}
 
-\item{labs}{Labs to change the names of elements in the \code{term} column of the table. By default is \code{NULL}}
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and no term is changed.}
 
-\item{conf.int}{If \code{TRUE}, add the confidence interval.Default is \code{FALSE}.}
+\item{conf.int}{If \code{TRUE}, add the confidence interval. The default is
+\code{FALSE}.}
 
-\item{conf.level}{The confidence level to use for the confidence interval if \code{conf.int = TRUE}. Default is 0.95.}
+\item{conf.level}{The confidence level to use for the confidence interval if
+\code{conf.int = TRUE}. The default is 0.95.}
 
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
 
-\item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars to the table.}
+\item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
+The default is \code{getOption("show.signif.stars")}}
 
 \item{...}{Additional arguments passed to \code{\link[equatiomatic:extract_eq]{equatiomatic::extract_eq()}}}
 
@@ -50,14 +57,14 @@ e.g., \code{options(data.io_lang = "fr")} for French.}
 now).}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different formats (HTML,
+LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
 }
 \description{
-Tidy version of the lm object into a flextable object
+Create a rich-formatted table with the 'tidy' information from an \strong{lm}
+object.
 }
 \examples{
-is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-library(tabularise)
-tabularise$tidy(is.lm)
+iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+tabularise::tabularise$tidy(iris_lm)
 }

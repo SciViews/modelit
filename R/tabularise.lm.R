@@ -1,65 +1,60 @@
-#' Create a rich-formatted table using the coefficients of the lm object
+#' Create a rich-formatted table using the coefficients of an lm object
 #'
 #' @description
-#' This function extracts and formats the table of coefficients from an lm object, similar to [stats::coef()], but in flextable.
+#' This function extracts and formats the table of coefficients from an **lm**
+#' object, similar to [stats::coef()], but in a rich-formatted table using
+#' {flextable}.
 #'
 #' @param data An **lm** object
 #' @param header If `TRUE` (by default), add a header to the table
 #' @param title If `TRUE` (by default), add a title to the table header
-#' @param equation If `TRUE` (by default), add a equation to the table header. The equation can also be passed in the form of a character string.
-#' @param auto.labs If `TRUE` (by default), use labels (and units) automatically of the object.
-#' @param origdata The original dataset this model was fitted to. By default is `NULL`
-#' @param labs Labs to change the names of elements in the `term` column of the table. By default is `NULL`
+#' @param equation If `TRUE` (by default), add a equation to the table header.
+#'   The equation can also be passed in the form of a character string.
+#' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
+#'   from `origdata=`.
+#' @param origdata The original data set this model was fitted to. By default it
+#'   is `NULL` and no label is used.
+#' @param labs Labels to change the names of elements in the `term` column of
+#'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
-#' @return  **flextable** object you can print in different form or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object that you can print in different formats
+#'   (HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+#'   functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @method tabularise_coef lm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-#' library(tabularise)
-#' tabularise$coef(is.lm)
-#'
-tabularise_coef.lm <- function(data,
-  header = TRUE,
-  title = header,
-  equation = header,
-  auto.labs = TRUE,
-  origdata = NULL,
-  labs = NULL,
-  lang = getOption("data.io_lang", "en"),
-  ...,
-  env = parent.frame()) {
+#' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' tabularise::tabularise$coef(iris_lm)
+tabularise_coef.lm <- function(data, header = TRUE, title = header,
+equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 
-  # Choose de lang ----
+  # Choose the language
   info_lang <- .infos_lang.lm(lang = lang)
 
-  # Extract coef ----
-  {
-    co <- coef(data)
-    co <- data.frame(term = names(co), estimate = co)
-  }
+  # Extract coefficients
+  co <- coef(data)
+  co <- data.frame(term = names(co), estimate = co)
   # co <- as.data.frame(rbind(coef(data)))
-  #
+
   if (isTRUE(auto.labs)) {
     labs <- .labels2(x = data, origdata = origdata, labs = labs)
   } else {
     labs <- .labels2(x = NULL, labs = labs)
   }
 
-  # create the flextable object
+  # Create the flextable object
   ft <- flextable(co) |>
     colformat_sci()
-
   ft <- .header_labels(ft, info_lang = info_lang)
 
-  # Header and equation ----
+  # Header and equation
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
       equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
@@ -67,19 +62,17 @@ tabularise_coef.lm <- function(data,
       equa <- equatiomatic::extract_eq(data, ...)
     }
 
-    ft <- .add_header(ft, data = data,
-      info_lang = info_lang, header = header, title = title, equation = equa)
+    ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
+      title = title, equation = equa)
   } else {
     equa <- NULL
-    ft <- .add_header(ft, data = data,
-      info_lang = info_lang, header = header, title = title, equation = equation)
+    ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
+      title = title, equation = equation)
   }
 
-  if (isTRUE(auto.labs)) {
-    if (any(co$term %in% "(Intercept)")) {
-      ft <- mk_par(ft, i = "(Intercept)", j = 1, part = "body",
-        value = as_paragraph(info_lang[["(Intercept)"]]))
-    }
+  if (isTRUE(auto.labs) && any(co$term %in% "(Intercept)")) {
+    ft <- mk_par(ft, i = "(Intercept)", j = 1, part = "body",
+      value = as_paragraph(info_lang[["(Intercept)"]]))
   }
 
   if (!is.null(labs)) {
@@ -92,10 +85,8 @@ tabularise_coef.lm <- function(data,
 
   if (isTRUE(equation) & !is.null(equa)) {
     params <- .params_equa(equa,...)
-    if(length(params) == length(co$term)) {
-      ft <- mk_par(ft, j = "term",
-        value = para_md(params), part = "body")
-    }
+    if (length(params) == length(co$term))
+      ft <- mk_par(ft, j = "term", value = para_md(params), part = "body")
   }
 
   autofit(ft, part = c("header", "body"))
@@ -103,72 +94,75 @@ tabularise_coef.lm <- function(data,
 
 #' Create a rich-formatted table from an lm object
 #'
+#' @description
+#' The default [tabularise()] method for **lm** objects create a minimalist
+#' table with result of the analysis in a rich-formatted tabular presentation.
+#'
 #' @param data An **lm** object
 #' @param ... Additional arguments passed to [modelit::tabularise_coef.lm()]
 #'
-#' @return  **flextable** object you can print in different form or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object that you can print in different formats (HTML,
+#'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @method tabularise_default lm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-#' library(tabularise)
-#' tabularise(is.lm)
-#'
+#' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' tabularise::tabularise(iris_lm)
 tabularise_default.lm <- function(data, ...) {
   tabularise_coef.lm(data = data, ...)
 }
 
 #' Tidy version of the lm object into a flextable object
 #'
+#' @description
+#' Create a rich-formatted table with the 'tidy' information from an **lm**
+#' object.
+#'
 #' @param data An **lm** object
-#' @param header If `TRUE` (by default), add a header to the table
+#' @param header If `TRUE` (by default), add an header to the table
 #' @param title If `TRUE` (by default), add a title to the table header
-#' @param equation If `TRUE` (by default), add a equation to the table header. The equation can also be passed in the form of a character string.
-#' @param auto.labs If `TRUE` (by default), use labels (and units) automatically of the object.
-#' @param origdata The original dataset this model was fitted to. By default is `NULL`
-#' @param labs Labs to change the names of elements in the `term` column of the table. By default is `NULL`
-#' @param conf.int If `TRUE`, add the confidence interval.Default is `FALSE`.
-#' @param conf.level The confidence level to use for the confidence interval if `conf.int = TRUE`. Default is 0.95.
+#' @param equation If `TRUE` (by default), add an equation to the table header.
+#'   The equation can also be passed in the form of a character string (LaTeX).
+#' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
+#'   from `origdata=`.
+#' @param origdata The original data set this model was fitted to. By default it
+#'   is `NULL` and no label is used.
+#' @param labs Labels to change the names of elements in the `term` column of
+#'   the table. By default it is `NULL` and no term is changed.
+#' @param conf.int If `TRUE`, add the confidence interval. The default is
+#'   `FALSE`.
+#' @param conf.level The confidence level to use for the confidence interval if
+#'   `conf.int = TRUE`. The default is 0.95.
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
-#' @param show.signif.stars If `TRUE` (by default), add the significance stars to the table.
+#' @param show.signif.stars If `TRUE`, add the significance stars to the table.
+#'   The default is `getOption("show.signif.stars")`
 #' @param ... Additional arguments passed to [equatiomatic::extract_eq()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
-#' @return  **flextable** object you can print in different form or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object that you can print in different formats (HTML,
+#'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_tidy colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_tidy lm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-#' library(tabularise)
-#' tabularise$tidy(is.lm)
-tabularise_tidy.lm <- function(data,
-  header = TRUE,
-  title = header,
-  equation = header,
-  auto.labs = TRUE,
-  origdata = NULL,
-  labs = NULL,
-  conf.int = FALSE,
-  conf.level = 0.95,
-  lang = getOption("data.io_lang", "en"),
-  show.signif.stars = getOption("show.signif.stars", TRUE),
-  ...,
-  env = parent.frame()) {
+#' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' tabularise::tabularise$tidy(iris_lm)
+tabularise_tidy.lm <- function(data, header = TRUE, title = header,
+equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+conf.int = FALSE, conf.level = 0.95, lang = getOption("data.io_lang", "en"),
+show.signif.stars = getOption("show.signif.stars", TRUE), ...,
+env = parent.frame()) {
 
-  if ( !requireNamespace("broom", quietly = TRUE)) {
+  if (!requireNamespace("broom", quietly = TRUE))
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm")
-    )}
+      "broom", "lm"))
 
-  # Choose de lang ----
+  # Choose the language
   info_lang <- .infos_lang.lm(lang = lang)
 
   # Extract labels of data or origdata
@@ -179,30 +173,28 @@ tabularise_tidy.lm <- function(data,
   }
 
   # Turn an object into a tidy tibble
-  data_t <- as.data.frame(broom::tidy(x = data, conf.int = conf.int, conf.level = conf.level))
+  data_t <- as.data.frame(broom::tidy(x = data, conf.int = conf.int,
+    conf.level = conf.level))
   rownames(data_t) <- data_t$term
 
   if (isTRUE(conf.int)) {
-    data_t <- data_t[,
-      c("term", "estimate", "conf.low",
-        "conf.high", "std.error", "statistic", "p.value")]
+    data_t <- data_t[, c("term", "estimate", "conf.low", "conf.high",
+      "std.error", "statistic", "p.value")]
   }
 
-  # Use flextable ----
+  # Use flextable
   if (isTRUE(show.signif.stars)) {
     ft <- flextable(data_t, col_keys = c(names(data_t), "signif"))
   } else {
     ft <- flextable(data_t)
   }
-
-  # Use tabularise with colformat_sci() ----
   ft <- colformat_sci(ft)
   ft <- colformat_sci(ft, j = "p.value", lod = 2e-16)
 
   # Rename headers labels
   ft <- .header_labels(ft, info_lang = info_lang)
 
-  # headers
+  # Headers
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
       equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
@@ -210,19 +202,17 @@ tabularise_tidy.lm <- function(data,
       equa <- equatiomatic::extract_eq(data, ...)
     }
 
-    ft <- .add_header(ft, data = data,
-      info_lang = info_lang, header = header, title = title, equation = equa)
+    ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
+      title = title, equation = equa)
   } else {
     equa <- NULL
-    ft <- .add_header(ft, data = data,
-      info_lang = info_lang, header = header, title = title, equation = equation)
+    ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
+      title = title, equation = equation)
   }
 
-  if (isTRUE(auto.labs)) {
-    if (any(data_t$term %in% "(Intercept)")) {
-      ft <- mk_par(ft, i = "(Intercept)", j = 1, part = "body",
-        value = as_paragraph(info_lang[["(Intercept)"]]))
-    }
+  if (isTRUE(auto.labs) && any(data_t$term %in% "(Intercept)")) {
+    ft <- mk_par(ft, i = "(Intercept)", j = 1, part = "body",
+      value = as_paragraph(info_lang[["(Intercept)"]]))
   }
 
   if (!is.null(labs)) {
@@ -233,71 +223,63 @@ tabularise_tidy.lm <- function(data,
         value = para_md(labs_red[i]), part = "body")
   }
 
-  if (isTRUE(equation) & !is.null(equa)) {
-    #params <- .params_equa(equa, ...)
+  if (isTRUE(equation) && !is.null(equa)) {
     params <- .params_equa(equa)
-    if (length(params) == length(data_t$term)) {
-      ft <- mk_par(ft, j = "term",
-        value = para_md(params), part = "body")
-    }
+    if (length(params) == length(data_t$term))
+      ft <- mk_par(ft, j = "term", value = para_md(params), part = "body")
   }
 
-  # Add information on the p.value (with internal function) ----
-  if (ncol_keys(ft) > ncol(data_t)) {
+  # Add information on the p.value
+  if (ncol_keys(ft) > ncol(data_t))
     ft <- .add_signif_stars(ft, j = "signif")
-  }
 
-  # Adjust cell with autofit() ----
   ft <- autofit(ft, part = c("header", "body"))
-
   if (isTRUE(show.signif.stars))
     ft <- width(ft, j = "signif", width = 0.4)
-
   ft
 }
 
 #' Glance version of the lm object into a flextable object
 #'
+#' @description
+#' Create a rich-formatted table with the 'glance' information from an **lm**
+#' object.
+#'
 #' @param data An **lm** object
 #' @param header If `TRUE` (by default), add a header to the table
 #' @param title If `TRUE` (by default), add a title to the table header
-#' @param equation If `TRUE` (by default), add a equation to the table header. The equation can also be passed in the form of a character string.
-#' @param auto.labs If `TRUE` (by default), use labels (and units) automatically of the object.
-#' @param origdata The original dataset this model was fitted to. By default is `NULL`
-#' @param labs Labs to change the names of elements in the `term` column of the table. By default is `NULL`
+#' @param equation If `TRUE` (by default), add a equation to the table header.
+#'   The equation can also be passed in the form of a character string (LaTeX).
+#' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
+#'   of `origdata=`.
+#' @param origdata The original data set this model was fitted to. By default it
+#'   is `NULL` and no label is used (only the name of the variables).
+#' @param labs Labels to change the names of elements in the `term` column of
+#'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [equatiomatic::extract_eq()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
-#' @return  **flextable** object you can print in different form or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object that you can print in different form or
+#'   rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_glance colformat_sci
 #' @method tabularise_glance lm
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-#' library(tabularise)
-#' tabularise$glance(is.lm)
-tabularise_glance.lm <- function(data,
-  header = TRUE,
-  title = TRUE,
-  equation = TRUE,
-  auto.labs = TRUE,
-  origdata = NULL,
-  labs = NULL,
-  lang = getOption("data.io_lang", "en"),
-  ...,
-  env = parent.frame()) {
+#' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' tabularise::tabularise$glance(iris_lm)
+tabularise_glance.lm <- function(data, header = TRUE, title = TRUE,
+equation = TRUE, auto.labs = TRUE, origdata = NULL, labs = NULL,
+lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 
-  if ( !requireNamespace("broom", quietly = TRUE)) {
+  if (!requireNamespace("broom", quietly = TRUE))
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm")
-    )}
+      "broom", "lm"))
 
-  # Choose de lang ----
+  # Choose the language
   info_lang <- .infos_lang.lm(lang = lang)
 
   # Extract labels of data or origdata
@@ -311,17 +293,15 @@ tabularise_glance.lm <- function(data,
   data_t <- as.data.frame(broom::glance(x = data))
   rownames(data_t) <- data_t$term
 
-  # Use flextable ----
+  # Use flextable
   ft <- flextable(data_t)
-
-  # Use tabularise with colformat_sci() ----
   ft <- colformat_sci(ft)
   #ft <- colformat_sci(ft, j = "p.value", lod = 2e-16)
 
   # Rename headers labels
   ft <- .header_labels(ft, info_lang = info_lang)
 
-  # headers
+  # Headers
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
       equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
@@ -329,20 +309,17 @@ tabularise_glance.lm <- function(data,
       equa <- equatiomatic::extract_eq(data, ...)
     }
 
-    ft <- .add_header(ft, data = data,
-      info_lang = info_lang, header = header, equation = equa)
+    ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
+      equation = equa)
   } else {
     equa <- NULL
-    ft <- .add_header(ft, data = data, info_lang = info_lang,
-      header = header, equation = equation)
+    ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
+      equation = equation)
   }
 
-  if (isTRUE(auto.labs)) {
-    if (any(data_t$term %in% "(Intercept)")) {
-      ft <- mk_par(ft, i = "(Intercept)", j = 1, part = "body",
-        value = as_paragraph(info_lang[["(Intercept)"]]))
-    }
-  }
+  if (isTRUE(auto.labs) && any(data_t$term %in% "(Intercept)"))
+    ft <- mk_par(ft, i = "(Intercept)", j = 1, part = "body",
+      value = as_paragraph(info_lang[["(Intercept)"]]))
 
   if (!is.null(labs)) {
     labs_red <- labs[names(labs) %in% data_t$term]
@@ -352,38 +329,32 @@ tabularise_glance.lm <- function(data,
         value = para_md(labs_red[i]), part = "body")
   }
 
-  # Adjust cell with autofit() ----
-  ft <- autofit(ft, part = c("header", "body"))
-
-  ft
+  autofit(ft, part = c("header", "body"))
 }
 
 #' Create a rich-formatted table using the table of coefficients of the summary.lm object
 #'
-#' @param data An **summary.lm** object
-#' @param ... Additional arguments passed to [modelit::tabularise_tidy.lm()]
+#' @param data A **summary.lm** object
+#' @param ... Additional arguments passed to [tabularise_tidy.lm()]
 #' @param env The environment where to evaluate the model.
 #'
-#' @return  **flextable** object you can print in different form or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object you can print in different formats (HTML,
+#'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_coef summary.lm
+#'
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-#' is.sum <- summary(is.lm)
-#' library(tabularise)
-#' tabularise$coef(is.sum)
-tabularise_coef.summary.lm <- function(data,
-  ...,
-  env = parent.frame()) {
+#' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' iris_lm_sum <- summary(iris_lm)
+#' tabularise::tabularise$coef(iris_lm_sum)
+tabularise_coef.summary.lm <- function(data, ..., env = parent.frame()) {
 
-  if ( !requireNamespace("broom", quietly = TRUE)) {
+  if (!requireNamespace("broom", quietly = TRUE))
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm")
-    )}
+      "broom", "lm"))
 
   lm_original <- data$call
   data <- eval(lm_original, envir = env)
@@ -393,39 +364,32 @@ tabularise_coef.summary.lm <- function(data,
 
 #' Create a rich-formatted table from an summary.lm object
 #'
-#' @param data An **summary.lm** object
-#' @param ... Additional arguments passed to [modelit::tabularise_coef.summary.lm()]
+#' @param data A **summary.lm** object
+#' @param ... Additional arguments passed to [tabularise_coef.summary.lm()]
 #' @param env The environment where to evaluate the model.
 #'
-#' @return  **flextable** object you can print in different form or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object you can print in different formats (HTML,
+#'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_default summary.lm
 #'
 #' @examples
-#' is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-#' is.sum <- summary(is.lm)
-#' library(tabularise)
-#' tabularise(is.sum)
-tabularise_default.summary.lm <- function(data,
-  ...,
-  env = parent.frame()) {
+#' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+#' iris_lm_sum <- summary(iris_lm)
+#' tabularise::tabularise(iris_lm_sum)
+tabularise_default.summary.lm <- function(data, ..., env = parent.frame()) {
 
-  if ( !requireNamespace("broom", quietly = TRUE)) {
+  if (!requireNamespace("broom", quietly = TRUE))
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm")
-    )}
+      "broom", "lm"))
 
   tabularise_coef.summary.lm(data = data, ...)
 }
 
-
-# Internal function ----
-
-## Internale function : Choose the lang and the infos_lang ----
+# Choose the lang and the infos_lang
 .infos_lang.lm <- function(lang) {
   lang <- tolower(lang)
 

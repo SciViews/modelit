@@ -24,13 +24,17 @@
 
 \item{title}{If \code{TRUE} (by default), add a title to the table header}
 
-\item{equation}{If \code{TRUE} (by default), add a equation to the table header. The equation can also be passed in the form of a character string.}
+\item{equation}{If \code{TRUE} (by default), add a equation to the table header.
+The equation can also be passed in the form of a character string (LaTeX).}
 
-\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically of the object.}
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+of \verb{origdata=}.}
 
-\item{origdata}{The original dataset this model was fitted to. By default is \code{NULL}}
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and no label is used (only the name of the variables).}
 
-\item{labs}{Labs to change the names of elements in the \code{term} column of the table. By default is \code{NULL}}
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
@@ -41,14 +45,14 @@ e.g., \code{options(data.io_lang = "fr")} for French.}
 now).}
 }
 \value{
-\strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different form or
+rearrange with the {flextable} functions.
 }
 \description{
-Glance version of the lm object into a flextable object
+Create a rich-formatted table with the 'glance' information from an \strong{lm}
+object.
 }
 \examples{
-is.lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
-library(tabularise)
-tabularise$glance(is.lm)
+iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
+tabularise::tabularise$glance(iris_lm)
 }
