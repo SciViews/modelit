@@ -7,6 +7,7 @@
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a header to the table
+#' @param title If `TRUE` (by default), add a title to the table header
 #' @param equation Add equation of the model to the table. If `TRUE`,
 #'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX equation).
@@ -38,13 +39,14 @@
 #'
 #' tabularise::tabularise(chick1_logis_sum)
 #' tabularise::tabularise(chick1_logis_sum, footer = FALSE)
-tabularise_default.summary.nls <- function(data, header = TRUE,
+tabularise_default.summary.nls <- function(data, header = TRUE, title = header,
 equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
 env = parent.frame()) {
 
-  ft <- tabularise_coef.summary.nls(data, header = header, equation = equation,
-    lang = lang, show.signif.stars = show.signif.stars, env = env)
+  ft <- tabularise_coef.summary.nls(data, header = header, title = title,
+    equation = equation, lang = lang, show.signif.stars = show.signif.stars,
+    env = env)
 
   # Choose the language
   lang <- tolower(lang)
@@ -56,16 +58,6 @@ env = parent.frame()) {
   } else {
     info_lang <- infos_en.nls
   }
-
-  #if (isTRUE(header)) {
-  #  header <- paste(deparse(data$formula), sep = "\n", collapse = "\n")
-  #  ft <- add_header_lines(ft, values = header)
-  #  ft <- align(ft, i = 1, align = "right", part = "header")
-  #}
-
-  ## Add headers
-  #ft <- add_header_nls(ft, data = data,  header = header, equation = equation,
-  #    lang = lang)
 
   if (isTRUE(footer)) {
     footer <- info_lang[["footer"]]
@@ -101,6 +93,7 @@ env = parent.frame()) {
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
+#' @param title If `TRUE` (by default), add a title to the table header
 #' @param equation Add equation of the model to the table. If `TRUE`,
 #'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX equation).
@@ -127,8 +120,8 @@ env = parent.frame()) {
 #'
 #' tabularise::tabularise$coef(chick1_logis_sum)
 #' tabularise::tabularise$coef(chick1_logis_sum, header = FALSE, equation = TRUE)
-tabularise_coef.summary.nls <- function(data, header = TRUE, equation = header,
-lang = getOption("data.io_lang", "en"),
+tabularise_coef.summary.nls <- function(data, header = TRUE, title = header,
+equation = header, lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
 env = parent.frame()) {
 
@@ -166,8 +159,8 @@ env = parent.frame()) {
     ft <- add_signif_stars(ft, j = "signif")
 
   # Add headers
-  ft <- add_header_nls(ft, data = data, header = header, equation = equation,
-    lang = lang, ...)
+  ft <- add_header_nls(ft, data = data, header = header, title = title,
+    equation = equation, lang = lang, ...)
 
   ft <- autofit(ft, part = c("header", "body"))
   if (isTRUE(show.signif.stars))
@@ -187,6 +180,7 @@ env = parent.frame()) {
 #'
 #' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
+#' @param title If `TRUE` (by default), add a title to the table header
 #' @param equation Add equation of the model to the table. If `TRUE`,
 #'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX equation).
@@ -210,17 +204,12 @@ env = parent.frame()) {
 #' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 #'
 #' tabularise::tabularise(chick1_logis)
-tabularise_default.nls <- function(data, header = TRUE, equation = header,
-footer = TRUE, lang = getOption("data.io_lang", "en"), ...,
-env = parent.frame()) {
+tabularise_default.nls <- function(data, header = TRUE, title = header,
+equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
+..., env = parent.frame()) {
 
-  ft <- tabularise_coef.nls(data, header = FALSE, lang = lang)
-
-  #if (isTRUE(header)) {
-  #  header <- paste("model :", deparse(formula(data)), collapse = "\n")
-  #  ft <- add_header_lines(ft, values = header)
-  #  ft <- align(ft, i = 1, align = "right", part = "header")
-  #}
+  ft <- tabularise_coef.nls(data, header = header, title = title,
+    equation = equation, lang = lang)
 
   # Choose the language
   lang <- tolower(lang)
@@ -233,10 +222,6 @@ env = parent.frame()) {
   } else {
     info_lang <- infos_en.nls
   }
-
-  # Add headers
-  ft <- add_header_nls(ft, data = data,  header = header, equation = equation,
-    lang = lang)
 
   # Add footer
   if (isTRUE(footer)) {
@@ -274,6 +259,7 @@ env = parent.frame()) {
 #'
 #' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
+#' @param title If `TRUE` (by default), add a title to the table header
 #' @param equation If `TRUE` (by default), add the equation of the model
 #' @param lang The language to use. The default value can be set with, e.g.,
 #'   `options(data.io_lang = "fr")` for French.
@@ -294,8 +280,9 @@ env = parent.frame()) {
 #' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 #'
 #' tabularise::tabularise$coef(chick1_logis)
-tabularise_coef.nls <- function(data, header = TRUE, equation = header,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+tabularise_coef.nls <- function(data, header = TRUE, title = header,
+equation = header, lang = getOption("data.io_lang", "en"), ...,
+env = parent.frame()) {
 
   # Choose the language
   lang <- tolower(lang)
@@ -315,8 +302,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
     colformat_sci()
 
   # Add headers
-  ft <- add_header_nls(ft, data = data, header = header, equation = equation,
-    lang = lang)
+  ft <- add_header_nls(ft, data = data, header = header, title = title,
+    equation = equation, lang = lang)
 
   autofit(ft, part = c("header", "body"))
 }
@@ -364,6 +351,7 @@ tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
 #'
 #' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
+#' @param title If `TRUE` (by default), add a title to the table header
 #' @param equation Add equation of the model to the table. If `TRUE`,
 #'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX).
@@ -389,8 +377,9 @@ tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
 #'
 #' tabularise::tabularise$glance(chick1_logis)
 #' tabularise::tabularise$glance(chick1_logis, lang = "fr")
-tabularise_glance.nls <- function(data, header = TRUE, equation = header,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+tabularise_glance.nls <- function(data, header = TRUE, title = header,
+equation = header, lang = getOption("data.io_lang", "en"), ...,
+env = parent.frame()) {
 
   # Choose the language
   lang <- tolower(lang)
@@ -419,8 +408,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
   ft <- header_labels(ft, lang = lang)
 
   # Add headers
-  ft <- add_header_nls(ft, data = data,  header = header, equation = equation,
-    lang = lang)
+  ft <- add_header_nls(ft, data = data,  header = header,
+    title = title, equation = equation, lang = lang)
 
   autofit(ft)
 }
@@ -678,8 +667,8 @@ pvalue_format <- function(x){
   z
 }
 
-add_header_nls <- function(x, data, lang = lang, header = TRUE,
-equation = header, ...) {
+add_header_nls <- function(x, data,
+  lang = lang, header = TRUE, title = header, equation = header, ...) {
 
   if (!inherits(x, "flextable"))
     stop(sprintf("Function `%s` supports only flextable objects.",
@@ -699,22 +688,27 @@ equation = header, ...) {
 
   ft <- x
 
-  if (isTRUE(equation)) {
-    ssequa <- equation(data, ...)
-    ft <- add_header_lines(ft, values = as_paragraph(as_equation(ssequa)))
-    ft <- align(ft, i = 1, align = "right", part = "header")
-  } else if (is.character(equation)) {
-    ft <- add_header_lines(ft, values = as_paragraph(as_equation(equation)))
-    ft <- align(ft, i = 1, align = "right", part = "header")
-  }
-
   if (isTRUE(header)) {
-    ss <- info_lang[["SS"]]
 
-    rhs <- as.character(rlang::f_rhs(formula(data)))[1]
+    if (isTRUE(equation)) {
+      ssequa <- equation(data, ...)
+      ft <- add_header_lines(ft, values = as_paragraph(as_equation(ssequa)))
+      ft <- align(ft, i = 1, align = "right", part = "header")
+    } else if (is.character(equation)) {
+      ft <- add_header_lines(ft, values = as_paragraph(as_equation(equation)))
+      ft <- align(ft, i = 1, align = "right", part = "header")
+    }
 
-    if (!is.na(ss[rhs])) {
-      ft <- add_header_lines(ft, values = ss[rhs])
+    if (isTRUE(title)) {
+      ss <- info_lang[["SS"]]
+      rhs <- as.character(rlang::f_rhs(formula(data)))[1]
+      if (!is.na(ss[rhs])) {
+        ft <- add_header_lines(ft, values = ss[rhs])
+        ft <- align(ft, i = 1, align = "right", part = "header")
+      }
+    } else if (is.character(title)) {
+      ft <- add_header_lines(ft,
+        values = as_paragraph(title))
       ft <- align(ft, i = 1, align = "right", part = "header")
     }
   }

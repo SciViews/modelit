@@ -7,6 +7,8 @@
 \method{tabularise_default}{nls}(
   data,
   header = TRUE,
+  title = header,
+  equation = header,
   footer = TRUE,
   lang = getOption("data.io_lang", "en"),
   ...,
@@ -17,6 +19,12 @@
 \item{data}{An \strong{nls} object.}
 
 \item{header}{If \code{TRUE} (by default), add a title to the table.}
+
+\item{title}{If \code{TRUE} (by default), add a title to the table header}
+
+\item{equation}{Add equation of the model to the table. If \code{TRUE},
+\code{\link[=equation]{equation()}} is used. The equation can also be passed in the form of a
+character string (LaTeX equation).}
 
 \item{footer}{If \code{TRUE} (by default), add a footer to the table.}
 

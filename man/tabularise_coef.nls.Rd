@@ -7,6 +7,7 @@
 \method{tabularise_coef}{nls}(
   data,
   header = TRUE,
+  title = header,
   equation = header,
   lang = getOption("data.io_lang", "en"),
   ...,
@@ -17,6 +18,8 @@
 \item{data}{An \strong{nls} object.}
 
 \item{header}{If \code{TRUE} (by default), add a title to the table.}
+
+\item{title}{If \code{TRUE} (by default), add a title to the table header}
 
 \item{equation}{If \code{TRUE} (by default), add the equation of the model}
 
