@@ -22,7 +22,6 @@ Imports:
     tabularise,
     rlang,
     flextable,
-    methods,
     officer,
     equatiomatic,
     data.io

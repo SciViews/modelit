@@ -14,30 +14,33 @@
 )
 }
 \arguments{
-\item{data}{A \strong{nls} object.}
+\item{data}{An \strong{nls} object.}
 
 \item{header}{If \code{TRUE} (by default), add a title to the table.}
 
 \item{footer}{If \code{TRUE} (by default), add a footer to the table.}
 
-\item{lang}{The language to use. The default value can be set with, e.g., \code{options(data.io_lang = "fr")} for French.}
+\item{lang}{The language to use. The default value can be set with, e.g.,
+\code{options(data.io_lang = "fr")} for French.}
 
 \item{...}{Additional arguments. Not used.}
 
-\item{env}{The environment where to evaluate lazyeval expressions (unused for now).}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for
+now).}
 }
 \value{
-A \strong{flextable} object you can print in different forms or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different forms or
+rearrange with the {flextable} functions.
 }
 \description{
-This method extracts and formats the nls object, similar to print(), but in flextable object.
+This method extracts and formats an \strong{nls} object, similar to \code{\link[=print]{print()}}, but
+in flextable object.
 }
 \examples{
 data("ChickWeight", package = "datasets")
 chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 # Adjust a logistic curve
-chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-library(tabularise)
-tabularise(chick1_logis)
+chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+
+tabularise::tabularise(chick1_logis)
 }

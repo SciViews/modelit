@@ -1,23 +1,28 @@
 #' Create a rich-formatted table from a summary.nls object
 #'
 #' @description
-#' This function `tabularises_default()` tabularizes a **summary.nls** object. This table looks like the output of `print.summary.nls()` but richly formatted.
-#' The [tabularise_coef()] function offers more customization options for this object.
+#' Create a table of a **summary.nls** object. This table looks like the output
+#' of [print.summary.nls()] but richly formatted. The [tabularise_coef()]
+#' function offers more customization options for this object.
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a header to the table
 #' @param footer If `TRUE` (by default), add a footer to the table.
-#' @param lang The language to use. The default value can be set with, e.g. `options(data.io_lang = "fr")` for French.
-#' @param show.signif.stars If `TRUE` (by default), add the significance stars to the table.
+#' @param lang The language to use. The default value can be set with, e.g.
+#'   `options(data.io_lang = "fr")` for French.
+#' @param show.signif.stars If `TRUE` (by default), add the significance stars
+#'   to the table.
 #' @param ... Additional arguments (Not used).
-#' @param env The environment where to evaluate lazyeval expressions (unused for now).
+#' @param env The environment where to evaluate lazyeval expressions (unused for
+#'   now).
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_default summary.nls
-#' @seealso [tabularise::tabularise()] [tabularise::tabularise_tidy()] [tabularise_coef.summary.nls()]
+#' @seealso [tabularise::tabularise()], [tabularise::tabularise_tidy()],
+#'   [tabularise_coef.summary.nls()]
 #'
-#' @return A **flextable** object you can print in different forms or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object that you can print in different forms or
+#'   rearrange with the {flextable} functions.
 #' @export
 #'
 #' @examples
@@ -25,30 +30,20 @@
 #' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 #'
 #' # Adjust a logistic curve
-#' chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-#' slogis <- summary(chick1_logis)
-#' # tabularise
-#' # More practical
-#' library(tabularise)
-#' tabularise(slogis)
-#' tabularise(slogis, footer = FALSE)
+#' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+#' chick1_logis_sum <- summary(chick1_logis)
 #'
-tabularise_default.summary.nls <- function(data,
-  header = TRUE,
-  footer = TRUE,
-  lang = getOption("data.io_lang", "en"),
-  show.signif.stars = getOption("show.signif.stars", TRUE),
-  ...,
-  env = parent.frame()) {
+#' tabularise::tabularise(chick1_logis_sum)
+#' tabularise::tabularise(chick1_logis_sum, footer = FALSE)
+tabularise_default.summary.nls <- function(data, header = TRUE, footer = TRUE,
+lang = getOption("data.io_lang", "en"),
+show.signif.stars = getOption("show.signif.stars", TRUE), ...,
+env = parent.frame()) {
 
-  ft <- tabularise_coef.summary.nls(data,
-    header = FALSE,
-    equation = FALSE,
-    lang = lang,
-    show.signif.stars = show.signif.stars,
-    env = parent.frame())
+  ft <- tabularise_coef.summary.nls(data, header = FALSE, equation = FALSE,
+    lang = lang, show.signif.stars = show.signif.stars, env = env)
 
-  # Choose de lang ----
+  # Choose the language
   lang <- tolower(lang)
 
   if (lang != "fr") lang <- "en" # Only en or fr for now
@@ -60,8 +55,7 @@ tabularise_default.summary.nls <- function(data,
   }
 
   if (isTRUE(header)) {
-    header <- paste(deparse(data$formula), sep = "\n",
-      collapse = "\n")
+    header <- paste(deparse(data$formula), sep = "\n", collapse = "\n")
     ft <- add_header_lines(ft, values = header)
     ft <- align(ft, i = 1, align = "right", part = "header")
   }
@@ -69,43 +63,50 @@ tabularise_default.summary.nls <- function(data,
   if (isTRUE(footer)) {
     footer <- info_lang[["footer"]]
 
-    # use the same rule of print.summaru.nls
+    # Use the same rule of print.summary.nls
     digs <- max(3L, getOption("digits") - 3L)
 
     val <- paste(footer[["rse"]], ":", format(signif(data$sigma,
-      digits = digs)) ,
-      footer[["on"]], data$df[2], footer["df"])
+      digits = digs)), footer[["on"]], data$df[2], footer["df"])
 
     conv <- data$convInfo
     if (isTRUE(conv$isConv)) {
       convinfo <- c(
         paste(footer[["nbc"]], ":", conv$finIter),
         paste(footer[["ctol"]], ":", format(conv$finTol,
-          digits = digs)))
+        digits = digs)))
       val <- c(val, convinfo)
     } else {
       val <- c(val, footer[["stop"]])
     }
     ft <- add_footer_lines(ft, top = FALSE, values = val)
-    ft <- align(ft, i = seq_len(length(val))+1 , align = "left", part = "footer")
+    ft <- align(ft, i = seq_len(length(val)) + 1 , align = "left",
+      part = "footer")
   }
   ft
 }
 
-#' @title Create a rich-formatted table using the table of coefficients of the summary.nls object
+#' Create a rich-formatted table using the table of coefficients of the summary.nls object
 #'
 #' @description
-#' This function extracts and formats the table of coefficients from a summary.nls object, similar to [stats::coef()], but in flextable object.
+#' This function extracts and formats the table of coefficients from a
+#' **summary.nls** object, similar to [stats::coef()], but in flextable object.
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
-#' @param equation Add equation of the model to the table. If TRUE, [nls_equation()] is used. The equation can also be passed in the form of a character string.
-#' @param lang The language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
-#' @param show.signif.stars If `TRUE` (by default), add the significance stars to the table.
+#' @param equation Add equation of the model to the table. If TRUE,
+#'   [nls_equation()] is used. The equation can also be passed in the form of a
+#'   character string (LaTeX equation).
+#' @param lang The language to use. The default value can be set with, e.g.,
+#'   `options(data.io_lang = "fr")` for French.
+#' @param show.signif.stars If `TRUE` (by default), add the significance stars
+#'   to the table.
 #' @param ... Additional arguments passed to [nls_equation()]
-#' @param env The environment where to evaluate lazyeval expressions (unused for now).
-#' @return A **flextable** object you can print in different forms or rearrange
-#' with the {flextable} functions.
+#' @param env The environment where to evaluate lazyeval expressions (unused for
+#' now).
+#'
+#' @return A **flextable** object that you can print in different forms or
+#'   rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
@@ -114,32 +115,26 @@ tabularise_default.summary.nls <- function(data,
 #' data("ChickWeight", package = "datasets")
 #' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 #' # Adjust a logistic curve
-#' chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-#' slogis <- summary(chick1_logis)
+#' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+#' chick1_logis_sum <- summary(chick1_logis)
 #'
-#' # More practical and pretty
-#' library(tabularise)
-#' tabularise$coef(slogis)
-#' tabularise$coef(slogis, header = FALSE, equation = TRUE)
-#'
-tabularise_coef.summary.nls <- function(
-  data,
-  header = TRUE,
-  equation = header,
-  lang = getOption("data.io_lang", "en"),
-  show.signif.stars = getOption("show.signif.stars", TRUE),
-  ...,
-  env = parent.frame()) {
+#' tabularise::tabularise$coef(chick1_logis_sum)
+#' tabularise::tabularise$coef(chick1_logis_sum, header = FALSE, equation = TRUE)
+tabularise_coef.summary.nls <- function(data, header = TRUE, equation = header,
+lang = getOption("data.io_lang", "en"),
+show.signif.stars = getOption("show.signif.stars", TRUE), ...,
+env = parent.frame()) {
 
-  # Extract the coef and rework it to obtain a data.frame ----
+  # Extract the coef and rework it to obtain a data.frame
   co <- as.data.frame(coef(data))
   res <- cbind(term = rownames(co), co)
   names(res) <- c("term", "estimate", "std.error", "statistic", "p.value")
 
-  # Choose de lang ----
+  # Choose the language
   lang <- tolower(lang)
 
-  if (lang != "fr") lang <- "en" # Only en or fr for now
+  if (lang != "fr")
+    lang <- "en" # Only en or fr for now
 
   if (lang == "fr") {
     info_lang <- infos_fr.nls
@@ -147,56 +142,53 @@ tabularise_coef.summary.nls <- function(
     info_lang <- infos_en.nls
   }
 
-  # Use flextable ----
+  # Use flextable
   if (isTRUE(show.signif.stars)) {
     ft <- flextable(res, col_keys = c(names(res), "signif"))
   } else {
     ft <- flextable(res)
   }
-
-  # Use tabularise with colformat_sci() ----
   ft <- colformat_sci(ft)
   ft <- colformat_sci(ft, j = "p.value", lod = 2e-16)
 
-  # Change labels (with internal function) ----
+  # Change labels
   ft <- header_labels(ft, lang = lang)
 
-  # Add information on the p.value (with internal function) ----
-  if (ncol_keys(ft) > ncol(res)) {
+  # Add information on the p.value
+  if (ncol_keys(ft) > ncol(res))
     ft <- add_signif_stars(ft, j = "signif")
-  }
 
-  # Add headers (with internal function) ----
-  ft <- add_header_nls(ft, data = data,
-    header = header, equation = equation, lang = lang, ...)
+  # Add headers
+  ft <- add_header_nls(ft, data = data, header = header, equation = equation,
+    lang = lang, ...)
 
-
-  # Adjust cell with autofit() ----
   ft <- autofit(ft, part = c("header", "body"))
-
   if (isTRUE(show.signif.stars))
     ft <- width(ft, j = "signif", width = 0.4)
 
-  if(isTRUE(equation) | is.character(equation))
+  if (isTRUE(equation) | is.character(equation))
     ft <- italic(ft, j = "term",part = "body")
 
   ft
 }
 
-#' @title Create a rich-formatted table from a nls object
+#' Create a rich-formatted table from a nls object
 #'
 #' @description
-#' This method extracts and formats the nls object, similar to print(), but in flextable object.
+#' This method extracts and formats an **nls** object, similar to [print()], but
+#' in flextable object.
 #'
-#' @param data A **nls** object.
+#' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
 #' @param footer If `TRUE` (by default), add a footer to the table.
-#' @param lang The language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
+#' @param lang The language to use. The default value can be set with, e.g.,
+#'   `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments. Not used.
-#' @param env The environment where to evaluate lazyeval expressions (unused for now).
+#' @param env The environment where to evaluate lazyeval expressions (unused for
+#'   now).
 #'
-#' @return A **flextable** object you can print in different forms or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object that you can print in different forms or
+#'   rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data
@@ -205,29 +197,25 @@ tabularise_coef.summary.nls <- function(
 #' data("ChickWeight", package = "datasets")
 #' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 #' # Adjust a logistic curve
-#' chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-#' library(tabularise)
-#' tabularise(chick1_logis)
-tabularise_default.nls <- function(data,
-  header = TRUE,
-  footer = TRUE,
-  lang = getOption("data.io_lang", "en"),
-  ...,
-  env = parent.frame()) {
+#' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+#'
+#' tabularise::tabularise(chick1_logis)
+tabularise_default.nls <- function(data, header = TRUE, footer = TRUE,
+lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 
   ft <- tabularise_coef.nls(data, header = FALSE, lang = lang)
 
   if (isTRUE(header)) {
-    header <- paste("model :", deparse(formula(data)),
-      collapse = "\n")
+    header <- paste("model :", deparse(formula(data)), collapse = "\n")
     ft <- add_header_lines(ft, values = header)
     ft <- align(ft, i = 1, align = "right", part = "header")
   }
 
-  # choose de lang ----
+  # Choose the language
   lang <- tolower(lang)
 
-  if (lang != "fr") lang <- "en" # Only en or fr for now
+  if (lang != "fr")
+    lang <- "en" # Only en or fr for now
 
   if (lang == "fr") {
     info_lang <- infos_fr.nls
@@ -239,7 +227,7 @@ tabularise_default.nls <- function(data,
   if (isTRUE(footer)) {
     footer <- info_lang[["footer"]]
 
-    # use the same rule of print.summaru.nls
+    # Use the same rule of print.summary.nls
     digs <- max(3L, getOption("digits") - 3L)
 
     val <- paste(footer[["rss"]], ":", format(signif(data$m$deviance(),
@@ -250,7 +238,7 @@ tabularise_default.nls <- function(data,
       convinfo <- c(
         paste(footer[["nbc"]], ":", conv$finIter),
         paste(footer[["ctol"]], ":", format(conv$finTol,
-          digits = digs)))
+        digits = digs)))
       val <- c(val, convinfo)
     } else {
       val <- c(val, footer[["stop"]])
@@ -263,43 +251,42 @@ tabularise_default.nls <- function(data,
   autofit(ft, part = c("header", "body"))
 }
 
-#' @title Create a rich-formatted table using the coefficients of the nls object
+#' Create a rich-formatted table using the coefficients of the nls object
 #'
 #' @description
-#' This method extracts and formats the coefficients from nls object, similar to [stats::coef()], but in flextable object.
+#' This method extracts and formats the coefficients from an **nls** object,
+#' similar to [stats::coef()], but in flextable object.
 #'
-#' @param data A **nls** object.
+#' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
 #' @param equation If `TRUE` (by default), add the equation of the model
-#' @param lang The language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
+#' @param lang The language to use. The default value can be set with, e.g.,
+#'   `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments.
-#' @param env The environment where to evaluate lazyeval expressions (unused for now).
+#' @param env The environment where to evaluate lazyeval expressions (unused for
+#'   now).
 #'
-#' @return A **flextable** object you can print in different forms or rearrange
-#' with the {flextable} functions.
+#' @return A **flextable** object that you can print in different forms or
+#' rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
 #' @method tabularise_coef nls
 #' @examples
-#' # example code
 #' data("ChickWeight", package = "datasets")
 #' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 #' # Adjust a logistic curve
-#' chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-#' library(tabularise)
-#' tabularise$coef(chick1_logis)
-tabularise_coef.nls <- function(data,
-  header = TRUE,
-  equation = header,
-  lang = getOption("data.io_lang", "en"),
-  ...,
-  env = parent.frame()) {
+#' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+#'
+#' tabularise::tabularise$coef(chick1_logis)
+tabularise_coef.nls <- function(data, header = TRUE, equation = header,
+lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 
-  # choose de lang ----
+  # Choose the language
   lang <- tolower(lang)
 
-  if (lang != "fr") lang <- "en" # Only en or fr for now
+  if (lang != "fr")
+    lang <- "en" # Only en or fr for now
 
   if (lang == "fr") {
     info_lang <- infos_fr.nls
@@ -312,23 +299,29 @@ tabularise_coef.nls <- function(data,
   ft <- flextable(co) |>
     colformat_sci()
 
-  # Add headers (with internal function) ----
-  ft <- add_header_nls(ft, data = data,
-    header = header, equation = equation, lang = lang)
+  # Add headers
+  ft <- add_header_nls(ft, data = data, header = header, equation = equation,
+    lang = lang)
 
   autofit(ft, part = c("header", "body"))
 }
 
-#' @title Tidy version of the nls object into a flextable object
+#' Tidy version of the nls object into a flextable object
 #'
 #' @description
-#' Extract the information contained in a nls object into a rectangular table as it could be obtained by [generics::tidy()]. Here, the table is nicely formatted as an (almost) publication-ready form (good for informal reports, notebooks, etc).
+#' Extract the information contained in a nls object into a rectangular table as
+#' it could be obtained by [broom::tidy()]. Here, the table is nicely
+#' formatted as an (almost) publication-ready form (good for informal reports,
+#' notebooks, etc).
 #'
 #' @param data A **nls** object
 #' @param ... arguments of [tabularise_coef.summary.nls()]
-#' @seealso [tabularise::tabularise()] [tabularise::tabularise_tidy()] [tabularise_coef.summary.nls()]
-#' @return A **flextable** object you can print in different forms or rearrange
-#' with the {flextable} functions.
+#' @param env The environment where to evaluate lazyeval expressions (unused for
+#'   now).
+#' @seealso [tabularise::tabularise()], [tabularise::tabularise_tidy()],
+#'   [tabularise_coef.summary.nls()]
+#' @return A **flextable** object that you can print in different forms or
+#' rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_tidy colformat_sci
 #' @importFrom rlang .data
@@ -338,31 +331,36 @@ tabularise_coef.nls <- function(data,
 #' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 #'
 #' # Adjust a logistic curve
-#' chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-#' library(tabularise)
-#' tabularise$tidy(chick1_logis)
-#' tabularise$tidy(chick1_logis, lang = "fr")
-tabularise_tidy.nls <- function(data,
-  ...) {
+#' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+#'
+#' tabularise::tabularise$tidy(chick1_logis)
+#' tabularise::tabularise$tidy(chick1_logis, lang = "fr")
+tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
   data <- summary(data)
-  tabularise_coef.summary.nls(data, ...)
+  tabularise_coef.summary.nls(data, ..., env = env)
 }
 
-
-#' @title Glance version of the nls object into a flextable object
+#' Glance version of the nls object into a flextable object
+#'
 #' @description
-#' Extract the information contained in a nls object in one row of a rectangular table as it could be obtained by [generics::glance()]. Here, the table is nicely formatted as an (almost) publication-ready form (good for informal reports, notebooks, etc).
+#' Extract the information contained in an **nls** object in a table as it could
+#' be obtained by [broom::glance()]. Here, the table is nicely formatted as an
+#' (almost) publication-ready form (good for informal reports, notebooks, etc).
 #'
-#' @param data a **nls** object.
+#' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
-#' @param equation Add equation of the model to the table. If TRUE, [nls_equation()] is used. The equation can also be passed in the form of a character string.
-#' @param lang The language to use. The default value can be set with, e.g., `options(data.io_lang = "fr")` for French.
+#' @param equation Add equation of the model to the table. If `TRUE`,
+#'   [nls_equation()] is used. The equation can also be passed in the form of a
+#'   character string (LaTeX).
+#' @param lang The language to use. The default value can be set with, e.g.,
+#'   `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [nls_equation()]
-#' @param env The environment where to evaluate lazyeval expressions (unused for now).
+#' @param env The environment where to evaluate lazyeval expressions (unused for
+#'   now).
 #'
-#' @seealso [tabularise::tabularise_glance()] [tabularise_coef.summary.nls()]
-#' @return A **flextable** object you can print in different forms or rearrange
-#' with the {flextable} functions.
+#' @seealso [tabularise::tabularise_glance()], [tabularise_coef.summary.nls()]
+#' @return A **flextable** object that you can print in different forms or
+#'   rearrange with the {flextable} functions.
 #' @export
 #' @importFrom tabularise tabularise_glance colformat_sci
 #' @importFrom rlang .data
@@ -372,22 +370,18 @@ tabularise_tidy.nls <- function(data,
 #' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 #'
 #' # Adjust a logistic curve
-#' chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
+#' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 #'
-#' library(tabularise)
-#' tabularise$glance(chick1_logis)
-#' tabularise$glance(chick1_logis, lang = "fr")
-tabularise_glance.nls <- function(data,
-  header = TRUE,
-  equation = header,
-  lang = getOption("data.io_lang", "en"),
-  ...,
-  env = parent.frame()) {
+#' tabularise::tabularise$glance(chick1_logis)
+#' tabularise::tabularise$glance(chick1_logis, lang = "fr")
+tabularise_glance.nls <- function(data, header = TRUE, equation = header,
+lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 
-  # choose de lang ----
+  # Choose the language
   lang <- tolower(lang)
 
-  if (lang != "fr") lang <- "en" # Only en or fr for now
+  if (lang != "fr")
+    lang <- "en" # Only en or fr for now
 
   if (lang == "fr") {
     info_lang <- infos_fr.nls
@@ -409,72 +403,83 @@ tabularise_glance.nls <- function(data,
   # Add labels
   ft <- header_labels(ft, lang = lang)
 
-  # Add headers ----
-  ft <- add_header_nls(ft, data = data,
-    header = header, equation = equation, lang = lang)
+  # Add headers
+  ft <- add_header_nls(ft, data = data,  header = header, equation = equation,
+    lang = lang)
 
   autofit(ft)
 }
 
-#' @title Extract equation of nls models
+#' Get a LaTeX equation from an nls or summary.nls models
 #'
 #' @description
-#' This function try to extract the equation of the Self-starting Nonlinear Models available in {stats}.
+#' Create the model equation of several self-starting nonlinear models
+#' available in {stats}.
 #'
-#' @param x The nls object or summary.nls
-#' @param var_names A named character vector as c("old_var_name" = "new name")
-#' @param op_latex 	The operator character to use in fancy scientific notation
+#' @param x An **nls** or **summary.nls** object.
+#' @param var_names A named character vector as `c(old_var_name = "new name")`
+#' @param op_latex 	The LaTeX product operator character to use in fancy
+#'   scientific notation, either `\\cdot` (by default), or `\\times`.
 #'
-#' @return a character value with latex equation
+#' @return A character string with a LaTeX equation.
 #' @export
 #'
 #' @examples
-#' Chick.1 <- ChickWeight[ChickWeight$Chick == 1, ]
-#'fm1 <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = Chick.1)
-#'summary(fm1)
+#' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
+#' chick1_nls <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+#' summary(chick1_nls)
 #'
-#'nls_equation(fm1)
-#'nls_equation(summary(fm1))
+#' nls_equation(chick1_nls)
+#' nls_equation(summary(chick1_nls))
 #'
-#'fm1 <- nls(weight ~ SSlogis(Time, Asym = A, xmid = x, scal = scale), data = Chick.1)
-#'summary(fm1)
+#' chick1_nls2 <- nls(data = chick1,
+#'   weight ~ SSlogis(Time, Asym = A, xmid = x, scal = scale))
+#' summary(chick1_nls2)
 #'
-#'nls_equation(fm1)
-#'nls_equation(summary(fm1))
+#' nls_equation(chick1_nls2)
+#' nls_equation(summary(chick1_nls2))
 #'
-#'nls_equation(summary(fm1), var_names = c("weight" = "Body weight [gm]", "Time" = "Number of days"))
-#'
-nls_equation <- function(x,
-  var_names = NULL,
-  op_latex = c("\\cdot", "\\times")) {
+#' nls_equation(summary(chick1_nls2), var_names = c(
+#'   weight = "Body weight [gm]",
+#'   Time = "Number of days"))
+nls_equation <- function(x, var_names = NULL, op_latex = c("\\cdot", "\\times")) {
 
-  if(!class(x) %in% c("nls", "summary.nls"))
-    stop("x must be nls or summary.nls object")
+  if (!class(x) %in% c("nls", "summary.nls"))
+    stop("x must be an nls or summary.nls object")
 
   res <- try(stats::formula(x), silent = TRUE)
 
-  if(inherits(res, "try-error"))
-    stop("Do not possible to extract formula")
+  if (inherits(res, "try-error"))
+    stop("An error occurred when trying to extract the formula from 'x'")
 
   frhs <- as.character(rlang::f_rhs(res))
   flhs <- as.character(rlang::f_lhs(res))
 
   if (!grepl(frhs[1], pattern = "^SS"))
-    stop("The formula is not a Self-Starting Nls formula")
+    stop("The formula is not a Self-Starting nls formula")
 
   if (length(flhs) != 1)
-    stop("The formula is not a Self-Starting Nls formula")
+    stop("The formula is not a Self-Starting nls formula")
 
   SSequation <- c(
-      SSasymp =  "_y_ = _Asym_+(_R0_ - _Asym_) \\cdot e^{(-e^{(_lrc_)} \\cdot _input_)} + \\epsilon",
-      SSasympOff = "_y_ = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot (_input_ - _c0_))}) + \\epsilon",
-      SSasympOrig = "_y_ = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot _input_)}) + \\epsilon",
-      SSbiexp = "_y_ = _A1_ \\cdot e^{(-e^{_lrc1_} \\cdot _input_)} + _A2_ \\cdot e^{(-e^{_lrc1_} \\cdot _XVAR_)} + \\epsilon",
-      SSgompertz = "_y_ = _Asym_ \\cdot e^{(-_b2_ \\cdot _b3_^{_x_})} + \\epsilon",
-      SSfol = "_y_ = _Dose_ \\cdot e^{{_lKe_+_lKa_-_lCl_)} \\cdot \\frac{e^{(-e^{_lKe_} \\cdot _input_)} - e^{(-e^{_lKa_} \\cdot _input_)}}{(e^{_lKa_} - e^{_lKe_})} + \\epsilon",
-      SSlogis = "_y_ = \\frac{_Asym_}{1 + e^{\\frac{_xmid_ - _input_}{_scal_}}} + \\epsilon",
-      SSmicmen = "_y_ = \\frac{_Vm_ \\cdot _input_}{(_K_+_input_)} + \\epsilon",
-      SSweibull = "_y_ = _Asym_ - _Drop_ \\cdot e^{-e^{_lrc_} \\cdot _x_^{_pwr_}} + \\epsilon"
+      SSasymp =
+        "_y_ = _Asym_+(_R0_ - _Asym_) \\cdot e^{(-e^{(_lrc_)} \\cdot _input_)} + \\epsilon",
+      SSasympOff =
+        "_y_ = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot (_input_ - _c0_))}) + \\epsilon",
+      SSasympOrig =
+        "_y_ = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot _input_)}) + \\epsilon",
+      SSbiexp =
+        "_y_ = _A1_ \\cdot e^{(-e^{_lrc1_} \\cdot _input_)} + _A2_ \\cdot e^{(-e^{_lrc1_} \\cdot _XVAR_)} + \\epsilon",
+      SSgompertz =
+        "_y_ = _Asym_ \\cdot e^{(-_b2_ \\cdot _b3_^{_x_})} + \\epsilon",
+      SSfol =
+        "_y_ = _Dose_ \\cdot e^{{_lKe_+_lKa_-_lCl_)} \\cdot \\frac{e^{(-e^{_lKe_} \\cdot _input_)} - e^{(-e^{_lKa_} \\cdot _input_)}}{(e^{_lKa_} - e^{_lKe_})} + \\epsilon",
+      SSlogis =
+        "_y_ = \\frac{_Asym_}{1 + e^{\\frac{_xmid_ - _input_}{_scal_}}} + \\epsilon",
+      SSmicmen =
+        "_y_ = \\frac{_Vm_ \\cdot _input_}{(_K_+_input_)} + \\epsilon",
+      SSweibull =
+        "_y_ = _Asym_ - _Drop_ \\cdot e^{-e^{_lrc_} \\cdot _x_^{_pwr_}} + \\epsilon"
     )
 
   SSequation <- SSequation[[frhs[1]]]
@@ -508,7 +513,7 @@ nls_equation <- function(x,
 
   SSparams <- SSparams[[frhs[1]]]
 
-  if (methods::is(x, "nls")) {
+  if (inherits(x, 'nls')) {
     coefs <- names(coef(x))
   } else {
     coefs <- rownames(coef(x))
@@ -516,20 +521,14 @@ nls_equation <- function(x,
 
   names(coefs) <- SSparams
 
-  {
-    frhs[-1] -> .
-    .[!. %in% coefs] ->
-      xvars
-    names(xvars) <- SSvars
-  }
+  xvars <- frhs[-1]
+  xvars <- xvars[!xvars %in% coefs]
+  names(xvars) <- SSvars
 
-  {
-    yvar <- flhs
-    names(yvar) <- "_y_"
-  }
+  yvar <- flhs
+  names(yvar) <- "_y_"
 
   vals <- c(yvar, xvars, coefs)
-  # vals
 
   op_latex <- match.arg(op_latex, choices = c("\\cdot", "\\times"))
 
@@ -538,9 +537,9 @@ nls_equation <- function(x,
 
   # TODO : This loop must be optimised
   for (i in 1:length(vals))
-    SSequation <- gsub(x = SSequation, pattern = names(vals)[i], replacement = vals[i])
+    SSequation <- gsub(names(vals)[i], vals[i], SSequation)
 
-  if(!is.null(var_names)) {
+  if (!is.null(var_names)) {
     if (!is.character(var_names))
       stop("var_names is not character vector")
     if (is.null(names(var_names)))
@@ -549,7 +548,7 @@ nls_equation <- function(x,
       stop("all elements must be named")
 
     for (i in 1:length(var_names))
-      SSequation <- gsub(x = SSequation, pattern = names(var_names)[i], replacement = var_names[i])
+      SSequation <- gsub(names(var_names)[i], var_names[i], SSequation)
   }
 
   SSequation

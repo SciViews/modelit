@@ -14,36 +14,41 @@
 )
 }
 \arguments{
-\item{data}{a \strong{nls} object.}
+\item{data}{An \strong{nls} object.}
 
 \item{header}{If \code{TRUE} (by default), add a title to the table.}
 
-\item{equation}{Add equation of the model to the table. If TRUE, \code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a character string.}
+\item{equation}{Add equation of the model to the table. If \code{TRUE},
+\code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a
+character string (LaTeX).}
 
-\item{lang}{The language to use. The default value can be set with, e.g., \code{options(data.io_lang = "fr")} for French.}
+\item{lang}{The language to use. The default value can be set with, e.g.,
+\code{options(data.io_lang = "fr")} for French.}
 
 \item{...}{Additional arguments passed to \code{\link[=nls_equation]{nls_equation()}}}
 
-\item{env}{The environment where to evaluate lazyeval expressions (unused for now).}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for
+now).}
 }
 \value{
-A \strong{flextable} object you can print in different forms or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different forms or
+rearrange with the {flextable} functions.
 }
 \description{
-Extract the information contained in a nls object in one row of a rectangular table as it could be obtained by \code{\link[generics:glance]{generics::glance()}}. Here, the table is nicely formatted as an (almost) publication-ready form (good for informal reports, notebooks, etc).
+Extract the information contained in an \strong{nls} object in a table as it could
+be obtained by \code{\link[broom:reexports]{broom::glance()}}. Here, the table is nicely formatted as an
+(almost) publication-ready form (good for informal reports, notebooks, etc).
 }
 \examples{
 data("ChickWeight", package = "datasets")
 chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 
 # Adjust a logistic curve
-chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
+chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 
-library(tabularise)
-tabularise$glance(chick1_logis)
-tabularise$glance(chick1_logis, lang = "fr")
+tabularise::tabularise$glance(chick1_logis)
+tabularise::tabularise$glance(chick1_logis, lang = "fr")
 }
 \seealso{
-\code{\link[tabularise:tabularise_glance]{tabularise::tabularise_glance()}} \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}
+\code{\link[tabularise:tabularise_glance]{tabularise::tabularise_glance()}}, \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}
 }

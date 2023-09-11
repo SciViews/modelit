@@ -4,30 +4,37 @@
 \alias{tabularise_tidy.nls}
 \title{Tidy version of the nls object into a flextable object}
 \usage{
-\method{tabularise_tidy}{nls}(data, ...)
+\method{tabularise_tidy}{nls}(data, ..., env = parent.frame())
 }
 \arguments{
 \item{data}{A \strong{nls} object}
 
 \item{...}{arguments of \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}}
+
+\item{env}{The environment where to evaluate lazyeval expressions (unused for
+now).}
 }
 \value{
-A \strong{flextable} object you can print in different forms or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different forms or
+rearrange with the {flextable} functions.
 }
 \description{
-Extract the information contained in a nls object into a rectangular table as it could be obtained by \code{\link[generics:tidy]{generics::tidy()}}. Here, the table is nicely formatted as an (almost) publication-ready form (good for informal reports, notebooks, etc).
+Extract the information contained in a nls object into a rectangular table as
+it could be obtained by \code{\link[broom:reexports]{broom::tidy()}}. Here, the table is nicely
+formatted as an (almost) publication-ready form (good for informal reports,
+notebooks, etc).
 }
 \examples{
 data("ChickWeight", package = "datasets")
 chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 
 # Adjust a logistic curve
-chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-library(tabularise)
-tabularise$tidy(chick1_logis)
-tabularise$tidy(chick1_logis, lang = "fr")
+chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+
+tabularise::tabularise$tidy(chick1_logis)
+tabularise::tabularise$tidy(chick1_logis, lang = "fr")
 }
 \seealso{
-\code{\link[tabularise:tabularise]{tabularise::tabularise()}} \code{\link[tabularise:tabularise_tidy]{tabularise::tabularise_tidy()}} \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}
+\code{\link[tabularise:tabularise]{tabularise::tabularise()}}, \code{\link[tabularise:tabularise_tidy]{tabularise::tabularise_tidy()}},
+\code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}
 }

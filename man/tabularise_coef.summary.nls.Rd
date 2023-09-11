@@ -19,33 +19,36 @@
 
 \item{header}{If \code{TRUE} (by default), add a title to the table.}
 
-\item{equation}{Add equation of the model to the table. If TRUE, \code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a character string.}
+\item{equation}{Add equation of the model to the table. If TRUE,
+\code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a
+character string (LaTeX equation).}
 
-\item{lang}{The language to use. The default value can be set with, e.g., \code{options(data.io_lang = "fr")} for French.}
+\item{lang}{The language to use. The default value can be set with, e.g.,
+\code{options(data.io_lang = "fr")} for French.}
 
-\item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars to the table.}
+\item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars
+to the table.}
 
 \item{...}{Additional arguments passed to \code{\link[=nls_equation]{nls_equation()}}}
 
-\item{env}{The environment where to evaluate lazyeval expressions (unused for now).}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for
+now).}
 }
 \value{
-A \strong{flextable} object you can print in different forms or rearrange
-with the {flextable} functions.
+A \strong{flextable} object that you can print in different forms or
+rearrange with the {flextable} functions.
 }
 \description{
-This function extracts and formats the table of coefficients from a summary.nls object, similar to \code{\link[stats:coef]{stats::coef()}}, but in flextable object.
+This function extracts and formats the table of coefficients from a
+\strong{summary.nls} object, similar to \code{\link[stats:coef]{stats::coef()}}, but in flextable object.
 }
 \examples{
 data("ChickWeight", package = "datasets")
 chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 # Adjust a logistic curve
-chick1_logis <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = chick1)
-slogis <- summary(chick1_logis)
+chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+chick1_logis_sum <- summary(chick1_logis)
 
-# More practical and pretty
-library(tabularise)
-tabularise$coef(slogis)
-tabularise$coef(slogis, header = FALSE, equation = TRUE)
-
+tabularise::tabularise$coef(chick1_logis_sum)
+tabularise::tabularise$coef(chick1_logis_sum, header = FALSE, equation = TRUE)
 }

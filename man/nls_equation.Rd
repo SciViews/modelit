@@ -2,37 +2,41 @@
 % Please edit documentation in R/tabularise.nls.R
 \name{nls_equation}
 \alias{nls_equation}
-\title{Extract equation of nls models}
+\title{Get a LaTeX equation from an nls or summary.nls models}
 \usage{
 nls_equation(x, var_names = NULL, op_latex = c("\\\\cdot", "\\\\times"))
 }
 \arguments{
-\item{x}{The nls object or summary.nls}
+\item{x}{An \strong{nls} or \strong{summary.nls} object.}
 
-\item{var_names}{A named character vector as c("old_var_name" = "new name")}
+\item{var_names}{A named character vector as \code{c(old_var_name = "new name")}}
 
-\item{op_latex}{The operator character to use in fancy scientific notation}
+\item{op_latex}{The LaTeX product operator character to use in fancy
+scientific notation, either \verb{\\\\cdot} (by default), or \verb{\\\\times}.}
 }
 \value{
-a character value with latex equation
+A character string with a LaTeX equation.
 }
 \description{
-This function try to extract the equation of the Self-starting Nonlinear Models available in {stats}.
+Create the model equation of several self-starting nonlinear models
+available in {stats}.
 }
 \examples{
-Chick.1 <- ChickWeight[ChickWeight$Chick == 1, ]
-fm1 <- nls(weight ~ SSlogis(Time, Asym, xmid, scal), data = Chick.1)
-summary(fm1)
+chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
+chick1_nls <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
+summary(chick1_nls)
 
-nls_equation(fm1)
-nls_equation(summary(fm1))
+nls_equation(chick1_nls)
+nls_equation(summary(chick1_nls))
 
-fm1 <- nls(weight ~ SSlogis(Time, Asym = A, xmid = x, scal = scale), data = Chick.1)
-summary(fm1)
+chick1_nls2 <- nls(data = chick1,
+  weight ~ SSlogis(Time, Asym = A, xmid = x, scal = scale))
+summary(chick1_nls2)
 
-nls_equation(fm1)
-nls_equation(summary(fm1))
+nls_equation(chick1_nls2)
+nls_equation(summary(chick1_nls2))
 
-nls_equation(summary(fm1), var_names = c("weight" = "Body weight [gm]", "Time" = "Number of days"))
-
+nls_equation(summary(chick1_nls2), var_names = c(
+  weight = "Body weight [gm]",
+  Time = "Number of days"))
 }
