@@ -57,7 +57,7 @@
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">modelit <small>v1.1.0</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">modelit <small>v1.4.0</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -94,6 +94,10 @@
         </td>
         <td><p>Chart an nls model or diagnose its residuals visually</p></td>
       </tr><tr><td>
+          <p><code><a href="equation.nls.html">equation(<i>&lt;nls&gt;</i>)</a></code> <code><a href="equation.nls.html">equation(<i>&lt;summary.nls&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Get a LaTeX equation from an nls or summary.nls models</p></td>
+      </tr><tr><td>
           <p><code><a href="fit_model.html">fit_model()</a></code> <code><a href="fit_model.html">summary(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">anova(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">plot(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">chart(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">as.function(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">coef(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">vcov(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">confint(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">fitted(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">residuals(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">rstandard(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">cooks.distance(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">hatvalues(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">deviance(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">AIC(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">BIC(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">family(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">nobs(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">formula(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">variable.names(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">labels(<i>&lt;model_fit&gt;</i>)</a></code> </p>
         </td>
         <td><p>Fit a parsnip model and manipulate it as a base R model like lm</p></td>
@@ -102,29 +106,85 @@
         </td>
         <td><p>Reexport of modelr functions</p></td>
       </tr><tr><td>
-          <p><code><a href="nls_equation.html">nls_equation()</a></code> </p>
+          <p><code><a href="tabularise_coef.glm.html">tabularise_coef(<i>&lt;glm&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Extract equation of nls models</p></td>
+        <td><p>Create a rich-formatted table using the coefficients of a glm object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_coef.lm.html">tabularise_coef(<i>&lt;lm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a rich-formatted table using the coefficients of an lm object</p></td>
       </tr><tr><td>
           <p><code><a href="tabularise_coef.nls.html">tabularise_coef(<i>&lt;nls&gt;</i>)</a></code> </p>
         </td>
         <td><p>Create a rich-formatted table using the coefficients of the nls object</p></td>
       </tr><tr><td>
+          <p><code><a href="tabularise_coef.summary.glm.html">tabularise_coef(<i>&lt;summary.glm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a rich-formatted table using the table of coefficients of the summary.glm object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_coef.summary.lm.html">tabularise_coef(<i>&lt;summary.lm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a rich-formatted table using the table of coefficients of the summary.lm object</p></td>
+      </tr><tr><td>
           <p><code><a href="tabularise_coef.summary.nls.html">tabularise_coef(<i>&lt;summary.nls&gt;</i>)</a></code> </p>
         </td>
         <td><p>Create a rich-formatted table using the table of coefficients of the summary.nls object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_default.anova.html">tabularise_default(<i>&lt;anova&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a rich-formatted table from an anova object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_default.glm.html">tabularise_default(<i>&lt;glm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a rich-formatted table from a glm object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_default.lm.html">tabularise_default(<i>&lt;lm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a rich-formatted table from an lm object</p></td>
       </tr><tr><td>
           <p><code><a href="tabularise_default.nls.html">tabularise_default(<i>&lt;nls&gt;</i>)</a></code> </p>
         </td>
         <td><p>Create a rich-formatted table from a nls object</p></td>
       </tr><tr><td>
+          <p><code><a href="tabularise_default.summary.glm.html">tabularise_default(<i>&lt;summary.glm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a rich-formatted table from a summary.glm object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_default.summary.lm.html">tabularise_default(<i>&lt;summary.lm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a rich-formatted table from an summary.lm object</p></td>
+      </tr><tr><td>
           <p><code><a href="tabularise_default.summary.nls.html">tabularise_default(<i>&lt;summary.nls&gt;</i>)</a></code> </p>
         </td>
         <td><p>Create a rich-formatted table from a summary.nls object</p></td>
       </tr><tr><td>
+          <p><code><a href="tabularise_glance.glm.html">tabularise_glance(<i>&lt;glm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a glance version of the glm object as a rich-formatted table</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_glance.lm.html">tabularise_glance(<i>&lt;lm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Glance version of the lm object into a flextable object</p></td>
+      </tr><tr><td>
           <p><code><a href="tabularise_glance.nls.html">tabularise_glance(<i>&lt;nls&gt;</i>)</a></code> </p>
         </td>
         <td><p>Glance version of the nls object into a flextable object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_tidy.anova.html">tabularise_tidy(<i>&lt;anova&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Tidy version of the anova object into a flextable object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_tidy.aov.html">tabularise_tidy(<i>&lt;aov&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Tidy version of the aov object into a flextable object</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_tidy.glm.html">tabularise_tidy(<i>&lt;glm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Create a tidy version of the glm object as a rich-formatted table</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabularise_tidy.lm.html">tabularise_tidy(<i>&lt;lm&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Tidy version of the lm object into a flextable object</p></td>
       </tr><tr><td>
           <p><code><a href="tabularise_tidy.nls.html">tabularise_tidy(<i>&lt;nls&gt;</i>)</a></code> </p>
         </td>

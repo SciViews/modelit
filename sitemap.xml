@@ -40,6 +40,9 @@
     <loc>https://www.sciviews.org/modelit/reference/chart.nls.html</loc>
   </url>
   <url>
+    <loc>https://www.sciviews.org/modelit/reference/equation.nls.html</loc>
+  </url>
+  <url>
     <loc>https://www.sciviews.org/modelit/reference/fit_model.html</loc>
   </url>
   <url>
@@ -52,22 +55,64 @@
     <loc>https://www.sciviews.org/modelit/reference/modelr-reexport.html</loc>
   </url>
   <url>
-    <loc>https://www.sciviews.org/modelit/reference/nls_equation.html</loc>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_coef.glm.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_coef.lm.html</loc>
   </url>
   <url>
     <loc>https://www.sciviews.org/modelit/reference/tabularise_coef.nls.html</loc>
   </url>
   <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_coef.summary.glm.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_coef.summary.lm.html</loc>
+  </url>
+  <url>
     <loc>https://www.sciviews.org/modelit/reference/tabularise_coef.summary.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_default.anova.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_default.glm.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_default.lm.html</loc>
   </url>
   <url>
     <loc>https://www.sciviews.org/modelit/reference/tabularise_default.nls.html</loc>
   </url>
   <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_default.summary.glm.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_default.summary.lm.html</loc>
+  </url>
+  <url>
     <loc>https://www.sciviews.org/modelit/reference/tabularise_default.summary.nls.html</loc>
   </url>
   <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_glance.glm.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_glance.lm.html</loc>
+  </url>
+  <url>
     <loc>https://www.sciviews.org/modelit/reference/tabularise_glance.nls.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_tidy.anova.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_tidy.aov.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_tidy.glm.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/modelit/reference/tabularise_tidy.lm.html</loc>
   </url>
   <url>
     <loc>https://www.sciviews.org/modelit/reference/tabularise_tidy.nls.html</loc>
