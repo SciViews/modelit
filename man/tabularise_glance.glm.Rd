@@ -39,7 +39,7 @@ the table. By default it is \code{NULL} and nothing is changed.}
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
 
-\item{...}{Additional arguments passed to \code{\link[equatiomatic:extract_eq]{equatiomatic::extract_eq()}}}
+\item{...}{Additional arguments passed to \code{\link[tabularise:equation]{tabularise::equation()}}}
 
 \item{env}{The environment where to evaluate lazyeval expressions (unused for
 now).}

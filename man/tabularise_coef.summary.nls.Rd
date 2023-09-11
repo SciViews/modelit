@@ -19,8 +19,8 @@
 
 \item{header}{If \code{TRUE} (by default), add a title to the table.}
 
-\item{equation}{Add equation of the model to the table. If TRUE,
-\code{\link[=nls_equation]{nls_equation()}} is used. The equation can also be passed in the form of a
+\item{equation}{Add equation of the model to the table. If \code{TRUE},
+\code{\link[=equation]{equation()}} is used. The equation can also be passed in the form of a
 character string (LaTeX equation).}
 
 \item{lang}{The language to use. The default value can be set with, e.g.,
@@ -29,7 +29,7 @@ character string (LaTeX equation).}
 \item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars
 to the table.}
 
-\item{...}{Additional arguments passed to \code{\link[=nls_equation]{nls_equation()}}}
+\item{...}{Additional arguments passed to \code{\link[=equation]{equation()}}}
 
 \item{env}{The environment where to evaluate lazyeval expressions (unused for
 now).}

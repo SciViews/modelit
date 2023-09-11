@@ -7,6 +7,9 @@
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a header to the table
+#' @param equation Add equation of the model to the table. If `TRUE`,
+#'   [equation()] is used. The equation can also be passed in the form of a
+#'   character string (LaTeX equation).
 #' @param footer If `TRUE` (by default), add a footer to the table.
 #' @param lang The language to use. The default value can be set with, e.g.
 #'   `options(data.io_lang = "fr")` for French.
@@ -35,12 +38,12 @@
 #'
 #' tabularise::tabularise(chick1_logis_sum)
 #' tabularise::tabularise(chick1_logis_sum, footer = FALSE)
-tabularise_default.summary.nls <- function(data, header = TRUE, footer = TRUE,
-lang = getOption("data.io_lang", "en"),
+tabularise_default.summary.nls <- function(data, header = TRUE,
+equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
 env = parent.frame()) {
 
-  ft <- tabularise_coef.summary.nls(data, header = FALSE, equation = FALSE,
+  ft <- tabularise_coef.summary.nls(data, header = header, equation = equation,
     lang = lang, show.signif.stars = show.signif.stars, env = env)
 
   # Choose the language
@@ -54,11 +57,15 @@ env = parent.frame()) {
     info_lang <- infos_en.nls
   }
 
-  if (isTRUE(header)) {
-    header <- paste(deparse(data$formula), sep = "\n", collapse = "\n")
-    ft <- add_header_lines(ft, values = header)
-    ft <- align(ft, i = 1, align = "right", part = "header")
-  }
+  #if (isTRUE(header)) {
+  #  header <- paste(deparse(data$formula), sep = "\n", collapse = "\n")
+  #  ft <- add_header_lines(ft, values = header)
+  #  ft <- align(ft, i = 1, align = "right", part = "header")
+  #}
+
+  ## Add headers
+  #ft <- add_header_nls(ft, data = data,  header = header, equation = equation,
+  #    lang = lang)
 
   if (isTRUE(footer)) {
     footer <- info_lang[["footer"]]
@@ -94,14 +101,14 @@ env = parent.frame()) {
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
-#' @param equation Add equation of the model to the table. If TRUE,
-#'   [nls_equation()] is used. The equation can also be passed in the form of a
+#' @param equation Add equation of the model to the table. If `TRUE`,
+#'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX equation).
 #' @param lang The language to use. The default value can be set with, e.g.,
 #'   `options(data.io_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE` (by default), add the significance stars
 #'   to the table.
-#' @param ... Additional arguments passed to [nls_equation()]
+#' @param ... Additional arguments passed to [equation()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #' now).
 #'
@@ -180,6 +187,9 @@ env = parent.frame()) {
 #'
 #' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
+#' @param equation Add equation of the model to the table. If `TRUE`,
+#'   [equation()] is used. The equation can also be passed in the form of a
+#'   character string (LaTeX equation).
 #' @param footer If `TRUE` (by default), add a footer to the table.
 #' @param lang The language to use. The default value can be set with, e.g.,
 #'   `options(data.io_lang = "fr")` for French.
@@ -200,16 +210,17 @@ env = parent.frame()) {
 #' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 #'
 #' tabularise::tabularise(chick1_logis)
-tabularise_default.nls <- function(data, header = TRUE, footer = TRUE,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+tabularise_default.nls <- function(data, header = TRUE, equation = header,
+footer = TRUE, lang = getOption("data.io_lang", "en"), ...,
+env = parent.frame()) {
 
   ft <- tabularise_coef.nls(data, header = FALSE, lang = lang)
 
-  if (isTRUE(header)) {
-    header <- paste("model :", deparse(formula(data)), collapse = "\n")
-    ft <- add_header_lines(ft, values = header)
-    ft <- align(ft, i = 1, align = "right", part = "header")
-  }
+  #if (isTRUE(header)) {
+  #  header <- paste("model :", deparse(formula(data)), collapse = "\n")
+  #  ft <- add_header_lines(ft, values = header)
+  #  ft <- align(ft, i = 1, align = "right", part = "header")
+  #}
 
   # Choose the language
   lang <- tolower(lang)
@@ -222,6 +233,10 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
   } else {
     info_lang <- infos_en.nls
   }
+
+  # Add headers
+  ft <- add_header_nls(ft, data = data,  header = header, equation = equation,
+    lang = lang)
 
   # Add footer
   if (isTRUE(footer)) {
@@ -350,11 +365,11 @@ tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
 #' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
 #' @param equation Add equation of the model to the table. If `TRUE`,
-#'   [nls_equation()] is used. The equation can also be passed in the form of a
+#'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX).
 #' @param lang The language to use. The default value can be set with, e.g.,
 #'   `options(data.io_lang = "fr")` for French.
-#' @param ... Additional arguments passed to [nls_equation()]
+#' @param ... Additional arguments passed to [equation()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -416,34 +431,37 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' Create the model equation of several self-starting nonlinear models
 #' available in {stats}.
 #'
-#' @param x An **nls** or **summary.nls** object.
+#' @param object An **nls** or **summary.nls** object.
 #' @param var_names A named character vector as `c(old_var_name = "new name")`
 #' @param op_latex 	The LaTeX product operator character to use in fancy
 #'   scientific notation, either `\\cdot` (by default), or `\\times`.
 #'
 #' @return A character string with a LaTeX equation.
 #' @export
+#' @method equation nls
 #'
 #' @examples
+#' equation <- tabularise::equation
 #' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 #' chick1_nls <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 #' summary(chick1_nls)
 #'
-#' nls_equation(chick1_nls)
-#' nls_equation(summary(chick1_nls))
+#' equation(chick1_nls)
+#' equation(summary(chick1_nls))
 #'
 #' chick1_nls2 <- nls(data = chick1,
 #'   weight ~ SSlogis(Time, Asym = A, xmid = x, scal = scale))
 #' summary(chick1_nls2)
 #'
-#' nls_equation(chick1_nls2)
-#' nls_equation(summary(chick1_nls2))
+#' equation(chick1_nls2)
+#' equation(summary(chick1_nls2))
 #'
-#' nls_equation(summary(chick1_nls2), var_names = c(
+#' equation(summary(chick1_nls2), var_names = c(
 #'   weight = "Body weight [gm]",
 #'   Time = "Number of days"))
-nls_equation <- function(x, var_names = NULL, op_latex = c("\\cdot", "\\times")) {
-
+equation.nls <- function(object, var_names = NULL,
+op_latex = c("\\cdot", "\\times")) {
+  x <- object
   if (!class(x) %in% c("nls", "summary.nls"))
     stop("x must be an nls or summary.nls object")
 
@@ -463,23 +481,25 @@ nls_equation <- function(x, var_names = NULL, op_latex = c("\\cdot", "\\times"))
 
   SSequation <- c(
       SSasymp =
-        "_y_ = _Asym_+(_R0_ - _Asym_) \\cdot e^{(-e^{(_lrc_)} \\cdot _input_)} + \\epsilon",
+        "\\operatorname{_y_} = _Asym_ + (_R0_ - _Asym_) \\cdot e^{(-e^{(_lrc_)} \\cdot \\operatorname{_input_)}} + \\epsilon",
       SSasympOff =
-        "_y_ = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot (_input_ - _c0_))}) + \\epsilon",
+        "\\operatorname{_y_} = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot (\\operatorname{_input_} - _c0_))}) + \\epsilon",
       SSasympOrig =
-        "_y_ = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot _input_)}) + \\epsilon",
+        "\\operatorname{_y_} = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot \\operatorname{_input_})}) + \\epsilon",
       SSbiexp =
-        "_y_ = _A1_ \\cdot e^{(-e^{_lrc1_} \\cdot _input_)} + _A2_ \\cdot e^{(-e^{_lrc1_} \\cdot _XVAR_)} + \\epsilon",
+        "\\operatorname{_y_} = _A1_ \\cdot e^{(-e^{_lrc1_} \\cdot \\operatorname{_input_})} + _A2_ \\cdot e^{(-e^{_lrc2_} \\cdot \\operatorname{_input_})} + \\epsilon",
       SSgompertz =
-        "_y_ = _Asym_ \\cdot e^{(-_b2_ \\cdot _b3_^{_x_})} + \\epsilon",
+        "\\operatorname{_y_} = _Asym_ \\cdot e^{(-_b2_ \\cdot _b3_^{\\operatorname{_x_}})} + \\epsilon",
       SSfol =
-        "_y_ = _Dose_ \\cdot e^{{_lKe_+_lKa_-_lCl_)} \\cdot \\frac{e^{(-e^{_lKe_} \\cdot _input_)} - e^{(-e^{_lKa_} \\cdot _input_)}}{(e^{_lKa_} - e^{_lKe_})} + \\epsilon",
+        "\\operatorname{_y_} = _Dose_ \\cdot e^{{_lKe_+_lKa_-_lCl_)} \\cdot \\frac{e^{(-e^{_lKe_} \\cdot \\operatorname{_input_})} - e^{(-e^{_lKa_} \\cdot \\operatorname{_input_})}}{(e^{_lKa_} - e^{_lKe_})} + \\epsilon",
       SSlogis =
-        "_y_ = \\frac{_Asym_}{1 + e^{\\frac{_xmid_ - _input_}{_scal_}}} + \\epsilon",
+        "\\operatorname{_y_} = \\frac{_Asym_}{1 + e^{(_xmid_ - \\operatorname{_input_}) /_scal_}} + \\epsilon",
+      SSfpl =
+      "\\operatorname{_y_} = \\frac{_A_ + (_B_ - _A_)}{1 + e^{(_xmid_ - \\operatorname{_input_}) /_scal_}} + \\epsilon",
       SSmicmen =
-        "_y_ = \\frac{_Vm_ \\cdot _input_}{(_K_+_input_)} + \\epsilon",
+        "\\operatorname{_y_} = \\frac{_Vm_ \\cdot \\operatorname{_input_}}{(_K_+\\operatorname{_input_})} + \\epsilon",
       SSweibull =
-        "_y_ = _Asym_ - _Drop_ \\cdot e^{-e^{_lrc_} \\cdot _x_^{_pwr_}} + \\epsilon"
+        "\\operatorname{_y_} = _Asym_ - _Drop_ \\cdot e^{-e^{_lrc_} \\cdot \\operatorname{_x_}^{_pwr_}} + \\epsilon"
     )
 
   SSequation <- SSequation[[frhs[1]]]
@@ -487,16 +507,17 @@ nls_equation <- function(x, var_names = NULL, op_latex = c("\\cdot", "\\times"))
     stop(sprintf("The %s is not available.", frhs[1]))
 
   SSvars <- list(
-      SSasymp =  c("_input_"),
-      SSasympOff = c("_input_"),
-      SSasympOrig = c("_input_"),
-      SSbiexp = c("_input_"),
-      SSgompertz = c("_x_"),
-      SSfol = c("_Dose_", "_input_"),
-      SSlogis = c("_input_"),
-      SSmicmen = c("_input_"),
-      SSweibull = c("_x_")
-    )
+    SSasymp =  c("_input_"),
+    SSasympOff = c("_input_"),
+    SSasympOrig = c("_input_"),
+    SSbiexp = c("_input_"),
+    SSgompertz = c("_x_"),
+    SSfol = c("_Dose_", "_input_"),
+    SSlogis = c("_input_"),
+    SSfpl = c("_input_"),
+    SSmicmen = c("_input_"),
+    SSweibull = c("_x_")
+  )
 
   SSvars <- SSvars[[frhs[1]]]
 
@@ -508,8 +529,10 @@ nls_equation <- function(x, var_names = NULL, op_latex = c("\\cdot", "\\times"))
     SSgompertz = c("_Asym_", "_b2_", "_b3_"),
     SSfol = c("_lKe_", "_lKa_", "_lCl_"),
     SSlogis = c("_Asym_", "_xmid_", "_scal_"),
+    SSfpl = c("_A_", "_B_", "_xmid_", "_scal_"),
     SSmicmen = c("_Vm_", "_K_"),
-    SSweibull = c("_Asym_", "_Drop_", "_lrc_", "_pwr_"))
+    SSweibull = c("_Asym_", "_Drop_", "_lrc_", "_pwr_")
+  )
 
   SSparams <- SSparams[[frhs[1]]]
 
@@ -551,7 +574,17 @@ nls_equation <- function(x, var_names = NULL, op_latex = c("\\cdot", "\\times"))
       SSequation <- gsub(names(var_names)[i], var_names[i], SSequation)
   }
 
+  class(SSequation) <- c("equation", "character")
   SSequation
+}
+
+#' @rdname equation.nls
+#' @export
+#' @method equation summary.nls
+equation.summary.nls <- function(object, var_names = NULL,
+op_latex = c("\\cdot", "\\times")) {
+  # Same as equation.nls()
+  equation.nls(object, var_names = var_names, op_latex = op_latex)
 }
 
 infos_en.nls <- list(
@@ -667,12 +700,10 @@ equation = header, ...) {
   ft <- x
 
   if (isTRUE(equation)) {
-    ssequa <- nls_equation(data, ...)
+    ssequa <- equation(data, ...)
     ft <- add_header_lines(ft, values = as_paragraph(as_equation(ssequa)))
     ft <- align(ft, i = 1, align = "right", part = "header")
-  }
-
-  if (is.character(equation)) {
+  } else if (is.character(equation)) {
     ft <- add_header_lines(ft, values = as_paragraph(as_equation(equation)))
     ft <- align(ft, i = 1, align = "right", part = "header")
   }

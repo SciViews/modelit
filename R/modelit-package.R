@@ -17,7 +17,6 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom data.io label
-#' @importFrom equatiomatic extract_eq
 #' @importFrom flextable add_footer_lines
 #' @importFrom flextable add_header_lines
 #' @importFrom flextable align
@@ -34,7 +33,7 @@
 #' @importFrom flextable width
 #' @importFrom officer fp_border
 #' @importFrom stats coef
-#' @importFrom tabularise colformat_sci
+#' @importFrom tabularise colformat_sci equation
 #' @importFrom tabularise para_md
 ## usethis namespace: end
 NULL

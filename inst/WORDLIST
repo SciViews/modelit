@@ -4,6 +4,7 @@ aov
 CMD
 Codecov
 dir
+equatiomatic
 flextable
 ggplot
 GitHub
@@ -28,6 +29,6 @@ scalelocation
 SciViews
 showWarnings
 svMisc
-tabularizes
+tabularise
 tidymodels
 untransformed

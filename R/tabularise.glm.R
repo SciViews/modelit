@@ -1,6 +1,7 @@
 # when we calculate a glm with the glm function, we obtain an object of
 # type `glm` and `lm`. So tabularise() using the `lm` method
-# The equatiomatic package is not capable of extracting an equation from an object of type summary.glm
+# The equatiomatic package is not capable of extracting an equation from an
+# object of type summary.glm
 
 #' @title Create a rich-formatted table using the coefficients of a glm object
 #'
@@ -61,9 +62,9 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
   # Header and equation
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
-      equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
+      equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equatiomatic::extract_eq(data, ...)
+      equa <- equation(data, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
@@ -162,7 +163,7 @@ footer = TRUE, ...) {
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'  Its value is obtained from `getOption("show.signif.stars")`.
-#' @param ... Additional arguments passed to [equatiomatic::extract_eq()]
+#' @param ... Additional arguments passed to [tabularise::equation()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -225,9 +226,9 @@ env = parent.frame()) {
   # headers
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
-      equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
+      equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equatiomatic::extract_eq(data, ...)
+      equa <- equation(data, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
@@ -289,7 +290,7 @@ env = parent.frame()) {
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
-#' @param ... Additional arguments passed to [equatiomatic::extract_eq()]
+#' @param ... Additional arguments passed to [tabularise::equation()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -336,9 +337,9 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
   # Headers
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
-      equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
+      equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equatiomatic::extract_eq(data, ...)
+      equa <- equation(data, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,

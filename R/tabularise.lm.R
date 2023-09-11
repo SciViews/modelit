@@ -57,9 +57,9 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
   # Header and equation
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
-      equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
+      equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equatiomatic::extract_eq(data, ...)
+      equa <- equation(data, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
@@ -138,7 +138,7 @@ tabularise_default.lm <- function(data, ...) {
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is `getOption("show.signif.stars")`
-#' @param ... Additional arguments passed to [equatiomatic::extract_eq()]
+#' @param ... Additional arguments passed to [tabularise::equation()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -197,9 +197,9 @@ env = parent.frame()) {
   # Headers
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
-      equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
+      equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equatiomatic::extract_eq(data, ...)
+      equa <- equation(data, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
@@ -258,7 +258,7 @@ env = parent.frame()) {
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
-#' @param ... Additional arguments passed to [equatiomatic::extract_eq()]
+#' @param ... Additional arguments passed to [tabularise::equation()]
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -304,9 +304,9 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
   # Headers
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
-      equa <- equatiomatic::extract_eq(data, swap_var_names =  labs, ...)
+      equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equatiomatic::extract_eq(data, ...)
+      equa <- equation(data, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,

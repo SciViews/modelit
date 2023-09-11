@@ -1,3 +1,9 @@
+# modelit 1.4.0
+
+-   Use of the generic `equation()`. `equation_nls()` is transformed into an `equation()` method for **nls** and **summary.nls** objects.
+
+-   Dependency to {equatiomatic} is dropped. It is now included in {tabularise}.
+
 # modelit 1.3.0
 
 -   `tabularise_default()` and `tabularise_tidy()` added for **anova** objects.

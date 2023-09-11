@@ -51,7 +51,7 @@ e.g., \code{options(data.io_lang = "fr")} for French.}
 \item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
 Its value is obtained from \code{getOption("show.signif.stars")}.}
 
-\item{...}{Additional arguments passed to \code{\link[equatiomatic:extract_eq]{equatiomatic::extract_eq()}}}
+\item{...}{Additional arguments passed to \code{\link[tabularise:equation]{tabularise::equation()}}}
 
 \item{env}{The environment where to evaluate lazyeval expressions (unused for
 now).}
