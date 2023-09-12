@@ -7,7 +7,7 @@
 \method{tabularise_default}{nls}(
   data,
   header = TRUE,
-  title = header,
+  title = NULL,
   equation = header,
   footer = TRUE,
   lang = getOption("data.io_lang", "en"),
@@ -20,7 +20,9 @@
 
 \item{header}{If \code{TRUE} (by default), add a title to the table.}
 
-\item{title}{If \code{TRUE} (by default), add a title to the table header}
+\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
+value than header, except outside of a chunk where it is \code{FALSE} if a table
+caption is detected (\code{tbl-cap} YAML entry).}
 
 \item{equation}{Add equation of the model to the table. If \code{TRUE},
 \code{\link[=equation]{equation()}} is used. The equation can also be passed in the form of a

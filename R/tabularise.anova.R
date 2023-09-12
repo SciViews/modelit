@@ -2,7 +2,9 @@
 #'
 #' @param data An **anova** object
 #' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
 #'   (from `origdata=`)
 #' @param origdata The original data set used for the ANOVA. By default it is
@@ -31,10 +33,12 @@ lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
 env = parent.frame()) {
 
-  if (!requireNamespace("broom", quietly = TRUE)) {
-    stop(sprintf(
-      "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "anova"))
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
   }
 
   # Select the language
@@ -146,7 +150,9 @@ env = parent.frame()) {
 #'
 #' @param data An **anova** object
 #' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param auto.labs If `TRUE` (by default), use labels (and units) from
 #'   `origdata=`.
 #' @param origdata The original data set used for the ANOVA (used for changing
@@ -175,11 +181,13 @@ lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
 env = parent.frame()) {
 
-  if (!requireNamespace("broom", quietly = TRUE)) {
-    stop(sprintf(
-      "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "anova")
-    )}
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Select language
   info_lang <- .infos_lang.anova(lang = lang)

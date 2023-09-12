@@ -22,7 +22,9 @@
 
 \item{header}{If \code{TRUE} (by default), add a header to the table}
 
-\item{title}{If \code{TRUE} (by default), add a title to the table header}
+\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
+value than header, except outside of a chunk where it is \code{FALSE} if a table
+caption is detected (\code{tbl-cap} YAML entry).}
 
 \item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
 (from \verb{origdata=})}

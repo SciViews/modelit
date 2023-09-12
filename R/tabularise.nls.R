@@ -7,7 +7,9 @@
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation Add equation of the model to the table. If `TRUE`,
 #'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX equation).
@@ -39,10 +41,18 @@
 #'
 #' tabularise::tabularise(chick1_logis_sum)
 #' tabularise::tabularise(chick1_logis_sum, footer = FALSE)
-tabularise_default.summary.nls <- function(data, header = TRUE, title = header,
+tabularise_default.summary.nls <- function(data, header = TRUE, title = NULL,
 equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
 env = parent.frame()) {
+
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   ft <- tabularise_coef.summary.nls(data, header = header, title = title,
     equation = equation, lang = lang, show.signif.stars = show.signif.stars,
@@ -93,7 +103,9 @@ env = parent.frame()) {
 #'
 #' @param data A **summary.nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation Add equation of the model to the table. If `TRUE`,
 #'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX equation).
@@ -120,10 +132,18 @@ env = parent.frame()) {
 #'
 #' tabularise::tabularise$coef(chick1_logis_sum)
 #' tabularise::tabularise$coef(chick1_logis_sum, header = FALSE, equation = TRUE)
-tabularise_coef.summary.nls <- function(data, header = TRUE, title = header,
+tabularise_coef.summary.nls <- function(data, header = TRUE, title = NULL,
 equation = header, lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
 env = parent.frame()) {
+
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Extract the coef and rework it to obtain a data.frame
   co <- as.data.frame(coef(data))
@@ -180,7 +200,9 @@ env = parent.frame()) {
 #'
 #' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation Add equation of the model to the table. If `TRUE`,
 #'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX equation).
@@ -204,9 +226,17 @@ env = parent.frame()) {
 #' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 #'
 #' tabularise::tabularise(chick1_logis)
-tabularise_default.nls <- function(data, header = TRUE, title = header,
+tabularise_default.nls <- function(data, header = TRUE, title = NULL,
 equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
 ..., env = parent.frame()) {
+
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   ft <- tabularise_coef.nls(data, header = header, title = title,
     equation = equation, lang = lang)
@@ -259,7 +289,9 @@ equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
 #'
 #' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation If `TRUE` (by default), add the equation of the model
 #' @param lang The language to use. The default value can be set with, e.g.,
 #'   `options(data.io_lang = "fr")` for French.
@@ -280,9 +312,17 @@ equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
 #' chick1_logis <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 #'
 #' tabularise::tabularise$coef(chick1_logis)
-tabularise_coef.nls <- function(data, header = TRUE, title = header,
+tabularise_coef.nls <- function(data, header = TRUE, title = NULL,
 equation = header, lang = getOption("data.io_lang", "en"), ...,
 env = parent.frame()) {
+
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Choose the language
   lang <- tolower(lang)
@@ -351,7 +391,9 @@ tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
 #'
 #' @param data An **nls** object.
 #' @param header If `TRUE` (by default), add a title to the table.
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation Add equation of the model to the table. If `TRUE`,
 #'   [equation()] is used. The equation can also be passed in the form of a
 #'   character string (LaTeX).
@@ -377,9 +419,17 @@ tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
 #'
 #' tabularise::tabularise$glance(chick1_logis)
 #' tabularise::tabularise$glance(chick1_logis, lang = "fr")
-tabularise_glance.nls <- function(data, header = TRUE, title = header,
+tabularise_glance.nls <- function(data, header = TRUE, title = NULL,
 equation = header, lang = getOption("data.io_lang", "en"), ...,
 env = parent.frame()) {
+
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Choose the language
   lang <- tolower(lang)
@@ -668,11 +718,19 @@ pvalue_format <- function(x){
 }
 
 add_header_nls <- function(x, data,
-  lang = lang, header = TRUE, title = header, equation = header, ...) {
+  lang = lang, header = TRUE, title = NULL, equation = header, ...) {
 
   if (!inherits(x, "flextable"))
     stop(sprintf("Function `%s` supports only flextable objects.",
       "add_header_nls()"))
+
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Choose the language
   lang <- tolower(lang)

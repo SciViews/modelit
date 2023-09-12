@@ -1,6 +1,6 @@
 # modelit To Do list
 
--   tabularise for anova and aov => rework and decide where to place (inbferit, modelit, elsewhere...?) + car::Anova
+-   tabularise for anova and aov => rework and decide where to place (inferit, modelit, elsewhere...?) + car::Anova
 
 -   chart() for lm with categorical variables
 
