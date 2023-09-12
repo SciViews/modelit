@@ -23,7 +23,8 @@ Imports:
     rlang,
     flextable,
     officer,
-    data.io
+    data.io,
+    knitr
 Suggests:
     datasets,
     parsnip,

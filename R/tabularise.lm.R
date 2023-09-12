@@ -7,7 +7,9 @@
 #'
 #' @param data An **lm** object
 #' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation If `TRUE` (by default), add a equation to the table header.
 #'   The equation can also be passed in the form of a character string.
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
@@ -27,13 +29,22 @@
 #'   functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
+#' @importFrom knitr opts_current
 #' @method tabularise_coef lm
 #' @examples
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$coef(iris_lm)
-tabularise_coef.lm <- function(data, header = TRUE, title = header,
+tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
 equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
 lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Choose the language
   info_lang <- .infos_lang.lm(lang = lang)

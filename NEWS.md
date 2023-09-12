@@ -4,6 +4,8 @@
 
 -   Dependency to {equatiomatic} is dropped. It is now included in {tabularise}.
 
+-   The default for `title=` argument is now automatically set to `FALSE` if the table is generated inside a chunk that has `tbl-cap` YAML entry defined (thus replaced by that caption).
+
 # modelit 1.3.0
 
 -   `tabularise_default()` and `tabularise_tidy()` added for **anova** objects.
