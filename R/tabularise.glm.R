@@ -11,7 +11,9 @@
 #'
 #' @param data A **glm** object
 #' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation If `TRUE` (by default), add an equation to the table header.
 #'   The equation can also be passed in the form of a character string (LaTeX).
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
@@ -35,9 +37,17 @@
 #' @examples
 #' iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$coef(iris_glm)
-tabularise_coef.glm <- function(data, header = TRUE, title = header,
+tabularise_coef.glm <- function(data, header = TRUE, title = NULL,
 equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
 lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Choose the language
   info_lang <- .infos_lang.glm(lang = lang)
@@ -146,7 +156,9 @@ footer = TRUE, ...) {
 #'
 #' @param data A **glm** object
 #' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation If `TRUE` (by default), add an equation to the table header.
 #'   The equation can also be passed in the form of a character string (LaTeX).
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
@@ -177,16 +189,19 @@ footer = TRUE, ...) {
 #' @examples
 #' iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$tidy(iris_glm)
-tabularise_tidy.glm <- function(data, header = TRUE, title = header,
+tabularise_tidy.glm <- function(data, header = TRUE, title = NULL,
 equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
 conf.int = FALSE, conf.level = 0.95, lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
 env = parent.frame()) {
 
-  if ( !requireNamespace("broom", quietly = TRUE))
-    stop(sprintf(
-      "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm"))
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Choose the language
   info_lang <- .infos_lang.glm(lang = lang)
@@ -279,7 +294,9 @@ env = parent.frame()) {
 #'
 #' @param data A **glm** object
 #' @param header If `TRUE` (by default), add an header to the table
-#' @param title If `TRUE` (by default), add a title to the table header
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
 #' @param equation If `TRUE` (by default), add an equation to the table header.
 #'   The equation can also be passed in the form of a character string (LaTeX).
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
@@ -303,14 +320,17 @@ env = parent.frame()) {
 #' @examples
 #' iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$glance(iris_glm)
-tabularise_glance.glm <- function(data, header = TRUE, title = TRUE,
+tabularise_glance.glm <- function(data, header = TRUE, title = NULL,
 equation = TRUE, auto.labs = TRUE, origdata = NULL, labs = NULL,
 lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 
-  if (!requireNamespace("broom", quietly = TRUE))
-    stop(sprintf(
-      "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm"))
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
   # Choose the language
   info_lang <- .infos_lang.glm(lang = lang)
@@ -389,11 +409,6 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' tabularise::tabularise$coef(iris_glm_sum)
 tabularise_coef.summary.glm <- function(data, ..., env = parent.frame()) {
 
-  if (!requireNamespace("broom", quietly = TRUE))
-    stop(sprintf(
-      "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "glm"))
-
   lm_original <- data$call
   data <- eval(lm_original, envir = env)
 
@@ -421,11 +436,6 @@ tabularise_coef.summary.glm <- function(data, ..., env = parent.frame()) {
 #' iris_glm_sum <- summary(iris_glm)
 #' tabularise::tabularise(iris_glm_sum)
 tabularise_default.summary.glm <- function(data, ..., env = parent.frame()) {
-
-  if (!requireNamespace("broom", quietly = TRUE))
-    stop(sprintf(
-      "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "glm"))
 
   tabularise_coef.summary.glm(data = data, ...)
 }

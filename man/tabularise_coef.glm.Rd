@@ -7,7 +7,7 @@
 \method{tabularise_coef}{glm}(
   data,
   header = TRUE,
-  title = header,
+  title = NULL,
   equation = header,
   auto.labs = TRUE,
   origdata = NULL,
@@ -22,7 +22,9 @@
 
 \item{header}{If \code{TRUE} (by default), add a header to the table}
 
-\item{title}{If \code{TRUE} (by default), add a title to the table header}
+\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
+value than header, except outside of a chunk where it is \code{FALSE} if a table
+caption is detected (\code{tbl-cap} YAML entry).}
 
 \item{equation}{If \code{TRUE} (by default), add an equation to the table header.
 The equation can also be passed in the form of a character string (LaTeX).}

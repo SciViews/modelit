@@ -29,7 +29,6 @@ Suggests:
     datasets,
     parsnip,
     covr,
-    knitr,
     rmarkdown,
     spelling,
     testthat (>= 3.0.0)
