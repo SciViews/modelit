@@ -280,6 +280,7 @@ env = parent.frame()) {
 #'
 #' @param data An **anova** object
 #' @param ... Additional arguments passed to [tabularise_tidy.anova()]
+#' @param env The environment where to evaluate the object.
 #'
 #' @return  **flextable** object you can print in different form or rearrange
 #'   with the {flextable} functions.
@@ -289,8 +290,8 @@ env = parent.frame()) {
 #' @examples
 #' iris_aov <- aov(data = iris, Petal.Length ~ Species)
 #' tabularise::tabularise$tidy(iris_aov)
-tabularise_tidy.aov <- function(data, ...) {
-  tabularise_tidy(anova(data), ...)
+tabularise_tidy.aov <- function(data, ..., env = parent.frame()) {
+  tabularise_tidy(anova(data), ..., env = env)
 }
 
 # Choose the lang and the infos_lang

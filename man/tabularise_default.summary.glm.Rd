@@ -4,10 +4,21 @@
 \alias{tabularise_default.summary.glm}
 \title{Create a rich-formatted table from a summary.glm object}
 \usage{
-\method{tabularise_default}{summary.glm}(data, ..., env = parent.frame())
+\method{tabularise_default}{summary.glm}(
+  data,
+  footer = TRUE,
+  lang = getOption("data.io_lang", "en"),
+  ...,
+  env = parent.frame()
+)
 }
 \arguments{
 \item{data}{A \strong{summary.glm} object}
+
+\item{footer}{If \code{TRUE} (by default), add a footer to the table}
+
+\item{lang}{The natural language to use. The default value can be set with,
+e.g., \code{options(data.io_lang = "fr")} for French.}
 
 \item{...}{Additional arguments passed to \code{\link[=tabularise_coef.summary.glm]{tabularise_coef.summary.glm()}}}
 

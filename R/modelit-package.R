@@ -32,7 +32,7 @@
 #' @importFrom flextable nrow_part
 #' @importFrom flextable width
 #' @importFrom officer fp_border
-#' @importFrom stats coef
+#' @importFrom stats coef pf
 #' @importFrom tabularise colformat_sci equation
 #' @importFrom tabularise para_md
 ## usethis namespace: end

@@ -110,10 +110,11 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' Create a rich-formatted table from a glm object
 #'
 #' @param data A **glm** object
+#' @param footer If `TRUE` (by default), add a footer to the table
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
-#' @param footer If `TRUE` (by default), add a footer to the table
 #' @param ... Additional arguments passed to [modelit::tabularise_coef.glm()]
+#' @param env The environment where to evaluate the model.
 #'
 #' @return  A **flextable** object is returned. You can print it in different
 #'   formats (HTML, LaTeX, Word, PowerPoint) or rearrange it with the
@@ -124,8 +125,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' @examples
 #' iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise(iris_glm)
-tabularise_default.glm <- function(data, lang = getOption("data.io_lang", "en"),
-footer = TRUE, ...) {
+tabularise_default.glm <- function(data, footer = TRUE,
+lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
   ft <- tabularise_coef.glm(data = data, ...)
 
   if (isTRUE(footer)) {
@@ -421,6 +422,9 @@ tabularise_coef.summary.glm <- function(data, ..., env = parent.frame()) {
 #' Create a rich-formatted table version of the [summary()] of a **glm** object.
 #'
 #' @param data A **summary.glm** object
+#' @param footer If `TRUE` (by default), add a footer to the table
+#' @param lang The natural language to use. The default value can be set with,
+#'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [modelit::tabularise_coef.summary.glm()]
 #' @param env The environment where to evaluate the model.
 #'
@@ -435,9 +439,32 @@ tabularise_coef.summary.glm <- function(data, ..., env = parent.frame()) {
 #' iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' iris_glm_sum <- summary(iris_glm)
 #' tabularise::tabularise(iris_glm_sum)
-tabularise_default.summary.glm <- function(data, ..., env = parent.frame()) {
+tabularise_default.summary.glm <- function(data, footer = TRUE,
+lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 
-  tabularise_coef.summary.glm(data = data, ...)
+  ft <- tabularise_coef.summary.glm(data = data, lang = lang,..., env = env)
+
+  if (isTRUE(footer)) {
+    info_lang <- .infos_lang.glm(lang = lang)
+
+    digits <- max(3L, getOption("digits") - 3L)
+    footer <- info_lang[["footer"]]
+    vals <- c(
+      paste0("(", footer[["dispersion"]], " ", footer[[data$family$family]], ": ",
+        format(signif(data$dispersion, digits)), ")"),
+      paste(footer[["null.deviance"]],
+        format(signif(data$null.deviance, digits)), footer[["on"]],
+        data$df.null, footer[["df2"]]),
+      paste(footer[["resid.deviance"]],
+        format(signif(data$deviance, digits)), footer[["on"]],
+        max(data$df), footer[["df2"]]),
+      paste(footer[["AIC"]], format(signif(data$aic, digits)), "; ",
+        footer[["iter"]], data$iter)
+    )
+    ft <- add_footer_lines(ft, values = para_md(vals))
+  }
+
+  autofit(ft, part = c("header", "body"))
 }
 
 # Choose the lang and the infos_lang
@@ -471,21 +498,34 @@ infos_en.glm <- list(
     statistic = "*t* value",
     statistic2 = "*z* value",
     p.value = "*p* value",
-    deviance = "D\u00e9viance",
+    deviance = "Deviance",
     logLik = "Log-Likelihood",
-    null.deviance = "Null deviance",
-    df.null = "Null df",
+    null.deviance = "Total deviance",
+    df.null = "Total df",
     df = "Num. df",
-    df.residual = "Denum. df",
+    df.residual = "Residuals df",
     nobs = "N",
     "(Intercept)" = "Intercept"),
   footer = c(
     "df" = "Degrees of freedom:",
-    "total" = "Total (i.e. Null)",
+    "total" = "Total (i.e. no model)",
     "residual" = "Residual",
-    "null.deviance" = "Null deviance:",
-    "resid.deviance" = "Residual Deviance:",
-    AIC = "AIC:"),
+    "dispersion" = "Dispersion parameter for",
+    # Various choices for family
+    gaussian = "Gaussian family",
+    binomial = "Binomial family",
+    Gamma = "Gamma family",
+    inverse.gaussian = "Inverse Gaussian family",
+    poisson = "Poisson family",
+    quasi = "Quasi-Gaussian family",
+    quasibinomial = "Quasi-Binomial family",
+    quasipoisson = "Quasi-Poisson family",
+    "null.deviance" = "Total deviance:",
+    "on" = "on",
+    "df2" = "degrees of freedom",
+    "resid.deviance" = "Residual deviance:",
+    AIC = "AIC:",
+    "iter" = "Number of Fisher Scoring iterations:"),
   "(Intercept)" = "Intercept",
   "summary" = "Model summary",
   "header" = "Generalized Linear Model"
@@ -497,7 +537,7 @@ infos_fr.glm <- list(
     estimate = "Valeur estim\u00e9e",
     conf.low = "Limite basse (IC)",
     conf.high = "Limite haute (IC)",
-    std.error = "Erreur standard",
+    std.error = "Ecart type",
     t.value = "Valeur de *t*",
     p.value = "Valeur de *p*",
     sigma = "RSE",
@@ -505,24 +545,37 @@ infos_fr.glm <- list(
     adj.r.squared = "R^2^ ajust\u00e9",
     deviance = "D\u00e9viance",
     logLik = "Log-vraisemblance",
-    null.deviance = "D\u00e9viance nulle",
-    df.null = "Ddl nulle",
+    null.deviance = "D\u00e9viance totale",
+    df.null = "Ddl totaux",
     AIC = "AIC",
     BIC = "BIC",
     statistic = "Valeur de *t*",
     statistic2 = "Valeur de *z*",
-    df = "Ddl num.",
-    df.residual = "Ddl d\u00e9nom.",
+    df = "Ddl mod\u00e8le",
+    df.residual = "Ddl r\u00e9sidus",
     nobs = "N",
     "(Intercept)" = "Ordonn\u00e9e \u00e0 l'origine"
   ),
   footer = c(
     "df" = "Degr\u00e9s de libert\u00e9 :",
-    "total" = "Totaux (i.e. Nulle)",
+    "total" = "Totaux (i.e., hors mod\u00e8le)",
     "residual" = "R\u00e9sidus",
-    "null.deviance" = "D\u00e9viance nulle :",
+    "dispersion" = "Param\u00e8tre de dispersion pour une",
+    # Various choices for family
+    gaussian = "famille Gaussienne",
+    binomial = "famille Binomiale",
+    Gamma = "famille Gamma",
+    inverse.gaussian = "famille Gaussienne inverse",
+    poisson = "famille Poisson",
+    quasi = "famille Quasi-Gaussienne",
+    quasibinomial = "famille Quasi-Binomiale",
+    quasipoisson = "famille Quasi-Poisson",
+    "null.deviance" = "D\u00e9viance totale :",
+    "on" = "pour",
+    "df2" = "degr\u00e9s de libert\u00e9",
     "resid.deviance" = "D\u00e9viance r\u00e9siduelle :",
-    AIC = "AIC :"),
+    AIC = "AIC :",
+    "iter" = "Nombre d'it\u00e9rations de la fonction de score de Fisher:"),
   "(Intercept)" = "Ordonn\u00e9e \u00e0 l'origine",
   "summary" = "R\u00e9sum\u00e9 du mod\u00e8le",
   "header" = "Mod\u00e8le lin\u00e9aire g\u00e9n\u00e9ralis\u00e9"

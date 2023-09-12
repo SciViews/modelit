@@ -6,6 +6,8 @@
 
 -   The default for `title=` argument is now automatically set to `FALSE` if the table is generated inside a chunk that has `tbl-cap` YAML entry defined (thus replaced by that caption).
 
+-   The `tabularise_default()` methods for **summary.lm** and **summary.glm** were lacking important information (they were identical to `tabularise_coef)` for the same objects. Corrected now.
+
 # modelit 1.3.0
 
 -   `tabularise_default()` and `tabularise_tidy()` added for **anova** objects.

@@ -6,20 +6,23 @@
 \usage{
 \method{tabularise_default}{glm}(
   data,
-  lang = getOption("data.io_lang", "en"),
   footer = TRUE,
-  ...
+  lang = getOption("data.io_lang", "en"),
+  ...,
+  env = parent.frame()
 )
 }
 \arguments{
 \item{data}{A \strong{glm} object}
 
+\item{footer}{If \code{TRUE} (by default), add a footer to the table}
+
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
 
-\item{footer}{If \code{TRUE} (by default), add a footer to the table}
-
 \item{...}{Additional arguments passed to \code{\link[=tabularise_coef.glm]{tabularise_coef.glm()}}}
+
+\item{env}{The environment where to evaluate the model.}
 }
 \value{
 A \strong{flextable} object is returned. You can print it in different

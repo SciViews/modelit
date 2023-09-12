@@ -111,7 +111,7 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #'
 #' @param data An **lm** object
 #' @param ... Additional arguments passed to [modelit::tabularise_coef.lm()]
-#'
+#' @param env The environment where to evaluate the model.
 #' @return A **flextable** object that you can print in different formats (HTML,
 #'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
 #' @export
@@ -120,8 +120,10 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' @examples
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise(iris_lm)
-tabularise_default.lm <- function(data, ...) {
-  tabularise_coef.lm(data = data, ...)
+tabularise_default.lm <- function(data, ..., env = parent.frame()) {
+  # Note: there isn't much in print(lm_obj) than the table of coefficients
+  # so, we produce the same table as tabularise$coef() here
+  tabularise_coef.lm(data = data, ..., env = env)
 }
 
 #' Tidy version of the lm object into a flextable object
@@ -381,6 +383,9 @@ tabularise_coef.summary.lm <- function(data, ..., env = parent.frame()) {
 #' Create a rich-formatted table from an summary.lm object
 #'
 #' @param data A **summary.lm** object
+#' @param footer If `TRUE` (by default), add a footer to the table
+#' @param lang The natural language to use. The default value can be set with,
+#'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [tabularise_coef.summary.lm()]
 #' @param env The environment where to evaluate the model.
 #'
@@ -395,8 +400,36 @@ tabularise_coef.summary.lm <- function(data, ..., env = parent.frame()) {
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' iris_lm_sum <- summary(iris_lm)
 #' tabularise::tabularise(iris_lm_sum)
-tabularise_default.summary.lm <- function(data, ..., env = parent.frame()) {
-  tabularise_coef.summary.lm(data = data, ...)
+tabularise_default.summary.lm <- function(data, footer = TRUE,
+lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+  ft <- tabularise_coef.summary.lm(data = data, lang = lang, ..., env = env)
+
+  if (isTRUE(footer)) {
+    info_lang <- .infos_lang.lm(lang = lang)
+
+    digits <- max(3L, getOption("digits") - 3L)
+    footer <- info_lang[["footer"]]
+    vals <- c(
+      paste0(footer[["resid.range"]], " [",
+        format(signif(min(data$residuals, na.rm = TRUE), digits)), ", ",
+        format(signif(max(data$residuals, na.rm = TRUE), digits)), "] "),
+      paste(footer[["resid.std.err"]],
+        format(signif(data$sigma, digits)), footer[["on"]],
+        max(data$df), footer[["df2"]]),
+      paste(footer[["R2"]], format(signif(data$r.squared, digits)), "  -  ",
+        footer[["adj.R2"]], format(signif(data$adj.r.squared, digits))),
+      paste(footer[["f.stat"]], format(signif(data$fstatistic[1L], digits)),
+        footer[["on"]], format(signif(data$fstatistic[2L], digits)),
+        footer[["and"]], format(signif(data$fstatistic[3L], digits)),
+        footer[["df"]], "  -  ", footer[["p"]],
+        format.pval(pf(data$fstatistic[1L],  data$fstatistic[2L],
+          data$fstatistic[3L], lower.tail = FALSE)))
+      # TODO: nicely format this last p value!
+    )
+    ft <- add_footer_lines(ft, values = para_md(vals))
+  }
+
+  autofit(ft, part = c("header", "body"))
 }
 
 # Choose the lang and the infos_lang
@@ -431,13 +464,25 @@ infos_en.lm <- list(
     logLik = "Log-likelihood",
     statistic = "*t* value",
     p.value = "*p* value",
-    df = "Num. df",
-    df.residual = "Denum. df",
+    df = "Model df",
+    df.residual = "Residuals df",
     nobs = "N",
     "(Intercept)" = "Intercept"),
   "(Intercept)" = "Intercept",
   "summary" = "Model summary",
-  "header" = "Linear model"
+  "header" = "Linear model",
+  footer = c(
+    "resid.range" = "Residuals range:",
+    "resid.std.err" = "Residuals standard error:",
+    "on" = "on",
+    "and" = "and",
+    "df" = "df",
+    "df2" = "degrees of freedom",
+    "R2" = "Multiple *R*^2^:",
+    "adj.R2" = "adjusted *R*^2^:",
+    "f.stat" = "*F*-statistic:",
+    "p" = "*p* value:"
+  )
 )
 
 infos_fr.lm <- list(
@@ -446,7 +491,7 @@ infos_fr.lm <- list(
     estimate = "Valeur estim\u00e9e",
     conf.low = "Limite basse (IC)",
     conf.high = "Limite haute (IC)",
-    std.error = "Erreur standard",
+    std.error = "Ecart type",
     t.value = "Valeur de *t*",
     p.value = "Valeur de *p*",
     sigma = "RSE",
@@ -457,12 +502,24 @@ infos_fr.lm <- list(
     statistic = " Valeur de *t*",
     deviance = "D\u00e9viance",
     logLik = "Log-vraisemblance",
-    df = "Ddl num.",
-    df.residual = "Ddl d\u00e9nom.",
+    df = "Ddl mod\u00e8le",
+    df.residual = "Ddl r\u00e9sidus",
     nobs = "N",
     "(Intercept)" = "Ordonn\u00e9e \u00e0 l'origine"
   ),
   "(Intercept)" = "Ordonn\u00e9e \u00e0 l'origine",
   "summary" = "R\u00e9sum\u00e9 du mod\u00e8le",
-  "header" = "Mod\u00e8le lin\u00e9aire"
+  "header" = "Mod\u00e8le lin\u00e9aire",
+  footer = c(
+    "resid.range" = "Etendue des r\u00e9sidus :",
+    "resid.std.err" = "Ecart type des r\u00e9sidus :",
+    "on" = "pour",
+    "and" = "et",
+    "df" = "ddl",
+    "df2" = "degr\u00e9s de libert\u00e9",
+    "R2" = "*R*^2^ multiple :",
+    "adj.R2" = "*R*^2^ ajust\u00e9 :",
+    "f.stat" = "Statistique *F* :",
+    "p" = "valeur de *p* :"
+  )
 )

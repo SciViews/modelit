@@ -4,12 +4,14 @@
 \alias{tabularise_default.lm}
 \title{Create a rich-formatted table from an lm object}
 \usage{
-\method{tabularise_default}{lm}(data, ...)
+\method{tabularise_default}{lm}(data, ..., env = parent.frame())
 }
 \arguments{
 \item{data}{An \strong{lm} object}
 
 \item{...}{Additional arguments passed to \code{\link[=tabularise_coef.lm]{tabularise_coef.lm()}}}
+
+\item{env}{The environment where to evaluate the model.}
 }
 \value{
 A \strong{flextable} object that you can print in different formats (HTML,
