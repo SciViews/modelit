@@ -76,7 +76,7 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.0" id="modelit-140">modelit 1.4.0<a class="anchor" aria-label="anchor" href="#modelit-140"></a></h2>
-<ul><li><p>Use of the generic <code>equation()</code>. <code>equation_nls()</code> is transformed into an <code>equation()</code> method for <strong>nls</strong> and <strong>summary.nls</strong> objects.</p></li>
+<ul><li><p>Use of the generic <code>equation()</code>. <code>equation_nls()</code> is transformed into an <code>equation()</code> method for <strong>nls</strong> and <strong>summary.nls</strong> objects. Implementation of <code>ital_vars=</code>, <code>use_coefs=</code>, <code>coef_digits=</code> and <code>fix_signs=</code> arguments in order to get parameterized as well as non parameterized equation, with or without italic for the variables.</p></li>
 <li><p>Dependency to {equatiomatic} is dropped. It is now included in {tabularise}.</p></li>
 <li><p>The default for <code>title=</code> argument is now automatically set to <code>FALSE</code> if the table is generated inside a chunk that has <code>tbl-cap</code> YAML entry defined (thus replaced by that caption).</p></li>
 <li><p>The <code>tabularise_default()</code> methods for <strong>summary.lm</strong> and <strong>summary.glm</strong> were lacking important information (they were identical to <code>tabularise_coef)</code> for the same objects. Corrected now.</p></li>

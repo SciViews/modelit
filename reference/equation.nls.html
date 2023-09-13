@@ -83,16 +83,54 @@ available in stats.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for nls</span></span>
-<span><span class="fu">equation</span><span class="op">(</span><span class="va">object</span>, var_names <span class="op">=</span> <span class="cn">NULL</span>, op_latex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"\\cdot"</span>, <span class="st">"\\times"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">equation</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  ital_vars <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  use_coefs <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  coef_digits <span class="op">=</span> <span class="fl">2L</span>,</span>
+<span>  fix_signs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  var_names <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  op_latex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"\\cdot"</span>, <span class="st">"\\times"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for summary.nls</span></span>
-<span><span class="fu">equation</span><span class="op">(</span><span class="va">object</span>, var_names <span class="op">=</span> <span class="cn">NULL</span>, op_latex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"\\cdot"</span>, <span class="st">"\\times"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">equation</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  ital_vars <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  use_coefs <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  coef_digits <span class="op">=</span> <span class="fl">2L</span>,</span>
+<span>  fix_signs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  var_names <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  op_latex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"\\cdot"</span>, <span class="st">"\\times"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>An <strong>nls</strong> or <strong>summary.nls</strong> object.</p></dd>
+
+
+<dt>ital_vars</dt>
+<dd><p>Logical, defaults to <code>FALSE</code>. Should the variable names not
+be wrapped in the <code>\operatorname</code> command?</p></dd>
+
+
+<dt>use_coefs</dt>
+<dd><p>Logical, defaults to <code>FALSE</code>. Should the actual model
+estimates be included in the equation instead of math symbols? If <code>TRUE</code>,
+<code>var_names=</code> is ignored.</p></dd>
+
+
+<dt>coef_digits</dt>
+<dd><p>Integer, defaults to 2. The number of decimal places to
+round to when displaying model estimates with <code>use_coefs = TRUE</code>.</p></dd>
+
+
+<dt>fix_signs</dt>
+<dd><p>Logical, defaults to <code>TRUE</code>. If disabled, coefficient
+estimates that are negative are preceded with a <code>+</code> (e.g. <code>5(x) + -3(z)</code>).
+If enabled, the <code>+ -</code> is replaced with a <code>-</code> (e.g. <code>5(x) - 3(z)</code>).</p></dd>
 
 
 <dt>var_names</dt>
@@ -122,7 +160,7 @@ scientific notation, either <code>\\cdot</code> (by default), or <code>\\times</
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Asym 937.0301   465.8678   2.011  0.07516 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Asym 937.0300   465.8677   2.011  0.07516 .  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> xmid  35.2230     8.3120   4.238  0.00218 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> scal  11.4052     0.9052  12.599 5.08e-07 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
@@ -131,7 +169,7 @@ scientific notation, either <code>\\cdot</code> (by default), or <code>\\times</
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual standard error: 2.919 on 9 degrees of freedom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of iterations to convergence: 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Achieved convergence tolerance: 7.395e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Achieved convergence tolerance: 7.343e-06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">equation</span><span class="op">(</span><span class="va">chick1_nls</span><span class="op">)</span></span></span>
@@ -151,7 +189,7 @@ scientific notation, either <code>\\cdot</code> (by default), or <code>\\times</
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A     937.0301   465.8678   2.011  0.07516 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A     937.0300   465.8677   2.011  0.07516 .  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x      35.2230     8.3120   4.238  0.00218 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> scale  11.4052     0.9052  12.599 5.08e-07 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
@@ -160,7 +198,7 @@ scientific notation, either <code>\\cdot</code> (by default), or <code>\\times</
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual standard error: 2.919 on 9 degrees of freedom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of iterations to convergence: 0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Achieved convergence tolerance: 7.395e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Achieved convergence tolerance: 7.343e-06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">equation</span><span class="op">(</span><span class="va">chick1_nls2</span><span class="op">)</span></span></span>
