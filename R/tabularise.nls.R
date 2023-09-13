@@ -531,25 +531,25 @@ op_latex = c("\\cdot", "\\times")) {
 
   SSequation <- c(
       SSasymp =
-        "\\operatorname{_y_} = _Asym_ + (_R0_ - _Asym_) \\cdot e^{(-e^{(_lrc_)} \\cdot \\operatorname{_input_)}} + \\epsilon",
+        "\\begin{aligned} \\operatorname{_y_} = _Asym_ + (_R0_ - _Asym_) \\cdot e^{(-e^{(_lrc_)} \\cdot \\operatorname{_input_)}} + \\epsilon \\end{aligned}",
       SSasympOff =
-        "\\operatorname{_y_} = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot (\\operatorname{_input_} - _c0_))}) + \\epsilon",
+        "\\begin{aligned} \\operatorname{_y_} = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot (\\operatorname{_input_} - _c0_))}) + \\epsilon \\end{aligned}",
       SSasympOrig =
-        "\\operatorname{_y_} = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot \\operatorname{_input_})}) + \\epsilon",
+        "\\begin{aligned} \\operatorname{_y_} = _Asym_ \\cdot (1 - e^{(-e^{_lrc_} \\cdot \\operatorname{_input_})}) + \\epsilon \\end{aligned}",
       SSbiexp =
-        "\\operatorname{_y_} = _A1_ \\cdot e^{(-e^{_lrc1_} \\cdot \\operatorname{_input_})} + _A2_ \\cdot e^{(-e^{_lrc2_} \\cdot \\operatorname{_input_})} + \\epsilon",
+        "\\begin{aligned} \\operatorname{_y_} = _A1_ \\cdot e^{(-e^{_lrc1_} \\cdot \\operatorname{_input_})} + _A2_ \\cdot e^{(-e^{_lrc2_} \\cdot \\operatorname{_input_})} + \\epsilon \\end{aligned}",
       SSgompertz =
-        "\\operatorname{_y_} = _Asym_ \\cdot e^{(-_b2_ \\cdot _b3_^{\\operatorname{_x_}})} + \\epsilon",
+        "\\begin{aligned} \\operatorname{_y_} = _Asym_ \\cdot e^{(-_b2_ \\cdot _b3_^{\\operatorname{_x_}})} + \\epsilon \\end{aligned}",
       SSfol =
-        "\\operatorname{_y_} = _Dose_ \\cdot e^{{_lKe_ + _lKa_ - _lCl_)} \\cdot \\frac{e^{(-e^{_lKe_} \\cdot \\operatorname{_input_})} - e^{(-e^{_lKa_} \\cdot \\operatorname{_input_})}}{(e^{_lKa_} - e^{_lKe_})} + \\epsilon",
+        "\\begin{aligned} \\operatorname{_y_} = _Dose_ \\cdot e^{{_lKe_ + _lKa_ - _lCl_)} \\cdot \\frac{e^{(-e^{_lKe_} \\cdot \\operatorname{_input_})} - e^{(-e^{_lKa_} \\cdot \\operatorname{_input_})}}{(e^{_lKa_} - e^{_lKe_})} + \\epsilon \\end{aligned}",
       SSlogis =
-        "\\operatorname{_y_} = \\frac{_Asym_}{1 + e^{(_xmid_ - \\operatorname{_input_}) /_scal_}} + \\epsilon",
+        "\\begin{aligned} \\operatorname{_y_} = \\frac{_Asym_}{1 + e^{(_xmid_ - \\operatorname{_input_}) /_scal_}} + \\epsilon \\end{aligned}",
       SSfpl =
-      "\\operatorname{_y_} = \\frac{_A_ + (_B_ - _A_)}{1 + e^{(_xmid_ - \\operatorname{_input_}) /_scal_}} + \\epsilon",
+      "\\begin{aligned} \\operatorname{_y_} = \\frac{_A_ + (_B_ - _A_)}{1 + e^{(_xmid_ - \\operatorname{_input_}) /_scal_}} + \\epsilon \\end{aligned}",
       SSmicmen =
-        "\\operatorname{_y_} = \\frac{_Vm_ \\cdot \\operatorname{_input_}}{(_K_+\\operatorname{_input_})} + \\epsilon",
+        "\\begin{aligned} \\operatorname{_y_} = \\frac{_Vm_ \\cdot \\operatorname{_input_}}{(_K_+\\operatorname{_input_})} + \\epsilon \\end{aligned}",
       SSweibull =
-        "\\operatorname{_y_} = _Asym_ - _Drop_ \\cdot e^{-e^{_lrc_} \\cdot \\operatorname{_x_}^{_pwr_}} + \\epsilon"
+        "\\begin{aligned} \\operatorname{_y_} = _Asym_ - _Drop_ \\cdot e^{-e^{_lrc_} \\cdot \\operatorname{_x_}^{_pwr_}} + \\epsilon \\end{aligned}"
     )
 
   SSequation <- SSequation[[frhs[1]]]
@@ -596,6 +596,10 @@ op_latex = c("\\cdot", "\\times")) {
   }
 
   if (isTRUE(use_coefs)) {
+    # We use \widehat{y} instead of y and get rid of + \epsilon at the end
+    SSequation <- gsub("_y_", "\\widehat{_y_}", SSequation, fixed = TRUE)
+    SSequation <- sub("\\+ +\\\\epsilon", "", SSequation)
+
     if (inherits(x, 'nls')) {
       coefs <- coef(x)
     } else {# summary.nls object
