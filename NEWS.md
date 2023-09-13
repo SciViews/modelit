@@ -1,6 +1,6 @@
 # modelit 1.4.0
 
--   Use of the generic `equation()`. `equation_nls()` is transformed into an `equation()` method for **nls** and **summary.nls** objects.
+-   Use of the generic `equation()`. `equation_nls()` is transformed into an `equation()` method for **nls** and **summary.nls** objects. Implementation of `ital_vars=`, `use_coefs=`, `coef_digits=` and `fix_signs=` arguments in order to get parameterized as well as non parameterized equation, with or without italic for the variables.
 
 -   Dependency to {equatiomatic} is dropped. It is now included in {tabularise}.
 

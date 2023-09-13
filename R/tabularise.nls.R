@@ -239,7 +239,7 @@ equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
   }
 
   ft <- tabularise_coef.nls(data, header = header, title = title,
-    equation = equation, lang = lang)
+    equation = equation, lang = lang, env = env)
 
   # Choose the language
   lang <- tolower(lang)
@@ -471,6 +471,16 @@ env = parent.frame()) {
 #' available in {stats}.
 #'
 #' @param object An **nls** or **summary.nls** object.
+#' @param ital_vars Logical, defaults to `FALSE`. Should the variable names not
+#'   be wrapped in the `\operatorname` command?
+#' @param use_coefs Logical, defaults to `FALSE`. Should the actual model
+#'   estimates be included in the equation instead of math symbols? If `TRUE`,
+#'   `var_names=` is ignored.
+#' @param coef_digits Integer, defaults to 2. The number of decimal places to
+#'   round to when displaying model estimates with `use_coefs = TRUE`.
+#' @param fix_signs Logical, defaults to `TRUE`. If disabled, coefficient
+#'   estimates that are negative are preceded with a `+` (e.g. `5(x) + -3(z)`).
+#'   If enabled, the `+ -` is replaced with a `-` (e.g. `5(x) - 3(z)`).
 #' @param var_names A named character vector as `c(old_var_name = "new name")`
 #' @param op_latex 	The LaTeX product operator character to use in fancy
 #'   scientific notation, either `\\cdot` (by default), or `\\times`.
@@ -498,7 +508,8 @@ env = parent.frame()) {
 #' equation(summary(chick1_nls2), var_names = c(
 #'   weight = "Body weight [gm]",
 #'   Time = "Number of days"))
-equation.nls <- function(object, var_names = NULL,
+equation.nls <- function(object, ital_vars = FALSE, use_coefs = FALSE,
+coef_digits = 2L, fix_signs = TRUE, var_names = NULL,
 op_latex = c("\\cdot", "\\times")) {
   x <- object
   if (!class(x) %in% c("nls", "summary.nls"))
@@ -530,7 +541,7 @@ op_latex = c("\\cdot", "\\times")) {
       SSgompertz =
         "\\operatorname{_y_} = _Asym_ \\cdot e^{(-_b2_ \\cdot _b3_^{\\operatorname{_x_}})} + \\epsilon",
       SSfol =
-        "\\operatorname{_y_} = _Dose_ \\cdot e^{{_lKe_+_lKa_-_lCl_)} \\cdot \\frac{e^{(-e^{_lKe_} \\cdot \\operatorname{_input_})} - e^{(-e^{_lKa_} \\cdot \\operatorname{_input_})}}{(e^{_lKa_} - e^{_lKe_})} + \\epsilon",
+        "\\operatorname{_y_} = _Dose_ \\cdot e^{{_lKe_ + _lKa_ - _lCl_)} \\cdot \\frac{e^{(-e^{_lKe_} \\cdot \\operatorname{_input_})} - e^{(-e^{_lKa_} \\cdot \\operatorname{_input_})}}{(e^{_lKa_} - e^{_lKe_})} + \\epsilon",
       SSlogis =
         "\\operatorname{_y_} = \\frac{_Asym_}{1 + e^{(_xmid_ - \\operatorname{_input_}) /_scal_}} + \\epsilon",
       SSfpl =
@@ -544,6 +555,9 @@ op_latex = c("\\cdot", "\\times")) {
   SSequation <- SSequation[[frhs[1]]]
   if (is.null(SSequation))
     stop(sprintf("The %s is not available.", frhs[1]))
+
+  if (isTRUE(ital_vars)) # Take all \\operatorname{...} out of the equation
+    SSequation <- gsub("\\\\operatorname\\{([^}]+)\\}", "\\1", SSequation)
 
   SSvars <- list(
     SSasymp =  c("_input_"),
@@ -576,15 +590,28 @@ op_latex = c("\\cdot", "\\times")) {
   SSparams <- SSparams[[frhs[1]]]
 
   if (inherits(x, 'nls')) {
-    coefs <- names(coef(x))
-  } else {
-    coefs <- rownames(coef(x))
+    names_coefs <- names(coef(x))
+  } else {# summary.nls object
+    names_coefs <- rownames(coef(x))
   }
 
+  if (isTRUE(use_coefs)) {
+    if (inherits(x, 'nls')) {
+      coefs <- coef(x)
+    } else {# summary.nls object
+      coefs <- coef(x)[, 1L]
+    }
+    coefs <- round(coefs, coef_digits)
+  } else {# Use names
+    coefs <- names_coefs
+  }
+
+  names(names_coefs) <- SSparams
   names(coefs) <- SSparams
 
+
   xvars <- frhs[-1]
-  xvars <- xvars[!xvars %in% coefs]
+  xvars <- xvars[!xvars %in% names_coefs]
   names(xvars) <- SSvars
 
   yvar <- flhs
@@ -613,6 +640,12 @@ op_latex = c("\\cdot", "\\times")) {
       SSequation <- gsub(names(var_names)[i], var_names[i], SSequation)
   }
 
+  # Possibly fix signs
+  if (isTRUE(use_coefs) && isTRUE(fix_signs)) {
+    SSequation <- gsub("\\+ +\\-", " - ", SSequation)
+    SSequation <- gsub("\\- +\\-", " + ", SSequation)
+  }
+
   class(SSequation) <- c("equation", "character")
   SSequation
 }
@@ -620,10 +653,13 @@ op_latex = c("\\cdot", "\\times")) {
 #' @rdname equation.nls
 #' @export
 #' @method equation summary.nls
-equation.summary.nls <- function(object, var_names = NULL,
+equation.summary.nls <- function(object, ital_vars = FALSE, use_coefs = FALSE,
+coef_digits = 2L, fix_signs = TRUE, var_names = NULL,
 op_latex = c("\\cdot", "\\times")) {
   # Same as equation.nls()
-  equation.nls(object, var_names = var_names, op_latex = op_latex)
+  equation.nls(object, ital_vars = ital_vars, use_coefs = use_coefs,
+    coef_digits = coef_digits, fix_signs = fix_signs,  var_names = var_names,
+    op_latex = op_latex)
 }
 
 infos_en.nls <- list(
@@ -633,7 +669,7 @@ infos_en.nls <- list(
     std.error = "Standard Error",
     statistic = "*t*~obs.~ value",
     p.value = "*p* value",
-    sigma = "RSE",
+    sigma = "Relative standard error",
     finTol = "Convergence tolerance",
     logLik = "Log-Likelihood",
     AIC = "AIC",
@@ -642,9 +678,9 @@ infos_en.nls <- list(
     df.residual = "df",
     nobs = "N"),
   SS = c(
-    SSasymp = "Nonlinear least squares asymptotic regression model",
-    SSAsympOff = "Nonlinear least squares  asymptotic regression model with an Offset",
-    SSasympOrig = "Nonlinear least squares asymptotic regression model through the Origin",
+    SSasymp = "Nonlinear least squares asymptotic regression model (von Bertalanffy)",
+    SSAsympOff = "Nonlinear least squares  asymptotic regression model (von Bertalanffy)",
+    SSasympOrig = "Nonlinear least squares asymptotic regression model through the origin (von Bertalanffy)",
     SSbiexp = "Nonlinear least squares biexponential model",
     SSfol = "Nonlinear least squares  first-order compartment model",
     SSfpl = "Nonlinear least squares  four-parameter logistic model",
@@ -660,22 +696,22 @@ infos_en.nls <- list(
     df = "degrees of freedom",
     nbc = "Number of iterations to convergence",
     ctol =  "Achieved convergence tolerance",
-    stop = "The model do not converge")
+    stop = "The model does not converge")
 )
 
 infos_fr.nls <- list(
   labs = c(
     term = "Terme",
     estimate = "Valeur estim\u00e9e",
-    std.error = "Erreur standard",
+    std.error = "Ecart type",
     statistic = "Valeur de *t*~obs.~",
     p.value = "Valeur de *p*",
-    sigma = "RSE",
+    sigma = "Ecart type relatif",
     AIC = "AIC",
     df.residual = "Ddl",
     nobs = "N",
     statistic = "Valeur de *t*~obs.~",
-    sigma = "Erreur standard r\u00e9siduel",
+    sigma = "Ecart type des r\u00e9sidus",
     finTol = "Tol\u00e9rance de convergence",
     logLik = "Log-vraisemblance",
     AIC = "AIC",
@@ -685,24 +721,24 @@ infos_fr.nls <- list(
     nobs = "N"
   ),
   SS = c(
-    SSasymp = "Mod\u00e8le non lin\u00e9aire de r\u00e9gression asymptotique par les moindres carr\u00e9s",
-    SSAsympOff = "Nonlinear least squares  asymptotic regression model with an Offset", # mod\u00e8le de von Bertalanffy
-    SSasympOrig = "Mod\u00e8le non lin\u00e9aire de r\u00e9gression asymptotique passant par l'origine par les moindres carr\u00e9s", #mod\u00e8le de von Bertalanffy
-    SSbiexp = "Mod\u00e8le non lin\u00e9aire biexponentiel par les moindres carr\u00e9s",
-    SSfol = "Mod\u00e8le non lin\u00e9aire \u00e0 compartiments du premier ordre par les moindres carr\u00e9s",
-    SSfpl = "Mod\u00e8le non lin\u00e9aire logistique \u00e0 quatre param\u00e8tres par les moindres carr\u00e9s",
-    SSgompertz = "Mod\u00e8le non lin\u00e9aire de Gompertz par les moindres carr\u00e9s",
-    SSlogis = "Mod\u00e8le non lin\u00e9aire logistique par les moindres carr\u00e9s",
-    SSmicmen = "Mod\u00e8le non lin\u00e9aire de Michaelis-Menten par les moindres carr\u00e9s ",
-    SSweibull = "Mod\u00e8le non lin\u00e9aire de Weibull par les moindres carr\u00e9s"
+    SSasymp = "Mod\u00e8le non lin\u00e9aire de r\u00e9gression asymptotique (von Bertalanffy)",
+    SSAsympOff = "Mod\u00e8le non lin\u00e9aire de r\u00e9gression asymptotique (von Bertalanffy)",
+    SSasympOrig = "Mod\u00e8le non lin\u00e9aire de r\u00e9gression asymptotique forc\u00e9e \u00e0 l'origine (von Bertalanffy)",
+    SSbiexp = "Mod\u00e8le non lin\u00e9aire biexponentiel",
+    SSfol = "Mod\u00e8le non lin\u00e9aire \u00e0 compartiments du premier ordre",
+    SSfpl = "Mod\u00e8le non lin\u00e9aire logistique \u00e0 quatre param\u00e8tres",
+    SSgompertz = "Mod\u00e8le non lin\u00e9aire de Gompertz",
+    SSlogis = "Mod\u00e8le non lin\u00e9aire logistique",
+    SSmicmen = "Mod\u00e8le non lin\u00e9aire de Michaelis-Menten",
+    SSweibull = "Mod\u00e8le non lin\u00e9aire de Weibull"
   ),
   footer = c(
     rss = "Somme des carr\u00e9s des r\u00e9sidus",
-    rse = "Erreur standard r\u00e9siduel",
-    on = "sur",
+    rse = "Ecart type des r\u00e9sidus",
+    on = "pour",
     df = "degr\u00e9s de libert\u00e9",
-    nbc = "Nombre d'it\u00e9ration pour converger",
-    ctol =  "Tol\u00e9rance de convergence",
+    nbc = "Nombre d'it\u00e9rations pour converger",
+    ctol =  "Tol\u00e9rance atteinte \u00e0 la convergence",
     stop = "Le mod\u00e8le ne converge pas"
   )
 )

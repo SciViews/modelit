@@ -426,7 +426,9 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
           data$fstatistic[3L], lower.tail = FALSE)))
       # TODO: nicely format this last p value!
     )
-    ft <- add_footer_lines(ft, values = para_md(vals))
+    ft <- add_footer_lines(ft, top = FALSE, values = para_md(vals))
+    ft <- align(ft, i = seq_len(length(vals)) + 1 , align = "left",
+      part = "footer")
   }
 
   autofit(ft, part = c("header", "body"))

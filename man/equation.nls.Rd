@@ -5,12 +5,42 @@
 \alias{equation.summary.nls}
 \title{Get a LaTeX equation from an nls or summary.nls models}
 \usage{
-\method{equation}{nls}(object, var_names = NULL, op_latex = c("\\\\cdot", "\\\\times"))
+\method{equation}{nls}(
+  object,
+  ital_vars = FALSE,
+  use_coefs = FALSE,
+  coef_digits = 2L,
+  fix_signs = TRUE,
+  var_names = NULL,
+  op_latex = c("\\\\cdot", "\\\\times")
+)
 
-\method{equation}{summary.nls}(object, var_names = NULL, op_latex = c("\\\\cdot", "\\\\times"))
+\method{equation}{summary.nls}(
+  object,
+  ital_vars = FALSE,
+  use_coefs = FALSE,
+  coef_digits = 2L,
+  fix_signs = TRUE,
+  var_names = NULL,
+  op_latex = c("\\\\cdot", "\\\\times")
+)
 }
 \arguments{
 \item{object}{An \strong{nls} or \strong{summary.nls} object.}
+
+\item{ital_vars}{Logical, defaults to \code{FALSE}. Should the variable names not
+be wrapped in the \verb{\\operatorname} command?}
+
+\item{use_coefs}{Logical, defaults to \code{FALSE}. Should the actual model
+estimates be included in the equation instead of math symbols? If \code{TRUE},
+\verb{var_names=} is ignored.}
+
+\item{coef_digits}{Integer, defaults to 2. The number of decimal places to
+round to when displaying model estimates with \code{use_coefs = TRUE}.}
+
+\item{fix_signs}{Logical, defaults to \code{TRUE}. If disabled, coefficient
+estimates that are negative are preceded with a \code{+} (e.g. \code{5(x) + -3(z)}).
+If enabled, the \verb{+ -} is replaced with a \code{-} (e.g. \code{5(x) - 3(z)}).}
 
 \item{var_names}{A named character vector as \code{c(old_var_name = "new name")}}
 

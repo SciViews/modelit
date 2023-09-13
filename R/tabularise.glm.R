@@ -458,10 +458,12 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
       paste(footer[["resid.deviance"]],
         format(signif(data$deviance, digits)), footer[["on"]],
         max(data$df), footer[["df2"]]),
-      paste(footer[["AIC"]], format(signif(data$aic, digits)), "; ",
+      paste(footer[["AIC"]], format(signif(data$aic, digits)), "  -  ",
         footer[["iter"]], data$iter)
     )
-    ft <- add_footer_lines(ft, values = para_md(vals))
+    ft <- add_footer_lines(ft, top = FALSE, values = para_md(vals))
+    ft <- align(ft, i = seq_len(length(vals)) + 1 , align = "left",
+      part = "footer")
   }
 
   autofit(ft, part = c("header", "body"))
