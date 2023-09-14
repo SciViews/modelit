@@ -1,3 +1,7 @@
+# modelit 1.4.1
+
+-   Slight adjustments to have a space between the label and the units in equations, and to allow beta instead of beta_1 if there is no beta_0 or beta_2 in the same equations and in the tables from `tabularise()`.
+
 # modelit 1.4.0
 
 -   Use of the generic `equation()`. `equation_nls()` is transformed into an `equation()` method for **nls** and **summary.nls** objects. Implementation of `ital_vars=`, `use_coefs=`, `coef_digits=` and `fix_signs=` arguments in order to get parameterized as well as non parameterized equation, with or without italic for the variables.

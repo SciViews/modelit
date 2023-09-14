@@ -23,7 +23,7 @@ align = "right", ...) {
   align(ft, i = 1, align = align, part = "footer")
 }
 
-
+# TODO: this is duplicated in tabularise -> export from there and reuse here!
 # Extract labels and units
 .labels <- function(x, units = TRUE, ...) {
   labels <- sapply(x, data.io::label, units = units)
@@ -31,7 +31,7 @@ align = "right", ...) {
   if (any(labels != "")) {
     # Use a \n before labels and the units
     if (isTRUE(units))
-      labels <- sub(" +\\[([^]]+)\\]$", "\n[\\1]", labels)
+      labels <- sub(" +\\[([^]]+)\\]$", "\n [\\1]", labels)
     # set names if empty
     labels[labels == ""] <- names(x)[labels == ""]
     # Specific case for I() using in a formula
@@ -46,10 +46,10 @@ align = "right", ...) {
 
 .labels2 <- function(x, origdata = NULL, labs = NULL) {
 
-  labs_auto <- NULL
-  labs_auto <- .labels(x$model)
-
-  if (!is.null(origdata)) {
+  #labs_auto <- NULL
+  if (is.null(origdata)) {
+    labs_auto <- .labels(x$model)
+  } else {
     labs_auto <- .labels(origdata)
   }
 
@@ -79,7 +79,7 @@ align = "right", ...) {
   }
 
   if (grepl(greek, x)) {
-    g <- paste0("\\\\", greek,"_\\{\\d+\\}")
+    g <- paste0("\\\\", greek,"_\\{\\d*\\}")
     res <- regmatches(x, gregexpr(g, x))[[1]]
     res1 <- paste0("$",res, "$")
     vals <- c(vals, res1)

@@ -33,7 +33,7 @@ caption is detected (\code{tbl-cap} YAML entry).}
 The equation can also be passed in the form of a character string (LaTeX).}
 
 \item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
-from \verb{origdata=}.}
+from data or \verb{origdata=}.}
 
 \item{origdata}{The original data set this model was fitted to. By default it
 is \code{NULL} and no label is used.}

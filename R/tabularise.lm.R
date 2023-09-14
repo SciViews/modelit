@@ -13,7 +13,7 @@
 #' @param equation If `TRUE` (by default), add a equation to the table header.
 #'   The equation can also be passed in the form of a character string.
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
-#'   from `origdata=`.
+#'   from data or `origdata=`.
 #' @param origdata The original data set this model was fitted to. By default it
 #'   is `NULL` and no label is used.
 #' @param labs Labels to change the names of elements in the `term` column of
@@ -140,7 +140,7 @@ tabularise_default.lm <- function(data, ..., env = parent.frame()) {
 #' @param equation If `TRUE` (by default), add an equation to the table header.
 #'   The equation can also be passed in the form of a character string (LaTeX).
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
-#'   from `origdata=`.
+#'   from data or `origdata=`.
 #' @param origdata The original data set this model was fitted to. By default it
 #'   is `NULL` and no label is used.
 #' @param labs Labels to change the names of elements in the `term` column of
@@ -183,7 +183,7 @@ env = parent.frame()) {
   # Choose the language
   info_lang <- .infos_lang.lm(lang = lang)
 
-  # Extract labels of data or origdata
+  # Extract labels off data or origdata
   if (isTRUE(auto.labs)) {
     labs <- .labels2(x = data, origdata = origdata, labs = labs)
   } else {
@@ -271,7 +271,7 @@ env = parent.frame()) {
 #' @param equation If `TRUE` (by default), add a equation to the table header.
 #'   The equation can also be passed in the form of a character string (LaTeX).
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
-#'   of `origdata=`.
+#'   from data or `origdata=`.
 #' @param origdata The original data set this model was fitted to. By default it
 #'   is `NULL` and no label is used (only the name of the variables).
 #' @param labs Labels to change the names of elements in the `term` column of
@@ -327,7 +327,7 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
   # Headers
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
-      equa <- equation(data, swap_var_names =  labs, ...)
+      equa <- equation(data, swap_var_names = labs, ...)
     } else {
       equa <- equation(data, ...)
     }
@@ -377,7 +377,7 @@ tabularise_coef.summary.lm <- function(data, ..., env = parent.frame()) {
   lm_original <- data$call
   data <- eval(lm_original, envir = env)
 
-  tabularise_tidy.lm(data = data, ...)
+  tabularise_tidy.lm(data = data, ..., env = env)
 }
 
 #' Create a rich-formatted table from an summary.lm object
