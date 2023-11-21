@@ -1,6 +1,6 @@
 Package: modelit
 Type: Package
-Version: 1.4.1
+Version: 1.4.2
 Title: 'SciViews' - Statistical Models Within 'SciViews::R'
 Description: Create and Use Statistical Models (Linear, General, Nonlinear, ...)
   by using a SciViews::R common formula interface and label-aware functions.

@@ -1,3 +1,7 @@
+# modelit 1.4.2
+
+-    Bug correction in `autoplot.nls()`: X and Y axes were inverted. Also the deprecated `aes_string()` function is replaced with `aes()` with proper arguments.
+
 # modelit 1.4.1
 
 -   Slight adjustments to have a space between the label and the units in equations, and to allow beta instead of beta_1 if there is no beta_0 or beta_2 in the same equations and in the tables from `tabularise()`.

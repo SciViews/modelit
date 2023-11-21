@@ -75,6 +75,7 @@ class(chart.nls) <- c("function", "subsettable_type")
 
 #' @export
 #' @rdname chart.nls
+#' @importFrom rlang .data
 autoplot.nls <- function(object,
 type = c("model", "resfitted", "qqplot", "scalelocation", "reshist",
 "resautocor"), title, xlab, ylab, ..., name = deparse(substitute(object)),
@@ -108,9 +109,9 @@ type = c("model", "resfitted", "qqplot", "scalelocation", "reshist",
       (function(nls) {
         adata <- augment(nls)
         ndata <- names(adata)
-        Y <- ndata[1]
-        X <- ndata[2]
-        chart(data = adata, aes_string(x = X, y = Y)) +
+        X <- as.name(ndata[1])
+        Y <- as.name(ndata[2])
+        chart(data = adata, aes(x = {{ X }}, y = {{ Y }})) + # Was: aes_string(x = X, y = Y)) +
           geom_point() +
           stat_function(fun = as.function(nls), col = "skyblue3", size = 1)
       })(.),
