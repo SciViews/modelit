@@ -1,9 +1,9 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   modelit: modelit.html
-last_built: 2023-11-21T10:43Z
+last_built: 2024-04-23T11:43Z
 urls:
   reference: https://www.sciviews.org/modelit/reference
   article: https://www.sciviews.org/modelit/articles
