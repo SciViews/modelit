@@ -1,6 +1,10 @@
+# modelit 1.4.3
+
+-   Lack of `...` argument in `equation.nl()` and `equation.summary.nls()` was causing a warning in `R CMD check`. Corrected now.
+
 # modelit 1.4.2
 
--    Bug correction in `autoplot.nls()`: X and Y axes were inverted. Also the deprecated `aes_string()` function is replaced with `aes()` with proper arguments.
+-   Bug correction in `autoplot.nls()`: X and Y axes were inverted. Also the deprecated `aes_string()` function is replaced with `aes()` with proper arguments.
 
 # modelit 1.4.1
 

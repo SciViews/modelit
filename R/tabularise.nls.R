@@ -484,6 +484,7 @@ env = parent.frame()) {
 #' @param var_names A named character vector as `c(old_var_name = "new name")`
 #' @param op_latex 	The LaTeX product operator character to use in fancy
 #'   scientific notation, either `\\cdot` (by default), or `\\times`.
+#' @param ... Additional arguments (not used yet).
 #'
 #' @return A character string with a LaTeX equation.
 #' @export
@@ -510,7 +511,7 @@ env = parent.frame()) {
 #'   Time = "Number of days"))
 equation.nls <- function(object, ital_vars = FALSE, use_coefs = FALSE,
 coef_digits = 2L, fix_signs = TRUE, var_names = NULL,
-op_latex = c("\\cdot", "\\times")) {
+op_latex = c("\\cdot", "\\times"), ...) {
   x <- object
   if (!class(x) %in% c("nls", "summary.nls"))
     stop("x must be an nls or summary.nls object")
@@ -659,7 +660,7 @@ op_latex = c("\\cdot", "\\times")) {
 #' @method equation summary.nls
 equation.summary.nls <- function(object, ital_vars = FALSE, use_coefs = FALSE,
 coef_digits = 2L, fix_signs = TRUE, var_names = NULL,
-op_latex = c("\\cdot", "\\times")) {
+op_latex = c("\\cdot", "\\times"), ...) {
   # Same as equation.nls()
   equation.nls(object, ital_vars = ital_vars, use_coefs = use_coefs,
     coef_digits = coef_digits, fix_signs = fix_signs,  var_names = var_names,
