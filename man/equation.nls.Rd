@@ -12,7 +12,8 @@
   coef_digits = 2L,
   fix_signs = TRUE,
   var_names = NULL,
-  op_latex = c("\\\\cdot", "\\\\times")
+  op_latex = c("\\\\cdot", "\\\\times"),
+  ...
 )
 
 \method{equation}{summary.nls}(
@@ -22,7 +23,8 @@
   coef_digits = 2L,
   fix_signs = TRUE,
   var_names = NULL,
-  op_latex = c("\\\\cdot", "\\\\times")
+  op_latex = c("\\\\cdot", "\\\\times"),
+  ...
 )
 }
 \arguments{
@@ -46,6 +48,8 @@ If enabled, the \verb{+ -} is replaced with a \code{-} (e.g. \code{5(x) - 3(z)})
 
 \item{op_latex}{The LaTeX product operator character to use in fancy
 scientific notation, either \verb{\\\\cdot} (by default), or \verb{\\\\times}.}
+
+\item{...}{Additional arguments (not used yet).}
 }
 \value{
 A character string with a LaTeX equation.
