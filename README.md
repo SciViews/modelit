@@ -2,7 +2,8 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main) [![CRAN status](https://www.r-pkg.org/badges/version/modelit)](https://CRAN.R-project.org/package=modelit) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main) [![CRAN status](https://www.r-pkg.org/badges/version/modelit)](https://CRAN.R-project.org/package=modelit) [![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
 <!-- badges: end -->
 

@@ -45,4 +45,5 @@ RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
+ByteCompile: yes
 Config/testthat/edition: 3
