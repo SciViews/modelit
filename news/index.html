@@ -84,31 +84,31 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.1" id="modelit-141">modelit 1.4.1<a class="anchor" aria-label="anchor" href="#modelit-141"></a></h2>
-<ul><li>Slight adjustments to have a space between the label and the units in equations, and to allow beta instead of beta_1 if there is no beta_0 or beta_2 in the same equations and in the tables from <code>tabularise()</code>.</li>
+<ul><li>Slight adjustments to have a space between the label and the units in equations, and to allow beta instead of beta_1 if there is no beta_0 or beta_2 in the same equations and in the tables from <code><a href="https://www.sciviews.org/chart/reference/tabularise.html" class="external-link">tabularise()</a></code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.0" id="modelit-140">modelit 1.4.0<a class="anchor" aria-label="anchor" href="#modelit-140"></a></h2>
-<ul><li><p>Use of the generic <code>equation()</code>. <code>equation_nls()</code> is transformed into an <code>equation()</code> method for <strong>nls</strong> and <strong>summary.nls</strong> objects. Implementation of <code>ital_vars=</code>, <code>use_coefs=</code>, <code>coef_digits=</code> and <code>fix_signs=</code> arguments in order to get parameterized as well as non parameterized equation, with or without italic for the variables.</p></li>
+<ul><li><p>Use of the generic <code><a href="https://www.sciviews.org/chart/reference/equation.html" class="external-link">equation()</a></code>. <code>equation_nls()</code> is transformed into an <code><a href="https://www.sciviews.org/chart/reference/equation.html" class="external-link">equation()</a></code> method for <strong>nls</strong> and <strong>summary.nls</strong> objects. Implementation of <code>ital_vars=</code>, <code>use_coefs=</code>, <code>coef_digits=</code> and <code>fix_signs=</code> arguments in order to get parameterized as well as non parameterized equation, with or without italic for the variables.</p></li>
 <li><p>Dependency to {equatiomatic} is dropped. It is now included in {tabularise}.</p></li>
 <li><p>The default for <code>title=</code> argument is now automatically set to <code>FALSE</code> if the table is generated inside a chunk that has <code>tbl-cap</code> YAML entry defined (thus replaced by that caption).</p></li>
-<li><p>The <code>tabularise_default()</code> methods for <strong>summary.lm</strong> and <strong>summary.glm</strong> were lacking important information (they were identical to <code>tabularise_coef)</code> for the same objects. Corrected now.</p></li>
+<li><p>The <code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code> methods for <strong>summary.lm</strong> and <strong>summary.glm</strong> were lacking important information (they were identical to <code>tabularise_coef)</code> for the same objects. Corrected now.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.0" id="modelit-130">modelit 1.3.0<a class="anchor" aria-label="anchor" href="#modelit-130"></a></h2>
-<ul><li><p><code>tabularise_default()</code> and <code>tabularise_tidy()</code> added for <strong>anova</strong> objects.</p></li>
-<li><p><code>tabularise_tidy()</code> added for <strong>aov</strong> objects.</p></li>
+<ul><li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code> and <code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> added for <strong>anova</strong> objects.</p></li>
+<li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> added for <strong>aov</strong> objects.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.2.0" id="modelit-120">modelit 1.2.0<a class="anchor" aria-label="anchor" href="#modelit-120"></a></h2>
-<ul><li><p><code>tabularise_default()</code>, <code>tabularise_coef()</code>, <code>tabularise_glance()</code>, <code>tabularise_tidy()</code> for <strong>lm</strong> objects</p></li>
-<li><p><code>tabularise_default()</code>, <code>tabularise_coef()</code> for <strong>summary.lm</strong> objects</p></li>
-<li><p><code>tabularise_coef()</code>, <code>tabularise_glance()</code>, <code>tabularise_tidy()</code> for <strong>glm</strong> objects</p></li>
-<li><p><code>tabularise_coef()</code> for <strong>summary.glm</strong> objects</p></li>
+<ul><li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_glance.html" class="external-link">tabularise_glance()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> for <strong>lm</strong> objects</p></li>
+<li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code> for <strong>summary.lm</strong> objects</p></li>
+<li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_glance.html" class="external-link">tabularise_glance()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> for <strong>glm</strong> objects</p></li>
+<li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code> for <strong>summary.glm</strong> objects</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="modelit-110">modelit 1.1.0<a class="anchor" aria-label="anchor" href="#modelit-110"></a></h2>
-<ul><li><p><code>tabularise_default()</code>, <code>tabularise_coef()</code>, <code>tabularise_glance()</code>, <code>tabularise_tidy()</code> for <strong>nls</strong> objects</p></li>
-<li><p><code>tabularise_default()</code>, <code>tabularise_coef()</code> for <strong>summary.nls</strong> objects</p></li>
+<ul><li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_glance.html" class="external-link">tabularise_glance()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> for <strong>nls</strong> objects</p></li>
+<li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code> for <strong>summary.nls</strong> objects</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.0" id="modelit-100">modelit 1.0.0<a class="anchor" aria-label="anchor" href="#modelit-100"></a></h2>
