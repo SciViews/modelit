@@ -22,3 +22,4 @@ Makefile
 ^pkgdown$
 ^\.github$
 ^revdep$
+^README\.Rmd$
