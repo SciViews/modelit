@@ -1,6 +1,6 @@
 ---
 title: "modelit - Statistical Models for SciViews::R"
-author: "Philippe Grosjean (phgrosjean@sciviews.org)"
+author: "Philippe Grosjean (phgrosjean@sciviews.org) & Guyliann Engels"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
@@ -58,9 +58,10 @@ data("Loblolly", package = "datasets")
 # convet feet to metres
 Loblolly$height <- round(Loblolly$height * 0.3048, 2)
 # Add labels and units
+labs <- list(height = "Heigth", age = "Age", Seed = "Seed")
+units <- list(height = "m", age = "years")
 Loblolly <- data.io::labelise(Loblolly,
-  label = list(height = "Heigth", age = "Age", Seed = "Seed"),
-  units = list(height = "m", age = "years"))
+  label = labs, units = units)
 
 # first and last rows with tabularise
 tabularise$headtail(Loblolly)
@@ -79,7 +80,15 @@ Here are some tables and graphs that can be generated from an *lm* object (here,
 
 ```{r}
 set.seed(3652)
-pine <- dplyr::slice_sample(Loblolly, n = 1, by = Seed)
+#pine <- dplyr::slice_sample(Loblolly, n = 1, by = Seed)
+
+res <- sapply(levels(Loblolly$Seed), function(x) {
+  sample(which(Loblolly$Seed == x), size = 1)
+})
+pine <- Loblolly[res,]
+
+pine <- data.io::labelise(pine,
+  label = labs, units = units)
 
 chart(pine, height ~ age) + 
   geom_point()
