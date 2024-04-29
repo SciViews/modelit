@@ -47,7 +47,6 @@ remotes::install_github("SciViews/modelit")
 
 ```{r}
 library(chart)
-library(tabularise)
 library(modelit)
 ```
 
@@ -55,7 +54,6 @@ The trees datasets present diameter, height and volume for Black Cherry Trees (*
 
 ```{r}
 data("trees")
-tabularise$headtail(trees)
 ```
 
 The following model is obtained using the lm() function
@@ -64,7 +62,7 @@ The following model is obtained using the lm() function
 trees_lm <- lm(Volume ~ Girth +I(Girth^2) + 0, data = trees)
 ```
 
-the model can be viewed using the chart() function, which uses the `trees_lm` object to produce the corresponding chart
+The model can be viewed using the chart() function, which uses the `trees_lm` object to produce the corresponding chart
 
 ```{r}
 chart(trees_lm)

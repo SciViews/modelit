@@ -55,7 +55,6 @@ remotes::install_github("SciViews/modelit")
 
 ``` r
 library(chart)
-library(tabularise)
 library(modelit)
 ```
 
@@ -64,10 +63,7 @@ Trees (*Prunus serotina*, Ehrh., 1788)
 
 ``` r
 data("trees")
-tabularise$headtail(trees)
 ```
-
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="80%" />
 
 The following model is obtained using the lm() function
 
@@ -75,7 +71,7 @@ The following model is obtained using the lm() function
 trees_lm <- lm(Volume ~ Girth +I(Girth^2) + 0, data = trees)
 ```
 
-the model can be viewed using the chart() function, which uses the
+The model can be viewed using the chart() function, which uses the
 `trees_lm` object to produce the corresponding chart
 
 ``` r
