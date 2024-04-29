@@ -80,8 +80,8 @@ residuals of the model."><meta property="og:image" content="https://www.sciviews
     </div>
 
     <div class="ref-description">
-    <p>The methods <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> or <code><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart()</a></code> for <strong>lm</strong> or <strong>glm</strong>
-objects. If <code>type = model</code> (by default for <code><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart()</a></code>), a scatterplot with the
+    <p>The methods <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> or <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code> for <strong>lm</strong> or <strong>glm</strong>
+objects. If <code>type = model</code> (by default for <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code>), a scatterplot with the
 model superimposed is produced, providing the model has only two numeric
 variables (or a combination of these). The other types allow to analyze the
 residuals of the model.</p>
@@ -89,7 +89,7 @@ residuals of the model.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for lm</span></span>
-<span><span class="fu"><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"model"</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -125,8 +125,8 @@ residuals of the model.</p>
 <dt>type</dt>
 <dd><p>The type of plot: <code>"model"</code>, <code>"resfitted"</code>, <code>"qqplot"</code>,
 <code>"scalelocation"</code>, <code>"cooksd"</code>, <code>"resleverage"</code>, <code>"cookleverage"</code>,
-<code>"reshist"</code> or <code>"resautocor"</code>. For <code><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart()</a></code>, can also be provided as
-<code>chart$type(....)</code>.  <code><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart()</a></code> also uses <code>"residuals"</code> that constructs a
+<code>"reshist"</code> or <code>"resautocor"</code>. For <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code>, can also be provided as
+<code>chart$type(....)</code>.  <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code> also uses <code>"residuals"</code> that constructs a
 combined figure with resfitted, qqplot, scalelocation and
 resleverage.</p></dd>
 
@@ -191,7 +191,7 @@ provided.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SciViews/chart" class="external-link">chart</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">trees</span>, package <span class="op">=</span> <span class="st">"datasets"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">trees_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Volume</span> <span class="op">~</span> <span class="va">Girth</span>, data <span class="op">=</span> <span class="va">trees</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">trees_lm</span><span class="op">)</span> <span class="co"># origdata not needed because untransformed variables</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">trees_lm</span><span class="op">)</span> <span class="co"># origdata not needed because untransformed variables</span></span></span>
 <span class="r-plt img"><img src="chart.lm-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># Residuals analysis</span></span></span>
 <span class="r-in"><span><span class="va">chart</span><span class="op">$</span><span class="fu">resfitted</span><span class="op">(</span><span class="va">trees_lm</span><span class="op">)</span></span></span>
@@ -216,17 +216,17 @@ provided.</p></dd>
 <span class="r-plt img"><img src="chart.lm-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">trees_lm2</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Volume</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">Girth</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">trees</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">trees_lm2</span>, origdata <span class="op">=</span> <span class="va">trees</span><span class="op">)</span> <span class="co"># origdata needed, cf. transformed Girth</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">trees_lm2</span>, origdata <span class="op">=</span> <span class="va">trees</span><span class="op">)</span> <span class="co"># origdata needed, cf. transformed Girth</span></span></span>
 <span class="r-plt img"><img src="chart.lm-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">trees_lm3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Volume</span> <span class="op">~</span> <span class="va">Girth</span> <span class="op">+</span> <span class="va">Height</span>, data <span class="op">=</span> <span class="va">trees</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># chart(trees_lm3) # Error because more than 2 variables!</span></span></span>
 <span class="r-in"><span><span class="co"># Polynomial regressions work too</span></span></span>
 <span class="r-in"><span><span class="va">trees_lm4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Volume</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">Girth</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="va">Girth</span>, data <span class="op">=</span> <span class="va">trees</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">trees_lm4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">trees_lm4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="chart.lm-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># or using poly()</span></span></span>
 <span class="r-in"><span><span class="va">trees_lm5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Volume</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html" class="external-link">poly</a></span><span class="op">(</span><span class="va">Girth</span>, <span class="fl">3</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">trees</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">trees_lm5</span>, origdata <span class="op">=</span> <span class="va">trees</span><span class="op">)</span> <span class="co"># origdata required here!</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">trees_lm5</span>, origdata <span class="op">=</span> <span class="va">trees</span><span class="op">)</span> <span class="co"># origdata required here!</span></span></span>
 <span class="r-plt img"><img src="chart.lm-13.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

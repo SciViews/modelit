@@ -79,15 +79,15 @@ the model."><meta property="og:image" content="https://www.sciviews.org/modelit/
     </div>
 
     <div class="ref-description">
-    <p>The methods <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> or <code><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart()</a></code> for <strong>nls</strong> objects. If
-<code>type = model</code> (by default for <code><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart()</a></code>), a scatterplot with the model
+    <p>The methods <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> or <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code> for <strong>nls</strong> objects. If
+<code>type = model</code> (by default for <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code>), a scatterplot with the model
 superimposed is produced,. The other types allow to analyze the residuals of
 the model.</p>
     </div>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for nls</span></span>
-<span><span class="fu"><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"model"</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -119,8 +119,8 @@ the model.</p>
 
 <dt>type</dt>
 <dd><p>The type of plot: <code>"model"</code>, <code>"resfitted"</code>, <code>"qqplot"</code>,
-<code>"scalelocation"</code>, <code>"reshist"</code> or <code>"resautocor"</code>. For <code><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart()</a></code>, can also
-be provided as <code>chart$type(....)</code>. <code><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart()</a></code> also uses <code>"residuals"</code> that
+<code>"scalelocation"</code>, <code>"reshist"</code> or <code>"resautocor"</code>. For <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code>, can also
+be provided as <code>chart$type(....)</code>. <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code> also uses <code>"residuals"</code> that
 constructs a combined figure with resfitted, qqplot, scalelocation and
 resautocor.</p></dd>
 
@@ -183,7 +183,7 @@ provided.</p></dd>
 <span class="r-in"><span><span class="co"># Adjust a logistic curve</span></span></span>
 <span class="r-in"><span><span class="va">chick1_logis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/SSlogis.html" class="external-link">SSlogis</a></span><span class="op">(</span><span class="va">Time</span>, <span class="va">Asym</span>, <span class="va">xmid</span>, <span class="va">scal</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">chick1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SciViews/chart" class="external-link">chart</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/svMisc/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">chick1_logis</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart</a></span><span class="op">(</span><span class="va">chick1_logis</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="chart.nls-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># Residuals analysis</span></span></span>
 <span class="r-in"><span><span class="va">chart</span><span class="op">$</span><span class="fu">resfitted</span><span class="op">(</span><span class="va">chick1_logis</span><span class="op">)</span></span></span>
