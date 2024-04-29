@@ -14,7 +14,117 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.align = 'center',
+  warning = FALSE,
+  message = FALSE
 )
-library(modelit)
 ```
+
+The {modelit} package offers methods (lm, glm; nls objects) for the chart() function found in the {chart} package and the tabularise() function in the {tabularise} package. Both of these packages are components of the SciViews suite.
+
+The {modelit} package incorporates statistical models into the SciViews::R dialect. It employs both the fun\$type(data = ...., formula) method and an enhanced formula that allows for the direct specification of arguments with %arg=% within the formula itself. It also considers the labels of the variables in its outputs.
+
+## Installation
+
+{modelit} is not available from CRAN yet. You should install it from the [SciViews R-Universe](https://sciviews.r-universe.dev). The {chart} is an alternate formula interface to {ggplot2}. The tabularise give publication-ready (rich-formatted) tabular output The {equatags} package is an optional dependency of {flextable} to manage LaTeX equations in tables. The {data.io} package is useful too because it manages labels and units that {chart} uses. To install those three packages and their dependencies, run the following command in R:
+
+```{r, eval=FALSE}
+install.packages(c('modelit', 'chart','tabularise', 'equatags', 'data.io'),
+  repos = c('https://sciviews.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+You can also install the latest development version of {tabularise}. Make sure you have the {remotes} R package installed:
+
+```{r, eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("SciViews/modelit")
+```
+
+## Usage
+
+The {modelit} package makes it easier to process models in R in order to obtain tabular and graphical outputs from R that are “almost ready to be published”.
+
+```{r}
+library(modelit)
+library(tabularise)
+library(chart)
+```
+
+The Loblolly dataset is used to present the {modelit} package. It focuses on the growth of Loblolly pine trees (*Pinus tadea* L. 1753). It consists of three columns: height, age, and the seed used.
+
+```{r}
+data("Loblolly", package = "datasets")
+# convet feet to metres
+Loblolly$height <- round(Loblolly$height * 0.3048, 2)
+# Add labels and units
+Loblolly <- data.io::labelise(Loblolly,
+  label = list(height = "Heigth", age = "Age", Seed = "Seed"),
+  units = list(height = "m", age = "years"))
+
+# first and last rows with tabularise
+tabularise$headtail(Loblolly)
+```
+
+The tabularise\$headtail() of the [{tabularise}](https://www.sciviews.org/tabularise/) package allows you to observe the first and last lines of the table. The labels and units are used by this function.
+
+```{r}
+chart(Loblolly, height ~ age %col=% Seed) +
+  geom_line()
+```
+
+The chart function of the [{chart}](https://www.sciviews.org/chart/index.html) package is an alternate formula interface to [{ggplot2}](https://ggplot2.tidyverse.org/), and it also homogenizes plot outputs from base R plots, [{lattice}](https://lattice.r-forge.r-project.org/) and [{ggplot2}](https://ggplot2.tidyverse.org/). This function also uses labels and units.
+
+Here are some tables and graphs that can be generated from an *lm* object (here, we only keep one measurement per tree (alias Seed) to study a dataset with observations independent of each other).
+
+```{r}
+set.seed(3652)
+pine <- dplyr::slice_sample(Loblolly, n = 1, by = Seed)
+
+chart(pine, height ~ age) + 
+  geom_point()
+```
+
+```{r}
+pine_lm <- lm(data = pine, height ~ age + I(age^2))
+summary(pine_lm)
+```
+
+Compare the “raw” summary of the lm object above in R with the version formatted using tabularise'(). The version proposed by tabularise is more suitable for a scientific report.
+
+```{r}
+summary(pine_lm) |> 
+  tabularise() 
+```
+
+The equation can be directly displayed in an Rmarkdown or Quarto document with the equation(pine_lm) function.
+
+`r equation(pine_lm)`
+
+Several graphs are also easily accessible with {chart}, starting with the graph showing the model fitted to the data:
+
+```{r}
+chart(pine_lm) # Equivalent to : chart$model(pine_lm)
+```
+
+The residual analysis graphs are also accessible via the chart function and its variants (\$<type>): "resfitted", "qqplot", "scalelocation", "cooksd", "resleverage", "cookleverage", "reshist", "resautocor". A composite graph, incorporating the four most used residual analysis graphs, is obtained as follows (note that the four graphs are labeled A-D to facilitate their description in the graph legend).
+
+```{r}
+chart$residuals(pine_lm)
+```
+
+Other objects are also supported. For example, a non-linear model can be fitted to these data, which is more suitable for growth measurements. We then use an **nls** object for a Gompertz model.
+
+```{r}
+pine_nls <- nls(data = pine, height ~ SSgompertz(age, a, b1, b2))
+summary(pine_nls) |> 
+  tabularise()
+```
+
+The graph associated with the model can be obtained via the chart() function.
+
+```{r}
+chart(pine_nls, lang = "fr")
+```
+
+In conclusion,{modelit} with the methods for the tabularise() and chart() functions is a package developed to facilitate the analysis of linear and non-linear models whose tabular and graphical outputs from R are “almost ready to be published”.
