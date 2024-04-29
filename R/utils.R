@@ -14,7 +14,7 @@ align = "right", ...) {
 
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-      "add_signif_stars()"))}
+      ".add_signif_stars()"))}
 
   ft <- mk_par(x, i = i,  j = j,
     value = as_paragraph(.pvalue_format(.data$p.value)))
@@ -121,7 +121,7 @@ align = "right", ...) {
 
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-      "add_header_lm()")) }
+      ".add_header()")) }
 
   ft <- x
 
