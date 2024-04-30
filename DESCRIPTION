@@ -1,16 +1,20 @@
 Package: modelit
 Type: Package
-Version: 1.4.3
-Title: 'SciViews' - Statistical Models Within 'SciViews::R'
-Description: Create and Use Statistical Models (Linear, General, Nonlinear, ...)
-  by using a SciViews::R common formula interface and label-aware functions.
+Version: 1.4.4
+Title: Statistical Models for 'SciViews::R'
+Description: Create and use statistical models (linear, general, nonlinear...)
+  with extensions to support rich-formatted tables, equations and plots for the
+  'SciViews::R' dialect.
 Authors@R: c( 
   person("Philippe", "Grosjean", role = c("aut", "cre"),
-  email = "phgrosjean@sciviews.org",
-  comment = c(ORCID = "0000-0002-2694-9471")))
+    email = "phgrosjean@sciviews.org",
+    comment = c(ORCID = "0000-0002-2694-9471")),
+  person("Guyliann", "Engels", role = c("aut"),
+    email = "guyliann.engels@umons.ac.be",
+    comment = c(ORCID = "0000-0001-9514-1014")))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends:
-    R (>= 4.0.0),
+    R (>= 4.2.0),
     broom
 Imports:
     chart,
@@ -28,7 +32,7 @@ Imports:
 Suggests:
     datasets,
     parsnip,
-    covr,
+    dplyr,
     rmarkdown,
     spelling,
     testthat (>= 3.0.0)
@@ -36,8 +40,9 @@ Remotes:
     SciViews/chart,
     SciViews/svFlow,
     SciViews/tabularise,
-    SciViews/data.io
-License: GPL (>= 2)
+    SciViews/data.io,
+    ardata-fr/equatags
+License: MIT + file LICENSE
 URL: https://github.com/SciViews/modelit, https://www.sciviews.org/modelit/
 BugReports: https://github.com/SciViews/modelit/issues
 Roxygen: list(markdown = TRUE)

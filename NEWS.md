@@ -1,3 +1,9 @@
+# modelit 1.4.4
+
+-   Enhanced vignette and README file.
+
+-   License switched to MIT.
+
 # modelit 1.4.3
 
 -   Lack of `...` argument in `equation.nl()` and `equation.summary.nls()` was causing a warning in `R CMD check`. Corrected now.
