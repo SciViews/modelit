@@ -52,7 +52,7 @@ now).}
 }
 \value{
 A \strong{flextable} object that you can print in different form or
-rearrange with the {flextable} functions.
+rearrange with the \{flextable\} functions.
 }
 \description{
 Create a rich-formatted table with the 'glance' information from an \strong{lm}

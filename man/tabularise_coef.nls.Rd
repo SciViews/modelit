@@ -39,7 +39,7 @@ now).}
 }
 \value{
 A \strong{flextable} object that you can print in different forms or
-rearrange with the {flextable} functions.
+rearrange with the \{flextable\} functions.
 }
 \description{
 This method extracts and formats the coefficients from an \strong{nls} object,

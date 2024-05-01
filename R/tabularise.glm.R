@@ -1,5 +1,5 @@
 # when we calculate a glm with the glm function, we obtain an object of
-# type `glm` and `lm`. So tabularise() using the `lm` method
+# type `glm` and `lm`. So `tabularise()` using the `lm` method
 # The equatiomatic package is not capable of extracting an equation from an
 # object of type summary.glm
 
@@ -32,7 +32,7 @@
 #'
 #' @return A **flextable** object is returned. You can print it in different
 #'   formats (HTML, LaTeX, Word, PowerPoint) or rearrange it with the
-#'   {flextable} functions.
+#'   \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @method tabularise_coef glm
@@ -122,7 +122,7 @@ lang = getOption("data.io_lang", "en"), ..., kind = "ft", env = parent.frame()) 
 #'
 #' @return  A **flextable** object is returned. You can print it in different
 #'   formats (HTML, LaTeX, Word, PowerPoint) or rearrange it with the
-#'   {flextable} functions.
+#'   \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @method tabularise_default glm
@@ -157,7 +157,7 @@ tabularise_default.glm <- function(data, footer = TRUE,
 #'
 #' @description
 #' Turn the tidy of **glm** object into a rich-formatted table with
-#' {flextable}. The table can be printed in different formats (HTML, LaTeX,
+#' \{flextable\}. The table can be printed in different formats (HTML, LaTeX,
 #' Word, PowerPoint), or rearranged later on.
 #'
 #' @param data A **glm** object
@@ -189,7 +189,7 @@ tabularise_default.glm <- function(data, footer = TRUE,
 #'
 #' @return  A **flextable** object is returned. You can print it in different
 #'   formats (HTML, LaTeX, Word, PowerPoint), or rearrange it with the
-#'   {flextable} functions.
+#'   \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_tidy colformat_sci
 #' @importFrom rlang .data
@@ -297,7 +297,7 @@ env = parent.frame()) {
 #'
 #' @description
 #' Turn the glance of **glm** object into a rich-formatted table with
-#' {flextable}. The table can be printed in different formats (HTML, LaTeX,
+#' \{flextable\}. The table can be printed in different formats (HTML, LaTeX,
 #' Word, PowerPoint), or rearranged later on.
 #'
 #' @param data A **glm** object
@@ -322,7 +322,7 @@ env = parent.frame()) {
 #'   now).
 #'
 #' @return A **flextable** object is produced that you can print in different
-#'   formats (HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+#'   formats (HTML, LaTeX, Word, PowerPoint) or rearrange with the \{flextable\}
 #'   functions.
 #' @export
 #' @importFrom tabularise tabularise_glance colformat_sci
@@ -400,7 +400,7 @@ tabularise_glance.glm <- function(data, header = TRUE, title = NULL,
 #' Create a rich-formatted table using the table of coefficients of the summary.glm object
 #'
 #' @description
-#' Create a rich-formatted {flextable} object with the table of coefficients
+#' Create a rich-formatted \{flextable\} object with the table of coefficients
 #' from the [summary()] of a **glm** object.
 #'
 #' @param data A **summary.glm** object
@@ -410,7 +410,7 @@ tabularise_glance.glm <- function(data, header = TRUE, title = NULL,
 #' @param env The environment where to evaluate the model.
 #'
 #' @return  A **flextable** object that you can print in different formats
-#'   (HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+#'   (HTML, LaTeX, Word, PowerPoint) or rearrange with the \{flextable\}
 #'   functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
@@ -444,7 +444,7 @@ tabularise_coef.summary.glm <- function(data, ..., kind = "ft",
 #' @param env The environment where to evaluate the model.
 #'
 #' @return A **flextable** object that you can print in different form or
-#'   rearrange with the {flextable} functions.
+#'   rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data

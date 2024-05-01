@@ -9,7 +9,7 @@
 \alias{mae}
 \alias{qae}
 \alias{rsquare}
-\title{Reexport of {modelr} functions}
+\title{Reexport of modelr functions}
 \usage{
 add_predictions(data, model, var = "pred", type = NULL)
 

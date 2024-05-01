@@ -18,7 +18,7 @@ flextable (default).}
 }
 \value{
 \strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+with the \{flextable\} functions.
 }
 \description{
 Tidy version of the aov object into a flextable object

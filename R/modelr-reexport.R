@@ -1,4 +1,4 @@
-#' Reexport of {modelr} functions
+#' Reexport of modelr functions
 #'
 #' @description [add_predictions()] and [add_residuals()] are pipe-friendly
 #'   functions to add predictions or residuals to a data frame.

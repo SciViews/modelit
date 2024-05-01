@@ -3,7 +3,7 @@
 #' @description
 #' This function extracts and formats the table of coefficients from an **lm**
 #' object, similar to [stats::coef()], but in a rich-formatted table using
-#' {flextable}.
+#' \{flextable\}.
 #'
 #' @param data An **lm** object
 #' @param header If `TRUE` (by default), add a header to the table
@@ -27,7 +27,7 @@
 #'   now).
 #'
 #' @return A **flextable** object that you can print in different formats
-#'   (HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+#'   (HTML, LaTeX, Word, PowerPoint) or rearrange with the \{flextable\}
 #'   functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
@@ -118,7 +118,7 @@ tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
 #' flextable (default).
 #' @param env The environment where to evaluate the model.
 #' @return A **flextable** object that you can print in different formats (HTML,
-#'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
+#'   LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @method tabularise_default lm
@@ -165,7 +165,7 @@ tabularise_default.lm <- function(data, ..., kind = "ft", env = parent.frame()) 
 #'   now).
 #'
 #' @return A **flextable** object that you can print in different formats (HTML,
-#'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
+#'   LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_tidy colformat_sci
 #' @importFrom rlang .data
@@ -292,7 +292,7 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
 #'   now).
 #'
 #' @return A **flextable** object that you can print in different form or
-#'   rearrange with the {flextable} functions.
+#'   rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_glance colformat_sci
 #' @method tabularise_glance lm
@@ -374,7 +374,7 @@ tabularise_glance.lm <- function(data, header = TRUE, title = NULL,
 #' @param env The environment where to evaluate the model.
 #'
 #' @return A **flextable** object you can print in different formats (HTML,
-#'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
+#'   LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
@@ -405,7 +405,7 @@ tabularise_coef.summary.lm <- function(data, ..., kind = "ft",
 #' @param env The environment where to evaluate the model.
 #'
 #' @return A **flextable** object you can print in different formats (HTML,
-#'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
+#'   LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data

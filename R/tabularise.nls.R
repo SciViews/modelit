@@ -1,4 +1,4 @@
-#' Create a rich-formatted table from a summary.nls object
+#' Create a rich-formatted table from the summary of a nls object
 #'
 #' @description
 #' Create a table of a **summary.nls** object. This table looks like the output
@@ -30,7 +30,7 @@
 #'   [tabularise_coef.summary.nls()]
 #'
 #' @return A **flextable** object that you can print in different forms or
-#'   rearrange with the {flextable} functions.
+#'   rearrange with the \{flextable\} functions.
 #' @export
 #'
 #' @examples
@@ -122,7 +122,7 @@ tabularise_default.summary.nls <- function(data, header = TRUE, title = NULL,
 #' now).
 #'
 #' @return A **flextable** object that you can print in different forms or
-#'   rearrange with the {flextable} functions.
+#'   rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
@@ -220,7 +220,7 @@ tabularise_coef.summary.nls <- function(data, header = TRUE, title = NULL,
 #'   now).
 #'
 #' @return A **flextable** object that you can print in different forms or
-#'   rearrange with the {flextable} functions.
+#'   rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @importFrom rlang .data
@@ -308,7 +308,7 @@ tabularise_default.nls <- function(data, header = TRUE, title = NULL,
 #'   now).
 #'
 #' @return A **flextable** object that you can print in different forms or
-#' rearrange with the {flextable} functions.
+#' rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_coef colformat_sci
 #' @importFrom rlang .data
@@ -373,7 +373,7 @@ tabularise_coef.nls <- function(data, header = TRUE, title = NULL,
 #' @seealso [tabularise::tabularise()], [tabularise::tabularise_tidy()],
 #'   [tabularise_coef.summary.nls()]
 #' @return A **flextable** object that you can print in different forms or
-#' rearrange with the {flextable} functions.
+#' rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_tidy colformat_sci
 #' @importFrom rlang .data
@@ -417,7 +417,7 @@ tabularise_tidy.nls <- function(data, ..., kind = "ft", env = parent.frame()) {
 #'
 #' @seealso [tabularise::tabularise_glance()], [tabularise_coef.summary.nls()]
 #' @return A **flextable** object that you can print in different forms or
-#'   rearrange with the {flextable} functions.
+#'   rearrange with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_glance colformat_sci
 #' @importFrom rlang .data
@@ -476,11 +476,10 @@ tabularise_glance.nls <- function(data, header = TRUE, title = NULL,
   autofit(ft)
 }
 
-#' Get a LaTeX equation from an nls or summary.nls models
+#' Get a LaTeX equation from an nls or the summary of a nls models
 #'
-#' @description
-#' Create the model equation of several self-starting nonlinear models
-#' available in {stats}.
+#' @description Create the model equation of several self-starting nonlinear
+#' models available in the stats package.
 #'
 #' @param object An **nls** or **summary.nls** object.
 #' @param ital_vars Logical, defaults to `FALSE`. Should the variable names not

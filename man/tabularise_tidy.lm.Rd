@@ -64,7 +64,7 @@ now).}
 }
 \value{
 A \strong{flextable} object that you can print in different formats (HTML,
-LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
+LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
 }
 \description{
 Create a rich-formatted table with the 'tidy' information from an \strong{lm}

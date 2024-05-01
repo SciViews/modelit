@@ -1,8 +1,8 @@
-#' Fit a {parsnip} model and manipulate it as a base R model like lm
+#' Fit a parsnip model and manipulate it as a base R model like lm
 #'
-#' @description [fit_model()] takes a **model_spec** object from {parsnip} and
+#' @description [fit_model()] takes a **model_spec** object from \{parsnip\} and
 #' it fits is. Then, usual methods like [summary()], or [coef()] can be applied
-#' directly on it, while it can still be used as the {tidymodels} recommends it.
+#' directly on it, while it can still be used as the \{tidymodels\} recommends it.
 #'
 #' @param data A data frame (or a **model_fit** object for [chart()])
 #' @param formula A formula specifying a model

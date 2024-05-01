@@ -18,7 +18,7 @@ flextable (default).}
 }
 \value{
 A \strong{flextable} object you can print in different formats (HTML,
-LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
+LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
 }
 \description{
 Create a rich-formatted table using the table of coefficients of the summary.lm object

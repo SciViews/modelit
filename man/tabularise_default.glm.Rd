@@ -31,7 +31,7 @@ flextable (default).}
 \value{
 A \strong{flextable} object is returned. You can print it in different
 formats (HTML, LaTeX, Word, PowerPoint) or rearrange it with the
-{flextable} functions.
+\{flextable\} functions.
 }
 \description{
 Create a rich-formatted table from a glm object

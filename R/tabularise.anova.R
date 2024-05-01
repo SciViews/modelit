@@ -22,7 +22,7 @@
 #'   for now)
 #'
 #' @return  A **flextable** object you can print in different form or rearrange
-#'   with the {flextable} functions.
+#'   with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @method tabularise_default anova
@@ -172,7 +172,7 @@ env = parent.frame()) {
 #'   for now)
 #'
 #' @return A **flextable** object you can print in different form or rearrange
-#'   with the {flextable} functions.
+#'   with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @method tabularise_tidy anova
@@ -289,7 +289,7 @@ kind = "ft", env = parent.frame()) {
 #' @param env The environment where to evaluate the object.
 #'
 #' @return  **flextable** object you can print in different form or rearrange
-#'   with the {flextable} functions.
+#'   with the \{flextable\} functions.
 #' @export
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @method tabularise_tidy aov

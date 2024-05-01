@@ -41,7 +41,7 @@ now).}
 }
 \value{
 A \strong{flextable} object that you can print in different forms or
-rearrange with the {flextable} functions.
+rearrange with the \{flextable\} functions.
 }
 \description{
 Extract the information contained in an \strong{nls} object in a table as it could

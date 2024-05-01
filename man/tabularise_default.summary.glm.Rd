@@ -30,7 +30,7 @@ flextable (default).}
 }
 \value{
 A \strong{flextable} object that you can print in different form or
-rearrange with the {flextable} functions.
+rearrange with the \{flextable\} functions.
 }
 \description{
 Create a rich-formatted table version of the \code{\link[=summary]{summary()}} of a \strong{glm} object.

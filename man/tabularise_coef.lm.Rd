@@ -52,13 +52,13 @@ now).}
 }
 \value{
 A \strong{flextable} object that you can print in different formats
-(HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+(HTML, LaTeX, Word, PowerPoint) or rearrange with the \{flextable\}
 functions.
 }
 \description{
 This function extracts and formats the table of coefficients from an \strong{lm}
 object, similar to \code{\link[stats:coef]{stats::coef()}}, but in a rich-formatted table using
-{flextable}.
+\{flextable\}.
 }
 \examples{
 iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)

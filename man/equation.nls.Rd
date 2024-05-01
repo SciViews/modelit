@@ -3,7 +3,7 @@
 \name{equation.nls}
 \alias{equation.nls}
 \alias{equation.summary.nls}
-\title{Get a LaTeX equation from an nls or summary.nls models}
+\title{Get a LaTeX equation from an nls or the summary of a nls models}
 \usage{
 \method{equation}{nls}(
   object,
@@ -55,8 +55,8 @@ scientific notation, either \verb{\\\\cdot} (by default), or \verb{\\\\times}.}
 A character string with a LaTeX equation.
 }
 \description{
-Create the model equation of several self-starting nonlinear models
-available in {stats}.
+Create the model equation of several self-starting nonlinear
+models available in the stats package.
 }
 \examples{
 equation <- tabularise::equation

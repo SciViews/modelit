@@ -53,7 +53,7 @@ now).}
 \value{
 A \strong{flextable} object is returned. You can print it in different
 formats (HTML, LaTeX, Word, PowerPoint) or rearrange it with the
-{flextable} functions.
+\{flextable\} functions.
 }
 \description{
 Extract and format the table of coefficients from a \strong{glm} object, similar

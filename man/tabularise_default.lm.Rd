@@ -18,7 +18,7 @@ flextable (default).}
 }
 \value{
 A \strong{flextable} object that you can print in different formats (HTML,
-LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
+LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
 }
 \description{
 The default \code{\link[=tabularise]{tabularise()}} method for \strong{lm} objects create a minimalist

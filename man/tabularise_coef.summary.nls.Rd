@@ -45,7 +45,7 @@ now).}
 }
 \value{
 A \strong{flextable} object that you can print in different forms or
-rearrange with the {flextable} functions.
+rearrange with the \{flextable\} functions.
 }
 \description{
 This function extracts and formats the table of coefficients from a

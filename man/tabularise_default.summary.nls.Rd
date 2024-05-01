@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.nls.R
 \name{tabularise_default.summary.nls}
 \alias{tabularise_default.summary.nls}
-\title{Create a rich-formatted table from a summary.nls object}
+\title{Create a rich-formatted table from the summary of a nls object}
 \usage{
 \method{tabularise_default}{summary.nls}(
   data,
@@ -48,7 +48,7 @@ now).}
 }
 \value{
 A \strong{flextable} object that you can print in different forms or
-rearrange with the {flextable} functions.
+rearrange with the \{flextable\} functions.
 }
 \description{
 Create a table of a \strong{summary.nls} object. This table looks like the output

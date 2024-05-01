@@ -52,12 +52,12 @@ now).}
 }
 \value{
 A \strong{flextable} object is produced that you can print in different
-formats (HTML, LaTeX, Word, PowerPoint) or rearrange with the {flextable}
+formats (HTML, LaTeX, Word, PowerPoint) or rearrange with the \{flextable\}
 functions.
 }
 \description{
 Turn the glance of \strong{glm} object into a rich-formatted table with
-{flextable}. The table can be printed in different formats (HTML, LaTeX,
+\{flextable\}. The table can be printed in different formats (HTML, LaTeX,
 Word, PowerPoint), or rearranged later on.
 }
 \examples{

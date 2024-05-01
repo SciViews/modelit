@@ -1,5 +1,5 @@
 # Internal functions of flextable
-.pvalue_format <- function(x){
+.pvalue_format <- function(x) {
   #x <- get(as.character(substitute(x)), inherits = TRUE)
   z <- cut(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
     labels = c("***", " **", "  *", "  .", "   "))

@@ -23,7 +23,7 @@
 \alias{formula.model_fit}
 \alias{variable.names.model_fit}
 \alias{labels.model_fit}
-\title{Fit a {parsnip} model and manipulate it as a base R model like lm}
+\title{Fit a parsnip model and manipulate it as a base R model like lm}
 \usage{
 fit_model(data, formula, ..., type = NULL, env = parent.frame())
 
@@ -101,9 +101,9 @@ know what you are doing!}
 A \strong{model_fit} object.
 }
 \description{
-\code{\link[=fit_model]{fit_model()}} takes a \strong{model_spec} object from {parsnip} and
+\code{\link[=fit_model]{fit_model()}} takes a \strong{model_spec} object from \{parsnip\} and
 it fits is. Then, usual methods like \code{\link[=summary]{summary()}}, or \code{\link[=coef]{coef()}} can be applied
-directly on it, while it can still be used as the {tidymodels} recommends it.
+directly on it, while it can still be used as the \{tidymodels\} recommends it.
 }
 \examples{
 library(parsnip)

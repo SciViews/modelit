@@ -52,7 +52,7 @@ for now)}
 }
 \value{
 A \strong{flextable} object you can print in different form or rearrange
-with the {flextable} functions.
+with the \{flextable\} functions.
 }
 \description{
 Create a rich-formatted table from an anova object

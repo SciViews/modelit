@@ -65,11 +65,11 @@ now).}
 \value{
 A \strong{flextable} object is returned. You can print it in different
 formats (HTML, LaTeX, Word, PowerPoint), or rearrange it with the
-{flextable} functions.
+\{flextable\} functions.
 }
 \description{
 Turn the tidy of \strong{glm} object into a rich-formatted table with
-{flextable}. The table can be printed in different formats (HTML, LaTeX,
+\{flextable\}. The table can be printed in different formats (HTML, LaTeX,
 Word, PowerPoint), or rearranged later on.
 }
 \examples{
