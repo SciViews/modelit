@@ -17,6 +17,7 @@
   lang = getOption("data.io_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
+  kind = "ft",
   env = parent.frame()
 )
 }
@@ -54,6 +55,9 @@ e.g., \code{options(data.io_lang = "fr")} for French.}
 The default is \code{getOption("show.signif.stars")}}
 
 \item{...}{Additional arguments passed to \code{\link[tabularise:equation]{tabularise::equation()}}}
+
+\item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
+flextable (default).}
 
 \item{env}{The environment where to evaluate lazyeval expressions (unused for
 now).}

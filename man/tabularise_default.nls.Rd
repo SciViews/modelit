@@ -12,6 +12,7 @@
   footer = TRUE,
   lang = getOption("data.io_lang", "en"),
   ...,
+  kind = "ft",
   env = parent.frame()
 )
 }
@@ -34,6 +35,9 @@ character string (LaTeX equation).}
 \code{options(data.io_lang = "fr")} for French.}
 
 \item{...}{Additional arguments. Not used.}
+
+\item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
+flextable (default).}
 
 \item{env}{The environment where to evaluate lazyeval expressions (unused for
 now).}

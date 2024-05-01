@@ -1,12 +1,14 @@
 ---
-title: "modelit - Statistical Models for SciViews::R"
-author: "Philippe Grosjean (phgrosjean@sciviews.org) & Guyliann Engels (guyliann.engels@umons.ac.be)"
+title: "Statistical Models for 'SciViews::R'"
+author: "Philippe Grosjean & Guyliann Engels"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{modelit - Statistical Models for SciViews::R}
+  %\VignetteIndexEntry{Statistical Models for 'SciViews::R'}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

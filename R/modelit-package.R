@@ -17,7 +17,7 @@
 #' can be plotted using `stat_function()`.
 #'
 #' @docType package
-#' @name inferit-package
+#' @name modelit-package
 
 ## usethis namespace: start
 #' @importFrom stats AIC anova BIC coef confint cooks.distance deviance family fitted formula hatvalues nobs predict residuals rstandard variable.names vcov

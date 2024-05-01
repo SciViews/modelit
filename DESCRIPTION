@@ -15,33 +15,35 @@ Authors@R: c(
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends:
     R (>= 4.2.0),
-    broom
+    broom (>= 1.0.4)
 Imports:
-    chart,
-    generics,
-    ggplot2,
-    modelr,
-    stats,
-    svFlow,
-    tabularise (>= 0.3.0),
-    rlang,
-    flextable,
-    officer,
-    data.io,
-    knitr
+    chart (>= 1.5.0),
+    data.io (>= 1.5.0),
+    flextable (>= 0.9.1),
+    generics (>= 0.1.3),
+    ggplot2 (>= 3.4.2),
+    knitr (>= 1.42),
+    modelr (>= 0.1.11),
+    officer (>= 0.6.2),
+    rlang (>= 1.1.1),
+    stats (>= 4.2.0),
+    svFlow (>= 1.2.0),
+    tabularise (>= 0.6.0)
 Suggests:
-    datasets,
-    parsnip,
-    dplyr,
-    rmarkdown,
-    spelling,
+    broom.mixed (>= 0.2.9.4),
+    datasets (>= 4.2.0),
+    dplyr (>= 1.1.4),
+    parsnip (>= 1.1.0),
+    rmarkdown (>= 2.21),
+    spelling (>= 2.2.1),
     testthat (>= 3.0.0)
 Remotes: 
+    ardata-fr/equatags,
+    datalorax/equatiomatic,
+    SciViews/data.io,
     SciViews/chart,
     SciViews/svFlow,
-    SciViews/tabularise,
-    SciViews/data.io,
-    ardata-fr/equatags
+    SciViews/tabularise
 License: MIT + file LICENSE
 URL: https://github.com/SciViews/modelit, https://www.sciviews.org/modelit/
 BugReports: https://github.com/SciViews/modelit/issues

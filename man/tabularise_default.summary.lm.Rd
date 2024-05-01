@@ -9,6 +9,7 @@
   footer = TRUE,
   lang = getOption("data.io_lang", "en"),
   ...,
+  kind = "ft",
   env = parent.frame()
 )
 }
@@ -21,6 +22,9 @@
 e.g., \code{options(data.io_lang = "fr")} for French.}
 
 \item{...}{Additional arguments passed to \code{\link[=tabularise_coef.summary.lm]{tabularise_coef.summary.lm()}}}
+
+\item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
+flextable (default).}
 
 \item{env}{The environment where to evaluate the model.}
 }

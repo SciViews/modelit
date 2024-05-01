@@ -7,7 +7,7 @@ output: github_document
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main) [![CRAN status](https://www.r-pkg.org/badges/version/modelit)](https://cran.r-project.org/package=modelit) [![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main) [![CRAN status](https://www.r-pkg.org/badges/version/modelit)](https://cran.r-project.org/package=modelit) [![r-universe status](https://sciviews.r-universe.dev/badges/modelit)](https://sciviews.r-universe.dev/modelit) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
 <!-- badges: end -->
 
@@ -15,6 +15,8 @@ output: github_document
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
   fig.path = "man/figures/README-", out.width = "80%")
 library(modelit)
+library(tabularise)
+library(chart)
 ```
 
 The {modelit} package adds the statistical models to the SciViews::R dialect. It uses both the `fun$type(data = ...., formula)` approach and the enhanced formula allowing to specify arguments with `%arg=%` directly inside the formula. It also takes the variable labels into account in the outputs.
@@ -23,14 +25,14 @@ The {modelit} package provides methods (**lm**, **glm**; **nls** objects) for th
 
 ## Installation
 
-{modelit} is not available from CRAN yet. You should install it from the [SciViews R-Universe](https://sciviews.r-universe.dev). {chart} is an alternate formula interface to {ggplot2}. {tabularise} produces publication-ready (rich-formatted) tabular output. {equatags} is an optional dependency of {flextable} to manage LaTeX equations in tables. {data.io} is useful too because it manages labels and units that {chart} uses. To install these five packages and their dependencies, run the following command in R:
+{modelit} is not available from CRAN yet. You should install it from the [SciViews R-Universe](https://sciviews.r-universe.dev). {chart} is an alternate formula interface to {ggplot2}. {tabularise} produces publication-ready (rich-formatted) tabular output. The {equatags} and {equatiomatic} packages are optional, but they are useful to display equations, both inline in R Markdown/Quarto documents and in {tabularise} tables. {data.io} is useful too because it manages labels and units that {chart} uses. To install these six packages and their dependencies, run the following command in R:
 
 ```{r, eval=FALSE}
-install.packages(c('modelit', 'chart', 'tabularise', 'equatags', 'data.io'),
+install.packages(c('modelit', 'chart', 'tabularise', 'equatags', 'equatiomatic', 'data.io'),
   repos = c('https://sciviews.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
-You can also install the latest development version of {tabularise}. Make sure you have the {remotes} R package installed:
+You can also install the latest development version of {modelit}. Make sure you have the {remotes} R package installed:
 
 ```{r, eval=FALSE}
 # install.packages("remotes")
@@ -40,27 +42,33 @@ remotes::install_github("SciViews/modelit")
 ## Short example
 
 ```{r}
-library(chart)
 library(modelit)
+library(tabularise)
+library(chart)
 ```
 
 The trees datasets present diameter, height and volume for Black Cherry Trees (*Prunus serotina*, Ehrh., 1788)
 
 ```{r}
-data("trees")
+data('trees', package = 'datasets')
 ```
 
 We perform a polynomial regression of the volume of timber as a function of the girth of the trees.
 
 ```{r}
 trees_lm <- lm(Volume ~ Girth + I(Girth^2), data = trees)
+summary(trees_lm)
 ```
 
-Here is the summary of the mode, using `tabularise()`:
 
-```{r}
+<!-- This produces an error !
+Here is the summary of the model, using `tabularise()`:
+
+``{r}
 summary(trees_lm) |> tabularise()
-```
+``
+
+-->
 
 The model can be viewed using `chart()`:
 
@@ -74,7 +82,7 @@ Residual analysis plots can also be carried out with `chart()`.
 chart$residuals(trees_lm)
 ```
 
-For further instructions, please, refer to the help pages at <https://www.sciviews.org/modelit/>.
+For further examples, please, refer to the help pages at <https://www.sciviews.org/modelit/>.
 
 ## Code of Conduct
 

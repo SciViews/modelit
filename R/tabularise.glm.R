@@ -25,6 +25,8 @@
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments (not used yet).
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -39,7 +41,7 @@
 #' tabularise::tabularise$coef(iris_glm)
 tabularise_coef.glm <- function(data, header = TRUE, title = NULL,
 equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+lang = getOption("data.io_lang", "en"), ..., kind = "ft", env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -114,6 +116,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [modelit::tabularise_coef.glm()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate the model.
 #'
 #' @return  A **flextable** object is returned. You can print it in different
@@ -126,7 +130,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise(iris_glm)
 tabularise_default.glm <- function(data, footer = TRUE,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+    lang = getOption("data.io_lang", "en"), ..., kind = "ft",
+    env = parent.frame()) {
   ft <- tabularise_coef.glm(data = data, ...)
 
   if (isTRUE(footer)) {
@@ -177,6 +182,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'  Its value is obtained from `getOption("show.signif.stars")`.
 #' @param ... Additional arguments passed to [tabularise::equation()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -193,7 +200,7 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 tabularise_tidy.glm <- function(data, header = TRUE, title = NULL,
 equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
 conf.int = FALSE, conf.level = 0.95, lang = getOption("data.io_lang", "en"),
-show.signif.stars = getOption("show.signif.stars", TRUE), ...,
+show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft",
 env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
@@ -309,6 +316,8 @@ env = parent.frame()) {
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [tabularise::equation()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -322,8 +331,9 @@ env = parent.frame()) {
 #' iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$glance(iris_glm)
 tabularise_glance.glm <- function(data, header = TRUE, title = NULL,
-equation = TRUE, auto.labs = TRUE, origdata = NULL, labs = NULL,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+    equation = TRUE, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    lang = getOption("data.io_lang", "en"), ..., kind = "ft",
+    env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -395,6 +405,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #'
 #' @param data A **summary.glm** object
 #' @param ... Additional arguments passed to [modelit::tabularise_tidy.glm()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate the model.
 #'
 #' @return  A **flextable** object that you can print in different formats
@@ -408,12 +420,13 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 #' iris_glm_sum <- summary(iris_glm)
 #' tabularise::tabularise$coef(iris_glm_sum)
-tabularise_coef.summary.glm <- function(data, ..., env = parent.frame()) {
+tabularise_coef.summary.glm <- function(data, ..., kind = "ft",
+    env = parent.frame()) {
 
   lm_original <- data$call
   data <- eval(lm_original, envir = env)
 
-  tabularise_tidy.glm(data = data, ...)
+  tabularise_tidy.glm(data = data, ..., kind = kind, env = env)
 }
 
 #' Create a rich-formatted table from a summary.glm object
@@ -426,6 +439,8 @@ tabularise_coef.summary.glm <- function(data, ..., env = parent.frame()) {
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [modelit::tabularise_coef.summary.glm()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate the model.
 #'
 #' @return A **flextable** object that you can print in different form or
@@ -440,9 +455,11 @@ tabularise_coef.summary.glm <- function(data, ..., env = parent.frame()) {
 #' iris_glm_sum <- summary(iris_glm)
 #' tabularise::tabularise(iris_glm_sum)
 tabularise_default.summary.glm <- function(data, footer = TRUE,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+    lang = getOption("data.io_lang", "en"), ..., kind = "ft",
+    env = parent.frame()) {
 
-  ft <- tabularise_coef.summary.glm(data = data, lang = lang,..., env = env)
+  ft <- tabularise_coef.summary.glm(data = data, lang = lang,..., kind = kind,
+    env = env)
 
   if (isTRUE(footer)) {
     info_lang <- .infos_lang.glm(lang = lang)
@@ -450,8 +467,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
     digits <- max(3L, getOption("digits") - 3L)
     footer <- info_lang[["footer"]]
     vals <- c(
-      paste0("(", footer[["dispersion"]], " ", footer[[data$family$family]], ": ",
-        format(signif(data$dispersion, digits)), ")"),
+      paste0("(", footer[["dispersion"]], " ", footer[[data$family$family]],
+        ": ", format(signif(data$dispersion, digits)), ")"),
       paste(footer[["null.deviance"]],
         format(signif(data$null.deviance, digits)), footer[["on"]],
         data$df.null, footer[["df2"]]),

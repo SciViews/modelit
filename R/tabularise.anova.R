@@ -16,6 +16,8 @@
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is taken from `getOption("show.signif.stars")`.
 #' @param ... Additional arguments (not used for now)
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (not used
 #'   for now)
 #'
@@ -30,7 +32,7 @@
 tabularise_default.anova <- function(data, header = TRUE, title = header,
 auto.labs = TRUE, origdata = NULL, labs = NULL,
 lang = getOption("data.io_lang", "en"),
-show.signif.stars = getOption("show.signif.stars", TRUE), ...,
+show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft",
 env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
@@ -164,6 +166,8 @@ env = parent.frame()) {
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is taken from `getOption("show.signif.stars")`.
 #' @param ... Additional arguments (not used for now)
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (not used
 #'   for now)
 #'
@@ -179,7 +183,7 @@ tabularise_tidy.anova <- function(data, header = TRUE, title = header,
 auto.labs = TRUE, origdata = NULL, labs = NULL,
 lang = getOption("data.io_lang", "en"),
 show.signif.stars = getOption("show.signif.stars", TRUE), ...,
-env = parent.frame()) {
+kind = "ft", env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -280,6 +284,8 @@ env = parent.frame()) {
 #'
 #' @param data An **anova** object
 #' @param ... Additional arguments passed to [tabularise_tidy.anova()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate the object.
 #'
 #' @return  **flextable** object you can print in different form or rearrange
@@ -290,8 +296,8 @@ env = parent.frame()) {
 #' @examples
 #' iris_aov <- aov(data = iris, Petal.Length ~ Species)
 #' tabularise::tabularise$tidy(iris_aov)
-tabularise_tidy.aov <- function(data, ..., env = parent.frame()) {
-  tabularise_tidy(anova(data), ..., env = env)
+tabularise_tidy.aov <- function(data, ..., kind = "ft", env = parent.frame()) {
+  tabularise_tidy(anova(data), ..., kind = kind, env = env)
 }
 
 # Choose the lang and the infos_lang

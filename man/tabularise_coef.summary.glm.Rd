@@ -4,12 +4,15 @@
 \alias{tabularise_coef.summary.glm}
 \title{Create a rich-formatted table using the table of coefficients of the summary.glm object}
 \usage{
-\method{tabularise_coef}{summary.glm}(data, ..., env = parent.frame())
+\method{tabularise_coef}{summary.glm}(data, ..., kind = "ft", env = parent.frame())
 }
 \arguments{
 \item{data}{A \strong{summary.glm} object}
 
 \item{...}{Additional arguments passed to \code{\link[=tabularise_tidy.glm]{tabularise_tidy.glm()}}}
+
+\item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
+flextable (default).}
 
 \item{env}{The environment where to evaluate the model.}
 }

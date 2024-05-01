@@ -4,12 +4,15 @@
 \alias{tabularise_tidy.nls}
 \title{Tidy version of the nls object into a flextable object}
 \usage{
-\method{tabularise_tidy}{nls}(data, ..., env = parent.frame())
+\method{tabularise_tidy}{nls}(data, ..., kind = "ft", env = parent.frame())
 }
 \arguments{
 \item{data}{A \strong{nls} object}
 
 \item{...}{arguments of \code{\link[=tabularise_coef.summary.nls]{tabularise_coef.summary.nls()}}}
+
+\item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
+flextable (default).}
 
 \item{env}{The environment where to evaluate lazyeval expressions (unused for
 now).}

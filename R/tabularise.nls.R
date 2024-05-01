@@ -19,6 +19,8 @@
 #' @param show.signif.stars If `TRUE` (by default), add the significance stars
 #'   to the table.
 #' @param ... Additional arguments (Not used).
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #' @importFrom tabularise tabularise_default colformat_sci
@@ -42,9 +44,9 @@
 #' tabularise::tabularise(chick1_logis_sum)
 #' tabularise::tabularise(chick1_logis_sum, footer = FALSE)
 tabularise_default.summary.nls <- function(data, header = TRUE, title = NULL,
-equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
-show.signif.stars = getOption("show.signif.stars", TRUE), ...,
-env = parent.frame()) {
+    equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
+    show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft",
+    env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -56,7 +58,7 @@ env = parent.frame()) {
 
   ft <- tabularise_coef.summary.nls(data, header = header, title = title,
     equation = equation, lang = lang, show.signif.stars = show.signif.stars,
-    env = env)
+    kind = kind, env = env)
 
   # Choose the language
   lang <- tolower(lang)
@@ -114,6 +116,8 @@ env = parent.frame()) {
 #' @param show.signif.stars If `TRUE` (by default), add the significance stars
 #'   to the table.
 #' @param ... Additional arguments passed to [equation()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #' now).
 #'
@@ -133,9 +137,9 @@ env = parent.frame()) {
 #' tabularise::tabularise$coef(chick1_logis_sum)
 #' tabularise::tabularise$coef(chick1_logis_sum, header = FALSE, equation = TRUE)
 tabularise_coef.summary.nls <- function(data, header = TRUE, title = NULL,
-equation = header, lang = getOption("data.io_lang", "en"),
-show.signif.stars = getOption("show.signif.stars", TRUE), ...,
-env = parent.frame()) {
+    equation = header, lang = getOption("data.io_lang", "en"),
+    show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft",
+    env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -210,6 +214,8 @@ env = parent.frame()) {
 #' @param lang The language to use. The default value can be set with, e.g.,
 #'   `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments. Not used.
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -227,8 +233,8 @@ env = parent.frame()) {
 #'
 #' tabularise::tabularise(chick1_logis)
 tabularise_default.nls <- function(data, header = TRUE, title = NULL,
-equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
-..., env = parent.frame()) {
+    equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
+    ..., kind = "ft", env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -239,7 +245,7 @@ equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
   }
 
   ft <- tabularise_coef.nls(data, header = header, title = title,
-    equation = equation, lang = lang, env = env)
+    equation = equation, lang = lang, kind = kind, env = env)
 
   # Choose the language
   lang <- tolower(lang)
@@ -296,6 +302,8 @@ equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
 #' @param lang The language to use. The default value can be set with, e.g.,
 #'   `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments.
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -313,8 +321,8 @@ equation = header, footer = TRUE, lang = getOption("data.io_lang", "en"),
 #'
 #' tabularise::tabularise$coef(chick1_logis)
 tabularise_coef.nls <- function(data, header = TRUE, title = NULL,
-equation = header, lang = getOption("data.io_lang", "en"), ...,
-env = parent.frame()) {
+    equation = header, lang = getOption("data.io_lang", "en"), ..., kind = "ft",
+    env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -358,6 +366,8 @@ env = parent.frame()) {
 #'
 #' @param data A **nls** object
 #' @param ... arguments of [tabularise_coef.summary.nls()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #' @seealso [tabularise::tabularise()], [tabularise::tabularise_tidy()],
@@ -377,9 +387,9 @@ env = parent.frame()) {
 #'
 #' tabularise::tabularise$tidy(chick1_logis)
 #' tabularise::tabularise$tidy(chick1_logis, lang = "fr")
-tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
+tabularise_tidy.nls <- function(data, ..., kind = "ft", env = parent.frame()) {
   data <- summary(data)
-  tabularise_coef.summary.nls(data, ..., env = env)
+  tabularise_coef.summary.nls(data, ..., kind = kind, env = env)
 }
 
 #' Glance version of the nls object into a flextable object
@@ -400,6 +410,8 @@ tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
 #' @param lang The language to use. The default value can be set with, e.g.,
 #'   `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [equation()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -420,8 +432,8 @@ tabularise_tidy.nls <- function(data, ..., env = parent.frame()) {
 #' tabularise::tabularise$glance(chick1_logis)
 #' tabularise::tabularise$glance(chick1_logis, lang = "fr")
 tabularise_glance.nls <- function(data, header = TRUE, title = NULL,
-equation = header, lang = getOption("data.io_lang", "en"), ...,
-env = parent.frame()) {
+    equation = header, lang = getOption("data.io_lang", "en"), ..., kind = "ft",
+    env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {

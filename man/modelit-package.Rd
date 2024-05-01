@@ -2,30 +2,22 @@
 % Please edit documentation in R/modelit-package.R
 \docType{package}
 \name{modelit-package}
-\alias{modelit}
 \alias{modelit-package}
-\title{modelit: 'SciViews' - Statistical Models Within 'SciViews::R'}
+\title{Statistical Models for 'SciViews::R'}
 \description{
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
-
-Create and Use Statistical Models (Linear, General, Nonlinear, ...) by using a SciViews::R common formula interface and label-aware functions.
-}
-\details{
-The {modelit} package provides an extension to base R functions for model
+The \{modelit\} package provides an extension to base R functions for model
 fitting like \code{\link[=lm]{lm()}}, \code{\link[=glm]{glm()}} or \code{\link[=nls]{nls()}} with enhanced plots and utilitarian
 functions.
 }
-\seealso{
-Useful links:
+\section{Important functions}{
+
 \itemize{
-  \item \url{https://github.com/SciViews/modelit}
-  \item \url{https://www.sciviews.org/modelit/}
-  \item Report bugs at \url{https://github.com/SciViews/modelit/issues}
+\item \code{\link[=fit_model]{fit_model()}} creates a \strong{model_fit} object that has many methods.
+\item \code{\link[=tabularise]{tabularise()}} methods for \strong{lm}, \strong{glm}, \strong{nls}, \strong{model_fit},
+\strong{anova} and \strong{aov} objects.
+\item \code{\link[=chart]{chart()}} methods for \strong{lm}, \strong{glm}, \strong{nls} and \strong{model_fit} objects.
+\item \code{\link[=as.function]{as.function()}} transforms an \strong{lm} or \strong{nls} model into a function that
+can be plotted using \code{stat_function()}.
+}
 }
 
-}
-\author{
-\strong{Maintainer}: Philippe Grosjean \email{phgrosjean@sciviews.org} (\href{https://orcid.org/0000-0002-2694-9471}{ORCID})
-
-}
-\keyword{internal}

@@ -1,5 +1,7 @@
 # modelit 1.4.4
 
+-   Argument `kind =` added to all `tabularise()` methods and dependency update to v0.6.0 of {tabularise}.
+
 -   Enhanced vignette and README file.
 
 -   License switched to MIT.

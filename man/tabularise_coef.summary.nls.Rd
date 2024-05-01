@@ -12,6 +12,7 @@
   lang = getOption("data.io_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
+  kind = "ft",
   env = parent.frame()
 )
 }
@@ -35,6 +36,9 @@ character string (LaTeX equation).}
 to the table.}
 
 \item{...}{Additional arguments passed to \code{\link[=equation]{equation()}}}
+
+\item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
+flextable (default).}
 
 \item{env}{The environment where to evaluate lazyeval expressions (unused for
 now).}

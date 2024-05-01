@@ -4,12 +4,15 @@
 \alias{tabularise_tidy.aov}
 \title{Tidy version of the aov object into a flextable object}
 \usage{
-\method{tabularise_tidy}{aov}(data, ..., env = parent.frame())
+\method{tabularise_tidy}{aov}(data, ..., kind = "ft", env = parent.frame())
 }
 \arguments{
 \item{data}{An \strong{anova} object}
 
 \item{...}{Additional arguments passed to \code{\link[=tabularise_tidy.anova]{tabularise_tidy.anova()}}}
+
+\item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
+flextable (default).}
 
 \item{env}{The environment where to evaluate the object.}
 }

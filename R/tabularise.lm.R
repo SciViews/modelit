@@ -21,6 +21,8 @@
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -35,8 +37,9 @@
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$coef(iris_lm)
 tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
-equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+    equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    lang = getOption("data.io_lang", "en"), ..., kind = "ft",
+    env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -111,6 +114,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #'
 #' @param data An **lm** object
 #' @param ... Additional arguments passed to [modelit::tabularise_coef.lm()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate the model.
 #' @return A **flextable** object that you can print in different formats (HTML,
 #'   LaTeX, Word, PowerPoint) or rearrange with the {flextable} functions.
@@ -120,10 +125,10 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' @examples
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise(iris_lm)
-tabularise_default.lm <- function(data, ..., env = parent.frame()) {
+tabularise_default.lm <- function(data, ..., kind = "ft", env = parent.frame()) {
   # Note: there isn't much in print(lm_obj) than the table of coefficients
   # so, we produce the same table as tabularise$coef() here
-  tabularise_coef.lm(data = data, ..., env = env)
+  tabularise_coef.lm(data = data, ..., kind = kind, env = env)
 }
 
 #' Tidy version of the lm object into a flextable object
@@ -154,6 +159,8 @@ tabularise_default.lm <- function(data, ..., env = parent.frame()) {
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is `getOption("show.signif.stars")`
 #' @param ... Additional arguments passed to [tabularise::equation()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -167,10 +174,10 @@ tabularise_default.lm <- function(data, ..., env = parent.frame()) {
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$tidy(iris_lm)
 tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
-equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-conf.int = FALSE, conf.level = 0.95, lang = getOption("data.io_lang", "en"),
-show.signif.stars = getOption("show.signif.stars", TRUE), ...,
-env = parent.frame()) {
+    equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    conf.int = FALSE, conf.level = 0.95, lang = getOption("data.io_lang", "en"),
+    show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft",
+    env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -279,6 +286,8 @@ env = parent.frame()) {
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [tabularise::equation()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate lazyeval expressions (unused for
 #'   now).
 #'
@@ -291,8 +300,9 @@ env = parent.frame()) {
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$glance(iris_lm)
 tabularise_glance.lm <- function(data, header = TRUE, title = NULL,
-equation = TRUE, auto.labs = TRUE, origdata = NULL, labs = NULL,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+    equation = TRUE, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    lang = getOption("data.io_lang", "en"), ..., kind = "ft",
+    env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -359,6 +369,8 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #'
 #' @param data A **summary.lm** object
 #' @param ... Additional arguments passed to [tabularise_tidy.lm()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate the model.
 #'
 #' @return A **flextable** object you can print in different formats (HTML,
@@ -372,12 +384,13 @@ lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' iris_lm_sum <- summary(iris_lm)
 #' tabularise::tabularise$coef(iris_lm_sum)
-tabularise_coef.summary.lm <- function(data, ..., env = parent.frame()) {
+tabularise_coef.summary.lm <- function(data, ..., kind = "ft",
+    env = parent.frame()) {
 
   lm_original <- data$call
   data <- eval(lm_original, envir = env)
 
-  tabularise_tidy.lm(data = data, ..., env = env)
+  tabularise_tidy.lm(data = data, ..., kind = kind, env = env)
 }
 
 #' Create a rich-formatted table from an summary.lm object
@@ -387,6 +400,8 @@ tabularise_coef.summary.lm <- function(data, ..., env = parent.frame()) {
 #' @param lang The natural language to use. The default value can be set with,
 #'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [tabularise_coef.summary.lm()]
+#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
+#' flextable (default).
 #' @param env The environment where to evaluate the model.
 #'
 #' @return A **flextable** object you can print in different formats (HTML,
@@ -401,7 +416,8 @@ tabularise_coef.summary.lm <- function(data, ..., env = parent.frame()) {
 #' iris_lm_sum <- summary(iris_lm)
 #' tabularise::tabularise(iris_lm_sum)
 tabularise_default.summary.lm <- function(data, footer = TRUE,
-lang = getOption("data.io_lang", "en"), ..., env = parent.frame()) {
+    lang = getOption("data.io_lang", "en"), ..., kind = "ft",
+    env = parent.frame()) {
   ft <- tabularise_coef.summary.lm(data = data, lang = lang, ..., env = env)
 
   if (isTRUE(footer)) {
