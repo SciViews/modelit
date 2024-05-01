@@ -6,11 +6,12 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-462421-8');
-</script>--></head><body data-spy="scroll" data-target="#toc">
+</script>--></head><body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-news">
-      <header><!-- preloader start --><div class="preloader">
+    <!-- preloader start -->
+<div class="preloader">
   <img src="../preloader.gif" alt="loading..."></div>
 <!-- preloader end -->
 
@@ -41,23 +42,23 @@
           <input type="text" class="form-control-global search-form-input" name="q" id="q" placeholder="Search..." required><input type="hidden" name="sitesearch" value="https://www.sciviews.org"></div>
       </form>
       <!-- end svPkgdown global site search with Google -->
-      <ul class="nav navbar-nav navbar-right"><li>
-  <a href="../articles/modelit.html">Get started</a>
+      <ul class="nav navbar-nav navbar-right"><li class="nav-item">
+  <a class="nav-link" href="../articles/modelit.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="active nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/SciViews/modelit/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+        <li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/SciViews/modelit/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">modelit <small>v1.4.3</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">modelit <small>v1.4.4</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -65,60 +66,64 @@
   </div>
 </div><!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
+    <div class="container template-news">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
       <small>Source: <a href="https://github.com/SciViews/modelit/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.4.3" id="modelit-143">modelit 1.4.3<a class="anchor" aria-label="anchor" href="#modelit-143"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.4.4" id="modelit-144">modelit 1.4.4<a class="anchor" aria-label="anchor" href="#modelit-144"></a></h2>
+<ul><li><p>Argument <code>kind =</code> added to all <code><a href="https://www.sciviews.org/chart/reference/tabularise.html" class="external-link">tabularise()</a></code> methods and dependency update to v0.6.0 of {tabularise}.</p></li>
+<li><p>Enhanced vignette and README file.</p></li>
+<li><p>License switched to MIT.</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.4.3" id="modelit-143">modelit 1.4.3<a class="anchor" aria-label="anchor" href="#modelit-143"></a></h2>
 <ul><li>Lack of <code>...</code> argument in <code>equation.nl()</code> and <code><a href="../reference/equation.nls.html">equation.summary.nls()</a></code> was causing a warning in <code>R CMD check</code>. Corrected now.</li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.4.2" id="modelit-142">modelit 1.4.2<a class="anchor" aria-label="anchor" href="#modelit-142"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.4.2" id="modelit-142">modelit 1.4.2<a class="anchor" aria-label="anchor" href="#modelit-142"></a></h2>
 <ul><li>Bug correction in <code><a href="../reference/chart.nls.html">autoplot.nls()</a></code>: X and Y axes were inverted. Also the deprecated <code><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string()</a></code> function is replaced with <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> with proper arguments.</li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.4.1" id="modelit-141">modelit 1.4.1<a class="anchor" aria-label="anchor" href="#modelit-141"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.4.1" id="modelit-141">modelit 1.4.1<a class="anchor" aria-label="anchor" href="#modelit-141"></a></h2>
 <ul><li>Slight adjustments to have a space between the label and the units in equations, and to allow beta instead of beta_1 if there is no beta_0 or beta_2 in the same equations and in the tables from <code><a href="https://www.sciviews.org/chart/reference/tabularise.html" class="external-link">tabularise()</a></code>.</li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.4.0" id="modelit-140">modelit 1.4.0<a class="anchor" aria-label="anchor" href="#modelit-140"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.4.0" id="modelit-140">modelit 1.4.0<a class="anchor" aria-label="anchor" href="#modelit-140"></a></h2>
 <ul><li><p>Use of the generic <code><a href="https://www.sciviews.org/chart/reference/equation.html" class="external-link">equation()</a></code>. <code>equation_nls()</code> is transformed into an <code><a href="https://www.sciviews.org/chart/reference/equation.html" class="external-link">equation()</a></code> method for <strong>nls</strong> and <strong>summary.nls</strong> objects. Implementation of <code>ital_vars=</code>, <code>use_coefs=</code>, <code>coef_digits=</code> and <code>fix_signs=</code> arguments in order to get parameterized as well as non parameterized equation, with or without italic for the variables.</p></li>
 <li><p>Dependency to {equatiomatic} is dropped. It is now included in {tabularise}.</p></li>
 <li><p>The default for <code>title=</code> argument is now automatically set to <code>FALSE</code> if the table is generated inside a chunk that has <code>tbl-cap</code> YAML entry defined (thus replaced by that caption).</p></li>
 <li><p>The <code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code> methods for <strong>summary.lm</strong> and <strong>summary.glm</strong> were lacking important information (they were identical to <code>tabularise_coef)</code> for the same objects. Corrected now.</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.3.0" id="modelit-130">modelit 1.3.0<a class="anchor" aria-label="anchor" href="#modelit-130"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.3.0" id="modelit-130">modelit 1.3.0<a class="anchor" aria-label="anchor" href="#modelit-130"></a></h2>
 <ul><li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code> and <code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> added for <strong>anova</strong> objects.</p></li>
 <li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> added for <strong>aov</strong> objects.</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.2.0" id="modelit-120">modelit 1.2.0<a class="anchor" aria-label="anchor" href="#modelit-120"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.2.0" id="modelit-120">modelit 1.2.0<a class="anchor" aria-label="anchor" href="#modelit-120"></a></h2>
 <ul><li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_glance.html" class="external-link">tabularise_glance()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> for <strong>lm</strong> objects</p></li>
 <li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code> for <strong>summary.lm</strong> objects</p></li>
 <li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_glance.html" class="external-link">tabularise_glance()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> for <strong>glm</strong> objects</p></li>
 <li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code> for <strong>summary.glm</strong> objects</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.1.0" id="modelit-110">modelit 1.1.0<a class="anchor" aria-label="anchor" href="#modelit-110"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.1.0" id="modelit-110">modelit 1.1.0<a class="anchor" aria-label="anchor" href="#modelit-110"></a></h2>
 <ul><li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_glance.html" class="external-link">tabularise_glance()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_tidy.html" class="external-link">tabularise_tidy()</a></code> for <strong>nls</strong> objects</p></li>
 <li><p><code><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default()</a></code>, <code><a href="https://www.sciviews.org/chart/reference/tabularise_coef.html" class="external-link">tabularise_coef()</a></code> for <strong>summary.nls</strong> objects</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.0" id="modelit-100">modelit 1.0.0<a class="anchor" aria-label="anchor" href="#modelit-100"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="modelit-100">modelit 1.0.0<a class="anchor" aria-label="anchor" href="#modelit-100"></a></h2>
 <ul><li><p><code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> and <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code> for objects <strong>lm</strong>, <strong>glm</strong> and <strong>nls</strong>: both the plot of the model and several residual analyses, plus a composed 2x2 plot for residuals analysis.</p></li>
 <li><p><code><a href="https://rdrr.io/r/base/as.function.html" class="external-link">as.function()</a></code> for <strong>lm</strong> and <strong>nls</strong> objects.</p></li>
 <li><p>Reexportation of several functions from {modelr}: <code><a href="../reference/modelr-reexport.html">add_predictions()</a></code>, <code><a href="../reference/modelr-reexport.html">add_residuals()</a></code>, <code><a href="../reference/modelr-reexport.html">geom_ref_line()</a></code>, <code><a href="../reference/modelr-reexport.html">rmse()</a></code>, <code><a href="../reference/modelr-reexport.html">rsquare()</a></code>, <code><a href="../reference/modelr-reexport.html">mae()</a></code> and <code><a href="../reference/modelr-reexport.html">qae()</a></code>.</p></li>
 <li><p><code><a href="../reference/fit_model.html">fit_model()</a></code> to easily fit a {parsnip} model, and a series of methods like <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code>, <code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova()</a></code> or <code><a href="https://www.sciviews.org/chart/reference/chart.html" class="external-link">chart()</a></code> directly implemented for these objects.</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.1.0" id="modelit-010">modelit 0.1.0<a class="anchor" aria-label="anchor" href="#modelit-010"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.0" id="modelit-010">modelit 0.1.0<a class="anchor" aria-label="anchor" href="#modelit-010"></a></h2>
 <ul><li>Added hex sticker (logo) with:</li>
 </ul><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -132,16 +137,11 @@
 <span>  filename <span class="op">=</span> <span class="st">"inst/figures/modelit.png"</span><span class="op">)</span></span></code></pre></div>
 <ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 </ul></div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
-    </nav></div>
-
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
-      <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
+    <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
     <div class="py-100 border-bottom" style="border-color: #454547 !important">
         <div class="container">
             <div class="row">
@@ -254,10 +254,9 @@
 <!--</footer>-->
 <!-- /footer -->
 
-      </footer></div>
+    </footer></div>
 
   
-
 
   
 

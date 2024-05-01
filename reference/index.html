@@ -6,11 +6,12 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-462421-8');
-</script>--></head><body data-spy="scroll" data-target="#toc">
+</script>--></head><body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-reference-index">
-      <header><!-- preloader start --><div class="preloader">
+    <!-- preloader start -->
+<div class="preloader">
   <img src="../preloader.gif" alt="loading..."></div>
 <!-- preloader end -->
 
@@ -41,23 +42,23 @@
           <input type="text" class="form-control-global search-form-input" name="q" id="q" placeholder="Search..." required><input type="hidden" name="sitesearch" value="https://www.sciviews.org"></div>
       </form>
       <!-- end svPkgdown global site search with Google -->
-      <ul class="nav navbar-nav navbar-right"><li>
-  <a href="../articles/modelit.html">Get started</a>
+      <ul class="nav navbar-nav navbar-right"><li class="nav-item">
+  <a class="nav-link" href="../articles/modelit.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/SciViews/modelit/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+        <li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/SciViews/modelit/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">modelit <small>v1.4.3</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">modelit <small>v1.4.4</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -65,139 +66,173 @@
   </div>
 </div><!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-    <div class="page-header">
-      <h1>Reference</h1>
+    <div class="container template-reference-index">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Function reference</h1>
     </div>
 
-    <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
-          <h2 id="all-functions">All functions <a href="#all-functions" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr></tbody><tbody><tr><td>
-          <p><code><a href="as.function.lm.html">as.function(<i>&lt;lm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Transform an lm or glm model into a function</p></td>
-      </tr><tr><td>
-          <p><code><a href="as.function.nls.html">as.function(<i>&lt;nls&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Transform an nls model into a function</p></td>
-      </tr><tr><td>
-          <p><code><a href="chart.lm.html">chart(<i>&lt;lm&gt;</i>)</a></code> <code><a href="chart.lm.html">autoplot.lm()</a></code> </p>
-        </td>
-        <td><p>Chart an lm or glm model or diagnose its residuals visually</p></td>
-      </tr><tr><td>
-          <p><code><a href="chart.nls.html">chart(<i>&lt;nls&gt;</i>)</a></code> <code><a href="chart.nls.html">autoplot.nls()</a></code> </p>
-        </td>
-        <td><p>Chart an nls model or diagnose its residuals visually</p></td>
-      </tr><tr><td>
-          <p><code><a href="equation.nls.html">equation(<i>&lt;nls&gt;</i>)</a></code> <code><a href="equation.nls.html">equation(<i>&lt;summary.nls&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Get a LaTeX equation from an nls or summary.nls models</p></td>
-      </tr><tr><td>
-          <p><code><a href="fit_model.html">fit_model()</a></code> <code><a href="fit_model.html">summary(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">anova(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">plot(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">chart(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">as.function(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">coef(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">vcov(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">confint(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">fitted(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">residuals(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">rstandard(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">cooks.distance(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">hatvalues(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">deviance(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">AIC(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">BIC(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">family(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">nobs(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">formula(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">variable.names(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">labels(<i>&lt;model_fit&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Fit a parsnip model and manipulate it as a base R model like lm</p></td>
-      </tr><tr><td>
-          <p><code><a href="modelr-reexport.html">add_predictions()</a></code> <code><a href="modelr-reexport.html">add_residuals()</a></code> <code><a href="modelr-reexport.html">geom_ref_line()</a></code> <code><a href="modelr-reexport.html">rmse()</a></code> <code><a href="modelr-reexport.html">mae()</a></code> <code><a href="modelr-reexport.html">qae()</a></code> <code><a href="modelr-reexport.html">rsquare()</a></code> </p>
-        </td>
-        <td><p>Reexport of modelr functions</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_coef.glm.html">tabularise_coef(<i>&lt;glm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table using the coefficients of a glm object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_coef.lm.html">tabularise_coef(<i>&lt;lm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table using the coefficients of an lm object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_coef.nls.html">tabularise_coef(<i>&lt;nls&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table using the coefficients of the nls object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_coef.summary.glm.html">tabularise_coef(<i>&lt;summary.glm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table using the table of coefficients of the summary.glm object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_coef.summary.lm.html">tabularise_coef(<i>&lt;summary.lm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table using the table of coefficients of the summary.lm object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_coef.summary.nls.html">tabularise_coef(<i>&lt;summary.nls&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table using the table of coefficients of the summary.nls object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_default.anova.html">tabularise_default(<i>&lt;anova&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table from an anova object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_default.glm.html">tabularise_default(<i>&lt;glm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table from a glm object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_default.lm.html">tabularise_default(<i>&lt;lm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table from an lm object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_default.nls.html">tabularise_default(<i>&lt;nls&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table from a nls object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_default.summary.glm.html">tabularise_default(<i>&lt;summary.glm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table from a summary.glm object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_default.summary.lm.html">tabularise_default(<i>&lt;summary.lm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table from an summary.lm object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_default.summary.nls.html">tabularise_default(<i>&lt;summary.nls&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a rich-formatted table from a summary.nls object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_glance.glm.html">tabularise_glance(<i>&lt;glm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a glance version of the glm object as a rich-formatted table</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_glance.lm.html">tabularise_glance(<i>&lt;lm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Glance version of the lm object into a flextable object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_glance.nls.html">tabularise_glance(<i>&lt;nls&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Glance version of the nls object into a flextable object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_tidy.anova.html">tabularise_tidy(<i>&lt;anova&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Tidy version of the anova object into a flextable object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_tidy.aov.html">tabularise_tidy(<i>&lt;aov&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Tidy version of the aov object into a flextable object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_tidy.glm.html">tabularise_tidy(<i>&lt;glm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Create a tidy version of the glm object as a rich-formatted table</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_tidy.lm.html">tabularise_tidy(<i>&lt;lm&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Tidy version of the lm object into a flextable object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tabularise_tidy.nls.html">tabularise_tidy(<i>&lt;nls&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Tidy version of the nls object into a flextable object</p></td>
-      </tr></tbody></table></div>
+    <div class="section level2">
+      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      
+      
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
-    </nav></div>
-</div>
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="as.function.lm.html">as.function(<i>&lt;lm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Transform an lm or glm model into a function</dd>
+      </dl><dl><dt>
+          
+          <code><a href="as.function.nls.html">as.function(<i>&lt;nls&gt;</i>)</a></code> 
+        </dt>
+        <dd>Transform an nls model into a function</dd>
+      </dl><dl><dt>
+          
+          <code><a href="chart.lm.html">chart(<i>&lt;lm&gt;</i>)</a></code> <code><a href="chart.lm.html">autoplot.lm()</a></code> 
+        </dt>
+        <dd>Chart an lm or glm model or diagnose its residuals visually</dd>
+      </dl><dl><dt>
+          
+          <code><a href="chart.nls.html">chart(<i>&lt;nls&gt;</i>)</a></code> <code><a href="chart.nls.html">autoplot.nls()</a></code> 
+        </dt>
+        <dd>Chart an nls model or diagnose its residuals visually</dd>
+      </dl><dl><dt>
+          
+          <code><a href="equation.nls.html">equation(<i>&lt;nls&gt;</i>)</a></code> <code><a href="equation.nls.html">equation(<i>&lt;summary.nls&gt;</i>)</a></code> 
+        </dt>
+        <dd>Get a LaTeX equation from an nls or summary.nls models</dd>
+      </dl><dl><dt>
+          
+          <code><a href="fit_model.html">fit_model()</a></code> <code><a href="fit_model.html">summary(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">anova(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">plot(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">chart(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">as.function(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">coef(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">vcov(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">confint(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">fitted(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">residuals(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">rstandard(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">cooks.distance(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">hatvalues(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">deviance(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">AIC(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">BIC(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">family(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">nobs(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">formula(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">variable.names(<i>&lt;model_fit&gt;</i>)</a></code> <code><a href="fit_model.html">labels(<i>&lt;model_fit&gt;</i>)</a></code> 
+        </dt>
+        <dd>Fit a parsnip model and manipulate it as a base R model like lm</dd>
+      </dl><dl><dt>
+          
+          <code><a href="modelit-package.html">modelit-package</a></code> 
+        </dt>
+        <dd>Statistical Models for 'SciViews::R'</dd>
+      </dl><dl><dt>
+          
+          <code><a href="modelr-reexport.html">add_predictions()</a></code> <code><a href="modelr-reexport.html">add_residuals()</a></code> <code><a href="modelr-reexport.html">geom_ref_line()</a></code> <code><a href="modelr-reexport.html">rmse()</a></code> <code><a href="modelr-reexport.html">mae()</a></code> <code><a href="modelr-reexport.html">qae()</a></code> <code><a href="modelr-reexport.html">rsquare()</a></code> 
+        </dt>
+        <dd>Reexport of modelr functions</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_coef.glm.html">tabularise_coef(<i>&lt;glm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table using the coefficients of a glm object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_coef.lm.html">tabularise_coef(<i>&lt;lm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table using the coefficients of an lm object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_coef.nls.html">tabularise_coef(<i>&lt;nls&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table using the coefficients of the nls object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_coef.summary.glm.html">tabularise_coef(<i>&lt;summary.glm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table using the table of coefficients of the summary.glm object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_coef.summary.lm.html">tabularise_coef(<i>&lt;summary.lm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table using the table of coefficients of the summary.lm object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_coef.summary.nls.html">tabularise_coef(<i>&lt;summary.nls&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table using the table of coefficients of the summary.nls object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_default.anova.html">tabularise_default(<i>&lt;anova&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table from an anova object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_default.glm.html">tabularise_default(<i>&lt;glm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table from a glm object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_default.lm.html">tabularise_default(<i>&lt;lm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table from an lm object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_default.nls.html">tabularise_default(<i>&lt;nls&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table from a nls object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_default.summary.glm.html">tabularise_default(<i>&lt;summary.glm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table from a summary.glm object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_default.summary.lm.html">tabularise_default(<i>&lt;summary.lm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table from an summary.lm object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_default.summary.nls.html">tabularise_default(<i>&lt;summary.nls&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a rich-formatted table from a summary.nls object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_glance.glm.html">tabularise_glance(<i>&lt;glm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a glance version of the glm object as a rich-formatted table</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_glance.lm.html">tabularise_glance(<i>&lt;lm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Glance version of the lm object into a flextable object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_glance.nls.html">tabularise_glance(<i>&lt;nls&gt;</i>)</a></code> 
+        </dt>
+        <dd>Glance version of the nls object into a flextable object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_tidy.anova.html">tabularise_tidy(<i>&lt;anova&gt;</i>)</a></code> 
+        </dt>
+        <dd>Tidy version of the anova object into a flextable object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_tidy.aov.html">tabularise_tidy(<i>&lt;aov&gt;</i>)</a></code> 
+        </dt>
+        <dd>Tidy version of the aov object into a flextable object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_tidy.glm.html">tabularise_tidy(<i>&lt;glm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Create a tidy version of the glm object as a rich-formatted table</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_tidy.lm.html">tabularise_tidy(<i>&lt;lm&gt;</i>)</a></code> 
+        </dt>
+        <dd>Tidy version of the lm object into a flextable object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tabularise_tidy.nls.html">tabularise_tidy(<i>&lt;nls&gt;</i>)</a></code> 
+        </dt>
+        <dd>Tidy version of the nls object into a flextable object</dd>
+      </dl></div>
+  </main></div>
 
 
-      <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
+    <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
     <div class="py-100 border-bottom" style="border-color: #454547 !important">
         <div class="container">
             <div class="row">
@@ -310,10 +345,9 @@
 <!--</footer>-->
 <!-- /footer -->
 
-      </footer></div>
+    </footer></div>
 
   
-
 
   
 

@@ -6,11 +6,12 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-462421-8');
-</script>--></head><body data-spy="scroll" data-target="#toc">
+</script>--></head><body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-reference-topic">
-      <header><!-- preloader start --><div class="preloader">
+    <!-- preloader start -->
+<div class="preloader">
   <img src="../preloader.gif" alt="loading..."></div>
 <!-- preloader end -->
 
@@ -41,23 +42,23 @@
           <input type="text" class="form-control-global search-form-input" name="q" id="q" placeholder="Search..." required><input type="hidden" name="sitesearch" value="https://www.sciviews.org"></div>
       </form>
       <!-- end svPkgdown global site search with Google -->
-      <ul class="nav navbar-nav navbar-right"><li>
-  <a href="../articles/modelit.html">Get started</a>
+      <ul class="nav navbar-nav navbar-right"><li class="nav-item">
+  <a class="nav-link" href="../articles/modelit.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/SciViews/modelit/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+        <li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/SciViews/modelit/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">modelit <small>v1.4.3</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">modelit <small>v1.4.4</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -65,33 +66,33 @@
   </div>
 </div><!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
-    <h1>Create a rich-formatted table from a glm object</h1>
-    <small class="dont-index">Source: <a href="https://github.com/SciViews/modelit/blob/HEAD/R/tabularise.glm.R" class="external-link"><code>R/tabularise.glm.R</code></a></small>
-    <div class="hidden name"><code>tabularise_default.glm.Rd</code></div>
+    <div class="container template-reference-topic">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Create a rich-formatted table from a glm object</h1>
+      <small class="dont-index">Source: <a href="https://github.com/SciViews/modelit/blob/HEAD/R/tabularise.glm.R" class="external-link"><code>R/tabularise.glm.R</code></a></small>
+      <div class="d-none name"><code>tabularise_default.glm.Rd</code></div>
     </div>
 
-    <div class="ref-description">
+    <div class="ref-description section level2">
     <p>Create a rich-formatted table from a glm object</p>
     </div>
 
-    <div id="ref-usage">
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for glm</span></span>
-<span><span class="fu">tabularise_default</span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://www.sciviews.org/chart/reference/tabularise_default.html" class="external-link">tabularise_default</a></span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  footer <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  lang <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"data.io_lang"</span>, <span class="st">"en"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  kind <span class="op">=</span> <span class="st">"ft"</span>,</span>
 <span>  env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
-    <div id="arguments">
-    <h2>Arguments</h2>
+    <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A <strong>glm</strong> object</p></dd>
 
@@ -109,12 +110,17 @@ e.g., <code>options(data.io_lang = "fr")</code> for French.</p></dd>
 <dd><p>Additional arguments passed to <code><a href="tabularise_coef.glm.html">tabularise_coef.glm()</a></code></p></dd>
 
 
+<dt>kind</dt>
+<dd><p>The kind of table to produce: "tt" for tinytable, or "ft" for
+flextable (default).</p></dd>
+
+
 <dt>env</dt>
 <dd><p>The environment where to evaluate the model.</p></dd>
 
 </dl></div>
-    <div id="value">
-    <h2>Value</h2>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
 <p>A <strong>flextable</strong> object is returned. You can print it in different
@@ -122,21 +128,17 @@ formats (HTML, LaTeX, Word, PowerPoint) or rearrange it with the
 flextable functions.</p>
     </div>
 
-    <div id="ref-examples">
-    <h2>Examples</h2>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">iris_glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span>, <span class="va">Petal.Length</span> <span class="op">~</span> <span class="va">Sepal.Length</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">tabularise</span><span class="fu">::</span><span class="fu"><a href="https://www.sciviews.org/chart/reference/tabularise.html" class="external-link">tabularise</a></span><span class="op">(</span><span class="va">iris_glm</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .params_equa(equa, ...):</span> unused argument (kind = "ft")</span>
-</code></pre></div>
+<style></style><div class="tabwid"><style>.cl-e7fdae14{}.cl-e7f87c78{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e7f87c8c{font-family:'Arial';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.6pt;}.cl-e7fab920{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e7fab92a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e7fac96a{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac974{width:0.934in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac975{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac976{width:0.934in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac97e{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac97f{width:0.934in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac988{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac989{width:0.934in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac98a{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac992{width:0.934in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac993{width:0.86in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e7fac994{width:0.934in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="table cl-e7fdae14"><thead><tr style="overflow-wrap:break-word;"><th colspan="2" class="cl-e7fac96a"><p class="cl-e7fab920"><span class="cl-e7f87c78">Generalized Linear Model</span></p></th></tr><tr style="overflow-wrap:break-word;"><th colspan="2" class="cl-e7fac975"><p class="cl-e7fab920">NA</p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-e7fac97e"><p class="cl-e7fab92a"><span class="cl-e7f87c78"></span><span class="cl-e7f87c78">Term</span></p></th><th class="cl-e7fac97f"><p class="cl-e7fab920"><span class="cl-e7f87c78"></span><span class="cl-e7f87c78">Estimate</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-e7fac988"><p class="cl-e7fab92a"><span class="cl-e7f87c78"></span><span class="cl-e7f87c78"></span>\alpha<span class="cl-e7f87c78"></span></p></td><td class="cl-e7fac989"><p class="cl-e7fab920"><span class="cl-e7f87c78">-7.10</span><span class="cl-e7f87c78"></span><span class="cl-e7f87c8c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e7fac98a"><p class="cl-e7fab92a"><span class="cl-e7f87c78"></span><span class="cl-e7f87c78"></span>\beta_{}<span class="cl-e7f87c78"></span></p></td><td class="cl-e7fac992"><p class="cl-e7fab920"><span class="cl-e7f87c78"> 1.86</span><span class="cl-e7f87c78"></span><span class="cl-e7f87c8c"></span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td colspan="2" class="cl-e7fac993"><p class="cl-e7fab92a"><span class="cl-e7f87c78">Degrees of freedom: 149 Total (i.e. no model) 148 Residual</span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="2" class="cl-e7fac993"><p class="cl-e7fab92a"><span class="cl-e7f87c78">Total deviance: 464.3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="2" class="cl-e7fac993"><p class="cl-e7fab92a"><span class="cl-e7f87c78">Residual deviance: 111.5 AIC: 387.1</span></p></td></tr></tfoot></table></div></code></pre></div>
     </div>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
-      <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
+    <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
     <div class="py-100 border-bottom" style="border-color: #454547 !important">
         <div class="container">
             <div class="row">
@@ -249,10 +251,9 @@ flextable functions.</p>
 <!--</footer>-->
 <!-- /footer -->
 
-      </footer></div>
+    </footer></div>
 
   
-
 
   
 
