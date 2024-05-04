@@ -3,6 +3,7 @@ ANOVA
 aov
 CMD
 Codecov
+datalorax
 dir
 equatiomatic
 flextable
@@ -35,8 +36,10 @@ showWarnings
 svMisc
 tabularise
 tadea
+texPreview
 tidymodels
 tinytable
 tt
 untransformed
 YAML
+yonicd

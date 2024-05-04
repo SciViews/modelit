@@ -1,3 +1,7 @@
+# modelit 1.4.5
+
+-   Remotes SciViews/equatiomatic instead of datalorax/equatiomatic for correct compilation on R-Universe (no remote dependency required to yonicd/texPreview).
+
 # modelit 1.4.4
 
 -   Argument `kind =` added to all `tabularise()` methods and dependency update to v0.6.0 of {tabularise}.
