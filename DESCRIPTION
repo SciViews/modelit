@@ -34,7 +34,7 @@ Suggests:
   datasets (>= 4.2.0),
   dplyr (>= 1.1.4),
   equatags (<= 0.2.0),
-  equatiomatic (>= 0.3.0,)
+  equatiomatic (>= 0.3.0),
   parsnip (>= 1.1.0),
   rmarkdown (>= 2.21),
   spelling (>= 2.2.1),
