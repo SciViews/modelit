@@ -33,7 +33,7 @@ Suggests:
   broom.mixed (>= 0.2.9.4),
   datasets (>= 4.2.0),
   dplyr (>= 1.1.4),
-  equatags (<= 0.2.0),
+  equatags (>= 0.2.0),
   equatiomatic (>= 0.3.0),
   parsnip (>= 1.1.0),
   rmarkdown (>= 2.21),
