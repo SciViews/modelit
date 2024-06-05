@@ -48,9 +48,9 @@ env = parent.frame()) {
 
   # Extract labels of data or origdata
   if (isTRUE(auto.labs)) {
-    labs <- .labels2(data, origdata = origdata, labs = labs)
+    labs <- tabularise:::.labels2(data, origdata = origdata, labs = labs)
   } else {
-    labs <- .labels2(x = NULL, labs = labs)
+    labs <- tabularise:::.labels2(x = NULL, labs = labs)
   }
 
   # Turn an object into a tidy tibble
@@ -198,9 +198,9 @@ kind = "ft", env = parent.frame()) {
 
   # Extract labels
   if (isTRUE(auto.labs)) {
-    labs <- .labels2(data, origdata = origdata, labs = labs)
+    labs <- tabularise:::.labels2(data, origdata = origdata, labs = labs)
   } else {
-    labs <- .labels2(NULL, labs = labs)
+    labs <- tabularise:::.labels2(NULL, labs = labs)
   }
 
   # Turn an object into a tidy tibble

@@ -60,9 +60,9 @@ lang = getOption("data.io_lang", "en"), ..., kind = "ft", env = parent.frame()) 
   # co <- as.data.frame(rbind(coef(data)))
 
   if (isTRUE(auto.labs)) {
-    labs <- .labels2(x = data, origdata = origdata, labs = labs)
+    labs <- tabularise:::.labels2(x = data, origdata = origdata, labs = labs)
   } else {
-    labs <- .labels2(x = NULL, labs = labs)
+    labs <- tabularise:::.labels2(x = NULL, labs = labs)
   }
 
   # Create the flextable object
@@ -216,9 +216,9 @@ env = parent.frame()) {
 
   # Extract labels of data or origdata
   if (isTRUE(auto.labs)) {
-    labs <- .labels2(x = data, origdata = origdata, labs = labs)
+    labs <- tabularise:::.labels2(x = data, origdata = origdata, labs = labs)
   } else {
-    labs <- .labels2(x = NULL, labs = labs)
+    labs <- tabularise:::.labels2(x = NULL, labs = labs)
   }
 
   # Turn an object into a tidy tibble
@@ -348,9 +348,9 @@ tabularise_glance.glm <- function(data, header = TRUE, title = NULL,
 
   # Extract labels off data or origdata
   if (isTRUE(auto.labs)) {
-    labs <- .labels2(x = data, origdata = origdata, labs = labs)
+    labs <- tabularise:::.labels2(x = data, origdata = origdata, labs = labs)
   } else {
-    labs <- .labels2(x = NULL, labs = labs)
+    labs <- tabularise:::.labels2(x = NULL, labs = labs)
   }
 
   # Turn an object into a tidy tibble
