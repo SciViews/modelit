@@ -76,7 +76,7 @@ lang = getOption("data.io_lang", "en"), ..., kind = "ft", env = parent.frame()) 
     if (!is.null(labs)) {
       equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equation(data, ...)
+      equa <- equation(data, auto.labs = FALSE,...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
@@ -251,7 +251,7 @@ env = parent.frame()) {
     if (!is.null(labs)) {
       equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equation(data, ...)
+      equa <- equation(data, auto.labs = FALSE, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
@@ -370,7 +370,7 @@ tabularise_glance.glm <- function(data, header = TRUE, title = NULL,
     if (!is.null(labs)) {
       equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equation(data, ...)
+      equa <- equation(data, auto.labs = FALSE, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
