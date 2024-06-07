@@ -60,15 +60,13 @@ trees_lm <- lm(Volume ~ Girth + I(Girth^2), data = trees)
 summary(trees_lm)
 ```
 
-
-<!-- This produces an error !
 Here is the summary of the model, using `tabularise()`:
 
-``{r}
+```{r, eval=FALSE}
 summary(trees_lm) |> tabularise()
-``
+```
 
--->
+<img src="man/figures/README-tabularise-chunk.png" width="80%"/>
 
 The model can be viewed using `chart()`:
 
