@@ -509,7 +509,7 @@ infos_en.glm <- list(
     conf.high = "Upper bound (CI)",
     std.error = "Standard Error",
     t.value = "*t* value",
-    sigma = "RSE",
+    sigma = "Sigma",# The misnomer “Residual standard error”
     r.squared = "R^2^",
     adj.r.squared = "Adj.R^2^",
     AIC = "AIC",
@@ -559,7 +559,7 @@ infos_fr.glm <- list(
     std.error = "Ecart type",
     t.value = "Valeur de *t*",
     p.value = "Valeur de *p*",
-    sigma = "RSE",
+    sigma = "Sigma", # The misnomer “Residual standard error”
     r.squared = "R^2^",
     adj.r.squared = "R^2^ ajust\u00e9",
     deviance = "D\u00e9viance",
