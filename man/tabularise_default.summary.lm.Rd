@@ -6,6 +6,7 @@
 \usage{
 \method{tabularise_default}{summary.lm}(
   data,
+  header = TRUE,
   footer = TRUE,
   lang = getOption("data.io_lang", "en"),
   ...,
@@ -15,6 +16,8 @@
 }
 \arguments{
 \item{data}{A \strong{summary.lm} object}
+
+\item{header}{If \code{TRUE} (by default), add a header to the table}
 
 \item{footer}{If \code{TRUE} (by default), add a footer to the table}
 

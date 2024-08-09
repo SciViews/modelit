@@ -1,3 +1,9 @@
+# modelit 1.4.7
+
+-   Refactor all tabularise\_\*\*\* functions for lm object like tabularise_glance.lm(), tabularise_default.lm(), tabularise_tidy.lm(),...
+
+-   Adding the lm\_() function which is similar to lm() but adds useful attributes like labels and units of the variables used.
+
 # modelit 1.4.6
 
 -   Bug correction in `tabularise()` for **lm** and **glm** object. Managing a conflict between auto.labs= and equation=.

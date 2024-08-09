@@ -8,6 +8,7 @@
   z
 }
 
+
 # Add pvalue signif
 .add_signif_stars <- function(x, i = NULL, j = NULL, part = "body",
 align = "right", ...) {
