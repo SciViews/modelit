@@ -2,6 +2,8 @@
 
 -   Better selection of X and Y variables in `chart.nls()` and `autoplot.nls()`.
 
+-   Bug correction in `tabularise()` for **lm** and **glm** object. Managing a conflict between `auto.labs=` and `equation=`.
+
 # modelit 1.4.5
 
 -   Remotes SciViews/equatiomatic instead of datalorax/equatiomatic for correct compilation on R-Universe (no remote dependency required to yonicd/texPreview).

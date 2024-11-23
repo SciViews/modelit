@@ -25,48 +25,48 @@ align = "right", ...) {
 
 # TODO: this is duplicated in tabularise -> export from there and reuse here!
 # Extract labels and units
-.labels <- function(x, units = TRUE, ...) {
-  labels <- sapply(x, data.io::label, units = units)
+# .labels <- function(x, units = TRUE, ...) {
+#   labels <- sapply(x, data.io::label, units = units)
+#
+#   if (any(labels != "")) {
+#     # Use a \n before labels and the units
+#     if (isTRUE(units))
+#       labels <- sub(" +\\[([^]]+)\\]$", "\n [\\1]", labels)
+#     # set names if empty
+#     labels[labels == ""] <- names(x)[labels == ""]
+#     # Specific case for I() using in a formula
+#     labels[grepl("^I\\(.*\\)$", names(labels))] <- names(labels)[grepl("^I\\(.*\\)$", names(labels))]
+#   }
+#
+#   if (all(labels == ""))
+#     labels <- NULL
+#
+#   labels
+# }
 
-  if (any(labels != "")) {
-    # Use a \n before labels and the units
-    if (isTRUE(units))
-      labels <- sub(" +\\[([^]]+)\\]$", "\n [\\1]", labels)
-    # set names if empty
-    labels[labels == ""] <- names(x)[labels == ""]
-    # Specific case for I() using in a formula
-    labels[grepl("^I\\(.*\\)$", names(labels))] <- names(labels)[grepl("^I\\(.*\\)$", names(labels))]
-  }
-
-  if (all(labels == ""))
-    labels <- NULL
-
-  labels
-}
-
-.labels2 <- function(x, origdata = NULL, labs = NULL) {
-
-  #labs_auto <- NULL
-  if (is.null(origdata)) {
-    labs_auto <- .labels(x$model)
-  } else {
-    labs_auto <- .labels(origdata)
-  }
-
-  if (!is.null(labs)) {
-    if (!is.character(labs))
-      stop("labs is not character vector")
-    if (is.null(names(labs)))
-      stop("labs must be named character vector")
-    if (any(names(labs) %in% ""))
-      stop("all element must be named")
-    labs_res <- c(labs, labs_auto[!names(labs_auto) %in% names(labs)])
-  } else {
-    labs_res <- labs_auto
-  }
-
-  labs_res
-}
+# .labels2 <- function(x, origdata = NULL, labs = NULL) {
+#
+#   #labs_auto <- NULL
+#   if (is.null(origdata)) {
+#     labs_auto <- .labels(x$model)
+#   } else {
+#     labs_auto <- .labels(origdata)
+#   }
+#
+#   if (!is.null(labs)) {
+#     if (!is.character(labs))
+#       stop("labs is not character vector")
+#     if (is.null(names(labs)))
+#       stop("labs must be named character vector")
+#     if (any(names(labs) %in% ""))
+#       stop("all element must be named")
+#     labs_res <- c(labs, labs_auto[!names(labs_auto) %in% names(labs)])
+#   } else {
+#     labs_res <- labs_auto
+#   }
+#
+#   labs_res
+# }
 
 # Retrieve model parameters
 .params_equa <- function(x, intercept = "alpha", greek = "beta") {

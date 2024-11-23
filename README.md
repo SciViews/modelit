@@ -96,12 +96,13 @@ summary(trees_lm)
 #> F-statistic: 350.5 on 2 and 28 DF,  p-value: < 2.2e-16
 ```
 
-<!-- This produces an error !
 Here is the summary of the model, using `tabularise()`:
-&#10;``{r}
+
+``` r
 summary(trees_lm) |> tabularise()
-``
-&#10;-->
+```
+
+<img src="man/figures/README-tabularise-chunk.png" width="80%"/>
 
 The model can be viewed using `chart()`:
 
@@ -109,7 +110,7 @@ The model can be viewed using `chart()`:
 chart(trees_lm)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="80%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="80%" />
 
 Residual analysis plots can also be carried out with `chart()`.
 
@@ -117,7 +118,7 @@ Residual analysis plots can also be carried out with `chart()`.
 chart$residuals(trees_lm)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="80%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="80%" />
 
 For further examples, please, refer to the help pages at
 <https://www.sciviews.org/modelit/>.

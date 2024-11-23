@@ -58,9 +58,9 @@ tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
   # co <- as.data.frame(rbind(coef(data)))
 
   if (isTRUE(auto.labs)) {
-    labs <- .labels2(x = data, origdata = origdata, labs = labs)
+    labs <- tabularise:::.labels2(x = data, origdata = origdata, labs = labs)
   } else {
-    labs <- .labels2(x = NULL, labs = labs)
+    labs <- tabularise:::.labels2(x = NULL, labs = labs)
   }
 
   # Create the flextable object
@@ -73,7 +73,7 @@ tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
     if (!is.null(labs)) {
       equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equation(data, ...)
+      equa <- equation(data, auto.labs = FALSE, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
@@ -192,9 +192,9 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
 
   # Extract labels off data or origdata
   if (isTRUE(auto.labs)) {
-    labs <- .labels2(x = data, origdata = origdata, labs = labs)
+    labs <- tabularise:::.labels2(x = data, origdata = origdata, labs = labs)
   } else {
-    labs <- .labels2(x = NULL, labs = labs)
+    labs <- tabularise:::.labels2(x = NULL, labs = labs)
   }
 
   # Turn an object into a tidy tibble
@@ -224,7 +224,7 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
     if (!is.null(labs)) {
       equa <- equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equation(data, ...)
+      equa <- equation(data, auto.labs = FALSE, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
@@ -317,9 +317,9 @@ tabularise_glance.lm <- function(data, header = TRUE, title = NULL,
 
   # Extract labels of data or origdata
   if (isTRUE(auto.labs)) {
-    labs <- .labels2(x = data, origdata = origdata, labs = labs)
+    labs <- tabularise:::.labels2(x = data, origdata = origdata, labs = labs)
   } else {
-    labs <- .labels2(x = NULL, labs = labs)
+    labs <- tabularise:::.labels2(x = NULL, labs = labs)
   }
 
   # Turn an object into a tidy tibble
@@ -339,7 +339,7 @@ tabularise_glance.lm <- function(data, header = TRUE, title = NULL,
     if (!is.null(labs)) {
       equa <- equation(data, swap_var_names = labs, ...)
     } else {
-      equa <- equation(data, ...)
+      equa <- equation(data, auto.labs = FALSE, ...)
     }
 
     ft <- .add_header(ft, data = data, info_lang = info_lang, header = header,
