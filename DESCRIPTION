@@ -1,6 +1,6 @@
 Package: modelit
 Type: Package
-Version: 1.4.5
+Version: 1.4.6
 Title: Statistical Models for 'SciViews::R'
 Description: Create and use statistical models (linear, general, nonlinear...)
   with extensions to support rich-formatted tables, equations and plots for the
@@ -48,7 +48,7 @@ License: MIT + file LICENSE
 URL: https://github.com/SciViews/modelit, https://www.sciviews.org/modelit/
 BugReports: https://github.com/SciViews/modelit/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US

@@ -1,3 +1,7 @@
+# modelit 1.4.6
+
+-   Better selection of X and Y variables in `chart.nls()` and `autoplot.nls()`.
+
 # modelit 1.4.5
 
 -   Remotes SciViews/equatiomatic instead of datalorax/equatiomatic for correct compilation on R-Universe (no remote dependency required to yonicd/texPreview).
