@@ -1,13 +1,15 @@
 #' Fitting Linear Models by SciViews
 #'
 #' @description
-#'The lm_() function is used like the lm() function from the {stats} package. It allows adding additional elements such as labels and units.
+#'This function is used like the [stats::lm()] function. It allows adding
+#'additional elements such as labels and units.
 #'
 #' @param data A data frame
 #' @param formula An object of class formula
 #' @param ... All the arguments of the lm() function
 #'
-#' @return an lm_ object if attribute additions have been made. Otherwise, the object will be of class lm
+#' @return an lm_ object if attribute additions have been made. Otherwise, the
+#' object will be of class lm
 #' @export
 #'
 #' @examples

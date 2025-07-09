@@ -38,8 +38,8 @@
 #' tabularise::tabularise$coef(iris_lm)
 tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
   equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-  lang = getOption("data.io_lang", "en"), ..., kind = "ft",
-  env = parent.frame()) {
+  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE",unset = "en")),
+  ..., kind = "ft", env = parent.frame()) {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -49,20 +49,17 @@ tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
       title <- FALSE
   }
 
-  # Choose the language
-  info_lang <- .infos_lang.lm(lang = lang)
-
   # Extract coefficients
-  df <- coef(data)
-  df <- data.frame(term = names(df), estimate = df)
+  df <- .coef_lm(data)
 
-  df <- extract_infos(df,
-    show.signif.stars = FALSE, info_lang = info_lang,
+  df_list <- .extract_infos(df,
+    show.signif.stars = FALSE,
     auto.labs = auto.labs, data = data, origdata = origdata, labs = labs,
-    equation = equation, title = title)
+    equation = equation, title = title, colnames = colnames_lm,  footer = FALSE,
+    lang = lang)
 
   # formatted table ----
-  formate_table(df, kind = kind, header = header)
+  formate_table(df_list, kind = kind, header = header)
 }
 
 #' Create a rich-formatted table from an lm object
@@ -146,26 +143,17 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
       title <- FALSE
   }
 
-  # Choose the language
-  info_lang <- .infos_lang.lm(lang = lang)
+  # Extract coefficients
+  df <- .tidy_lm(data, conf.int = conf.int,
+    conf.level = conf.level, signif.stars = show.signif.stars)
 
-  # Extract coefficients with broom::tidy() ----
-  df <- as.data.frame(broom::tidy(x = data, conf.int = conf.int,
-    conf.level = conf.level))
-  rownames(df) <- df$term
-
-  if (isTRUE(conf.int)) {
-    df <- df[, c("term", "estimate", "conf.low", "conf.high",
-      "std.error", "statistic", "p.value")]
-  }
-
-  df <- extract_infos(df,
-    show.signif.stars = show.signif.stars, info_lang = info_lang,
-    auto.labs = auto.labs, data = data, origdata = origdata, labs = labs,
-    equation = equation, title = title)
+  df_list <- .extract_infos(df, show.signif.stars = show.signif.stars,
+        auto.labs = auto.labs, data = data, origdata = origdata, labs = labs,
+        equation = equation, title = title, colnames = colnames_lm,
+        footer = FALSE, lang = lang)
 
   # formatted table ----
-  formate_table(df, kind = kind, header = header)
+  formate_table(df_list, kind = kind, header = header)
 }
 
 #' Glance version of the lm object into a flextable object
@@ -214,30 +202,49 @@ tabularise_glance.lm <- function(data, header = TRUE, title = NULL,
     if (!is.null(knitr::opts_current$get('tbl-cap')))
       title <- FALSE
   }
-  # Choose the language
-  info_lang <- .infos_lang.lm(lang = lang)
 
-  # Extract coefficients with broom::tidy() ----
-  df <- as.data.frame(broom::glance(x = data))
-  rownames(df) <- df$term
+  # Extract coefficients with broom::glance()
+  df <- .glance_lm(data)
 
-  df <- extract_infos(df,
-    show.signif.stars = FALSE, info_lang = info_lang,
+  df_list <- .extract_infos(df, show.signif.stars = FALSE,
     auto.labs = auto.labs, data = data, origdata = origdata, labs = labs,
-    equation = equation, title = title)
+    equation = equation, title = title, colnames = colnames_lm,
+    footer = FALSE, lang = lang)
 
   # formatted table ----
-  formate_table(df, kind = kind, header = header)
+  formate_table(df_list, kind = kind, header = header)
 }
 
 
 #' Create a rich-formatted table using the table of coefficients of the summary.lm object
 #'
-#' @param data A **summary.lm** object
-#' @param ... Additional arguments passed to [tabularise_tidy.lm()]
+#' @param data An **summary.lm** object
+#' @param header If `TRUE` (by default), add a header to the table
+#' @param title If `TRUE`, add a title to the table header. Default to the same
+#'   value than header, except outside of a chunk where it is `FALSE` if a table
+#'   caption is detected (`tbl-cap` YAML entry).
+#' @param equation If `TRUE` (by default), add a equation to the table header.
+#'   The equation can also be passed in the form of a character string.
+#' @param footer If `TRUE` (by default, it is FALSE), add a footer to the table.
+#' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
+#'   from data or `origdata=`.
+#' @param origdata The original data set this model was fitted to. By default it
+#'   is `NULL` and no label is used.
+#' @param labs Labels to change the names of elements in the `term` column of
+#'   the table. By default it is `NULL` and nothing is changed.
+#' @param conf.int If `TRUE`, add the confidence interval. The default is
+#'   `FALSE`.
+#' @param conf.level The confidence level to use for the confidence interval if
+#'   `conf.int = TRUE`. The default is 0.95.
+#' @param lang The natural language to use. The default value can be set with,
+#'   e.g., `options(data.io_lang = "fr")` for French.
+#' @param show.signif.stars If `TRUE`, add the significance stars to the table.
+#'   The default is `getOption("show.signif.stars")`
+#' @param ... Additional arguments
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
 #' flextable (default).
-#' @param env The environment where to evaluate the model.
+#' @param env The environment where to evaluate lazyeval expressions (unused for
+#'   now).
 #'
 #' @return A **flextable** object you can print in different formats (HTML,
 #'   LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
@@ -250,26 +257,39 @@ tabularise_glance.lm <- function(data, header = TRUE, title = NULL,
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' iris_lm_sum <- summary(iris_lm)
 #' tabularise::tabularise$coef(iris_lm_sum)
-tabularise_coef.summary.lm <- function(data, ..., kind = "ft",
+tabularise_coef.summary.lm <- function(data, header = TRUE, title = header,
+    equation = header, footer = FALSE, auto.labs = TRUE, origdata = NULL,
+    labs = NULL, conf.int = FALSE, conf.level = 0.95,
+    lang = getOption("data.io_lang", "en"),
+    show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft",
     env = parent.frame()) {
 
-  lm_original <- data$call
-  data <- eval(lm_original, envir = env)
+  # If title is not provided, determine if we have to use TRUE or FALSE
+  if (missing(title)) {
+    title <- header # Default to same as header, but...
+    # if a caption is defined in the chunk, it defauts to FALSE
+    if (!is.null(knitr::opts_current$get('tbl-cap')))
+      title <- FALSE
+  }
 
-  tabularise_tidy.lm(data = data, ..., kind = kind, env = env)
+  # Extract coefficients
+  df <- .tidy_lm(data, conf.int = conf.int,
+                 conf.level = conf.level, signif.stars = show.signif.stars)
+
+  df_list <- .extract_infos(df, show.signif.stars = show.signif.stars,
+      auto.labs = auto.labs, data = data, origdata = origdata, labs = labs,
+      equation = equation, title = title, colnames = colnames_lm,
+      footer = footer, lang = lang)
+
+  # formatted table ----
+  formate_table(df_list, kind = kind, header = header)
 }
 
 #' Create a rich-formatted table from an summary.lm object
 #'
 #' @param data A **summary.lm** object
-#' @param header If `TRUE` (by default), add a header to the table
-#' @param footer If `TRUE` (by default), add a footer to the table
-#' @param lang The natural language to use. The default value can be set with,
-#'   e.g., `options(data.io_lang = "fr")` for French.
 #' @param ... Additional arguments passed to [tabularise_coef.summary.lm()]
-#' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
-#' flextable (default).
-#' @param env The environment where to evaluate the model.
+#' @param footer If `TRUE` (by default), add a footer to the table.
 #'
 #' @return A **flextable** object you can print in different formats (HTML,
 #'   LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
@@ -282,226 +302,396 @@ tabularise_coef.summary.lm <- function(data, ..., kind = "ft",
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' iris_lm_sum <- summary(iris_lm)
 #' tabularise::tabularise(iris_lm_sum)
-tabularise_default.summary.lm <- function(data, header = TRUE, footer = TRUE,
-    lang = getOption("data.io_lang", "en"), ..., kind = "ft",
-    env = parent.frame()) {
+tabularise_default.summary.lm <- function(data, ..., footer = TRUE) {
+  tabularise_coef.summary.lm(data = data, ..., footer = footer)
+}
 
-  df <- tabularise_coef.summary.lm(data = data, lang = lang, header = header ,
-    kind = "df", ..., env = env)
 
-  if (isTRUE(footer)) {
-    info_lang <- .infos_lang.lm(lang = lang)
-    df <- extract_footer(df, data = data, info_lang = info_lang)
+# A list of internals functions ------
+
+.pvalue_format <- function(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
+                           labels = c("***", " **", "  *", "  .", "   ")) {
+  #x <- get(as.character(substitute(x)), inherits = TRUE)
+  z <- cut(x, breaks = breaks,
+           labels = labels)
+  z <- as.character(z)
+  z[is.na(x)] <- ""
+  z
+}
+
+.coef_lm <- function(x) {
+  df <- coef(x)
+  df <- data.frame(term = names(df), estimate = df)
+  df
+}
+
+.glance_lm <- function(x) {
+  df <- as.data.frame(broom::glance(x = x))
+  rownames(df) <- df$term
+  df
+}
+
+.tidy_lm <- function(x, conf.int = FALSE, conf.level = 0.95,
+                     signif.stars = getOption("show.signif.stars", TRUE)) {
+
+  # extract coefficients and statistics from a model object
+  # TODO remove broom::tidy()
+  df <- as.data.frame(broom::tidy(x = x, conf.int = conf.int,
+                                  conf.level = conf.level))
+  rownames(df) <- df$term
+
+  # change order of columns
+  if (isTRUE(conf.int)) {
+    df <- df[, c("term", "estimate", "conf.low", "conf.high",
+                 "std.error", "statistic", "p.value")]
   }
 
-  formate_table(df, kind= kind, header = header)
-}
-
-# Choose the lang and the infos_lang
-.infos_lang.lm <- function(lang) {
-  lang <- tolower(lang)
-
-  if (lang != "fr") lang <- "en" # Only en or fr for now
-
-  if (lang == "fr") {
-    info_lang <- infos_fr.lm
-  } else {
-    info_lang <- infos_en.lm
+  # add a signif column with significance stars
+  if (isTRUE(signif.stars)){
+    df$signif <- .pvalue_format(df$p.value)
   }
 
-  info_lang
+  df
 }
 
-infos_en.lm <- list(
-  labs = c(
-    term = "Term",
-    estimate = "Estimate",
-    conf.low = "Lower bound (CI)",
-    conf.high = "Upper bound (CI)",
-    std.error = "Standard Error",
-    t.value = "t value",
-    sigma = "RSE",
-    r.squared = "R^2^",
-    adj.r.squared = "Adj.R^2^",
-    AIC = "AIC",
-    BIC = "BIC",
-    deviance = "Deviance",
-    logLik = "Log-likelihood",
-    statistic = "*t* value",
-    p.value = "*p* value",
-    df = "Model df",
-    df.residual = "Residuals df",
-    nobs = "N",
-    signif = "",
-    "(Intercept)" = "Intercept"),
-  "(Intercept)" = "Intercept",
-  "summary" = "Model summary",
-  "header" = "Linear model",
-  footer = c(
-    "resid.range" = "Residuals range:",
-    "resid.std.err" = "Residuals standard error:",
-    "on" = "on",
-    "and" = "and",
-    "df" = "df",
-    "df2" = "degrees of freedom",
-    "R2" = "Multiple *R*^2^:",
-    "adj.R2" = "adjusted *R*^2^:",
-    "f.stat" = "*F*-statistic:",
-    "p" = "*p* value:"
-  )
-)
+colnames_lm <- c(
+  term = "Term",
+  estimate = "Estimate",
+  conf.low = "Lower bound (CI)",
+  conf.high = "Upper bound (CI)",
+  std.error = "Standard Error",
+  t.value = "t value",
+  sigma = "RSE",
+  r.squared = "R^2^",
+  adj.r.squared = "Adj.R^2^",
+  AIC = "AIC",
+  BIC = "BIC",
+  deviance = "Deviance",
+  logLik = "Log-likelihood",
+  statistic = "*t* value",
+  p.value = "*p* value",
+  df = "Model df",
+  df.residual = "Residuals df",
+  nobs = "N",
+  signif = "",
+  "(Intercept)" = "Intercept")
 
-infos_fr.lm <- list(
-  labs = c(
-    term = "Terme",
-    estimate = "Valeur estim\u00e9e",
-    conf.low = "Limite basse (IC)",
-    conf.high = "Limite haute (IC)",
-    std.error = "Ecart type",
-    t.value = "Valeur de *t*",
-    p.value = "Valeur de *p*",
-    sigma = "RSE",
-    r.squared = "R^2^",
-    adj.r.squared = "R^2^ ajust\u00e9",
-    AIC = "AIC",
-    BIC = "BIC",
-    statistic = " Valeur de *t*",
-    deviance = "D\u00e9viance",
-    logLik = "Log-vraisemblance",
-    df = "Ddl mod\u00e8le",
-    df.residual = "Ddl r\u00e9sidus",
-    nobs = "N",
-    signif = "",
-    "(Intercept)" = "Ordonn\u00e9e \u00e0 l'origine"
-  ),
-  "(Intercept)" = "Ordonn\u00e9e \u00e0 l'origine",
-  "summary" = "R\u00e9sum\u00e9 du mod\u00e8le",
-  "header" = "Mod\u00e8le lin\u00e9aire",
-  footer = c(
-    "resid.range" = "Etendue des r\u00e9sidus :",
-    "resid.std.err" = "Ecart type des r\u00e9sidus :",
-    "on" = "pour",
-    "and" = "et",
-    "df" = "ddl",
-    "df2" = "degr\u00e9s de libert\u00e9",
-    "R2" = "*R*^2^ multiple :",
-    "adj.R2" = "*R*^2^ ajust\u00e9 :",
-    "f.stat" = "Statistique *F* :",
-    "p" = "valeur de *p* :"
-  )
-)
+.extract_colnames <- function(df, labs, ...) {
+  vec <- labs[names(labs) %in% names(df)]
+  vec1 <- svMisc::gettext(vec,...)
+  names(vec1) <- names(vec)
+  vec
+}
 
-
-# A list of functions ------
-
-extract_significance_stars <- function(x, show.signif.stars) {
-  if (isTRUE(show.signif.stars)) {
-    x[["signif"]] <- .pvalue_format(x[["p.value"]])
-    attr(x, "signif.stars") <- "0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
-    attr(x, "show.signif.stars") <- show.signif.stars
+.labels_factor <- function(df) {
+  if (!is.data.frame(df)) {
+    # warning("No dataframe found.")
+    return(NULL)
+    # stop("Input must be a data frame.")
   }
-  return(x)
-}
 
-extract_column_names <- function(x, info_lang) {
-  hlabs <- info_lang[["labs"]]
-  attr(x, "col.names") <- hlabs[names(hlabs) %in% names(x)]
-  return(x)
-}
-
-replace_intercept_term <- function(x, info_lang) {
-  if (any(x$term %in% "(Intercept)")) {
-    x$term[x$term == "(Intercept)"] <- info_lang[["(Intercept)"]]
+  factor_cols <- which(sapply(df, is.factor))
+  if (length(factor_cols) == 0) {
+    # warning("No factor columns found in the data frame.")
+    return(NULL)
   }
-  return(x)
+
+  if (!requireNamespace("data.io", quietly = TRUE)) {
+    stop("Package 'data.io' is required but not installed.")
+  }
+  #class(df)
+  df <- as.data.frame(df)
+  #class(df)
+  labels <- vapply(df[,factor_cols, drop = FALSE], data.io::label, character(1), units = FALSE)
+  valid_vars <- names(labels)[labels != ""]
+  if (length(valid_vars) == 0) {
+    #warning("No labeled factor variables found.")
+    return(NULL)
+  }
+
+  # Fusion of result and names generation
+  result <- vector("character")
+  result_names <- vector("character")
+
+  for (var in valid_vars) {
+    levs <- levels(df[[var]])
+    result <- c(result, paste0(labels[[var]], " [", levs, "]"))
+    result_names <- c(result_names, paste0(var, levs))
+  }
+
+  names(result) <- result_names
+  return(result)
 }
 
-extract_labels <- function(x, auto.labs, data, origdata, labs) {
+.labels2 <- function (x, origdata = NULL, labs = NULL) {
+  if (is.null(origdata)) {
+    labs_auto <- c(tabularise:::.labels(x$model), .labels_factor(x$model))
+  }
+  else {
+    labs_auto <- c(tabularise:::.labels(origdata), .labels_factor(origdata))
+  }
+  if (!is.null(labs)) {
+    if (!is.character(labs))
+      stop("labs is not character vector")
+    if (is.null(names(labs)))
+      stop("labs must be named character vector")
+    if (any(names(labs) %in% ""))
+      stop("all element must be named")
+    labs_res <- c(labs, labs_auto[!names(labs_auto) %in%
+                                    names(labs)])
+  }
+  else {
+    labs_res <- labs_auto
+  }
+  labs_res
+}
+
+.extend_labs_with_interactions <- function(labs, terms) {
+  if (!is.character(labs) || is.null(names(labs))) {
+    #stop("Le vecteur 'labs' doit être un vecteur nommé de chaînes de caractères.")
+    return(NULL)
+  }
+  if (!is.character(terms)) {
+    #stop("Le vecteur 'terms' doit être un vecteur de chaînes de caractères.")
+    return(labs)
+  }
+
+  for (term in terms) {
+    if (grepl(":", term)) {
+      parts <- unlist(strsplit(term, ":"))
+      missing_parts <- parts[!parts %in% names(labs)]
+
+      if (length(missing_parts) > 0) {
+        warning(sprintf(
+          "Les termes suivants sont manquants dans 'labs' pour l'interaction '%s' : %s",
+          term, paste(missing_parts, collapse = ", ")
+        ))
+        next
+      }
+
+      # Construire le label de l'interaction
+      interaction_label <- paste(labs[parts], collapse = " x ")
+      labs[term] <- interaction_label
+    }
+  }
+
+  return(labs)
+}
+
+.extract_labels <- function(df, data, auto.labs, origdata, labs) {
   if (isTRUE(auto.labs)) {
-    labs <- tabularise:::.labels2(x = data, origdata = origdata, labs = labs)
+    labs <- .labels2(x = data, origdata = origdata, labs = labs)
+    # Compare the names of labs with the rownames
+    labs <- .extend_labs_with_interactions(labs = labs, terms = df[["term"]])
   } else {
-    labs <- tabularise:::.labels2(x = NULL, labs = labs)
+    labs <- .labels2(x = NULL, labs = labs)
   }
-  attr(x, "labs") <- labs
-  return(x)
+
+  labs
 }
 
-extract_equation <- function(x, equation, data, labs, ...) {
+.extract_terms <- function(df, labs,...) {
+  vals <- df[["term"]]
+  terms <- labs[names(labs) %in% vals]
+
+  if(any(vals == "(Intercept)"))
+    #terms <- c("(Intercept)"= svMisc::gettext("Intercept",...), terms)
+    #ss <- "Intercept"
+    #terms <- c("(Intercept)"= gettext(ss,...), terms)
+    terms <- c("(Intercept)"= gettext("Intercept",...), terms)
+
+  terms
+}
+
+.extract_equation <- function(data, equation, labs, ...) {
   if (isTRUE(equation)) {
     if (!is.null(labs)) {
-      equa <- equation(data, swap_var_names =  labs, ...)
+      equa <- tabularise::equation(data, swap_var_names =  labs, ...)
     } else {
-      equa <- equation(data, auto.labs = FALSE, ...)
+      equa <- tabularise::equation(data, auto.labs = FALSE, ...)
     }
-    attr(x, "equation") <- equa
-    attr(x, "equation_params") <- .params_equa(equa)
+    return(equa)
+    #attr(x, "equation_params") <- .params_equa(equa)
   }
 
   if (is.character(equation)) {
-    attr(x, "equation") <- equation
+    return(equation)
   }
-
-  return(x)
 }
 
-extract_title <- function(x, title, info_lang) {
+.params_equa <- function(x, intercept = "alpha", greek = "beta") {
+  vals <- NULL
+
+  if (intercept != greek && grepl(intercept, x)) {
+    it <- paste0("\\\\", intercept)
+    res <- regmatches(x, gregexpr(it, x))[[1]]
+    vals <- paste0("$",res, "$")
+  }
+
+  if (grepl(greek, x)) {
+    g <- paste0("\\\\", greek,"_\\{\\d*\\}")
+    res <- regmatches(x, gregexpr(g, x))[[1]]
+    res1 <- paste0("$",res, "$")
+    vals <- c(vals, res1)
+  }
+
+  vals
+}
+
+.extract_title <- function(title, ...) {
+  res <- NULL
+
   if (isTRUE(title)) {
-    attr(x, "title") <-  info_lang[["header"]]
+    res <- svMisc::gettext("Linear model", ...)
   }
 
   if (is.character(title)) {
-    attr(x, "title") <- title
+    res <- title
   }
 
-  return(x)
+  return(res)
 }
 
-extract_footer <- function(x, data, info_lang) {
+# footer_lm <- c(
+#   "resid.range" = "Residuals range:",
+#   "resid.std.err" = "Residuals standard error:",
+#   "on" = "on",
+#   "and" = "and",
+#   "df" = "df",
+#   "df2" = "degrees of freedom",
+#   "R2" = "Multiple *R*^2^:",
+#   "adj.R2" = "adjusted *R*^2^:",
+#   "f.stat" = "*F*-statistic:",
+#   "p" = "*p* value:"
+# )
+
+.extract_footer <- function(data, ...) {
   digits <- max(3L, getOption("digits") - 3L)
-  footer <- info_lang[["footer"]]
-  vals <- c(
-    paste0(footer[["resid.range"]], " [",
-      format(signif(min(data$residuals, na.rm = TRUE), digits)), ", ",
-      format(signif(max(data$residuals, na.rm = TRUE), digits)), "] "),
-    paste(footer[["resid.std.err"]],
-      format(signif(data$sigma, digits)), footer[["on"]],
-      max(data$df), footer[["df2"]]),
-    paste(footer[["R2"]], format(signif(data$r.squared, digits)), "  -  ",
-      footer[["adj.R2"]], format(signif(data$adj.r.squared, digits))),
-    paste(footer[["f.stat"]], format(signif(data$fstatistic[1L], digits)),
-      footer[["on"]], format(signif(data$fstatistic[2L], digits)),
-      footer[["and"]], format(signif(data$fstatistic[3L], digits)),
-      footer[["df"]], "  -  ", footer[["p"]],
-      format.pval(pf(data$fstatistic[1L],  data$fstatistic[2L],
-        data$fstatistic[3L], lower.tail = FALSE)))
-    # TODO: nicely format this last p value!
-  )
-  attr(x, "footer") <- vals
-  return(x)
+  svMisc::gettextf(
+    paste0(
+      "Residuals range: [%.*g, %.*g]\n",
+      "Residuals standard error: %.*g on %.*g degrees of freedom\n",
+      "Multiple *R*^2^: %.*g - adjusted *R*^2^: %.*g\n",
+      "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
+    ),
+    digits, min(data$residuals, na.rm = TRUE),
+    digits, max(data$residuals, na.rm = TRUE),
+    digits, data$sigma,
+    digits, max(data$df),
+    digits, data$r.squared,
+    digits, data$adj.r.squared,
+    digits, data$fstatistic[1L],
+    digits, data$fstatistic[2L],
+    digits, data$fstatistic[3L],
+    format.pval(pf(data$fstatistic[1L], data$fstatistic[2L],
+                   data$fstatistic[3L], lower.tail = FALSE)), ...)
 }
 
-extract_infos <- function(x, show.signif.stars, info_lang, auto.labs, data, origdata, labs, equation, title) {
-  # stars ----
-  x <- extract_significance_stars(x, show.signif.stars = show.signif.stars)
+.extract_infos <- function(df,
+    show.signif.stars = getOption("show.signif.stars", TRUE),
+    auto.labs = TRUE, data , origdata = NULL , labs = NULL, equation = TRUE,
+    title = TRUE, colnames = colnames_lm , footer = FALSE, lang, ...) {
 
-  # colnames -----
-  x <- extract_column_names(x, info_lang = info_lang)
+  if(isTRUE(show.signif.stars)) {
+    psignif <- "0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
+  } else {
+    psignif <- NULL
+  }
 
-  # specific case : (Intercept) -> Intercept ----
-  x <- replace_intercept_term(x, info_lang = info_lang)
+  cols <- .extract_colnames(df, labs = colnames_lm)
 
-  # labels ----
-  x <- extract_labels(x = x, auto.labs = auto.labs,
-    data = data, origdata = origdata, labs = labs)
+  labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
+                            origdata = origdata, labs = labs)
 
-  # equation ----
-  x <- extract_equation(x, equation = equation, data = data,
-    labs = attr(x, "labs"))
+  equa <- .extract_equation(data, equation = equation, labs = labels)
 
-  # title ----
-  x <- extract_title(x, title = title, info_lang = info_lang)
+  if(isTRUE(equation)){
+    terms <- .params_equa(equa)
+  } else {
+    terms <- .extract_terms(df, labs = labels)
+  }
 
-  return(x)
+  title <- .extract_title(title)
+
+   if(isTRUE(footer)) {
+     footer <- .extract_footer(data, lang = lang)
+   } else {
+    footer <- NULL
+  }
+
+
+  list(
+    df = df,
+    title = title,
+    cols = cols,
+    equa = equa,
+    terms = terms,
+    psignif = psignif,
+    footer = footer
+  )
+}
+
+.create_flextable <- function(x, header = TRUE) {
+  df <- x$df
+
+  ft <- flextable(df) |>
+    colformat_sci()
+
+  if ("p.value" %in% colnames(df)) {
+    ft <- ft |>
+      colformat_sci(j = "p.value", lod = 2e-16)
+  }
+
+  if (!is.null(x$cols)) {
+    ft <- .add_colnames(ft, x$cols)
+  }
+
+  if (!is.null(x$terms)) {
+    vec <- x$terms
+    if(is.character(vec) && !is.null(names(vec)) && all(nzchar(names(vec)))) {
+      ft <- .add_labs(ft, vec)
+    } else {
+      ft <- .add_params(ft, vec)
+      }
+    }
+
+  if (isTRUE(header)) {
+    ft <- .add_header2(ft, title = x$title, equation = x$equa)
+  }
+
+  if (!is.null(x$psignif)) {
+    ft <- .add_signif(ft, x$psignif)
+  }
+
+  if (!is.null(x$footer)) {
+    vals <- x$footer
+    ft <- add_footer_lines(ft, top = FALSE, values = para_md(vals))
+    ft <- align(ft, i = seq_len(length(vals)) + 1 , align = "left",
+              part = "footer")
+  }
+
+  ft <- autofit(ft, part = c("header", "body"))
+
+  if (!is.null(df$signif)) {
+    ft <- width(ft, j = "signif", width = 0.4)
+  }
+
+  return(ft)
+}
+
+formate_table <- function(df, kind, header) {
+  switch(kind,
+         df = {df},
+         tt = {
+           stop("Not implemented yet")
+         },
+         ft = {
+           .create_flextable(df, header = header)
+         },
+         gt = {
+           stop("Not implemented yet")
+         }
+  )
 }
 
 .add_signif <- function(x, signif) {
@@ -518,11 +708,6 @@ extract_infos <- function(x, show.signif.stars, info_lang, auto.labs, data, orig
   align(ft, i = 1, align = "right", part = "footer")
 }
 
-.extract_labels <- function(x, info_lang) {
-  hlabs <- info_lang[["labs"]]
-  hlabs[names(hlabs) %in% names(x)]
-}
-
 .add_header2 <- function(x, title, equation) {
 
   if (!inherits(x, "flextable")) {
@@ -534,13 +719,13 @@ extract_infos <- function(x, show.signif.stars, info_lang, auto.labs, data, orig
   if (is.character(equation)) {
     ft <- add_header_lines(ft,
       values = as_paragraph(as_equation(equation)))
-    ft <- align(ft, i = 1, align = "right", part = "header")
+    ft <- align(ft, i = 1, align = "center", part = "header")
   }
 
   if (is.character(title)) {
     ft <- add_header_lines(ft,
       values = as_paragraph(title))
-    ft <- align(ft, i = 1, align = "right", part = "header")
+    ft <- align(ft, i = 1, align = "center", part = "header")
   }
 
   h_nrow <- nrow_part(ft, part = "header")
@@ -602,63 +787,65 @@ extract_infos <- function(x, show.signif.stars, info_lang, auto.labs, data, orig
   ft
 }
 
-create_flextable <- function(x, header = TRUE) {
-  ft <- flextable(x) |>
-    colformat_sci()
+# create_flextable <- function(x, header = TRUE) {
+#   df <- x$df
+#
+#   ft <- flextable(df) |>
+#     colformat_sci()
+#
+#   if ("p.value" %in% colnames(df)) {
+#     ft <- ft |>
+#       colformat_sci(j = "p.value", lod = 2e-16)
+#   }
+#
+#   if (!is.null(x$cols))) {
+#     ft <- .add_colnames(ft, attr(x, "col.names"))
+#   }
+#
+#   if (!is.null(attr(x, "labs"))) {
+#     ft <- .add_labs(ft, attr(x, "labs"))
+#   }
+#
+#   if (!is.null(attr(x,"equation")) & !is.null(attr(x, "equation_params"))) {
+#     ft <- .add_params(ft, attr(x, "equation_params"))
+#   }
+#
+#   if (isTRUE(header)) {
+#     ft <- .add_header2(ft, title = attr(x, "title"), equation = attr(x, "equation"))
+#   }
+#
+#   if (!is.null(attr(x,"signif.stars"))) {
+#     ft <- .add_signif(ft, attr(x, "signif.stars"))
+#   }
+#
+#   if (!is.null(attr(x, "footer"))) {
+#     vals <- attr(x, "footer")
+#     ft <- add_footer_lines(ft, top = FALSE, values = para_md(vals))
+#     ft <- align(ft, i = seq_len(length(vals)) + 1 , align = "left",
+#       part = "footer")
+#   }
+#
+#   ft <- autofit(ft, part = c("header", "body"))
+#
+#   sss <- attr(x,"show.signif.stars")
+#   if (!is.null(sss) && isTRUE(sss)) {
+#     ft <- width(ft, j = "signif", width = 0.4)
+#   }
+#
+#   return(ft)
+# }
 
-  if ("p.value" %in% colnames(x)) {
-    ft <- ft |>
-      colformat_sci(j = "p.value", lod = 2e-16)
-  }
-
-  if (!is.null(attr(x, "col.names"))) {
-    ft <- .add_colnames(ft, attr(x, "col.names"))
-  }
-
-  if (!is.null(attr(x, "labs"))) {
-    ft <- .add_labs(ft, attr(x, "labs"))
-  }
-
-  if (!is.null(attr(x,"equation")) & !is.null(attr(x, "equation_params"))) {
-    ft <- .add_params(ft, attr(x, "equation_params"))
-  }
-
-  if (isTRUE(header)) {
-    ft <- .add_header2(ft, title = attr(x, "title"), equation = attr(x, "equation"))
-  }
-
-  if (!is.null(attr(x,"signif.stars"))) {
-    ft <- .add_signif(ft, attr(x, "signif.stars"))
-  }
-
-  if (!is.null(attr(x, "footer"))) {
-    vals <- attr(x, "footer")
-    ft <- add_footer_lines(ft, top = FALSE, values = para_md(vals))
-    ft <- align(ft, i = seq_len(length(vals)) + 1 , align = "left",
-      part = "footer")
-  }
-
-  ft <- autofit(ft, part = c("header", "body"))
-
-  sss <- attr(x,"show.signif.stars")
-  if (!is.null(sss) && isTRUE(sss)) {
-    ft <- width(ft, j = "signif", width = 0.4)
-  }
-
-  return(ft)
-}
-
-formate_table <- function(df, kind, header) {
-  switch(kind,
-    df = {df},
-    tt = {
-      stop("Not implemented yet")
-    },
-    ft = {
-      create_flextable(df, header = header)
-    },
-    gt = {
-      stop("Not implemented yet")
-    }
-  )
-}
+# #formate_table <- function(df, kind, header) {
+#   switch(kind,
+#     df = {df},
+#     tt = {
+#       stop("Not implemented yet")
+#     },
+#     ft = {
+#       create_flextable(df, header = header)
+#     },
+#     gt = {
+#       stop("Not implemented yet")
+#     }
+#   )
+# }

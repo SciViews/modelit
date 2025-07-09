@@ -12,7 +12,7 @@
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
   ...,
   kind = "ft",
   env = parent.frame()

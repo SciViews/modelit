@@ -20,13 +20,8 @@
 #' @name modelit-package
 
 ## usethis namespace: start
-#' @importFrom stats AIC anova BIC coef confint cooks.distance deviance family fitted formula hatvalues nobs predict residuals rstandard variable.names vcov
-#' @importFrom chart chart combine_charts
-#' @importFrom ggplot2 aes aes_string geom_abline geom_bar geom_histogram geom_hline geom_point geom_qq geom_qq_line geom_smooth geom_vline ggtitle labs stat_function stat_smooth theme
-#' @importFrom svFlow %>.%
 #' @importFrom broom augment glance tidy
-#' @importFrom modelr add_predictions add_residuals geom_ref_line mae qae rmse rsquare
-#' @importFrom generics fit
+#' @importFrom chart chart combine_charts
 #' @importFrom data.io label
 #' @importFrom flextable add_footer_lines
 #' @importFrom flextable add_header_lines
@@ -42,8 +37,15 @@
 #' @importFrom flextable ncol_keys
 #' @importFrom flextable nrow_part
 #' @importFrom flextable width
+#' @importFrom generics fit
+#' @importFrom ggplot2 aes aes_string geom_abline geom_bar geom_histogram geom_hline geom_point geom_qq geom_qq_line geom_smooth geom_vline ggtitle labs stat_function stat_smooth theme
+#' @importFrom modelr add_predictions add_residuals geom_ref_line mae qae rmse rsquare
 #' @importFrom officer fp_border
+#' @importFrom stats AIC anova BIC coef confint cooks.distance deviance family fitted formula hatvalues nobs predict residuals rstandard variable.names vcov
 #' @importFrom stats coef pf
+#' @importFrom svFlow %>.%
+#' @importFrom svMisc gettext
+#' @importFrom svMisc gettextf
 #' @importFrom tabularise colformat_sci equation
 #' @importFrom tabularise para_md
 ## usethis namespace: end

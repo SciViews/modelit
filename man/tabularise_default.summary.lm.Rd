@@ -4,32 +4,14 @@
 \alias{tabularise_default.summary.lm}
 \title{Create a rich-formatted table from an summary.lm object}
 \usage{
-\method{tabularise_default}{summary.lm}(
-  data,
-  header = TRUE,
-  footer = TRUE,
-  lang = getOption("data.io_lang", "en"),
-  ...,
-  kind = "ft",
-  env = parent.frame()
-)
+\method{tabularise_default}{summary.lm}(data, ..., footer = TRUE)
 }
 \arguments{
 \item{data}{A \strong{summary.lm} object}
 
-\item{header}{If \code{TRUE} (by default), add a header to the table}
-
-\item{footer}{If \code{TRUE} (by default), add a footer to the table}
-
-\item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
-
 \item{...}{Additional arguments passed to \code{\link[=tabularise_coef.summary.lm]{tabularise_coef.summary.lm()}}}
 
-\item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
-flextable (default).}
-
-\item{env}{The environment where to evaluate the model.}
+\item{footer}{If \code{TRUE} (by default), add a footer to the table.}
 }
 \value{
 A \strong{flextable} object you can print in different formats (HTML,

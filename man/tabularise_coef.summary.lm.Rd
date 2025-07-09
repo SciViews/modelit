@@ -4,17 +4,66 @@
 \alias{tabularise_coef.summary.lm}
 \title{Create a rich-formatted table using the table of coefficients of the summary.lm object}
 \usage{
-\method{tabularise_coef}{summary.lm}(data, ..., kind = "ft", env = parent.frame())
+\method{tabularise_coef}{summary.lm}(
+  data,
+  header = TRUE,
+  title = header,
+  equation = header,
+  footer = FALSE,
+  auto.labs = TRUE,
+  origdata = NULL,
+  labs = NULL,
+  conf.int = FALSE,
+  conf.level = 0.95,
+  lang = getOption("data.io_lang", "en"),
+  show.signif.stars = getOption("show.signif.stars", TRUE),
+  ...,
+  kind = "ft",
+  env = parent.frame()
+)
 }
 \arguments{
-\item{data}{A \strong{summary.lm} object}
+\item{data}{An \strong{summary.lm} object}
 
-\item{...}{Additional arguments passed to \code{\link[=tabularise_tidy.lm]{tabularise_tidy.lm()}}}
+\item{header}{If \code{TRUE} (by default), add a header to the table}
+
+\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
+value than header, except outside of a chunk where it is \code{FALSE} if a table
+caption is detected (\code{tbl-cap} YAML entry).}
+
+\item{equation}{If \code{TRUE} (by default), add a equation to the table header.
+The equation can also be passed in the form of a character string.}
+
+\item{footer}{If \code{TRUE} (by default, it is FALSE), add a footer to the table.}
+
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from data or \verb{origdata=}.}
+
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and no label is used.}
+
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and nothing is changed.}
+
+\item{conf.int}{If \code{TRUE}, add the confidence interval. The default is
+\code{FALSE}.}
+
+\item{conf.level}{The confidence level to use for the confidence interval if
+\code{conf.int = TRUE}. The default is 0.95.}
+
+\item{lang}{The natural language to use. The default value can be set with,
+e.g., \code{options(data.io_lang = "fr")} for French.}
+
+\item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
+The default is \code{getOption("show.signif.stars")}}
+
+\item{...}{Additional arguments}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
 
-\item{env}{The environment where to evaluate the model.}
+\item{env}{The environment where to evaluate lazyeval expressions (unused for
+now).}
 }
 \value{
 A \strong{flextable} object you can print in different formats (HTML,
