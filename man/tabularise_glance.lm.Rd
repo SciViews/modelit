@@ -14,8 +14,7 @@
   labs = NULL,
   lang = getOption("data.io_lang", "en"),
   ...,
-  kind = "ft",
-  env = parent.frame()
+  kind = "ft"
 )
 }
 \arguments{
@@ -46,9 +45,6 @@ e.g., \code{options(data.io_lang = "fr")} for French.}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
-
-\item{env}{The environment where to evaluate lazyeval expressions (unused for
-now).}
 }
 \value{
 A \strong{flextable} object that you can print in different form or
