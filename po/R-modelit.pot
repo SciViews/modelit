@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-07-09 12:39\n"
+"POT-Creation-Date: 2025-07-14 12:27\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,63 @@ msgstr ""
 msgid "You must give either 'h=' or 'v='."
 msgstr ""
 
+msgid "Term"
+msgstr ""
+
+msgid "Estimate"
+msgstr ""
+
+msgid "Lower bound (CI)"
+msgstr ""
+
+msgid "Upper bound (CI)"
+msgstr ""
+
+msgid "Standard Error"
+msgstr ""
+
+msgid "t value"
+msgstr ""
+
+msgid "RSE"
+msgstr ""
+
+msgid "R^2^"
+msgstr ""
+
+msgid "Adj.R^2^"
+msgstr ""
+
+msgid "AIC"
+msgstr ""
+
+msgid "BIC"
+msgstr ""
+
+msgid "Deviance"
+msgstr ""
+
+msgid "Log-likelihood"
+msgstr ""
+
+msgid "*t* value"
+msgstr ""
+
+msgid "*p* value"
+msgstr ""
+
+msgid "Model df"
+msgstr ""
+
+msgid "Residuals df"
+msgstr ""
+
+msgid "N"
+msgstr ""
+
+msgid "Intercept"
+msgstr ""
+
 msgid "Package 'data.io' is required but not installed."
 msgstr ""
 
@@ -55,13 +112,25 @@ msgstr ""
 msgid "all element must be named"
 msgstr ""
 
-msgid "Les termes suivants sont manquants dans 'labs' pour l'interaction '%s' : %s"
+msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
 msgstr ""
 
 msgid ","
 msgstr ""
 
-msgid "Intercept"
+msgid "Linear model"
+msgstr ""
+
+msgid "Residuals range: [%.*g, %.*g]"
+msgstr ""
+
+msgid "Residuals standard error: %.*g on %.*g degrees of freedom"
+msgstr ""
+
+msgid "Multiple *R*^2^: %.*g - adjusted *R*^2^: %.*g"
+msgstr ""
+
+msgid "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
 msgstr ""
 
 msgid "Not implemented yet"

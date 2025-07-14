@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-07-09 12:16\n"
-"PO-Revision-Date: 2025-07-09 12:40+0200\n"
+"POT-Creation-Date: 2025-07-14 12:27\n"
+"PO-Revision-Date: 2025-07-11 15:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "X-Generator: Poedit 3.6\n"
 
 msgid "Can only transform a model with 2 variables for now."
-msgstr ""
+msgstr "Pour l’instant, on ne peut transformer qu’un modèle à 2 variables."
 
 msgid ""
 "Can only make of function from a model involving numeric variables for now."
@@ -53,33 +53,102 @@ msgstr ""
 msgid "You must give either 'h=' or 'v='."
 msgstr ""
 
+msgid "Term"
+msgstr "Terme"
+
+msgid "Estimate"
+msgstr "Valeur estimée"
+
+msgid "Lower bound (CI)"
+msgstr "Limite basse (IC)"
+
+msgid "Upper bound (CI)"
+msgstr "Limite haute (IC)"
+
+msgid "Standard Error"
+msgstr "Ecart type"
+
+msgid "t value"
+msgstr "Valeur de *t*"
+
+#, fuzzy
+msgid "RSE"
+msgstr "RSE"
+
+msgid "R^2^"
+msgstr "R^2^"
+
+msgid "Adj.R^2^"
+msgstr "R^2^ ajustée"
+
+msgid "AIC"
+msgstr "AIC"
+
+msgid "BIC"
+msgstr "BIC"
+
+msgid "Deviance"
+msgstr "Déviance"
+
+msgid "Log-likelihood"
+msgstr "Log-vraisemblance"
+
+msgid "*t* value"
+msgstr "Valeur de *t*"
+
+msgid "*p* value"
+msgstr "Valeur de *p*"
+
+msgid "Model df"
+msgstr "Ddl modèle"
+
+msgid "Residuals df"
+msgstr "Ddl résidus"
+
+msgid "N"
+msgstr "N"
+
+msgid "Intercept"
+msgstr "Ordonnée à l’origine"
+
 msgid "Package 'data.io' is required but not installed."
-msgstr ""
+msgstr "Le package “data.io” est requis mais n'est pas installé."
 
 msgid "labs is not character vector"
-msgstr ""
+msgstr "Labs n’est pas un vecteur de caractères"
 
 msgid "labs must be named character vector"
-msgstr ""
+msgstr "Labs doit être un vecteur de caractères nommé"
 
 msgid "all element must be named"
 msgstr "tous les éléments doivent être nommés"
 
-msgid ""
-"Les termes suivants sont manquants dans 'labs' pour l'interaction '%s' : %s"
+msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
 msgstr ""
 
 msgid ","
 msgstr ""
 
-msgid "Intercept"
-msgstr "Ordonnée à l’origine"
+msgid "Linear model"
+msgstr "Modèle linéaire"
+
+msgid "Residuals range: [%.*g, %.*g]"
+msgstr "Etendue des résidus : [%.*g, %.*g]"
+
+msgid "Residuals standard error: %.*g on %.*g degrees of freedom"
+msgstr "Ecart type des résidus : %.*g pour %.*g degrés de liberté"
+
+msgid "Multiple *R*^2^: %.*g - adjusted *R*^2^: %.*g"
+msgstr "*R*^2^ multiple : %.*g - *R*^2^ ajusté : %.*g"
+
+msgid "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
+msgstr "Statistique *F* : %.*g sur %.*g et %.*g ddl - valeur de *p* : %s"
 
 msgid "Not implemented yet"
 msgstr "Ce n'est pas encore implémenté"
 
 msgid "Function `%s` supports only flextable objects."
-msgstr ""
+msgstr "La fonction `%s` supporte uniquement des objets flextable."
 
 msgid ".add_signif_stars()"
 msgstr ""
@@ -91,16 +160,16 @@ msgid ".add_colnames()"
 msgstr ""
 
 msgid "x must be an nls or summary.nls object"
-msgstr ""
+msgstr "x doit être un objet nls ou summary.nls"
 
 msgid "An error occurred when trying to extract the formula from 'x'"
 msgstr ""
 
 msgid "The formula is not a Self-Starting nls formula"
-msgstr ""
+msgstr "La formule n'est pas une formule Self-Starting nls"
 
 msgid "The %s is not available."
-msgstr ""
+msgstr "Le %s n'est pas disponible."
 
 msgid "var_names is not character vector"
 msgstr ""
