@@ -16,9 +16,6 @@
 #' - [as.function()] transforms an **lm** or **nls** model into a function that
 #' can be plotted using `stat_function()`.
 #'
-#' @docType package
-#' @name modelit-package
-
 ## usethis namespace: start
 #' @importFrom broom augment glance tidy
 #' @importFrom chart chart combine_charts
@@ -36,4 +33,4 @@
 #' @importFrom svMisc gettext gettextf
 #' @importFrom tabularise colformat_sci equation para_md
 ## usethis namespace: end
-NULL
+"_PACKAGE"
