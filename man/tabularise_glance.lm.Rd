@@ -7,8 +7,8 @@
 \method{tabularise_glance}{lm}(
   data,
   header = TRUE,
-  title = NULL,
-  equation = TRUE,
+  title = header,
+  equation = header,
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,

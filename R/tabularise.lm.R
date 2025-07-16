@@ -179,8 +179,8 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
 #' @examples
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$glance(iris_lm)
-tabularise_glance.lm <- function(data, header = TRUE, title = NULL,
-  equation = TRUE, auto.labs = TRUE, origdata = NULL, labs = NULL,
+tabularise_glance.lm <- function(data, header = TRUE, title = header,
+  equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
   lang = getOption("data.io_lang", "en"), ..., kind = "ft") {
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -227,6 +227,7 @@ tabularise_glance.lm <- function(data, header = TRUE, title = NULL,
 #' @param ... Additional arguments
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
 #' flextable (default).
+#' #' @param footer If `FALSE` (by default), add a footer to the table.
 #'
 #' @return A **flextable** object you can print in different formats (HTML,
 #'   LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
@@ -257,7 +258,7 @@ tabularise_coef.summary.lm <- function(data, header = TRUE, title = header,
     data, type = "tidy", conf.int = conf.int, conf.level = conf.level,
     show.signif.stars = show.signif.stars, lang = lang, auto.labs = auto.labs,
     origdata = origdata, labs = labs, equation = equation, title = title,
-    colnames = colnames_lm, footer = FALSE)
+    colnames = colnames_lm, footer = footer)
 
   # formatted table ----
   formate_table(df_list, kind = kind, header = header)
@@ -319,44 +320,40 @@ colnames_lm <- c(
   signif = "",
   "(Intercept)" = "Intercept")
 
-# .make_traduction <- function() {
-#   .trad <- list()
-#   traduction_fun <- function(lang = "en") {
-#     res <- .trad[[lang]]
-#     if(is.null(res)) {
-#       message("langue ", lang, " pas en cache")
-#       res <- gettext(term = "Term",
-#                      estimate = "Estimate",
-#                      conf.low = "Lower bound (CI)",
-#                      conf.high = "Upper bound (CI)",
-#                      std.error = "Standard Error",
-#                      t.value = "t value",
-#                      sigma = "RSE",
-#                      r.squared = "R^2^",
-#                      adj.r.squared = "Adj.R^2^",
-#                      AIC = "AIC",
-#                      BIC = "BIC",
-#                      deviance = "Deviance",
-#                      logLik = "Log-likelihood",
-#                      statistic = "*t* value",
-#                      p.value = "*p* value",
-#                      df = "Model df",
-#                      df.residual = "Residuals df",
-#                      nobs = "N",
-#                      "(Intercept)" = "Intercept", lang = lang,
-#                      domain = "R-modelit")
-#       .trad2 <- .trad
-#       .trad2[[lang]] <- res
-#       .trad <<- .trad2  # super assignation
-#     }
-#     res
-#   }
-#   traduction_fun
-# }
-#
-# .traduction <- .make_traduction()
+library(svMisc)
+# Migrer dans svMisc
+.make_translation <- function() {
+  .trad <- list()
+  translation_fun <- structure(function(expr, lang = NULL, type = "lm", clear_cache = FALSE) {
+    if (isTRUE(clear_cache)) {
+      .trad <<- list()
+      if (missing(expr))
+        return()
+    }
 
-.trad <- gettext(term = "Term",
+    if (is.null(lang)) {
+      lang <- substitute(expr)[["lang"]]
+      if (is.null(lang))
+        stop("lang is not defined")
+    }
+
+    slot <- paste(lang, type[[1]], sep = "-")
+    res <- .trad[[slot]]
+    if (is.null(res)) {
+      message("langue ", lang, " pas en cache")
+      res <- eval(expr)
+      .trad2 <- .trad
+      .trad2[[slot]] <- res
+      .trad <<- .trad2  # super assignation
+    }
+    res
+  }, class = c("function", "subsettable_type"))
+  translation_fun
+}
+
+.translation <- .make_translation()
+
+.translation$lm(gettext(term = "Term",
         estimate = "Estimate",
         conf.low = "Lower bound (CI)",
         conf.high = "Upper bound (CI)",
@@ -374,7 +371,34 @@ colnames_lm <- c(
         df = "Model df",
         df.residual = "Residuals df",
         nobs = "N",
-        "(Intercept)" = "Intercept")
+        "(Intercept)" = "Intercept", lang = "fr"))
+
+.translation(clear_cache = TRUE)
+environment(.translation)$.trad
+environment(.translation)$.trad -> s
+
+s$`fr-lm`
+
+.trads <- gettext(term = "Term",
+        estimate = "Estimate",
+        conf.low = "Lower bound (CI)",
+        conf.high = "Upper bound (CI)",
+        std.error = "Standard Error",
+        t.value = "t value",
+        sigma = "RSE",
+        r.squared = "R^2^",
+        adj.r.squared = "Adj.R^2^",
+        AIC = "AIC",
+        BIC = "BIC",
+        deviance = "Deviance",
+        logLik = "Log-likelihood",
+        statistic = "*t* value",
+        p.value = "*p* value",
+        df = "Model df",
+        df.residual = "Residuals df",
+        nobs = "N",
+        "(Intercept)" = "Intercept", lang = "fr")
+.trads
 
 .extract_colnames <- function(df, labs, lang) {
   vec <- labs[names(labs) %in% names(df)]
@@ -533,7 +557,7 @@ colnames_lm <- c(
   vals
 }
 
-.extract_title <- function(title, lang = "en") {
+.extract_title_lm <- function(title, lang = "en") {
   res <- NULL
 
   if (isTRUE(title)) {
@@ -575,9 +599,10 @@ colnames_lm <- c(
     lang, auto.labs = TRUE, origdata = NULL , labs = NULL, equation = TRUE,
     title = TRUE, colnames = colnames_lm , footer = FALSE, ...) {
 
+  if (!inherits(data, c("lm", "summary.lm")))
+    stop(".extract_infos_nls() can apply only lm and summary.lm object.")
 
   type <- match.arg(type, choices = c("coef", "glance", "tidy"))
-
 
   if (inherits(data, "summary.lm") && type == "coef") {
     message(".extract_infos_lm() cannot apply type = 'coef' to a summary.lm
@@ -626,7 +651,7 @@ colnames_lm <- c(
     terms <- .extract_terms(df, labs = labels, lang = lang)
   }
 
-  title <- .extract_title(title, lang = lang)
+  title <- .extract_title_lm(title, lang = lang)
 
    if(isTRUE(footer)) {
      footer <- .extract_footer_lm(data, lang = lang)
@@ -674,14 +699,18 @@ colnames_lm <- c(
     ft <- .add_header2(ft, title = x$title, equation = x$equa)
   }
 
+  # footer and psignif
+  n <- 0 # use to define align right and left
+
   if (!is.null(x$psignif)) {
     ft <- .add_signif(ft, x$psignif)
+    n <- 1
   }
 
   if (!is.null(x$footer)) {
     vals <- x$footer
     ft <- add_footer_lines(ft, top = FALSE, values = para_md(vals))
-    ft <- align(ft, i = seq_len(length(vals)) + 1 , align = "left",
+    ft <- align(ft, i = seq_len(length(vals)) + n , align = "left",
               part = "footer")
   }
 

@@ -59,7 +59,8 @@ The default is \code{getOption("show.signif.stars")}}
 \item{...}{Additional arguments}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
-flextable (default).}
+flextable (default).
+#' @param footer If \code{FALSE} (by default), add a footer to the table.}
 }
 \value{
 A \strong{flextable} object you can print in different formats (HTML,
