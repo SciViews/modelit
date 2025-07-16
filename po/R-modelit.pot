@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-07-14 12:27\n"
+"POT-Creation-Date: 2025-07-16 14:55\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,15 @@ msgid "The type= argument must provide a model_spec object or its name in a char
 msgstr ""
 
 msgid "You must give either 'h=' or 'v='."
+msgstr ""
+
+msgid "lang is not defined"
+msgstr ""
+
+msgid "langue"
+msgstr ""
+
+msgid "pas en cache"
 msgstr ""
 
 msgid "Term"
@@ -100,6 +109,9 @@ msgstr ""
 msgid "Intercept"
 msgstr ""
 
+msgid "fr"
+msgstr ""
+
 msgid "Package 'data.io' is required but not installed."
 msgstr ""
 
@@ -131,6 +143,12 @@ msgid "Multiple *R*^2^: %.*g - adjusted *R*^2^: %.*g"
 msgstr ""
 
 msgid "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
+msgstr ""
+
+msgid ".extract_infos_nls() can apply only lm and summary.lm object."
+msgstr ""
+
+msgid ".extract_infos_lm() cannot apply type = 'coef' to a summary.lm\n            object. Use type = 'tidy' instead to extract a detailed coefficient table."
 msgstr ""
 
 msgid "Not implemented yet"
@@ -167,6 +185,69 @@ msgid "var_names must be named character vector"
 msgstr ""
 
 msgid "all elements must be named"
+msgstr ""
+
+msgid "*t*~obs.~ value"
+msgstr ""
+
+msgid "Relative standard error"
+msgstr ""
+
+msgid "Convergence tolerance"
+msgstr ""
+
+msgid "Log-Likelihood"
+msgstr ""
+
+msgid "df"
+msgstr ""
+
+msgid "Nonlinear least squares asymptotic regression model (von Bertalanffy)"
+msgstr ""
+
+msgid "Nonlinear least squares  asymptotic regression model (von Bertalanffy)"
+msgstr ""
+
+msgid "Nonlinear least squares asymptotic regression model through the origin (von Bertalanffy)"
+msgstr ""
+
+msgid "Nonlinear least squares biexponential model"
+msgstr ""
+
+msgid "Nonlinear least squares  first-order compartment model"
+msgstr ""
+
+msgid "Nonlinear least squares  four-parameter logistic model"
+msgstr ""
+
+msgid "Nonlinear least squares  Gompertz model"
+msgstr ""
+
+msgid "Nonlinear least squares  logistic model"
+msgstr ""
+
+msgid "Nonlinear least squares Michaelis-Menten model"
+msgstr ""
+
+msgid "Nonlinear least squares Weibull model"
+msgstr ""
+
+msgid "Residual sum-of-squares: %.*g"
+msgstr ""
+
+msgid "Number of iterations to convergence: %.*g"
+msgstr ""
+
+msgid "Achieved convergence tolerance: %.*g"
+msgstr ""
+
+msgid "The model does not converge"
+msgstr ""
+
+msgid ".extract_infos_nls() can apply only nls and summary.nls object."
+msgstr ""
+
+msgid ".extract_infos_nls() cannot apply type = 'glance' to a summary.nls\n            object."
 msgstr ""
 
 msgid "add_header_nls()"

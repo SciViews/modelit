@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-07-14 12:27\n"
-"PO-Revision-Date: 2025-07-11 15:19+0200\n"
+"POT-Creation-Date: 2025-07-16 14:55\n"
+"PO-Revision-Date: 2025-07-16 15:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -53,6 +53,15 @@ msgstr ""
 msgid "You must give either 'h=' or 'v='."
 msgstr ""
 
+msgid "lang is not defined"
+msgstr ""
+
+msgid "langue"
+msgstr ""
+
+msgid "pas en cache"
+msgstr ""
+
 msgid "Term"
 msgstr "Terme"
 
@@ -71,7 +80,6 @@ msgstr "Ecart type"
 msgid "t value"
 msgstr "Valeur de *t*"
 
-#, fuzzy
 msgid "RSE"
 msgstr "RSE"
 
@@ -111,6 +119,9 @@ msgstr "N"
 msgid "Intercept"
 msgstr "Ordonnée à l’origine"
 
+msgid "fr"
+msgstr "Fr"
+
 msgid "Package 'data.io' is required but not installed."
 msgstr "Le package “data.io” est requis mais n'est pas installé."
 
@@ -127,7 +138,7 @@ msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
 msgstr ""
 
 msgid ","
-msgstr ""
+msgstr ","
 
 msgid "Linear model"
 msgstr "Modèle linéaire"
@@ -143,6 +154,15 @@ msgstr "*R*^2^ multiple : %.*g - *R*^2^ ajusté : %.*g"
 
 msgid "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
 msgstr "Statistique *F* : %.*g sur %.*g et %.*g ddl - valeur de *p* : %s"
+
+msgid ".extract_infos_nls() can apply only lm and summary.lm object."
+msgstr ".extract_infos_nls()  ne s’applique qu’au objet nls et summary.nls. "
+
+msgid ""
+".extract_infos_lm() cannot apply type = 'coef' to a summary.lm\n"
+"            object. Use type = 'tidy' instead to extract a detailed "
+"coefficient table."
+msgstr ""
 
 msgid "Not implemented yet"
 msgstr "Ce n'est pas encore implémenté"
@@ -172,13 +192,83 @@ msgid "The %s is not available."
 msgstr "Le %s n'est pas disponible."
 
 msgid "var_names is not character vector"
-msgstr ""
+msgstr "var_names n’est pas une vecteur de caractère"
 
 msgid "var_names must be named character vector"
-msgstr ""
+msgstr "var_names doit être un vecteur de caractère nommé"
 
 msgid "all elements must be named"
+msgstr "Tous les éléments doivent être nommé."
+
+msgid "*t*~obs.~ value"
+msgstr "Valeur de *t*~obs.~"
+
+msgid "Relative standard error"
+msgstr "Ecart type des résidus"
+
+msgid "Convergence tolerance"
+msgstr "Tolérance de convergence"
+
+msgid "Log-Likelihood"
+msgstr "Log-vraisemblance"
+
+msgid "df"
+msgstr "Degrés de liberté"
+
+msgid "Nonlinear least squares asymptotic regression model (von Bertalanffy)"
+msgstr "Modèle non linéaire de régression asymptotique (von Bertalanffy)"
+
+msgid "Nonlinear least squares  asymptotic regression model (von Bertalanffy)"
+msgstr "Modèle non linéaire de régression asymptotique (von Bertalanffy)"
+
+msgid ""
+"Nonlinear least squares asymptotic regression model through the origin (von "
+"Bertalanffy)"
 msgstr ""
+"Modèle non linéaire de régression asymptotique forcée à l'origine (von "
+"Bertalanffy)"
+
+msgid "Nonlinear least squares biexponential model"
+msgstr "Modèle non linéaire biexponentiel"
+
+msgid "Nonlinear least squares  first-order compartment model"
+msgstr "Modèle non linéaire à compartiments du premier ordre"
+
+msgid "Nonlinear least squares  four-parameter logistic model"
+msgstr "Modèle non linéaire logistique à quatre paramètres"
+
+msgid "Nonlinear least squares  Gompertz model"
+msgstr "Modèle non linéaire de Gompertz"
+
+msgid "Nonlinear least squares  logistic model"
+msgstr "Modèle non linéaire logistique"
+
+msgid "Nonlinear least squares Michaelis-Menten model"
+msgstr "Modèle non linéaire de Michaelis-Menten"
+
+msgid "Nonlinear least squares Weibull model"
+msgstr "Modèle non linéaire de Weibull"
+
+msgid "Residual sum-of-squares: %.*g"
+msgstr "Somme des carrés des résidus : %.*g"
+
+msgid "Number of iterations to convergence: %.*g"
+msgstr "Nombre d'itérations pour converger : %.*g"
+
+msgid "Achieved convergence tolerance: %.*g"
+msgstr "Tolérance atteinte à la convergence : %.*g"
+
+msgid "The model does not converge"
+msgstr "Le modèle ne converge pas"
+
+msgid ".extract_infos_nls() can apply only nls and summary.nls object."
+msgstr ".extract_infos_nls()  ne s’applique qu’au objet nls et summary.nls. "
+
+msgid ""
+".extract_infos_nls() cannot apply type = 'glance' to a summary.nls\n"
+"            object."
+msgstr ""
+"extract_infos_nls() ne peut appliquer  type=‘lance’ à un objet summary.nls."
 
 msgid "add_header_nls()"
 msgstr ""
