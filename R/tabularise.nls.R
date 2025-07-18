@@ -749,6 +749,7 @@ model_nls <- c(
     psignif <- NULL
   }
 
+  lang <- tolower(lang)
   cols <- .extract_colnames(df, labs =  colnames, lang = lang)
 
   labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,

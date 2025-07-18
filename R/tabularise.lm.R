@@ -32,8 +32,27 @@
 #' @importFrom knitr opts_current
 #' @method tabularise_coef lm
 #' @examples
+#' data(iris)
+#' # Fit a simple linear model: Petal.Length as a function of Sepal.Length
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$coef(iris_lm)
+#'
+#' # If the 'iris' dataset has labels and units, they can be used to enhance
+#' # the output table
+#' iris <- data.io::labelise(iris, self = FALSE, label = list(
+#'     Sepal.Length = "Length of the sepals",
+#'     Petal.Length = "Length of the petals",
+#'     Species = "Species"), units = c(rep("cm", 4), NA))
+#'
+#' iris_lm1 <- lm(data = iris, Petal.Length ~ Sepal.Length + Species)
+#' tabularise::tabularise$coef(iris_lm1)
+#'
+#' # The same table but without showing the model equation
+#' tabularise::tabularise$coef(iris_lm, equation = FALSE)
+#'
+#' iris_lm2 <- lm(data = iris, Petal.Length ~ Sepal.Length * Species)
+#' tabularise::tabularise$coef(iris_lm2)
+#'
 tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
   equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
   lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE",unset = "en")),
@@ -287,17 +306,6 @@ tabularise_default.summary.lm <- function(data, ..., footer = TRUE) {
 
 
 # A list of internals functions ------
-
-.pvalue_format <- function(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
-                           labels = c("***", " **", "  *", "  .", "   ")) {
-  #x <- get(as.character(substitute(x)), inherits = TRUE)
-  z <- cut(x, breaks = breaks,
-           labels = labels)
-  z <- as.character(z)
-  z[is.na(x)] <- ""
-  z
-}
-
 colnames_lm <- c(
   term = "Term",
   estimate = "Estimate",
@@ -320,65 +328,6 @@ colnames_lm <- c(
   signif = "",
   "(Intercept)" = "Intercept")
 
-library(svMisc)
-# Migrer dans svMisc
-.make_translation <- function() {
-  .trad <- list()
-  translation_fun <- structure(function(expr, lang = NULL, type = "lm", clear_cache = FALSE) {
-    if (isTRUE(clear_cache)) {
-      .trad <<- list()
-      if (missing(expr))
-        return()
-    }
-
-    if (is.null(lang)) {
-      lang <- substitute(expr)[["lang"]]
-      if (is.null(lang))
-        stop("lang is not defined")
-    }
-
-    slot <- paste(lang, type[[1]], sep = "-")
-    res <- .trad[[slot]]
-    if (is.null(res)) {
-      message("langue ", lang, " pas en cache")
-      res <- eval(expr)
-      .trad2 <- .trad
-      .trad2[[slot]] <- res
-      .trad <<- .trad2  # super assignation
-    }
-    res
-  }, class = c("function", "subsettable_type"))
-  translation_fun
-}
-
-.translation <- .make_translation()
-
-.translation$lm(gettext(term = "Term",
-        estimate = "Estimate",
-        conf.low = "Lower bound (CI)",
-        conf.high = "Upper bound (CI)",
-        std.error = "Standard Error",
-        t.value = "t value",
-        sigma = "RSE",
-        r.squared = "R^2^",
-        adj.r.squared = "Adj.R^2^",
-        AIC = "AIC",
-        BIC = "BIC",
-        deviance = "Deviance",
-        logLik = "Log-likelihood",
-        statistic = "*t* value",
-        p.value = "*p* value",
-        df = "Model df",
-        df.residual = "Residuals df",
-        nobs = "N",
-        "(Intercept)" = "Intercept", lang = "fr"))
-
-.translation(clear_cache = TRUE)
-environment(.translation)$.trad
-environment(.translation)$.trad -> s
-
-s$`fr-lm`
-
 .trads <- gettext(term = "Term",
         estimate = "Estimate",
         conf.low = "Lower bound (CI)",
@@ -398,7 +347,17 @@ s$`fr-lm`
         df.residual = "Residuals df",
         nobs = "N",
         "(Intercept)" = "Intercept", lang = "fr")
-.trads
+#.trads
+
+.pvalue_format <- function(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
+                           labels = c("***", " **", "  *", "  .", "   ")) {
+  #x <- get(as.character(substitute(x)), inherits = TRUE)
+  z <- cut(x, breaks = breaks,
+           labels = labels)
+  z <- as.character(z)
+  z[is.na(x)] <- ""
+  z
+}
 
 .extract_colnames <- function(df, labs, lang) {
   vec <- labs[names(labs) %in% names(df)]
@@ -491,12 +450,11 @@ s$`fr-lm`
         next
       }
 
-      # Construire le label de l'interaction
       interaction_label <- paste(labs[parts], collapse = " x ")
       labs[term] <- interaction_label
     }
   }
-
+  labs <- gsub("\n", " ", labs)
   return(labs)
 }
 
@@ -596,11 +554,11 @@ s$`fr-lm`
 
 .extract_infos_lm <- function(data, type = "coef",
     conf.int = TRUE, conf.level = 0.95, show.signif.stars = getOption("show.signif.stars", TRUE),
-    lang, auto.labs = TRUE, origdata = NULL , labs = NULL, equation = TRUE,
+    lang = "en", auto.labs = TRUE, origdata = NULL , labs = NULL, equation = TRUE,
     title = TRUE, colnames = colnames_lm , footer = FALSE, ...) {
 
   if (!inherits(data, c("lm", "summary.lm")))
-    stop(".extract_infos_nls() can apply only lm and summary.lm object.")
+    stop(".extract_infos_lm() can apply only lm and summary.lm object.")
 
   type <- match.arg(type, choices = c("coef", "glance", "tidy"))
 
@@ -638,10 +596,11 @@ s$`fr-lm`
     psignif <- NULL
   }
 
+  lang <- tolower(lang)
   cols <- .extract_colnames(df, labs = colnames_lm, lang = lang)
 
   labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
-                            origdata = origdata, labs = labs)
+                              origdata = origdata, labs = labs)
 
   equa <- .extract_equation(data, equation = equation, labs = labels)
 
@@ -657,8 +616,7 @@ s$`fr-lm`
      footer <- .extract_footer_lm(data, lang = lang)
    } else {
     footer <- NULL
-  }
-
+   }
 
   list(
     df = df,
@@ -831,65 +789,106 @@ formate_table <- function(df, kind, header) {
   ft
 }
 
-# create_flextable <- function(x, header = TRUE) {
-#   df <- x$df
-#
-#   ft <- flextable(df) |>
-#     colformat_sci()
-#
-#   if ("p.value" %in% colnames(df)) {
-#     ft <- ft |>
-#       colformat_sci(j = "p.value", lod = 2e-16)
-#   }
-#
-#   if (!is.null(x$cols))) {
-#     ft <- .add_colnames(ft, attr(x, "col.names"))
-#   }
-#
-#   if (!is.null(attr(x, "labs"))) {
-#     ft <- .add_labs(ft, attr(x, "labs"))
-#   }
-#
-#   if (!is.null(attr(x,"equation")) & !is.null(attr(x, "equation_params"))) {
-#     ft <- .add_params(ft, attr(x, "equation_params"))
-#   }
-#
-#   if (isTRUE(header)) {
-#     ft <- .add_header2(ft, title = attr(x, "title"), equation = attr(x, "equation"))
-#   }
-#
-#   if (!is.null(attr(x,"signif.stars"))) {
-#     ft <- .add_signif(ft, attr(x, "signif.stars"))
-#   }
-#
-#   if (!is.null(attr(x, "footer"))) {
-#     vals <- attr(x, "footer")
-#     ft <- add_footer_lines(ft, top = FALSE, values = para_md(vals))
-#     ft <- align(ft, i = seq_len(length(vals)) + 1 , align = "left",
-#       part = "footer")
-#   }
-#
-#   ft <- autofit(ft, part = c("header", "body"))
-#
-#   sss <- attr(x,"show.signif.stars")
-#   if (!is.null(sss) && isTRUE(sss)) {
-#     ft <- width(ft, j = "signif", width = 0.4)
-#   }
-#
-#   return(ft)
-# }
 
-# #formate_table <- function(df, kind, header) {
-#   switch(kind,
-#     df = {df},
-#     tt = {
-#       stop("Not implemented yet")
-#     },
-#     ft = {
-#       create_flextable(df, header = header)
-#     },
-#     gt = {
-#       stop("Not implemented yet")
+# # TODO: Migrate this translation system into the 'svMisc' package
+#
+# # This function creates a translation handler that caches translations
+# # for different languages and object types (e.g., "lm", "nls", etc.).
+# # It avoids re-evaluating translation expressions by storing results
+# # in a cache (.trad), indexed by a key combining language and type.
+# .make_translation <- function() {
+#   .trad <- list()  # Internal cache for translations
+#
+#   translation_fun <- structure(function(expr, lang = NULL, type = "lm", clear_cache = FALSE) {
+#     # Clear the cache if requested
+#     if (isTRUE(clear_cache)) {
+#       .trad <<- list()
+#       if (missing(expr))
+#         return()
 #     }
-#   )
+#
+#     # Try to extract language from the expression if not explicitly provided
+#     if (is.null(lang)) {
+#       lang <- substitute(expr)[["lang"]]
+#       if (is.null(lang))
+#         stop("lang is not defined")
+#     }
+#
+#     # Create a cache key based on language and type
+#     slot <- paste(lang, type[[1]], sep = "-")
+#     res <- .trad[[slot]]
+#
+#     # If translation is not cached, evaluate and store it
+#     if (is.null(res)) {
+#       message("Language ", lang, " not found in cache")
+#       res <- eval(expr)
+#       .trad2 <- .trad
+#       .trad2[[slot]] <- res
+#       .trad <<- .trad2  # Super assignment to update cache
+#     }
+#
+#     res  # Return the cached or newly evaluated translation
+#   }, class = c("function", "subsettable_type"))
+#
+#   translation_fun
 # }
+#
+# # Create the translation handler
+# .translation <- .make_translation()
+#
+# # Add translations for 'lm' objects in French and English
+# .translation$lm(gettext(
+#   term = "Term",
+#   estimate = "Estimate",
+#   conf.low = "Lower bound (CI)",
+#   conf.high = "Upper bound (CI)",
+#   std.error = "Standard Error",
+#   t.value = "t value",
+#   sigma = "RSE",
+#   r.squared = "R^2^",
+#   adj.r.squared = "Adj.R^2^",
+#   AIC = "AIC",
+#   BIC = "BIC",
+#   deviance = "Deviance",
+#   logLik = "Log-likelihood",
+#   statistic = "*t* value",
+#   p.value = "*p* value",
+#   df = "Model df",
+#   df.residual = "Residuals df",
+#   nobs = "N",
+#   "(Intercept)" = "Intercept",
+#   lang = "fr"
+# ))
+#
+# .translation$lm(gettext(
+#   term = "Term",
+#   estimate = "Estimate",
+#   conf.low = "Lower bound (CI)",
+#   conf.high = "Upper bound (CI)",
+#   std.error = "Standard Error",
+#   t.value = "t value",
+#   sigma = "RSE",
+#   r.squared = "R^2^",
+#   adj.r.squared = "Adj.R^2^",
+#   AIC = "AIC",
+#   BIC = "BIC",
+#   deviance = "Deviance",
+#   logLik = "Log-likelihood",
+#   statistic = "*t* value",
+#   p.value = "*p* value",
+#   df = "Model df",
+#   df.residual = "Residuals df",
+#   nobs = "N",
+#   "(Intercept)" = "Intercept",
+#   lang = "en"
+# ))
+#
+# # Optional: Clear the cache
+# #.translation(clear_cache = TRUE)
+#
+# # Access the internal translation cache
+# environment(.translation)$.trad -> s
+#
+# # View cached translations for French 'lm' objects
+# s$`fr-lm`
+# s

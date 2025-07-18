@@ -57,6 +57,25 @@ object, similar to \code{\link[stats:coef]{stats::coef()}}, but in a rich-format
 \{flextable\}.
 }
 \examples{
+data(iris)
+# Fit a simple linear model: Petal.Length as a function of Sepal.Length
 iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 tabularise::tabularise$coef(iris_lm)
+
+# If the 'iris' dataset has labels and units, they can be used to enhance
+# the output table
+iris <- data.io::labelise(iris, self = FALSE, label = list(
+    Sepal.Length = "Length of the sepals",
+    Petal.Length = "Length of the petals",
+    Species = "Species"), units = c(rep("cm", 4), NA))
+
+iris_lm1 <- lm(data = iris, Petal.Length ~ Sepal.Length + Species)
+tabularise::tabularise$coef(iris_lm1)
+
+# The same table but without showing the model equation
+tabularise::tabularise$coef(iris_lm, equation = FALSE)
+
+iris_lm2 <- lm(data = iris, Petal.Length ~ Sepal.Length * Species)
+tabularise::tabularise$coef(iris_lm2)
+
 }
