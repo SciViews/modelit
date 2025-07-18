@@ -2,6 +2,7 @@
 
 S3method(AIC,model_fit)
 S3method(BIC,model_fit)
+S3method(anova,lm_)
 S3method(anova,model_fit)
 S3method(as.function,lm)
 S3method(as.function,model_fit)

@@ -2,27 +2,41 @@
 % Please edit documentation in R/lm_.R
 \name{lm_}
 \alias{lm_}
-\title{Fitting Linear Models by SciViews}
+\title{Fitting Linear Models with Enhanced Output (Experimental)}
 \usage{
 lm_(data, formula, ...)
 }
 \arguments{
-\item{data}{A data frame}
+\item{data}{A \code{data.frame} containing the variables in the model.}
 
-\item{formula}{An object of class formula}
+\item{formula}{An object of class \code{formula}: a symbolic description of the model to be fitted.}
 
-\item{...}{All the arguments of the lm() function}
+\item{...}{Additional arguments passed to \code{\link[stats:lm]{stats::lm()}}.}
 }
 \value{
-an lm_ object if attribute additions have been made. Otherwise, the object will be of class lm
+An object of class \code{lm_}, which inherits from \code{lm}, and includes additional
+components such as \code{labels}. If no additional attributes are added, a standard \code{lm} object is returned.
 }
 \description{
-The lm_() function is used like the lm() function from the {stats} package. It allows adding additional elements such as labels and units.
+\code{lm_()} is an \strong{experimental} wrapper around the base \code{\link[stats:lm]{stats::lm()}} function.
+It behaves similarly to \code{lm()} but enriches the returned object with additional
+metadata.
 }
 \examples{
 data(iris)
+
+# Add labels to variables
+attr(iris$Sepal.Length, "label") <- "Sepal Length (cm)"
+attr(iris$Petal.Length, "label") <- "Petal Length (cm)"
+
+# Fit the model using lm_()
 res <- lm_(iris, formula = Petal.Length ~ Sepal.Length + Species)
+
 res
 class(res)
+summary(res)
+
+# Access labels
+res$labels
 
 }
