@@ -1,8 +1,10 @@
 # modelit 1.4.7
 
--   Refactor all tabularise\_\*\*\* functions for lm object like tabularise_glance.lm(), tabularise_default.lm(), tabularise_tidy.lm(),...
+-   Refactored all tabularise\_\*\*\*() methods for lm, summary.lm, nls, summary.nls objects (e.g., tabularise_glance.lm(), tabularise_default.lm(), tabularise_tidy.lm(), etc.) to improve internal consistency and prepare for multi-format table rendering using {flextable}, {tinytable}, and {gt}.
 
--   Adding the lm\_() function which is similar to lm() but adds useful attributes like labels and units of the variables used.
+-   Labels are now fully integrated into tabularise\_\*\*\*.nls and tabularise\_\*\*\*.summary.nls, allowing consistent and readable output for nonlinear model summaries.
+
+-   Added the experimental lm\_() function, which extends [stats::lm()] by attaching additional metadata such as variable labels and units. Also introduced summary.lm\_() and anova.lm\_() methods to preserve the additional metadata.
 
 # modelit 1.4.6
 
