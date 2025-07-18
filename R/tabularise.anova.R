@@ -385,3 +385,107 @@ infos_fr.anova <- list(
   "NULL" = c("NULL" = "Aucun"),
   Model = c("Model" = "Mod\u00e8le")
 )
+
+colnames_anova <-  c(
+  term = "Term",
+  "model" = "Model",
+  "df" = "Df",
+  "df.residual" = "Residuals Df",
+  rss = "Residual sum of squares",
+  "sumsq" = "Sum of squares",
+  "meansq" = "Mean squares",
+  "p.value" = "*p* value",
+  num.df = "Num. Df",
+  NumDF = "Num. Df",
+  den.df = "Denom. Df",
+  DenDF = "Denom. Df",
+  deviance = "Deviance",
+  residual.deviance = "Residual deviance",
+  "F value" = "*F*~obs.~ value",
+  "F" = "*F*~obs.~ value",
+  Chisq = "$\\chi2_{obs.}$")
+
+.trad_anova <- gettext(
+  "Type III Analysis of Variance Table with Satterthwaite's method" =
+      "Type III analysis of variance with Satterthwaite's method",
+  "Analysis of Deviance Table" = "Analysis of deviance",
+  "Analysis of Variance Table" = "Analysis of variance",
+  "Response:" = "Response:",
+  "Model:" = "Model:",
+  "Model" = "Model",
+  "link:" = "link:",
+  "Terms added sequentially (first to last)" = "Terms added sequentially (first to last)",
+  term = "Term",
+  "model" = "Model",
+  "df" = "Df",
+  "df.residual" = "Residuals Df",
+  rss = "Residual sum of squares",
+  "sumsq" = "Sum of squares",
+  "meansq" = "Mean squares",
+  "p.value" = "*p* value",
+  num.df = "Num. Df",
+  NumDF = "Num. Df",
+  den.df = "Denom. Df",
+  DenDF = "Denom. Df",
+  deviance = "Deviance",
+  residual.deviance = "Residual deviance",
+  "F value" = "*F*~obs.~ value",
+  "F" = "*F*~obs.~ value",
+  Chisq = "$\\chi2_{obs.}$",
+  "NULL" = "None",
+  Residuals = "Residuals"
+)
+
+.extract_infos_anova <- function(data, show.signif.stars = getOption("show.signif.stars", TRUE),
+      lang = "en", auto.labs = TRUE, origdata = NULL , labs = NULL,
+      title = TRUE, colnames = colnames_anova, ...) {
+
+  if (!inherits(data, c("anova")))
+    stop(".extract_infos_anova() can apply only anova object.")
+
+  # df
+  df <- as.data.frame(broom::tidy(data))
+
+  # statistic variable has 3 possible significcation: "F value", "F", "Chisq"
+  statistic_cols <- c("F value", "F", "Chisq")
+  names(df)[names(df) == "statistic"] <- statistic_cols[statistic_cols %in% names(data)][1]
+
+  # the term variable
+  if (grepl("^Model", attr(data, "heading")[2])) {
+    names(df)[names(df) == "term"] <- "model"
+  }
+
+  if (isTRUE(show.signif.stars)) {
+    df$signif <- .pvalue_format(df$p.value)
+  }
+
+  # psignif
+  if(isTRUE(show.signif.stars)) {
+    psignif <- "0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
+  } else {
+    psignif <- NULL
+  }
+
+  lang <- tolower(lang)
+  cols <- .extract_colnames(df, labs = colnames, lang = lang)
+
+  labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
+                            origdata = origdata, labs = labs)
+
+
+  if(is.null(df[["term"]])){
+    # TODO implement model variable
+  } else {
+    terms <- .extract_terms(df, labs = labels, lang = lang)
+  }
+  #message("labels are: ")
+  #message(labels)
+
+  list(
+    df = df,
+    cols = cols,
+    equa = NULL,
+    terms = terms,
+    psignif = psignif,
+    footer = NULL)
+}
