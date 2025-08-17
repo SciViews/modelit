@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-07-16 14:55\n"
-"PO-Revision-Date: 2025-07-16 15:29+0200\n"
+"POT-Creation-Date: 2025-08-14 10:55\n"
+"PO-Revision-Date: 2025-08-14 11:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -53,17 +53,92 @@ msgstr ""
 msgid "You must give either 'h=' or 'v='."
 msgstr ""
 
-msgid "lang is not defined"
-msgstr ""
+msgid "Type III analysis of variance with Satterthwaite's method"
+msgstr "Analyse de la variance de type III avec m\\u00e9thode Sattertwaite"
 
-msgid "langue"
-msgstr ""
+msgid "Analysis of deviance"
+msgstr "Analyse de la déviance"
 
-msgid "pas en cache"
-msgstr ""
+msgid "Analysis of variance"
+msgstr "Analyse de la variance"
+
+msgid "Type II analysis of variance"
+msgstr "Analyse de la variance de type II"
+
+msgid "Type III analysis of variance"
+msgstr "Analyse de la variance de type III"
+
+msgid "Type II analysis of deviance table"
+msgstr "Analyse de la déviance de type II"
+
+msgid "Type III analysis of deviance table"
+msgstr "Analyse de la déviance de type III"
+
+msgid "Response:"
+msgstr "Réponse :"
+
+msgid "Model:"
+msgstr "Modèle : "
+
+msgid "Model"
+msgstr "Modèle"
+
+msgid "link:"
+msgstr "Lien : "
+
+msgid "Terms added sequentially (first to last)"
+msgstr "Termes ajoutés séquentiellement (du premier au dernier)"
 
 msgid "Term"
 msgstr "Terme"
+
+msgid "Df"
+msgstr "Ddl"
+
+msgid "Residuals Df"
+msgstr "Ddl des résidus"
+
+msgid "Residual sum of squares"
+msgstr "Somme des carrés des résidus"
+
+msgid "Sum of squares"
+msgstr "Somme des carrés"
+
+msgid "Mean squares"
+msgstr "Carrés moyens"
+
+msgid "*p* value"
+msgstr "Valeur de *p*"
+
+msgid "Num. Df"
+msgstr "Ddl. Num."
+
+msgid "Denom. Df"
+msgstr "Ddl dénombre."
+
+msgid "Deviance"
+msgstr "Déviance"
+
+msgid "Residual deviance"
+msgstr "Déviance résiduelle"
+
+msgid "*F*~obs.~ value"
+msgstr "Valeur de *F*~obs.~"
+
+msgid "$\\chi2_{obs.}$"
+msgstr "$\\chi2_{obs.}$"
+
+msgid "None"
+msgstr "Aucun"
+
+msgid "Residuals"
+msgstr "Résidus"
+
+msgid "Number of parameters"
+msgstr "Nombre de paramètres"
+
+msgid ".extract_infos_anova() can apply only anova object."
+msgstr ".extract_infos_anova()  ne s’applique qu’au objet anova. "
 
 msgid "Estimate"
 msgstr "Valeur estimée"
@@ -95,17 +170,11 @@ msgstr "AIC"
 msgid "BIC"
 msgstr "BIC"
 
-msgid "Deviance"
-msgstr "Déviance"
-
 msgid "Log-likelihood"
 msgstr "Log-vraisemblance"
 
 msgid "*t* value"
 msgstr "Valeur de *t*"
-
-msgid "*p* value"
-msgstr "Valeur de *p*"
 
 msgid "Model df"
 msgstr "Ddl modèle"
@@ -155,7 +224,7 @@ msgstr "*R*^2^ multiple : %.*g - *R*^2^ ajusté : %.*g"
 msgid "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
 msgstr "Statistique *F* : %.*g sur %.*g et %.*g ddl - valeur de *p* : %s"
 
-msgid ".extract_infos_nls() can apply only lm and summary.lm object."
+msgid ".extract_infos_lm() can apply only lm and summary.lm object."
 msgstr ".extract_infos_nls()  ne s’applique qu’au objet nls et summary.nls. "
 
 msgid ""
@@ -269,12 +338,6 @@ msgid ""
 "            object."
 msgstr ""
 "extract_infos_nls() ne peut appliquer  type=‘lance’ à un objet summary.nls."
-
-msgid "add_header_nls()"
-msgstr ""
-
-msgid "header_labels()"
-msgstr ""
 
 msgid "header_labels_lm()"
 msgstr ""

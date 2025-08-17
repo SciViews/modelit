@@ -1,3 +1,10 @@
+# gettext(), stop(), warning()
+gettext <- svMisc::gettext_
+gettextf <- svMisc::gettextf_
+ngettext <- svMisc::ngettext_
+# stop <- svMisc::stop_ #
+# warning <- svMisc::warning_
+
 # Internal functions of flextable
 .pvalue_format <- function(x) {
   #x <- get(as.character(substitute(x)), inherits = TRUE)

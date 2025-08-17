@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-07-16 14:55\n"
+"POT-Creation-Date: 2025-08-14 10:55\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,16 +43,91 @@ msgstr ""
 msgid "You must give either 'h=' or 'v='."
 msgstr ""
 
-msgid "lang is not defined"
+msgid "Type III analysis of variance with Satterthwaite's method"
 msgstr ""
 
-msgid "langue"
+msgid "Analysis of deviance"
 msgstr ""
 
-msgid "pas en cache"
+msgid "Analysis of variance"
+msgstr ""
+
+msgid "Type II analysis of variance"
+msgstr ""
+
+msgid "Type III analysis of variance"
+msgstr ""
+
+msgid "Type II analysis of deviance table"
+msgstr ""
+
+msgid "Type III analysis of deviance table"
+msgstr ""
+
+msgid "Response:"
+msgstr ""
+
+msgid "Model:"
+msgstr ""
+
+msgid "Model"
+msgstr ""
+
+msgid "link:"
+msgstr ""
+
+msgid "Terms added sequentially (first to last)"
 msgstr ""
 
 msgid "Term"
+msgstr ""
+
+msgid "Df"
+msgstr ""
+
+msgid "Residuals Df"
+msgstr ""
+
+msgid "Residual sum of squares"
+msgstr ""
+
+msgid "Sum of squares"
+msgstr ""
+
+msgid "Mean squares"
+msgstr ""
+
+msgid "*p* value"
+msgstr ""
+
+msgid "Num. Df"
+msgstr ""
+
+msgid "Denom. Df"
+msgstr ""
+
+msgid "Deviance"
+msgstr ""
+
+msgid "Residual deviance"
+msgstr ""
+
+msgid "*F*~obs.~ value"
+msgstr ""
+
+msgid "$\\chi2_{obs.}$"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Residuals"
+msgstr ""
+
+msgid "Number of parameters"
+msgstr ""
+
+msgid ".extract_infos_anova() can apply only anova object."
 msgstr ""
 
 msgid "Estimate"
@@ -85,16 +160,10 @@ msgstr ""
 msgid "BIC"
 msgstr ""
 
-msgid "Deviance"
-msgstr ""
-
 msgid "Log-likelihood"
 msgstr ""
 
 msgid "*t* value"
-msgstr ""
-
-msgid "*p* value"
 msgstr ""
 
 msgid "Model df"
@@ -145,7 +214,7 @@ msgstr ""
 msgid "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
 msgstr ""
 
-msgid ".extract_infos_nls() can apply only lm and summary.lm object."
+msgid ".extract_infos_lm() can apply only lm and summary.lm object."
 msgstr ""
 
 msgid ".extract_infos_lm() cannot apply type = 'coef' to a summary.lm\n            object. Use type = 'tidy' instead to extract a detailed coefficient table."
@@ -248,12 +317,6 @@ msgid ".extract_infos_nls() can apply only nls and summary.nls object."
 msgstr ""
 
 msgid ".extract_infos_nls() cannot apply type = 'glance' to a summary.nls\n            object."
-msgstr ""
-
-msgid "add_header_nls()"
-msgstr ""
-
-msgid "header_labels()"
 msgstr ""
 
 msgid "header_labels_lm()"

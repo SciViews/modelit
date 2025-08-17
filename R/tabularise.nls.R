@@ -69,7 +69,7 @@ tabularise_default.summary.nls <- function(data, header = TRUE, title = header,
   # print(df_list) # use only for development
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+  format_table(df_list, kind = kind, header = header)
 }
 
 #' Create a rich-formatted table using the table of coefficients of the summary.nls object
@@ -137,7 +137,7 @@ tabularise_coef.summary.nls <- function(data, header = TRUE, title = header,
   # print(df_list) # use only for development
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+  format_table(df_list, kind = kind, header = header)
 }
 
 #' Create a rich-formatted table from a nls object
@@ -199,7 +199,7 @@ tabularise_default.nls <- function(data, header = TRUE, title = header,
   # print(df_list) # use only for development
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+  format_table(df_list, kind = kind, header = header)
 }
 
 #' Create a rich-formatted table using the coefficients of the nls object
@@ -261,7 +261,7 @@ tabularise_coef.nls <- function(data, header = TRUE, title = header,
   # print(df_list) # use only for development
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+  format_table(df_list, kind = kind, header = header)
 
 }
 
@@ -333,7 +333,7 @@ tabularise_tidy.nls <- function(data, header = TRUE, title = header,
   # print(df_list) # use only for development
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+  format_table(df_list, kind = kind, header = header)
 }
 
 #' Glance version of the nls object into a flextable object
@@ -398,7 +398,7 @@ tabularise_glance.nls <- function(data, header = TRUE, title = header,
   # print(df_list) # use only for development
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+  format_table(df_list, kind = kind, header = header)
 }
 
 #' Get a LaTeX equation from an nls or the summary of a nls models

@@ -31,7 +31,15 @@
 #' # Access labels
 #' res$labels
 #'
-lm_ <- function(data, formula, ...) {
+lm_ <- function(data = (.), formula, ..., .data = data) {
+
+  .__top_call__. <- TRUE
+
+  # Implicit data-dot mechanism
+  if (missing(data) || !is.data.frame(data))
+    return(eval_data_dot(sys.call(), arg = 'data', abort_msg =
+                           gettext("`data` must be a `data.frame`.")))
+
   res <- stats::lm(data = data, formula = formula, ...)
 
   # Extract labels
@@ -50,7 +58,6 @@ lm_ <- function(data, formula, ...) {
 
   res
 }
-
 
 #' Summarizing Linear Model Fits with Enhanced Output
 #'
@@ -146,14 +153,13 @@ anova.lm_ <- function(object, ...) {
 
   # Add labels if available
   if (!is.null(object$labels)) {
-    res$labels <- object$labels
+    attr(res, "labels") <- object$labels
   }
 
   # Add custom class if labels were added
   if (!is.null(res$labels)) {
     class(res) <- c("anova_", class(res))
   }
-
   res
 }
 

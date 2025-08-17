@@ -30,7 +30,7 @@
 #' @importFrom stats AIC anova BIC coef confint cooks.distance deviance family fitted formula hatvalues nobs predict residuals rstandard variable.names vcov
 #' @importFrom stats coef pf
 #' @importFrom svFlow %>.%
-#' @importFrom svMisc gettext gettextf
+#' @importFrom svMisc gettext_ gettextf_ ngettext_ stop_ warning_
 #' @importFrom tabularise colformat_sci equation para_md
 ## usethis namespace: end
 "_PACKAGE"

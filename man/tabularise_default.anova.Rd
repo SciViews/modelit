@@ -14,8 +14,7 @@
   lang = getOption("data.io_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
-  kind = "ft",
-  env = parent.frame()
+  kind = "ft"
 )
 }
 \arguments{
@@ -46,9 +45,6 @@ The default is taken from \code{getOption("show.signif.stars")}.}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
-
-\item{env}{The environment where to evaluate lazyeval expressions (not used
-for now)}
 }
 \value{
 A \strong{flextable} object you can print in different form or rearrange

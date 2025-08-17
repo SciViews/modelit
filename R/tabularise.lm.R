@@ -73,7 +73,7 @@ tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
     colnames = colnames_lm, footer = FALSE)
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+ format_table(df_list, kind = kind, header = header)
 }
 
 #' Create a rich-formatted table from an lm object
@@ -162,7 +162,7 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
 
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+ format_table(df_list, kind = kind, header = header)
 }
 
 #' Glance version of the lm object into a flextable object
@@ -216,7 +216,7 @@ tabularise_glance.lm <- function(data, header = TRUE, title = header,
     colnames = colnames_lm, footer = FALSE)
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+ format_table(df_list, kind = kind, header = header)
 }
 
 #' Create a rich-formatted table using the table of coefficients of the summary.lm object
@@ -280,7 +280,7 @@ tabularise_coef.summary.lm <- function(data, header = TRUE, title = header,
     colnames = colnames_lm, footer = footer)
 
   # formatted table ----
-  formate_table(df_list, kind = kind, header = header)
+ format_table(df_list, kind = kind, header = header)
 }
 
 #' Create a rich-formatted table from an summary.lm object
@@ -363,6 +363,10 @@ colnames_lm <- c(
   vec <- labs[names(labs) %in% names(df)]
   vec1 <- gettext(vec, lang = lang)
   names(vec1) <- names(vec)
+
+  #Remove elements with missing or empty names
+  vec1 <- vec1[!is.na(names(vec1)) & names(vec1) != ""]
+
   vec1
 }
 
@@ -475,7 +479,10 @@ colnames_lm <- c(
   terms <- labs[names(labs) %in% vals]
 
   if(any(vals == "(Intercept)"))
-    terms <- c("(Intercept)"= gettext("Intercept", lang = lang), terms)
+    terms <- c("(Intercept)"= gettext("Intercept", lang = lang)[[1]], terms)
+
+  if(any(vals == "Residuals"))
+    terms <- c(terms, "Residuals"= gettext("Residuals", lang = lang)[[1]])
 
   terms
 }
@@ -519,7 +526,7 @@ colnames_lm <- c(
   res <- NULL
 
   if (isTRUE(title)) {
-    res <- gettext("Linear model", lang = lang)
+    res <- gettext("Linear model", lang = lang)[[1]]
   }
 
   if (is.character(title)) {
@@ -681,7 +688,7 @@ colnames_lm <- c(
   return(ft)
 }
 
-formate_table <- function(df, kind, header) {
+format_table <- function(df, kind, header) {
   switch(kind,
          df = {df},
          tt = {
