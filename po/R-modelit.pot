@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.8\n"
-"POT-Creation-Date: 2025-08-19 15:04\n"
+"POT-Creation-Date: 2025-08-20 09:35\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -241,27 +241,6 @@ msgstr ""
 msgid "Linear model"
 msgstr ""
 
-msgid "Package 'data.io' is required but not installed."
-msgstr ""
-
-msgid "labs is not character vector"
-msgstr ""
-
-msgid "labs must be named character vector"
-msgstr ""
-
-msgid "all element must be named"
-msgstr ""
-
-msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
-msgstr ""
-
-msgid ","
-msgstr ""
-
-msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
-msgstr ""
-
 msgid "Residuals range: [%.*g, %.*g]"
 msgstr ""
 
@@ -278,21 +257,6 @@ msgid ".extract_infos_lm() can apply only lm and summary.lm object."
 msgstr ""
 
 msgid ".extract_infos_lm() cannot apply type = 'coef' to a summary.lm\n            object. Use type = 'tidy' instead to extract a detailed coefficient table."
-msgstr ""
-
-msgid "Not implemented yet"
-msgstr ""
-
-msgid "Function `%s` supports only flextable objects."
-msgstr ""
-
-msgid ".add_signif_stars()"
-msgstr ""
-
-msgid ".add_header2()"
-msgstr ""
-
-msgid ".add_colnames()"
 msgstr ""
 
 msgid "`x` must be an object of class 'nls' or 'summary.nls'."
@@ -376,8 +340,38 @@ msgstr ""
 msgid ".extract_infos_nls() cannot apply type = 'glance' to a summary.nls\n            object."
 msgstr ""
 
-msgid "header_labels_lm()"
+msgid "Package 'data.io' is required but not installed."
 msgstr ""
 
-msgid ".add_header()"
+msgid "labs is not character vector"
+msgstr ""
+
+msgid "labs must be named character vector"
+msgstr ""
+
+msgid "all element must be named"
+msgstr ""
+
+msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
+msgstr ""
+
+msgid "Not implemented yet"
+msgstr ""
+
+msgid "Function `%s` supports only flextable objects."
+msgstr ""
+
+msgid ".add_signif_stars()"
+msgstr ""
+
+msgid ".add_header2()"
+msgstr ""
+
+msgid ".add_colnames()"
 msgstr ""

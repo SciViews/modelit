@@ -187,6 +187,8 @@ colnames_anova <-  c(
   npar = "Number of parameters"
 )
 
+# See utils.R for internal functions used by various .extract_infos_***
+#
 .extract_infos_anova <- function(data, show.signif.stars = getOption("show.signif.stars", TRUE),
       lang = "en", auto.labs = TRUE, origdata = NULL , labs = NULL,
       title = TRUE, colnames = colnames_anova, ...) {

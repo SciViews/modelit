@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-08-19 15:04\n"
+"POT-Creation-Date: 2025-08-20 09:35\n"
 "PO-Revision-Date: 2025-08-19 15:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -270,29 +270,6 @@ msgstr "Ddl modèle"
 msgid "Linear model"
 msgstr "Modèle linéaire"
 
-msgid "Package 'data.io' is required but not installed."
-msgstr "Le package “data.io” est requis mais n'est pas installé."
-
-msgid "labs is not character vector"
-msgstr "L’argument labs n’est pas un vecteur de caractères"
-
-msgid "labs must be named character vector"
-msgstr "l’argument ‘labs’ doit être un vecteur de caractères nommé"
-
-msgid "all element must be named"
-msgstr "tous les éléments doivent être nommés"
-
-msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
-msgstr ""
-"Les termes suivants sont manquant dans 'labs' pour les interactions %s’: %s"
-
-msgid ","
-msgstr ","
-
-msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
-msgstr ""
-"L’argument 'equation' doit être TRUE, FALSE, NA, ou une chaine de caractère."
-
 msgid "Residuals range: [%.*g, %.*g]"
 msgstr "Etendue des résidus : [%.*g, %.*g]"
 
@@ -315,21 +292,6 @@ msgid ""
 msgstr ""
 ".extract_infos_lm() ne peut appliquer type ='coef' à summary.lm\n"
 "  type = 'tidy' est employé pour extraire le tableau des coefficients."
-
-msgid "Not implemented yet"
-msgstr "Ce n'est pas encore implémenté"
-
-msgid "Function `%s` supports only flextable objects."
-msgstr "La fonction `%s` supporte uniquement des objets flextable."
-
-msgid ".add_signif_stars()"
-msgstr ".add_signif_stars()"
-
-msgid ".add_header2()"
-msgstr ".add_header2()"
-
-msgid ".add_colnames()"
-msgstr ".add_colnames()"
 
 #, fuzzy
 msgid "`x` must be an object of class 'nls' or 'summary.nls'."
@@ -420,8 +382,46 @@ msgid ""
 msgstr ""
 "extract_infos_nls() ne peut appliquer  type=‘lance’ à un objet summary.nls."
 
-msgid "header_labels_lm()"
-msgstr "header_labels_lm()"
+msgid "Package 'data.io' is required but not installed."
+msgstr "Le package “data.io” est requis mais n'est pas installé."
 
-msgid ".add_header()"
-msgstr ".add_header()"
+msgid "labs is not character vector"
+msgstr "L’argument labs n’est pas un vecteur de caractères"
+
+msgid "labs must be named character vector"
+msgstr "l’argument ‘labs’ doit être un vecteur de caractères nommé"
+
+msgid "all element must be named"
+msgstr "tous les éléments doivent être nommés"
+
+msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
+msgstr ""
+"Les termes suivants sont manquant dans 'labs' pour les interactions %s’: %s"
+
+msgid ","
+msgstr ","
+
+msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
+msgstr ""
+"L’argument 'equation' doit être TRUE, FALSE, NA, ou une chaine de caractère."
+
+msgid "Not implemented yet"
+msgstr "Ce n'est pas encore implémenté"
+
+msgid "Function `%s` supports only flextable objects."
+msgstr "La fonction `%s` supporte uniquement des objets flextable."
+
+msgid ".add_signif_stars()"
+msgstr ".add_signif_stars()"
+
+msgid ".add_header2()"
+msgstr ".add_header2()"
+
+msgid ".add_colnames()"
+msgstr ".add_colnames()"
+
+#~ msgid "header_labels_lm()"
+#~ msgstr "header_labels_lm()"
+
+#~ msgid ".add_header()"
+#~ msgstr ".add_header()"

@@ -492,6 +492,8 @@ colnames_glm <- c(
                   "header" = "Generalized Linear Model",
                   lang = "fr")
 
+# See utils.R for internal functions used by various .extract_infos_***
+
 .extract_footer_glm <- function(data, lang = "en") {
   digits <- max(3L, getOption("digits") - 3L)
   domain <- "R-modelit"
