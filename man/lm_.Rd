@@ -4,7 +4,7 @@
 \alias{lm_}
 \title{Fitting Linear Models with Enhanced Output (Experimental)}
 \usage{
-lm_(data, formula, ...)
+lm_(data = (.), formula, ..., .data = data)
 }
 \arguments{
 \item{data}{A \code{data.frame} containing the variables in the model.}
@@ -12,6 +12,8 @@ lm_(data, formula, ...)
 \item{formula}{An object of class \code{formula}: a symbolic description of the model to be fitted.}
 
 \item{...}{Additional arguments passed to \code{\link[stats:lm]{stats::lm()}}.}
+
+\item{.data}{an alias for the \code{data} argument}
 }
 \value{
 An object of class \code{lm_}, which inherits from \code{lm}, and includes additional
@@ -19,8 +21,9 @@ components such as \code{labels}. If no additional attributes are added, a stand
 }
 \description{
 \code{lm_()} is an \strong{experimental} wrapper around the base \code{\link[stats:lm]{stats::lm()}} function.
-It behaves similarly to \code{lm()} but enriches the returned object with additional
-metadata.
+It behaves similarly to \code{lm()}, but enriches the returned object with additional metadata.
+The order of the arguments differs from \code{lm()}, and the function uses evaluation
+through \code{\link[svMisc:eval_data_dot]{svMisc::eval_data_dot()}} to support flexible data referencing.
 }
 \examples{
 data(iris)

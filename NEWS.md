@@ -1,3 +1,23 @@
+# modelit 1.4.8
+
+-   Refactored all tabularise\_\*\*\*() methods for glm, summary.glm, anova, aov objects (e.g., tabularise_glance.glm(), tabularise_default.glm(), tabularise_tidy.glm(), etc.) to improve internal consistency and prepare for multi-format table rendering using {flextable}, {tinytable}, and {gt}.
+
+-   added summary\_() and anova\_() functions. These two functions provide the same information as the summary() and anova() functions. They add an attribute that preserves a link to the object used in these two functions. Adding this argument makes it possible to retrieve information from the original object that would otherwise be lost when using summary() or anova().
+
+-   Added the experimental glm\_() and nls\_() functions, which extend [stats::glm()] and [stats::nls()] by attaching additional metadata such as variable labels and units. The order of arguments has been modified to start with data =. All three functions — lm\_(), glm\_(), and nls\_() — use a data-dot mechanism inspired by svMisc::eval_data_dot(). Note: nls\_() uses model = TRUE by default, whereas the base nls() function uses model = FALSE.
+
+-   The `equation=` argument now accepts `NA` in addition to `TRUE`, `FALSE`, and character strings, offering more flexibility in how model equations are displayed and used:
+
+    -   `TRUE` *(default)*: The equation is automatically generated and added to the table header. Its parameters are also used in the "Term" column.
+
+    -   `FALSE`: No equation is generated or displayed, and its parameters are not used in the "Term" column.
+
+    -   `NA`: The equation is generated but not displayed in the table header. Its parameters are still used in the "Term" column.
+
+    -   *Character string*: A custom equation is provided directly and added to the table header.
+
+    This enhancement allows for finer control over equation display and ensures that model parameters remain accessible even when the equation is hidden.
+
 # modelit 1.4.7
 
 -   Refactored all tabularise\_\*\*\*() methods for lm, summary.lm, nls, summary.nls objects (e.g., tabularise_glance.lm(), tabularise_default.lm(), tabularise_tidy.lm(), etc.) to improve internal consistency and prepare for multi-format table rendering using {flextable}, {tinytable}, and {gt}.
