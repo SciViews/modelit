@@ -518,7 +518,7 @@ colnames_glm <- c(
     res <- paste(
       gettextf("Degrees of Freedom: %.*g Total (i.e. no model); %.*g Residual", digits, data$df.null, digits,
                data$df.residual, domain = domain, lang = lang),
-      gettextf("Total deviance: %.*g",digits, data$null.deviance, domain = domain, lang = lang),
+      gettextf("Total deviance: %.*g", digits, data$null.deviance, domain = domain, lang = lang),
       gettextf("Residual deviance: %.*g AIC: %.*g",digits, data$deviance, digits, data$ai, domain = domain, lang = lang),
       sep = "\n")
     res
