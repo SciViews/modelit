@@ -5,6 +5,9 @@ ngettext <- svMisc::ngettext_
 # stop <- svMisc::stop_ #
 # warning <- svMisc::warning_
 
+# Need this for R CMD check to pass
+. <- NULL
+
 # Internal functions of flextable
 .pvalue_format <- function(x) {
   #x <- get(as.character(substitute(x)), inherits = TRUE)

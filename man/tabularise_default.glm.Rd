@@ -6,8 +6,14 @@
 \usage{
 \method{tabularise_default}{glm}(
   data,
-  footer = TRUE,
-  lang = getOption("data.io_lang", "en"),
+  header = FALSE,
+  title = header,
+  equation = header,
+  auto.labs = TRUE,
+  origdata = NULL,
+  labs = NULL,
+  footer = FALSE,
+  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
   ...,
   kind = "ft",
   env = parent.frame()
@@ -16,17 +22,49 @@
 \arguments{
 \item{data}{A \strong{glm} object}
 
-\item{footer}{If \code{TRUE} (by default), add a footer to the table}
+\item{header}{Logical. If \code{TRUE} (\code{FALSE} by default), a header is added to the table.
+The header includes both the title and the equation (if applicable).
+If set to \code{FALSE}, neither the title nor the equation will be displayed in
+the table header, even if the \code{title} or \code{equation} parameters are provided.}
+
+\item{title}{If \code{TRUE} (\code{FALSE} by default), add a title to the table header. Default to the same
+value than header, except outside of a chunk where it is \code{FALSE} if a table
+caption is detected (\code{tbl-cap} YAML entry).}
+
+\item{equation}{Logical or character. Controls whether an equation is added
+to the table header and how parameters are used. Accepted values are:
+\itemize{
+\item \code{TRUE}: The equation is generated and added to the table header. Its
+parameters are also used in the "Term" column.
+\item \code{FALSE} (by default): No equation is generated or displayed, and its
+parameters are not used in the "Term" column.
+\item \code{NA}: The equation is generated but not displayed in the table header.
+Its parameters are used in the "Term" column.
+\item Character string: A custom equation is provided directly and added to
+the table header.
+}}
+
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from data or \verb{origdata=}.}
+
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and no label is used.}
+
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and nothing is changed.}
+
+\item{footer}{If \code{TRUE} (\code{FALSE} by default), add a footer to the table}
 
 \item{lang}{The natural language to use. The default value can be set with,
 e.g., \code{options(data.io_lang = "fr")} for French.}
 
-\item{...}{Additional arguments passed to \code{\link[=tabularise_coef.glm]{tabularise_coef.glm()}}}
+\item{...}{Additional arguments}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
 
-\item{env}{The environment where to evaluate the model.}
+\item{env}{The environment where to evaluate formulas (you probably do not
+need to change the default).}
 }
 \value{
 A \strong{flextable} object is returned. You can print it in different
@@ -39,4 +77,7 @@ Create a rich-formatted table from a glm object
 \examples{
 iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 tabularise::tabularise(iris_glm)
+tabularise::tabularise(iris_glm, header = TRUE, footer = TRUE)
+tabularise::tabularise(iris_glm, header = TRUE, footer = FALSE)
+tabularise::tabularise(iris_glm, header = TRUE, equation = NA,footer = TRUE)
 }

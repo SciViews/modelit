@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-08-14 10:55\n"
+"Project-Id-Version: modelit 1.4.8\n"
+"POT-Creation-Date: 2025-08-19 15:04\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,15 @@ msgid "Unrecognized type, must be 'model', 'resfitted', 'qqplot',\n      'scalel
 msgstr ""
 
 msgid "The type= argument must provide a model_spec object or its name in a character string."
+msgstr ""
+
+msgid "`data` must be a `data.frame`."
+msgstr ""
+
+msgid "Unable to summarize the object."
+msgstr ""
+
+msgid "Unable to compute ANOVA for the object."
 msgstr ""
 
 msgid "You must give either 'h=' or 'v='."
@@ -142,10 +151,10 @@ msgstr ""
 msgid "Standard Error"
 msgstr ""
 
-msgid "t value"
+msgid "*t* value"
 msgstr ""
 
-msgid "RSE"
+msgid "Sigma"
 msgstr ""
 
 msgid "R^2^"
@@ -160,13 +169,19 @@ msgstr ""
 msgid "BIC"
 msgstr ""
 
-msgid "Log-likelihood"
+msgid "*z* value"
 msgstr ""
 
-msgid "*t* value"
+msgid "Log-Likelihood"
 msgstr ""
 
-msgid "Model df"
+msgid "Total deviance"
+msgstr ""
+
+msgid "Total df"
+msgstr ""
+
+msgid "Num. df"
 msgstr ""
 
 msgid "Residuals df"
@@ -178,7 +193,52 @@ msgstr ""
 msgid "Intercept"
 msgstr ""
 
+msgid "Generalized Linear Model"
+msgstr ""
+
 msgid "fr"
+msgstr ""
+
+msgid "(Dispersion parameter for %s: %.*g)"
+msgstr ""
+
+msgid "Total deviance: %.*g on %.*g degrees of freedom"
+msgstr ""
+
+msgid "Residual deviance: %.*g on %.*g degrees of freedom"
+msgstr ""
+
+msgid "AIC: %.*g - Number of Fisher Scoring iterations: %.*g"
+msgstr ""
+
+msgid "Degrees of Freedom: %.*g Total (i.e. no model); %.*g Residual"
+msgstr ""
+
+msgid "Total deviance: %.*g"
+msgstr ""
+
+msgid "Residual deviance: %.*g AIC: %.*g"
+msgstr ""
+
+msgid ".extract_infos_glm() can apply only glm and summary.glm object."
+msgstr ""
+
+msgid ".extract_infos_glm() can only apply type = 'coef' to a summary.glm\n            object."
+msgstr ""
+
+msgid "t value"
+msgstr ""
+
+msgid "RSE"
+msgstr ""
+
+msgid "Log-likelihood"
+msgstr ""
+
+msgid "Model df"
+msgstr ""
+
+msgid "Linear model"
 msgstr ""
 
 msgid "Package 'data.io' is required but not installed."
@@ -199,7 +259,7 @@ msgstr ""
 msgid ","
 msgstr ""
 
-msgid "Linear model"
+msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
 msgstr ""
 
 msgid "Residuals range: [%.*g, %.*g]"
@@ -235,7 +295,7 @@ msgstr ""
 msgid ".add_colnames()"
 msgstr ""
 
-msgid "x must be an nls or summary.nls object"
+msgid "`x` must be an object of class 'nls' or 'summary.nls'."
 msgstr ""
 
 msgid "An error occurred when trying to extract the formula from 'x'"
@@ -263,9 +323,6 @@ msgid "Relative standard error"
 msgstr ""
 
 msgid "Convergence tolerance"
-msgstr ""
-
-msgid "Log-Likelihood"
 msgstr ""
 
 msgid "df"

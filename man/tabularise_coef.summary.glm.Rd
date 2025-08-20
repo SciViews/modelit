@@ -4,17 +4,55 @@
 \alias{tabularise_coef.summary.glm}
 \title{Create a rich-formatted table using the table of coefficients of the summary.glm object}
 \usage{
-\method{tabularise_coef}{summary.glm}(data, ..., kind = "ft", env = parent.frame())
+\method{tabularise_coef}{summary.glm}(
+  data,
+  header = TRUE,
+  title = NULL,
+  equation = header,
+  auto.labs = TRUE,
+  origdata = NULL,
+  labs = NULL,
+  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
+  show.signif.stars = getOption("show.signif.stars", TRUE),
+  ...,
+  kind = "ft",
+  env = parent.frame()
+)
 }
 \arguments{
 \item{data}{A \strong{summary.glm} object}
 
-\item{...}{Additional arguments passed to \code{\link[=tabularise_tidy.glm]{tabularise_tidy.glm()}}}
+\item{header}{If \code{TRUE} (by default), add a header to the table}
+
+\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
+value than header, except outside of a chunk where it is \code{FALSE} if a table
+caption is detected (\code{tbl-cap} YAML entry).}
+
+\item{equation}{If \code{TRUE} (by default), try to add a equation to the table
+header. The equation can also be passed in the form of a character string.}
+
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from data or \verb{origdata=}.}
+
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and no label is used.}
+
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and nothing is changed.}
+
+\item{lang}{The natural language to use. The default value can be set with,
+e.g., \code{options(data.io_lang = "fr")} for French.}
+
+\item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
+The default is \code{getOption("show.signif.stars")}}
+
+\item{...}{Additional arguments}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
 
-\item{env}{The environment where to evaluate the model.}
+\item{env}{The environment where to evaluate formulas (you probably do not
+need to change the default).}
 }
 \value{
 A \strong{flextable} object that you can print in different formats
@@ -28,5 +66,5 @@ from the \code{\link[=summary]{summary()}} of a \strong{glm} object.
 \examples{
 iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 iris_glm_sum <- summary(iris_glm)
-tabularise::tabularise$coef(iris_glm_sum)
+tabularise::tabularise_coef(iris_glm_sum)
 }
