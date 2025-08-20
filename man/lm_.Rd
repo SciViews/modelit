@@ -23,7 +23,7 @@ components such as \code{labels}. If no additional attributes are added, a stand
 \code{lm_()} is an \strong{experimental} wrapper around the base \code{\link[stats:lm]{stats::lm()}} function.
 It behaves similarly to \code{lm()}, but enriches the returned object with additional metadata.
 The order of the arguments differs from \code{lm()}, and the function uses evaluation
-through \code{\link[svMisc:eval_data_dot]{svMisc::eval_data_dot()}} to support flexible data referencing.
+through \link[svMisc:prepare_data_dot]{svMisc::prepare_data_dot} and \link[svMisc:prepare_data_dot]{svMisc::recall_with_data_dot} to support flexible data referencing.
 }
 \examples{
 data(iris)

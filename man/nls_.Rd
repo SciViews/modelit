@@ -28,7 +28,7 @@ added, a standard \code{nls} object is returned.
 \code{nls_()} is an \strong{experimental} wrapper around the base \code{\link[stats:nls]{stats::nls()}}
 function. It behaves similarly to \code{glm()}, but enriches the returned object
 with additional metadata. The order of the arguments differs from \code{glm()},
-and the function uses evaluation through \code{\link[svMisc:eval_data_dot]{svMisc::eval_data_dot()}} to support
+and the function uses evaluation through \code{\link[svMisc:prepare_data_dot]{svMisc::recall_with_data_dot()}} to support
 flexible data referencing.
 }
 \examples{

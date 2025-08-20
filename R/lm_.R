@@ -4,7 +4,7 @@
 #' `lm_()` is an **experimental** wrapper around the base [stats::lm()] function.
 #' It behaves similarly to `lm()`, but enriches the returned object with additional metadata.
 #' The order of the arguments differs from `lm()`, and the function uses evaluation
-#' through [svMisc::eval_data_dot()] to support flexible data referencing.
+#' through [svMisc::prepare_data_dot] and [svMisc::recall_with_data_dot] to support flexible data referencing.
 #'
 #' @param data A `data.frame` containing the variables in the model.
 #' @param formula An object of class `formula`: a symbolic description of the model to be fitted.
@@ -26,6 +26,10 @@
 #' # Fit the model using lm_()
 #' res <- lm_(iris, formula = Petal.Length ~ Sepal.Length + Species)
 #'
+#' . <- iris
+#' res1 <- lm_(Petal.Length ~ Sepal.Length + Species)
+#'
+#'
 #' res
 #' class(res)
 #' summary(res)
@@ -35,12 +39,8 @@
 #'
 lm_ <- function(data = (.), formula, ..., .data = data) {
 
-  .__top_call__. <- TRUE
-
-  # Implicit data-dot mechanism
-  if (missing(data) || !is.data.frame(data))
-    return(svMisc::eval_data_dot(sys.call(), arg = 'data', abort_msg =
-                           gettext("`data` must be a `data.frame`.")))
+  if (!prepare_data_dot(data))
+    return(recall_with_data_dot(arg = "data"))
 
   res <- stats::lm(data = data, formula = formula, ...)
 
@@ -173,8 +173,8 @@ anova.lm_ <- function(object, ...) {
 #' `glm_()` is an **experimental** wrapper around the base [stats::glm()]
 #' function. It behaves similarly to `glm()`, but enriches the returned object
 #' with additional metadata. The order of the arguments differs from `glm()`,
-#' and the function uses evaluation through [svMisc::eval_data_dot()] to support
-#' flexible data referencing.
+#' and the function uses evaluation through  [svMisc::prepare_data_dot] and
+#' [svMisc::recall_with_data_dot] to support flexible data referencing.
 #'
 #' @param data A `data.frame` containing the variables in the model.
 #' @param formula An object of class `formula`: a symbolic description of the
@@ -207,12 +207,9 @@ anova.lm_ <- function(object, ...) {
 #'
 glm_ <- function(data = (.), formula, ..., .data = data) {
 
-  .__top_call__. <- TRUE
 
-  # Implicit data-dot mechanism
-  if (missing(data) || !is.data.frame(data))
-    return(svMisc::eval_data_dot(sys.call(), arg = 'data', abort_msg =
-                                   gettext("`data` must be a `data.frame`.")))
+  if (!prepare_data_dot(data))
+    return(recall_with_data_dot(arg = "data"))
 
   res <- stats::glm(data = data, formula = formula, ...)
 
@@ -240,7 +237,7 @@ glm_ <- function(data = (.), formula, ..., .data = data) {
 #' `nls_()` is an **experimental** wrapper around the base [stats::nls()]
 #' function. It behaves similarly to `glm()`, but enriches the returned object
 #' with additional metadata. The order of the arguments differs from `glm()`,
-#' and the function uses evaluation through [svMisc::eval_data_dot()] to support
+#' and the function uses evaluation through [svMisc::recall_with_data_dot()] to support
 #' flexible data referencing.
 #'
 #' @param data A `data.frame` containing the variables in the model.
@@ -275,12 +272,8 @@ glm_ <- function(data = (.), formula, ..., .data = data) {
 #'
 nls_ <- function(data = (.), formula, model = TRUE, ..., .data = data) {
 
-  .__top_call__. <- TRUE
-
-  # Implicit data-dot mechanism
-  if (missing(data) || !is.data.frame(data))
-    return(svMisc::eval_data_dot(sys.call(), arg = 'data', abort_msg =
-                                   gettext("`data` must be a `data.frame`.")))
+  if (!prepare_data_dot(data))
+    return(recall_with_data_dot(arg = "data"))
 
   res <- stats::nls(data = data, formula = formula, model = model, ...)
 
