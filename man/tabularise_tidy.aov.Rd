@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabularise.anova.R
 \name{tabularise_tidy.aov}
 \alias{tabularise_tidy.aov}
-\title{Tidy version of the anova object into a flextable object}
+\title{Tidy version of the aov object into a flextable object}
 \usage{
 \method{tabularise_tidy}{aov}(data, ...)
 }
@@ -16,7 +16,7 @@
 with the \{flextable\} functions.
 }
 \description{
-Tidy version of the anova object into a flextable object
+Tidy version of the aov object into a flextable object
 }
 \examples{
 iris_aov <- aov(data = iris, Petal.Length ~ Species)

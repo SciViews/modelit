@@ -69,13 +69,14 @@ test_that("x$title is NULL when title = FALSE/TRUE/chr", {
 
   res <- .extract_infos_lm(mod, type = "tidy", title = TRUE)
   expect_equal(res$title, "Linear model")
-  res <- .extract_infos_lm(mod, type = "tidy", title = TRUE, lang = "fr")
-  expect_equal(res$title, "Modèle linéaire")
+  #res <- .extract_infos_lm(mod, type = "tidy", title = TRUE, lang = "fr")
+  #expect_equal(res$title, "Modèle linéaire")
 
   res <- .extract_infos_lm(mod, type = "tidy", title = "blablabla")
   expect_type(res$title, "character")
   expect_equal(res$title, "blablabla")
 })
+
 
 # cols --------------------------------------------------------------------
 

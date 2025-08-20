@@ -48,6 +48,15 @@
 #'
 #' tabularise::tabularise(chick1_logis_sum)
 #' tabularise::tabularise(chick1_logis_sum, footer = FALSE)
+#'
+#' growth <- data.io::read("urchin_growth", package = "data.io")
+#' growth_logis <- nls(data = growth, diameter ~ SSlogis(age, Asym, xmid, scal))
+#' chart::chart(growth_logis)
+#' tabularise::tabularise(summary(growth_logis)) # No labels
+#' tabularise::tabularise(summary(growth_logis), origdata = growth) # with labels
+#' tabularise::tabularise(summary(growth_logis), origdata = growth,
+#'       equation = FALSE, show.signif.stars = FALSE)
+#'
 tabularise_default.summary.nls <- function(data, header = TRUE, title = header,
     equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
     lang = getOption("data.io_lang", "en"), footer = TRUE,
@@ -450,8 +459,9 @@ equation.nls <- function(object, ital_vars = FALSE, use_coefs = FALSE,
 coef_digits = 2L, fix_signs = TRUE, swap_var_names = NULL, var_names = swap_var_names,
 op_latex = c("\\cdot", "\\times"), ...) {
   x <- object
-  if (!class(x) %in% c("nls", "summary.nls"))
-    stop("x must be an nls or summary.nls object")
+  if (!inherits(x, "nls") && !inherits(x, "summary.nls")) {
+    stop("`x` must be an object of class 'nls' or 'summary.nls'.")
+  }
 
   res <- try(stats::formula(x), silent = TRUE)
 
@@ -693,7 +703,7 @@ model_nls <- c(
 .extract_infos_nls <- function(data, type = "coef",
     show.signif.stars = getOption("show.signif.stars", TRUE), lang = "en",
     colnames = colnames_nls, auto.labs = TRUE, origdata = NULL , labs = NULL,
-    equation = TRUE, title = TRUE, footer = TRUE) {
+    equation = TRUE, title = TRUE, footer = TRUE, ...) {
 
   if (!inherits(data, c("nls", "summary.nls")))
       stop(".extract_infos_nls() can apply only nls and summary.nls object.")
@@ -752,9 +762,26 @@ model_nls <- c(
   lang <- tolower(lang)
   cols <- .extract_colnames(df, labs =  colnames, lang = lang)
 
-  labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
-                            origdata = origdata, labs = labs)
-  equa <- .extract_equation(data, equation = equation, labs = labels)
+  data_obj <- attr(data, "object")
+
+  if (is.null(data_obj)) {
+
+    labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
+                              origdata = origdata, labs = labs)
+
+    equa <- .extract_equation(data, equation = equation, labs = labels,...)
+
+  } else {
+
+    labels <- .extract_labels(df = df, data = data_obj, auto.labs = auto.labs,
+                              origdata = origdata, labs = labs)
+
+    equa <- .extract_equation(data_obj, equation = equation, labs = labels,...)
+  }
+
+  if (is.na(equation)) {
+    equa <- NULL
+  }
 
   terms <- NULL
 

@@ -6,12 +6,24 @@
 #' \{flextable\}.
 #'
 #' @param data An **lm** object
-#' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE`, add a title to the table header. Default to the same
-#'   value than header, except outside of a chunk where it is `FALSE` if a table
-#'   caption is detected (`tbl-cap` YAML entry).
-#' @param equation If `TRUE` (by default), add a equation to the table header.
-#'   The equation can also be passed in the form of a character string.
+#' @param header Logical. If `TRUE` (`FALSE`by default), a header is added to
+#'  the table. The header includes both the title and the equation (if
+#'  applicable). If set to `FALSE`, neither the title nor the equation will be
+#'  displayed in the table header, even if the `title` or `equation` parameters
+#'  are provided.
+#' @param title If `TRUE` (`FALSE`by default) , add a title to the table header.
+#'  Default to the same value than header, except outside of a chunk where it is
+#'   `FALSE` if a table caption is detected (`tbl-cap` YAML entry).
+#' @param equation Logical or character. Controls whether an equation is added
+#' to the table header and how parameters are used. Accepted values are:
+#'   - `TRUE`: The equation is generated and added to the table header. Its
+#'              parameters are also used in the "Term" column.
+#'   - `FALSE` (by default): No equation is generated or displayed, and its
+#'              parameters are not used in the "Term" column.
+#'   - `NA`: The equation is generated but not displayed in the table header.
+#'              Its parameters are used in the "Term" column.
+#'   - Character string: A custom equation is provided directly and added to
+#'              the table header.
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
 #'   from data or `origdata=`.
 #' @param origdata The original data set this model was fitted to. By default it
@@ -53,7 +65,7 @@
 #' iris_lm2 <- lm(data = iris, Petal.Length ~ Sepal.Length * Species)
 #' tabularise::tabularise$coef(iris_lm2)
 #'
-tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
+tabularise_coef.lm <- function(data, header = FALSE, title = header,
   equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
   lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE",unset = "en")),
   ..., kind = "ft") {
@@ -86,7 +98,6 @@ tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
 #' @param ... Additional arguments passed to [modelit::tabularise_coef.lm()]
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
 #' flextable (default).
-#' @param env The environment where to evaluate the model.
 #' @return A **flextable** object that you can print in different formats (HTML,
 #'   LaTeX, Word, PowerPoint) or rearrange with the \{flextable\} functions.
 #' @export
@@ -95,10 +106,10 @@ tabularise_coef.lm <- function(data, header = TRUE, title = NULL,
 #' @examples
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise(iris_lm)
-tabularise_default.lm <- function(data, ..., kind = "ft", env = parent.frame()) {
+tabularise_default.lm <- function(data, ..., kind = "ft") {
   # Note: there isn't much in print(lm_obj) than the table of coefficients
   # so, we produce the same table as tabularise$coef() here
-  tabularise_coef.lm(data = data, ..., kind = kind, env = env)
+  tabularise_coef.lm(data = data, ..., kind = kind)
 }
 
 #' Tidy version of the lm object into a flextable object
@@ -108,12 +119,24 @@ tabularise_default.lm <- function(data, ..., kind = "ft", env = parent.frame()) 
 #' object.
 #'
 #' @param data An **lm** object
-#' @param header If `TRUE` (by default), add an header to the table
-#' @param title If `TRUE`, add a title to the table header. Default to the same
-#'   value than header, except outside of a chunk where it is `FALSE` if a table
-#'   caption is detected (`tbl-cap` YAML entry).
-#' @param equation If `TRUE` (by default), add an equation to the table header.
-#'   The equation can also be passed in the form of a character string (LaTeX).
+#' @param header Logical. If `TRUE` (`TRUE`by default), a header is added to
+#'  the table. The header includes both the title and the equation (if
+#'  applicable). If set to `FALSE`, neither the title nor the equation will be
+#'  displayed in the table header, even if the `title` or `equation` parameters
+#'  are provided.
+#' @param title If `TRUE` (by default) , add a title to the table header.
+#'  Default to the same value than header, except outside of a chunk where it is
+#'   `FALSE` if a table caption is detected (`tbl-cap` YAML entry).
+#' @param equation Logical or character. Controls whether an equation is added
+#' to the table header and how parameters are used. Accepted values are:
+#'   - `TRUE`(by default): The equation is generated and added to the table
+#'              header. Its parameters are also used in the "Term" column.
+#'   - `FALSE`: No equation is generated or displayed, and its
+#'              parameters are not used in the "Term" column.
+#'   - `NA`: The equation is generated but not displayed in the table header.
+#'              Its parameters are used in the "Term" column.
+#'   - Character string: A custom equation is provided directly and added to
+#'              the table header.
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
 #'   from data or `origdata=`.
 #' @param origdata The original data set this model was fitted to. By default it
@@ -141,7 +164,7 @@ tabularise_default.lm <- function(data, ..., kind = "ft", env = parent.frame()) 
 #' @examples
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$tidy(iris_lm)
-tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
+tabularise_tidy.lm <- function(data, header = TRUE, title = header,
   equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
   conf.int = FALSE, conf.level = 0.95, lang = getOption("data.io_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
@@ -158,7 +181,7 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
     data, type = "tidy", conf.int = conf.int, conf.level = 0.95,
     show.signif.stars = show.signif.stars, lang = lang, auto.labs = auto.labs,
     origdata = origdata, labs = labs, equation = equation, title = title,
-    colnames = colnames_lm, footer = FALSE)
+    colnames = colnames_lm, footer = FALSE, ...)
 
 
   # formatted table ----
@@ -172,12 +195,24 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = NULL,
 #' object.
 #'
 #' @param data An **lm** object
-#' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE`, add a title to the table header. Default to the same
-#'   value than header, except outside of a chunk where it is `FALSE` if a table
-#'   caption is detected (`tbl-cap` YAML entry).
-#' @param equation If `TRUE` (by default), add a equation to the table header.
-#'   The equation can also be passed in the form of a character string (LaTeX).
+#' @param header Logical. If `TRUE` (`TRUE`by default), a header is added to
+#'  the table. The header includes both the title and the equation (if
+#'  applicable). If set to `FALSE`, neither the title nor the equation will be
+#'  displayed in the table header, even if the `title` or `equation` parameters
+#'  are provided.
+#' @param title If `TRUE` (by default) , add a title to the table header.
+#'  Default to the same value than header, except outside of a chunk where it is
+#'   `FALSE` if a table caption is detected (`tbl-cap` YAML entry).
+#' @param equation Logical or character. Controls whether an equation is added
+#' to the table header and how parameters are used. Accepted values are:
+#'   - `TRUE`(by default): The equation is generated and added to the table
+#'              header. Its parameters are also used in the "Term" column.
+#'   - `FALSE`: No equation is generated or displayed, and its
+#'              parameters are not used in the "Term" column.
+#'   - `NA`: The equation is generated but not displayed in the table header.
+#'              Its parameters are used in the "Term" column.
+#'   - Character string: A custom equation is provided directly and added to
+#'              the table header.
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
 #'   from data or `origdata=`.
 #' @param origdata The original data set this model was fitted to. By default it
@@ -213,7 +248,7 @@ tabularise_glance.lm <- function(data, header = TRUE, title = header,
     data, type = "glance", conf.int = FALSE, conf.level = 0.95,
     show.signif.stars = FALSE, lang = lang, auto.labs = auto.labs,
     origdata = origdata, labs = labs, equation = equation, title = title,
-    colnames = colnames_lm, footer = FALSE)
+    colnames = colnames_lm, footer = FALSE, ...)
 
   # formatted table ----
  format_table(df_list, kind = kind, header = header)
@@ -222,12 +257,24 @@ tabularise_glance.lm <- function(data, header = TRUE, title = header,
 #' Create a rich-formatted table using the table of coefficients of the summary.lm object
 #'
 #' @param data An **summary.lm** object
-#' @param header If `TRUE` (by default), add a header to the table
-#' @param title If `TRUE`, add a title to the table header. Default to the same
-#'   value than header, except outside of a chunk where it is `FALSE` if a table
-#'   caption is detected (`tbl-cap` YAML entry).
-#' @param equation If `TRUE` (by default), add a equation to the table header.
-#'   The equation can also be passed in the form of a character string.
+#' @param header Logical. If `TRUE` (`TRUE`by default), a header is added to
+#'  the table. The header includes both the title and the equation (if
+#'  applicable). If set to `FALSE`, neither the title nor the equation will be
+#'  displayed in the table header, even if the `title` or `equation` parameters
+#'  are provided.
+#' @param title If `TRUE` (by default) , add a title to the table header.
+#'  Default to the same value than header, except outside of a chunk where it is
+#'   `FALSE` if a table caption is detected (`tbl-cap` YAML entry).
+#' @param equation Logical or character. Controls whether an equation is added
+#' to the table header and how parameters are used. Accepted values are:
+#'   - `TRUE`(by default): The equation is generated and added to the table
+#'              header. Its parameters are also used in the "Term" column.
+#'   - `FALSE`: No equation is generated or displayed, and its
+#'              parameters are not used in the "Term" column.
+#'   - `NA`: The equation is generated but not displayed in the table header.
+#'              Its parameters are used in the "Term" column.
+#'   - Character string: A custom equation is provided directly and added to
+#'              the table header.
 #' @param footer If `TRUE` (by default, it is FALSE), add a footer to the table.
 #' @param auto.labs If `TRUE` (by default), use labels (and units) automatically
 #'   from data or `origdata=`.
@@ -277,7 +324,7 @@ tabularise_coef.summary.lm <- function(data, header = TRUE, title = header,
     data, type = "tidy", conf.int = conf.int, conf.level = conf.level,
     show.signif.stars = show.signif.stars, lang = lang, auto.labs = auto.labs,
     origdata = origdata, labs = labs, equation = equation, title = title,
-    colnames = colnames_lm, footer = footer)
+    colnames = colnames_lm, footer = footer, ...)
 
   # formatted table ----
  format_table(df_list, kind = kind, header = header)
@@ -346,6 +393,7 @@ colnames_lm <- c(
         df = "Model df",
         df.residual = "Residuals df",
         nobs = "N",
+        "header" = "Linear model",
         "(Intercept)" = "Intercept", lang = "fr")
 #.trads
 
@@ -488,20 +536,34 @@ colnames_lm <- c(
 }
 
 .extract_equation <- function(data, equation, labs, ...) {
-  if (isTRUE(equation)) {
-    if (!is.null(labs)) {
-      equa <- tabularise::equation(data, swap_var_names =  labs, ...)
-    } else {
-      equa <- tabularise::equation(data, auto.labs = FALSE, ...)
-    }
-    return(equa)
-    #attr(x, "equation_params") <- .params_equa(equa)
+
+  if (!(is.logical(equation) || is.character(equation))) {
+    stop("The 'equation' argument must be TRUE, FALSE, NA, or a character string.")
+  }
+
+  equa <- NULL
+
+  if (isTRUE(equation) || is.na(equation)) {
+   equa <-  try({
+      if (!is.null(labs)) {
+        tabularise::equation(data, swap_var_names = labs, ...)
+      } else {
+        tabularise::equation(data, auto.labs = FALSE, ...)
+      }
+    }, silent = TRUE)
+   if (inherits(equa, "try-error"))
+     equa <- NULL
   }
 
   if (is.character(equation)) {
-    return(equation)
+    equa <- equation
   }
+
+  equa
 }
+
+
+
 
 .params_equa <- function(x, intercept = "alpha", greek = "beta") {
   vals <- NULL
@@ -522,11 +584,11 @@ colnames_lm <- c(
   vals
 }
 
-.extract_title_lm <- function(title, lang = "en") {
+.extract_title <- function(title, lang = "en", default = "Linear model") {
   res <- NULL
 
   if (isTRUE(title)) {
-    res <- gettext("Linear model", lang = lang)[[1]]
+    res <- gettext(default, lang = lang)[[1]]
   }
 
   if (is.character(title)) {
@@ -606,18 +668,34 @@ colnames_lm <- c(
   lang <- tolower(lang)
   cols <- .extract_colnames(df, labs = colnames_lm, lang = lang)
 
-  labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
+  data_obj <- attr(data, "object")
+
+  if (is.null(data_obj)) {
+
+    labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
                               origdata = origdata, labs = labs)
 
-  equa <- .extract_equation(data, equation = equation, labs = labels)
+    equa <- .extract_equation(data, equation = equation, labs = labels)
 
-  if(isTRUE(equation)){
+  } else {
+
+    labels <- .extract_labels(df = df, data = data_obj, auto.labs = auto.labs,
+                              origdata = origdata, labs = labs)
+
+    equa <- .extract_equation(data_obj, equation = equation, labs = labels)
+  }
+
+  if ((isTRUE(equation) || is.na(equation)) && !is.null(equa))  {
     terms <- .params_equa(equa)
   } else {
     terms <- .extract_terms(df, labs = labels, lang = lang)
   }
 
-  title <- .extract_title_lm(title, lang = lang)
+  if (is.na(equation)) {
+    equa <- NULL
+  }
+
+  title <- .extract_title(title, lang = lang, default = "Linear model")
 
    if(isTRUE(footer)) {
      footer <- .extract_footer_lm(data, lang = lang)

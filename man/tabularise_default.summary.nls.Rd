@@ -73,6 +73,15 @@ chick1_logis_sum <- summary(chick1_logis)
 
 tabularise::tabularise(chick1_logis_sum)
 tabularise::tabularise(chick1_logis_sum, footer = FALSE)
+
+growth <- data.io::read("urchin_growth", package = "data.io")
+growth_logis <- nls(data = growth, diameter ~ SSlogis(age, Asym, xmid, scal))
+chart::chart(growth_logis)
+tabularise::tabularise(summary(growth_logis)) # No labels
+tabularise::tabularise(summary(growth_logis), origdata = growth) # with labels
+tabularise::tabularise(summary(growth_logis), origdata = growth,
+      equation = FALSE, show.signif.stars = FALSE)
+
 }
 \seealso{
 \code{\link[tabularise:tabularise]{tabularise::tabularise()}}, \code{\link[tabularise:tabularise_tidy]{tabularise::tabularise_tidy()}},

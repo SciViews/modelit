@@ -54,6 +54,24 @@ with the \{flextable\} functions.
 Create a rich-formatted table from an anova object
 }
 \examples{
-iris_anova <- anova(lm(data = iris, Petal.Length ~ Species))
-tabularise::tabularise(iris_anova)
+is <- data.io::read("iris", package = "datasets")
+
+is_lm1 <- lm(data = is, petal_length ~ species)
+
+library(tabularise)
+
+anova(is_lm1) |> tabularise_default()
+# identical
+anova(is_lm1) |> tabularise()
+# Use labels
+anova(is_lm1) |> tabularise(origdata = is)
+
+# alternative with anova_() in {modelit} package
+anova_(is_lm1) |> tabularise()
+
+is_lm2 <- lm(data = is, petal_length ~ sepal_length + species)
+
+anova(is_lm1, is_lm2) |> tabularise(origdata = is)
+anova_(is_lm1, is_lm2) |> tabularise()
+
 }

@@ -9,7 +9,7 @@
 \arguments{
 \item{data}{An \strong{anova} object}
 
-\item{...}{Additional arguments used tabularise_default.anova()}
+\item{...}{Additional arguments used \code{\link[=tabularise_default.anova]{tabularise_default.anova()}}}
 }
 \value{
 A \strong{flextable} object you can print in different form or rearrange
@@ -19,6 +19,18 @@ with the \{flextable\} functions.
 Tidy version of the anova object into a flextable object
 }
 \examples{
-iris_anova <- anova(lm(data = iris, Petal.Length ~ Species))
-tabularise::tabularise$tidy(iris_anova)
+is <- data.io::read("iris", package = "datasets")
+
+is_lm1 <- lm(data = is, petal_length ~ species)
+
+library(tabularise)
+
+anova(is_lm1) |> tabularise_tidy()
+# identical
+anova(is_lm1) |> tabularise$tidy()
+# Use labels
+anova(is_lm1) |> tabularise$tidy(origdata = is)
+
+# alternative with anova_() in {modelit} package
+anova_(is_lm1) |> tabularise$tidy()
 }

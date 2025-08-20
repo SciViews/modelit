@@ -6,8 +6,8 @@
 \usage{
 \method{tabularise_coef}{lm}(
   data,
-  header = TRUE,
-  title = NULL,
+  header = FALSE,
+  title = header,
   equation = header,
   auto.labs = TRUE,
   origdata = NULL,
@@ -20,14 +20,28 @@
 \arguments{
 \item{data}{An \strong{lm} object}
 
-\item{header}{If \code{TRUE} (by default), add a header to the table}
+\item{header}{Logical. If \code{TRUE} (\code{FALSE}by default), a header is added to
+the table. The header includes both the title and the equation (if
+applicable). If set to \code{FALSE}, neither the title nor the equation will be
+displayed in the table header, even if the \code{title} or \code{equation} parameters
+are provided.}
 
-\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
-value than header, except outside of a chunk where it is \code{FALSE} if a table
-caption is detected (\code{tbl-cap} YAML entry).}
+\item{title}{If \code{TRUE} (\code{FALSE}by default) , add a title to the table header.
+Default to the same value than header, except outside of a chunk where it is
+\code{FALSE} if a table caption is detected (\code{tbl-cap} YAML entry).}
 
-\item{equation}{If \code{TRUE} (by default), add a equation to the table header.
-The equation can also be passed in the form of a character string.}
+\item{equation}{Logical or character. Controls whether an equation is added
+to the table header and how parameters are used. Accepted values are:
+\itemize{
+\item \code{TRUE}: The equation is generated and added to the table header. Its
+parameters are also used in the "Term" column.
+\item \code{FALSE} (by default): No equation is generated or displayed, and its
+parameters are not used in the "Term" column.
+\item \code{NA}: The equation is generated but not displayed in the table header.
+Its parameters are used in the "Term" column.
+\item Character string: A custom equation is provided directly and added to
+the table header.
+}}
 
 \item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
 from data or \verb{origdata=}.}

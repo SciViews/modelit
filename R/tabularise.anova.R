@@ -25,8 +25,26 @@
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @method tabularise_default anova
 #' @examples
-#' iris_anova <- anova(lm(data = iris, Petal.Length ~ Species))
-#' tabularise::tabularise(iris_anova)
+#' is <- data.io::read("iris", package = "datasets")
+#'
+#' is_lm1 <- lm(data = is, petal_length ~ species)
+#'
+#' library(tabularise)
+#'
+#' anova(is_lm1) |> tabularise_default()
+#' # identical
+#' anova(is_lm1) |> tabularise()
+#' # Use labels
+#' anova(is_lm1) |> tabularise(origdata = is)
+#'
+#' # alternative with anova_() in {modelit} package
+#' anova_(is_lm1) |> tabularise()
+#'
+#' is_lm2 <- lm(data = is, petal_length ~ sepal_length + species)
+#'
+#' anova(is_lm1, is_lm2) |> tabularise(origdata = is)
+#' anova_(is_lm1, is_lm2) |> tabularise()
+#'
 tabularise_default.anova <- function(data, header = TRUE, title = header,
 auto.labs = TRUE, origdata = NULL, labs = NULL,
 lang = getOption("data.io_lang", "en"),
@@ -52,7 +70,7 @@ show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
 #' Tidy version of the anova object into a flextable object
 #'
 #' @param data An **anova** object
-#' @param ... Additional arguments used tabularise_default.anova()
+#' @param ... Additional arguments used [tabularise_default.anova()]
 #'
 #' @return A **flextable** object you can print in different form or rearrange
 #'   with the \{flextable\} functions.
@@ -60,8 +78,20 @@ show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
 #' @importFrom tabularise tabularise_default colformat_sci
 #' @method tabularise_tidy anova
 #' @examples
-#' iris_anova <- anova(lm(data = iris, Petal.Length ~ Species))
-#' tabularise::tabularise$tidy(iris_anova)
+#' is <- data.io::read("iris", package = "datasets")
+#'
+#' is_lm1 <- lm(data = is, petal_length ~ species)
+#'
+#' library(tabularise)
+#'
+#' anova(is_lm1) |> tabularise_tidy()
+#' # identical
+#' anova(is_lm1) |> tabularise$tidy()
+#' # Use labels
+#' anova(is_lm1) |> tabularise$tidy(origdata = is)
+#'
+#' # alternative with anova_() in {modelit} package
+#' anova_(is_lm1) |> tabularise$tidy()
 tabularise_tidy.anova <- function(data,...) {
   tabularise_default.anova(data = data, ...)
 }
@@ -79,10 +109,10 @@ tabularise_tidy.anova <- function(data,...) {
 #' iris_aov <- aov(data = iris, Petal.Length ~ Species)
 #' tabularise::tabularise$tidy(iris_aov)
 tabularise_default.aov <- function(data, ...) {
-  tabularise_default.anova(anova(data), ...)
+  tabularise_default.anova(anova_(data), ...)
 }
 
-#' Tidy version of the anova object into a flextable object
+#' Tidy version of the aov object into a flextable object
 #'
 #' @param data An **aov** object
 #' @param ... Additional arguments passed to [tabularise_default.anova()]
@@ -95,7 +125,7 @@ tabularise_default.aov <- function(data, ...) {
 #' iris_aov <- aov(data = iris, Petal.Length ~ Species)
 #' tabularise::tabularise$tidy(iris_aov)
 tabularise_tidy.aov <- function(data, ...) {
-  tabularise_default.anova(anova(data), ...)
+  tabularise_default.anova(anova_(data), ...)
 }
 
 # A list of internals functions and objects ------
@@ -191,10 +221,15 @@ colnames_anova <-  c(
   lang <- tolower(lang)
   cols <- .extract_colnames(df, labs = colnames, lang = lang)
 
-  labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
-                            origdata = origdata, labs = labs)
-  #message("labels are: ")
-  #message(labels)
+  data_obj <- attr(data, "object")
+
+  if (is.null(data_obj)) {
+    labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
+                              origdata = origdata, labs = labs)
+  } else {
+    labels <- .extract_labels(df = df, data = data_obj, auto.labs = auto.labs,
+                              origdata = origdata, labs = labs)
+    }
 
   if (is.null(df[["term"]])) {
     if (isTRUE(title)) {
