@@ -7,13 +7,15 @@
 \method{tabularise_default}{nls}(
   data,
   header = TRUE,
-  title = NULL,
+  title = header,
   equation = header,
+  auto.labs = TRUE,
+  origdata = NULL,
+  labs = NULL,
+  lang = getOption("SciViews_lang", "en"),
   footer = TRUE,
-  lang = getOption("data.io_lang", "en"),
   ...,
-  kind = "ft",
-  env = parent.frame()
+  kind = "ft"
 )
 }
 \arguments{
@@ -27,20 +29,26 @@ caption is detected (\code{tbl-cap} YAML entry).}
 
 \item{equation}{Add equation of the model to the table. If \code{TRUE},
 \code{\link[=equation]{equation()}} is used. The equation can also be passed in the form of a
-character string (LaTeX equation).}
+character string (LaTeX).}
 
-\item{footer}{If \code{TRUE} (by default), add a footer to the table.}
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from data or \verb{origdata=}.}
+
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and no label is used (only the name of the variables).}
+
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The language to use. The default value can be set with, e.g.,
-\code{options(data.io_lang = "fr")} for French.}
+\code{options(SciViews_lang = "fr")} for French.}
 
-\item{...}{Additional arguments. Not used.}
+\item{footer}{If \code{TRUE} (by default, it is TRUE), add a footer to the table.}
+
+\item{...}{Not used}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
-
-\item{env}{The environment where to evaluate lazyeval expressions (unused for
-now).}
 }
 \value{
 A \strong{flextable} object that you can print in different forms or

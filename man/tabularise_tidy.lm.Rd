@@ -7,31 +7,44 @@
 \method{tabularise_tidy}{lm}(
   data,
   header = TRUE,
-  title = NULL,
+  title = header,
   equation = header,
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
   conf.int = FALSE,
   conf.level = 0.95,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
-  kind = "ft",
-  env = parent.frame()
+  kind = "ft"
 )
 }
 \arguments{
 \item{data}{An \strong{lm} object}
 
-\item{header}{If \code{TRUE} (by default), add an header to the table}
+\item{header}{Logical. If \code{TRUE} (\code{TRUE}by default), a header is added to
+the table. The header includes both the title and the equation (if
+applicable). If set to \code{FALSE}, neither the title nor the equation will be
+displayed in the table header, even if the \code{title} or \code{equation} parameters
+are provided.}
 
-\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
-value than header, except outside of a chunk where it is \code{FALSE} if a table
-caption is detected (\code{tbl-cap} YAML entry).}
+\item{title}{If \code{TRUE} (by default) , add a title to the table header.
+Default to the same value than header, except outside of a chunk where it is
+\code{FALSE} if a table caption is detected (\code{tbl-cap} YAML entry).}
 
-\item{equation}{If \code{TRUE} (by default), add an equation to the table header.
-The equation can also be passed in the form of a character string (LaTeX).}
+\item{equation}{Logical or character. Controls whether an equation is added
+to the table header and how parameters are used. Accepted values are:
+\itemize{
+\item \code{TRUE}(by default): The equation is generated and added to the table
+header. Its parameters are also used in the "Term" column.
+\item \code{FALSE}: No equation is generated or displayed, and its
+parameters are not used in the "Term" column.
+\item \code{NA}: The equation is generated but not displayed in the table header.
+Its parameters are used in the "Term" column.
+\item Character string: A custom equation is provided directly and added to
+the table header.
+}}
 
 \item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
 from data or \verb{origdata=}.}
@@ -49,18 +62,15 @@ the table. By default it is \code{NULL} and no term is changed.}
 \code{conf.int = TRUE}. The default is 0.95.}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
 The default is \code{getOption("show.signif.stars")}}
 
-\item{...}{Additional arguments passed to \code{\link[tabularise:equation]{tabularise::equation()}}}
+\item{...}{Additional arguments passed to \code{\link[equatiomatic:equation]{equatiomatic::equation()}}}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
-
-\item{env}{The environment where to evaluate lazyeval expressions (unused for
-now).}
 }
 \value{
 A \strong{flextable} object that you can print in different formats (HTML,

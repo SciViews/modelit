@@ -11,11 +11,10 @@
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
-  kind = "ft",
-  env = parent.frame()
+  kind = "ft"
 )
 }
 \arguments{
@@ -37,7 +36,7 @@ caption is detected (\code{tbl-cap} YAML entry).}
 table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value is set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
 The default is taken from \code{getOption("show.signif.stars")}.}
@@ -46,9 +45,6 @@ The default is taken from \code{getOption("show.signif.stars")}.}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
-
-\item{env}{The environment where to evaluate lazyeval expressions (not used
-for now)}
 }
 \value{
 A \strong{flextable} object you can print in different form or rearrange
@@ -58,6 +54,24 @@ with the \{flextable\} functions.
 Create a rich-formatted table from an anova object
 }
 \examples{
-iris_anova <- anova(lm(data = iris, Petal.Length ~ Species))
-tabularise::tabularise(iris_anova)
+is <- data.io::read("iris", package = "datasets")
+
+is_lm1 <- lm(data = is, petal_length ~ species)
+
+library(tabularise)
+
+anova(is_lm1) |> tabularise_default()
+# identical
+anova(is_lm1) |> tabularise()
+# Use labels
+anova(is_lm1) |> tabularise(origdata = is)
+
+# alternative with anova_() in {modelit} package
+anova_(is_lm1) |> tabularise()
+
+is_lm2 <- lm(data = is, petal_length ~ sepal_length + species)
+
+anova(is_lm1, is_lm2) |> tabularise(origdata = is)
+anova_(is_lm1, is_lm2) |> tabularise()
+
 }

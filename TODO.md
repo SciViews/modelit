@@ -1,17 +1,32 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
 # modelit To Do list
 
--   Using labels with `equation.nls()`
+-   🔥 High Priority: Improve translation management across the package.
+    Currently, multiple calls to gettext() and gettextf() from {svMisc} are used.
 
--   Propose specific tables with `tabularise()` for **lm**, **nls**, **glm** objects, etc. with {tinytable} in addition to {flextable}
+-   Introduced the first version of tabularise\_\*\*\*() methods for objects such as lm, nls, and glm, initially designed to generate tables using the {flextable} package.
+    Future versions will support multiple output formats via {flextable}, {tinytable}, and {gt}.
+    To enable this flexibility, a unified internal object structure is being developed to store all relevant metadata (e.g., labels, units, formatting).
+    This structure will allow seamless conversion to different table formats using functions like as_flextable(), as_tinytable(), and as_gt().
 
--   `tabularise()` for **merMod** and **summary.merMod** objects (\< `lme4::glmer()`)
+-   Implement tabularise\_\*\*\*() methods for enriched model objects: nls\_, lm\_, summary.lm\_, anova\_, etc.
+    These methods should leverage the metadata (e.g., labels, units) embedded in the enriched objects to produce consistent and informative tables.
 
--   `tabularise()` for **anova** and **aov** =\> rework and decide where to place these ({inferit}, {modelit}, elsewhere...?) + `car::Anova()`. Also, there is no proper `tabularise_default()` method for **aov** objects
+-   Complete the examples sections of the tabularise\_\*\*\*() functions for the following object types: lm, summary.lm, nls, summary.nls,...
 
--   `chart()` for **lm** with categorical variables
+-   Implement tabularise\_\*\*\*() methods for merMod and summary.merMod objects (e.g., from lme4::glmer()).
 
--   multiple comparisons
+-   Extend tabularise() support for anova and aov objects.
 
--   train/test
+    -   Rework the current implementation and determine the appropriate package context ({inferit}, {modelit}, or another).
+    -   Also consider integration with car::Anova().
+    -   Note: there is currently no proper tabularise_default() method for aov objects.
 
--   Add various SS models
+-   Develop chart() method for lm objects with categorical predictors (e.g., visualizing factor effects).
+
+-   Add support for multiple comparisons.

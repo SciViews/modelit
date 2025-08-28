@@ -50,7 +50,7 @@
 #' # The four most important residual analysis plots in one figure
 #' chart$residuals(chick1_logis)
 chart.nls <- function(data, type = "model", ..., title, labels = "AUTO",
-name = deparse(substitute(data)), lang = getOption("data.io_lang", "en"),
+name = deparse(substitute(data)), lang = getOption("SciViews_lang", "en"),
 env = parent.frame()) {
   if (type == "residuals") {
     a <- autoplot.nls(data, ..., name = name, type = "resfitted",
@@ -79,7 +79,7 @@ class(chart.nls) <- c("function", "subsettable_type")
 autoplot.nls <- function(object,
 type = c("model", "resfitted", "qqplot", "scalelocation", "reshist",
 "resautocor"), title, xlab, ylab, ..., name = deparse(substitute(object)),
-  lang = getOption("data.io_lang", "en"), env = parent.frame()) {
+  lang = getOption("SciViews_lang", "en"), env = parent.frame()) {
   # TODO: chart style if invoked via chart(), otherwise default ggplot theme
 
   # Needed to avoid spurious R CMD check errors

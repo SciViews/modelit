@@ -3,12 +3,14 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.align = 'center',
   fig.width = 7, fig.height = 5, out.width = "100%")
 library(modelit)
 library(tabularise)
+library(equatiomatic)
 library(chart)
 library(dplyr)
 
 ## -----------------------------------------------------------------------------
 library(modelit)
 library(tabularise)
+library(equatiomatic)
 library(chart)
 library(dplyr)
 
@@ -17,7 +19,7 @@ data("Loblolly", package = "datasets")
 # convert feet to meters
 Loblolly$height <- round(Loblolly$height * 0.3048, 2)
 # Add labels and units
-Loblolly <- data.io::labelise(Loblolly,
+Loblolly <- svBase::labelise(Loblolly,
   label = list(height = "Heigth", age = "Age", Seed = "Seed"),
   units = list(height = "m", age = "years"))
 

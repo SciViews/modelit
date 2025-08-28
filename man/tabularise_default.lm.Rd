@@ -4,7 +4,7 @@
 \alias{tabularise_default.lm}
 \title{Create a rich-formatted table from an lm object}
 \usage{
-\method{tabularise_default}{lm}(data, ..., kind = "ft", env = parent.frame())
+\method{tabularise_default}{lm}(data, ..., kind = "ft")
 }
 \arguments{
 \item{data}{An \strong{lm} object}
@@ -13,8 +13,6 @@
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
-
-\item{env}{The environment where to evaluate the model.}
 }
 \value{
 A \strong{flextable} object that you can print in different formats (HTML,

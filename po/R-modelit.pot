@@ -1,0 +1,377 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: modelit 1.4.8\n"
+"POT-Creation-Date: 2025-08-20 09:35\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Can only transform a model with 2 variables for now."
+msgstr ""
+
+msgid "Can only make of function from a model involving numeric variables for now."
+msgstr ""
+
+msgid "You cannot use one-sided formula, like ~x."
+msgstr ""
+
+msgid "Impossible to plot in 2D a model with more than 2 variables"
+msgstr ""
+
+msgid "Can only plot a model involving numeric variables for now."
+msgstr ""
+
+msgid "Independent variable '"
+msgstr ""
+
+msgid "' must appear untransformed in the model's formula, or you must supply the original dataset in origdata=."
+msgstr ""
+
+msgid "Unrecognized type, must be 'model', 'resfitted', 'qqplot', 'scalelocation', 'cooksd', 'resleverage', 'cookleverage', 'reshist', or 'resautocor'"
+msgstr ""
+
+msgid "Unrecognized type, must be 'model', 'resfitted', 'qqplot',\n      'scalelocation' or 'reshist'"
+msgstr ""
+
+msgid "The type= argument must provide a model_spec object or its name in a character string."
+msgstr ""
+
+msgid "`data` must be a `data.frame`."
+msgstr ""
+
+msgid "Unable to summarize the object."
+msgstr ""
+
+msgid "Unable to compute ANOVA for the object."
+msgstr ""
+
+msgid "You must give either 'h=' or 'v='."
+msgstr ""
+
+msgid "Type III analysis of variance with Satterthwaite's method"
+msgstr ""
+
+msgid "Analysis of deviance"
+msgstr ""
+
+msgid "Analysis of variance"
+msgstr ""
+
+msgid "Type II analysis of variance"
+msgstr ""
+
+msgid "Type III analysis of variance"
+msgstr ""
+
+msgid "Type II analysis of deviance table"
+msgstr ""
+
+msgid "Type III analysis of deviance table"
+msgstr ""
+
+msgid "Response:"
+msgstr ""
+
+msgid "Model:"
+msgstr ""
+
+msgid "Model"
+msgstr ""
+
+msgid "link:"
+msgstr ""
+
+msgid "Terms added sequentially (first to last)"
+msgstr ""
+
+msgid "Term"
+msgstr ""
+
+msgid "Df"
+msgstr ""
+
+msgid "Residuals Df"
+msgstr ""
+
+msgid "Residual sum of squares"
+msgstr ""
+
+msgid "Sum of squares"
+msgstr ""
+
+msgid "Mean squares"
+msgstr ""
+
+msgid "*p* value"
+msgstr ""
+
+msgid "Num. Df"
+msgstr ""
+
+msgid "Denom. Df"
+msgstr ""
+
+msgid "Deviance"
+msgstr ""
+
+msgid "Residual deviance"
+msgstr ""
+
+msgid "*F*~obs.~ value"
+msgstr ""
+
+msgid "$\\chi2_{obs.}$"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Residuals"
+msgstr ""
+
+msgid "Number of parameters"
+msgstr ""
+
+msgid ".extract_infos_anova() can apply only anova object."
+msgstr ""
+
+msgid "Estimate"
+msgstr ""
+
+msgid "Lower bound (CI)"
+msgstr ""
+
+msgid "Upper bound (CI)"
+msgstr ""
+
+msgid "Standard Error"
+msgstr ""
+
+msgid "*t* value"
+msgstr ""
+
+msgid "Sigma"
+msgstr ""
+
+msgid "R^2^"
+msgstr ""
+
+msgid "Adj.R^2^"
+msgstr ""
+
+msgid "AIC"
+msgstr ""
+
+msgid "BIC"
+msgstr ""
+
+msgid "*z* value"
+msgstr ""
+
+msgid "Log-Likelihood"
+msgstr ""
+
+msgid "Total deviance"
+msgstr ""
+
+msgid "Total df"
+msgstr ""
+
+msgid "Num. df"
+msgstr ""
+
+msgid "Residuals df"
+msgstr ""
+
+msgid "N"
+msgstr ""
+
+msgid "Intercept"
+msgstr ""
+
+msgid "Generalized Linear Model"
+msgstr ""
+
+msgid "fr"
+msgstr ""
+
+msgid "(Dispersion parameter for %s: %.*g)"
+msgstr ""
+
+msgid "Total deviance: %.*g on %.*g degrees of freedom"
+msgstr ""
+
+msgid "Residual deviance: %.*g on %.*g degrees of freedom"
+msgstr ""
+
+msgid "AIC: %.*g - Number of Fisher Scoring iterations: %.*g"
+msgstr ""
+
+msgid "Degrees of Freedom: %.*g Total (i.e. no model); %.*g Residual"
+msgstr ""
+
+msgid "Total deviance: %.*g"
+msgstr ""
+
+msgid "Residual deviance: %.*g AIC: %.*g"
+msgstr ""
+
+msgid ".extract_infos_glm() can apply only glm and summary.glm object."
+msgstr ""
+
+msgid ".extract_infos_glm() can only apply type = 'coef' to a summary.glm\n            object."
+msgstr ""
+
+msgid "t value"
+msgstr ""
+
+msgid "RSE"
+msgstr ""
+
+msgid "Log-likelihood"
+msgstr ""
+
+msgid "Model df"
+msgstr ""
+
+msgid "Linear model"
+msgstr ""
+
+msgid "Residuals range: [%.*g, %.*g]"
+msgstr ""
+
+msgid "Residuals standard error: %.*g on %.*g degrees of freedom"
+msgstr ""
+
+msgid "Multiple *R*^2^: %.*g - adjusted *R*^2^: %.*g"
+msgstr ""
+
+msgid "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
+msgstr ""
+
+msgid ".extract_infos_lm() can apply only lm and summary.lm object."
+msgstr ""
+
+msgid ".extract_infos_lm() cannot apply type = 'coef' to a summary.lm\n            object. Use type = 'tidy' instead to extract a detailed coefficient table."
+msgstr ""
+
+msgid "`x` must be an object of class 'nls' or 'summary.nls'."
+msgstr ""
+
+msgid "An error occurred when trying to extract the formula from 'x'"
+msgstr ""
+
+msgid "The formula is not a Self-Starting nls formula"
+msgstr ""
+
+msgid "The %s is not available."
+msgstr ""
+
+msgid "var_names is not character vector"
+msgstr ""
+
+msgid "var_names must be named character vector"
+msgstr ""
+
+msgid "all elements must be named"
+msgstr ""
+
+msgid "*t*~obs.~ value"
+msgstr ""
+
+msgid "Relative standard error"
+msgstr ""
+
+msgid "Convergence tolerance"
+msgstr ""
+
+msgid "df"
+msgstr ""
+
+msgid "Nonlinear least squares asymptotic regression model (von Bertalanffy)"
+msgstr ""
+
+msgid "Nonlinear least squares  asymptotic regression model (von Bertalanffy)"
+msgstr ""
+
+msgid "Nonlinear least squares asymptotic regression model through the origin (von Bertalanffy)"
+msgstr ""
+
+msgid "Nonlinear least squares biexponential model"
+msgstr ""
+
+msgid "Nonlinear least squares  first-order compartment model"
+msgstr ""
+
+msgid "Nonlinear least squares  four-parameter logistic model"
+msgstr ""
+
+msgid "Nonlinear least squares  Gompertz model"
+msgstr ""
+
+msgid "Nonlinear least squares  logistic model"
+msgstr ""
+
+msgid "Nonlinear least squares Michaelis-Menten model"
+msgstr ""
+
+msgid "Nonlinear least squares Weibull model"
+msgstr ""
+
+msgid "Residual sum-of-squares: %.*g"
+msgstr ""
+
+msgid "Number of iterations to convergence: %.*g"
+msgstr ""
+
+msgid "Achieved convergence tolerance: %.*g"
+msgstr ""
+
+msgid "The model does not converge"
+msgstr ""
+
+msgid ".extract_infos_nls() can apply only nls and summary.nls object."
+msgstr ""
+
+msgid ".extract_infos_nls() cannot apply type = 'glance' to a summary.nls\n            object."
+msgstr ""
+
+msgid "Package 'data.io' is required but not installed."
+msgstr ""
+
+msgid "labs is not character vector"
+msgstr ""
+
+msgid "labs must be named character vector"
+msgstr ""
+
+msgid "all element must be named"
+msgstr ""
+
+msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
+msgstr ""
+
+msgid "Not implemented yet"
+msgstr ""
+
+msgid "Function `%s` supports only flextable objects."
+msgstr ""
+
+msgid ".add_signif_stars()"
+msgstr ""
+
+msgid ".add_header2()"
+msgstr ""
+
+msgid ".add_colnames()"
+msgstr ""

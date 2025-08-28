@@ -7,20 +7,22 @@
 \method{tabularise_default}{summary.nls}(
   data,
   header = TRUE,
-  title = NULL,
+  title = header,
   equation = header,
+  auto.labs = TRUE,
+  origdata = NULL,
+  labs = NULL,
+  lang = getOption("SciViews_lang", "en"),
   footer = TRUE,
-  lang = getOption("data.io_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
-  kind = "ft",
-  env = parent.frame()
+  kind = "ft"
 )
 }
 \arguments{
-\item{data}{A \strong{summary.nls} object.}
+\item{data}{An \strong{nls} object.}
 
-\item{header}{If \code{TRUE} (by default), add a header to the table}
+\item{header}{If \code{TRUE} (by default), add a title to the table.}
 
 \item{title}{If \code{TRUE}, add a title to the table header. Default to the same
 value than header, except outside of a chunk where it is \code{FALSE} if a table
@@ -28,23 +30,29 @@ caption is detected (\code{tbl-cap} YAML entry).}
 
 \item{equation}{Add equation of the model to the table. If \code{TRUE},
 \code{\link[=equation]{equation()}} is used. The equation can also be passed in the form of a
-character string (LaTeX equation).}
+character string (LaTeX).}
+
+\item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
+from data or \verb{origdata=}.}
+
+\item{origdata}{The original data set this model was fitted to. By default it
+is \code{NULL} and no label is used (only the name of the variables).}
+
+\item{labs}{Labels to change the names of elements in the \code{term} column of
+the table. By default it is \code{NULL} and nothing is changed.}
+
+\item{lang}{The language to use. The default value can be set with, e.g.,
+\code{options(SciViews_lang = "fr")} for French.}
 
 \item{footer}{If \code{TRUE} (by default), add a footer to the table.}
 
-\item{lang}{The language to use. The default value can be set with, e.g.
-\code{options(data.io_lang = "fr")} for French.}
+\item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
+The default is \code{getOption("show.signif.stars")}}
 
-\item{show.signif.stars}{If \code{TRUE} (by default), add the significance stars
-to the table.}
-
-\item{...}{Additional arguments (Not used).}
+\item{...}{Not used}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
-
-\item{env}{The environment where to evaluate lazyeval expressions (unused for
-now).}
 }
 \value{
 A \strong{flextable} object that you can print in different forms or
@@ -65,6 +73,15 @@ chick1_logis_sum <- summary(chick1_logis)
 
 tabularise::tabularise(chick1_logis_sum)
 tabularise::tabularise(chick1_logis_sum, footer = FALSE)
+
+growth <- data.io::read("urchin_growth", package = "data.io")
+growth_logis <- nls(data = growth, diameter ~ SSlogis(age, Asym, xmid, scal))
+chart::chart(growth_logis)
+tabularise::tabularise(summary(growth_logis)) # No labels
+tabularise::tabularise(summary(growth_logis), origdata = growth) # with labels
+tabularise::tabularise(summary(growth_logis), origdata = growth,
+  equation = FALSE, show.signif.stars = FALSE)
+
 }
 \seealso{
 \code{\link[tabularise:tabularise]{tabularise::tabularise()}}, \code{\link[tabularise:tabularise_tidy]{tabularise::tabularise_tidy()}},

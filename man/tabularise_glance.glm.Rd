@@ -7,12 +7,12 @@
 \method{tabularise_glance}{glm}(
   data,
   header = TRUE,
-  title = NULL,
-  equation = TRUE,
+  title = header,
+  equation = header,
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   ...,
   kind = "ft",
   env = parent.frame()
@@ -21,34 +21,45 @@
 \arguments{
 \item{data}{A \strong{glm} object}
 
-\item{header}{If \code{TRUE} (by default), add an header to the table}
+\item{header}{Logical. If \code{TRUE} (\code{TRUE} by default), a header is added to the table.
+The header includes both the title and the equation (if applicable).
+If set to \code{FALSE}, neither the title nor the equation will be displayed in
+the table header, even if the \code{title} or \code{equation} parameters are provided.}
 
-\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
+\item{title}{If \code{TRUE} (\code{TRUE} by default), add a title to the table header. Default to the same
 value than header, except outside of a chunk where it is \code{FALSE} if a table
 caption is detected (\code{tbl-cap} YAML entry).}
 
-\item{equation}{If \code{TRUE} (by default), add an equation to the table header.
-The equation can also be passed in the form of a character string (LaTeX).}
+\item{equation}{Logical or character. Controls whether an equation is added
+to the table header and how parameters are used. Accepted values are:
+\itemize{
+\item \code{TRUE} (default) : The equation is generated and added to the table
+header. Its parameters are also used in the "Term" column.
+\item \code{FALSE}: No equation is generated or displayed, and its parameters are
+not used in the "Term" column.
+\item Character string: A custom equation is provided directly and added to
+the table header.
+}}
 
 \item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
-from \verb{origdata=}.}
+from data or \verb{origdata=}.}
 
 \item{origdata}{The original data set this model was fitted to. By default it
-is \code{NULL} and original labels are not used.}
+is \code{NULL} and no label is used.}
 
 \item{labs}{Labels to change the names of elements in the \code{term} column of
 the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
-\item{...}{Additional arguments passed to \code{\link[tabularise:equation]{tabularise::equation()}}}
+\item{...}{Additional arguments passed to \code{\link[equatiomatic:equation]{equatiomatic::equation()}}}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
 
-\item{env}{The environment where to evaluate lazyeval expressions (unused for
-now).}
+\item{env}{The environment where to evaluate formulas (you probably do not
+need to change the default).}
 }
 \value{
 A \strong{flextable} object is produced that you can print in different
@@ -63,4 +74,7 @@ Word, PowerPoint), or rearranged later on.
 \examples{
 iris_glm <- glm(data = iris, Petal.Length ~ Sepal.Length)
 tabularise::tabularise$glance(iris_glm)
+tabularise::tabularise$glance(iris_glm, equation = FALSE)
+tabularise::tabularise$glance(iris_glm, equation = "my personal equation")
+
 }

@@ -6,29 +6,42 @@
 \usage{
 \method{tabularise_coef}{lm}(
   data,
-  header = TRUE,
-  title = NULL,
+  header = FALSE,
+  title = header,
   equation = header,
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
   ...,
-  kind = "ft",
-  env = parent.frame()
+  kind = "ft"
 )
 }
 \arguments{
 \item{data}{An \strong{lm} object}
 
-\item{header}{If \code{TRUE} (by default), add a header to the table}
+\item{header}{Logical. If \code{TRUE} (\code{FALSE}by default), a header is added to
+the table. The header includes both the title and the equation (if
+applicable). If set to \code{FALSE}, neither the title nor the equation will be
+displayed in the table header, even if the \code{title} or \code{equation} parameters
+are provided.}
 
-\item{title}{If \code{TRUE}, add a title to the table header. Default to the same
-value than header, except outside of a chunk where it is \code{FALSE} if a table
-caption is detected (\code{tbl-cap} YAML entry).}
+\item{title}{If \code{TRUE} (\code{FALSE}by default) , add a title to the table header.
+Default to the same value than header, except outside of a chunk where it is
+\code{FALSE} if a table caption is detected (\code{tbl-cap} YAML entry).}
 
-\item{equation}{If \code{TRUE} (by default), add a equation to the table header.
-The equation can also be passed in the form of a character string.}
+\item{equation}{Logical or character. Controls whether an equation is added
+to the table header and how parameters are used. Accepted values are:
+\itemize{
+\item \code{TRUE}: The equation is generated and added to the table header. Its
+parameters are also used in the "Term" column.
+\item \code{FALSE} (by default): No equation is generated or displayed, and its
+parameters are not used in the "Term" column.
+\item \code{NA}: The equation is generated but not displayed in the table header.
+Its parameters are used in the "Term" column.
+\item Character string: A custom equation is provided directly and added to
+the table header.
+}}
 
 \item{auto.labs}{If \code{TRUE} (by default), use labels (and units) automatically
 from data or \verb{origdata=}.}
@@ -40,15 +53,12 @@ is \code{NULL} and no label is used.}
 the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{...}{Additional arguments}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}
-
-\item{env}{The environment where to evaluate lazyeval expressions (unused for
-now).}
 }
 \value{
 A \strong{flextable} object that you can print in different formats
@@ -61,6 +71,25 @@ object, similar to \code{\link[stats:coef]{stats::coef()}}, but in a rich-format
 \{flextable\}.
 }
 \examples{
+data(iris)
+# Fit a simple linear model: Petal.Length as a function of Sepal.Length
 iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 tabularise::tabularise$coef(iris_lm)
+
+# If the 'iris' dataset has labels and units, they can be used to enhance
+# the output table
+iris <- svBase::labelise(iris, self = FALSE, label = list(
+    Sepal.Length = "Length of the sepals",
+    Petal.Length = "Length of the petals",
+    Species = "Species"), units = c(rep("cm", 4), NA))
+
+iris_lm1 <- lm(data = iris, Petal.Length ~ Sepal.Length + Species)
+tabularise::tabularise$coef(iris_lm1)
+
+# The same table but without showing the model equation
+tabularise::tabularise$coef(iris_lm, equation = FALSE)
+
+iris_lm2 <- lm(data = iris, Petal.Length ~ Sepal.Length * Species)
+tabularise::tabularise$coef(iris_lm2)
+
 }

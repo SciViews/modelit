@@ -11,7 +11,8 @@
   use_coefs = FALSE,
   coef_digits = 2L,
   fix_signs = TRUE,
-  var_names = NULL,
+  swap_var_names = NULL,
+  var_names = swap_var_names,
   op_latex = c("\\\\cdot", "\\\\times"),
   ...
 )
@@ -22,7 +23,7 @@
   use_coefs = FALSE,
   coef_digits = 2L,
   fix_signs = TRUE,
-  var_names = NULL,
+  swap_var_names = NULL,
   op_latex = c("\\\\cdot", "\\\\times"),
   ...
 )
@@ -44,6 +45,8 @@ round to when displaying model estimates with \code{use_coefs = TRUE}.}
 estimates that are negative are preceded with a \code{+} (e.g. \code{5(x) + -3(z)}).
 If enabled, the \verb{+ -} is replaced with a \code{-} (e.g. \code{5(x) - 3(z)}).}
 
+\item{swap_var_names}{A named character vector as \code{c(old_var_name = "new name")}}
+
 \item{var_names}{A named character vector as \code{c(old_var_name = "new name")}}
 
 \item{op_latex}{The LaTeX product operator character to use in fancy
@@ -59,7 +62,7 @@ Create the model equation of several self-starting nonlinear
 models available in the stats package.
 }
 \examples{
-equation <- tabularise::equation
+equation <- equatiomatic::equation
 chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 chick1_nls <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 summary(chick1_nls)
@@ -74,7 +77,7 @@ summary(chick1_nls2)
 equation(chick1_nls2)
 equation(summary(chick1_nls2))
 
-equation(summary(chick1_nls2), var_names = c(
+equation(summary(chick1_nls2), swap_var_names = c(
   weight = "Body weight [gm]",
   Time = "Number of days"))
 }

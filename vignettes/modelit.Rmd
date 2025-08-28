@@ -1,5 +1,5 @@
 ---
-title: "Statistical Models for 'SciViews::R'"
+title: "'SciViews::R' - Statistical Models"
 author: "Philippe Grosjean & Guyliann Engels"
 date: "`r Sys.Date()`"
 output:
@@ -8,7 +8,7 @@ output:
     toc_depth: 3
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Statistical Models for 'SciViews::R'}
+  %\VignetteIndexEntry{'SciViews::R' - Statistical Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,6 +18,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.align = 'center',
   fig.width = 7, fig.height = 5, out.width = "100%")
 library(modelit)
 library(tabularise)
+library(equatiomatic)
 library(chart)
 library(dplyr)
 ```
@@ -31,6 +32,7 @@ Load the required packages for this example.
 ```{r}
 library(modelit)
 library(tabularise)
+library(equatiomatic)
 library(chart)
 library(dplyr)
 ```
@@ -42,7 +44,7 @@ data("Loblolly", package = "datasets")
 # convert feet to meters
 Loblolly$height <- round(Loblolly$height * 0.3048, 2)
 # Add labels and units
-Loblolly <- data.io::labelise(Loblolly,
+Loblolly <- svBase::labelise(Loblolly,
   label = list(height = "Heigth", age = "Age", Seed = "Seed"),
   units = list(height = "m", age = "years"))
 
