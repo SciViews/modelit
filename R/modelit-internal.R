@@ -1,19 +1,18 @@
 # gettext(), stop(), warning()
-gettext <- svMisc::gettext_
-gettextf <- svMisc::gettextf_
-ngettext <- svMisc::ngettext_
-# stop <- svMisc::stop_ #
-# warning <- svMisc::warning_
+gettext <- svBase::gettext_
+gettextf <- svBase::gettextf_
+ngettext <- svBase::ngettext_
+# stop <- svBase::stop_ #
+# warning <- svBase::warning_
 
 # Need this for R CMD check to pass
 . <- NULL
 
 # Internal functions for .extract_infos_***()
 .pvalue_format <- function(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
-                           labels = c("***", " **", "  *", "  .", "   ")) {
+    labels = c("***", " **", "  *", "  .", "   ")) {
   #x <- get(as.character(substitute(x)), inherits = TRUE)
-  z <- cut(x, breaks = breaks,
-           labels = labels)
+  z <- cut(x, breaks = breaks, labels = labels)
   z <- as.character(z)
   z[is.na(x)] <- ""
   z
@@ -43,13 +42,15 @@ ngettext <- svMisc::ngettext_
     return(NULL)
   }
 
-  if (!requireNamespace("data.io", quietly = TRUE)) {
-    stop("Package 'data.io' is required but not installed.")
-  }
+  # Not needed anymore
+  #if (!requireNamespace("data.io", quietly = TRUE))
+  #  stop("Package 'data.io' is required but not installed.")
+
   #class(df)
   df <- as.data.frame(df)
   #class(df)
-  labels <- vapply(df[,factor_cols, drop = FALSE], data.io::label, character(1), units = FALSE)
+  labels <- vapply(df[,factor_cols, drop = FALSE], svBase::label, character(1),
+    units = FALSE)
   valid_vars <- names(labels)[labels != ""]
   if (length(valid_vars) == 0) {
     #warning("No labeled factor variables found.")
@@ -70,12 +71,12 @@ ngettext <- svMisc::ngettext_
   return(result)
 }
 
-.labels3 <- function (x, origdata = NULL, labs = NULL) {
+.labels3 <- function(x, origdata = NULL, labs = NULL) {
   if (is.null(origdata)) {
-    labs_auto <- c(tabularise:::.labels(x$model), .labels_factor(x$model))
+    labs_auto <- c(.labels(x$model), .labels_factor(x$model))
   }
   else {
-    labs_auto <- c(tabularise:::.labels(origdata), .labels_factor(origdata))
+    labs_auto <- c(.labels(origdata), .labels_factor(origdata))
   }
   if (!is.null(labs)) {
     if (!is.character(labs))
@@ -84,13 +85,32 @@ ngettext <- svMisc::ngettext_
       stop("labs must be named character vector")
     if (any(names(labs) %in% ""))
       stop("all element must be named")
-    labs_res <- c(labs, labs_auto[!names(labs_auto) %in%
-                                    names(labs)])
+    labs_res <- c(labs, labs_auto[!names(labs_auto) %in% names(labs)])
   }
   else {
     labs_res <- labs_auto
   }
   labs_res
+}
+
+# Extract labels and units
+.labels <- function(x, units = TRUE, ...) {
+  labels <- sapply(x, svBase::label, units = units)
+  if (any(labels != "")) {
+    # Use a \n before labels and the units
+    if (isTRUE(units))
+      labels <- sub(" +\\[([^]]+)\\]$", "\n [\\1]", labels)
+
+    # set names if empty
+    labels[labels == ""] <- names(x)[labels == ""]
+    # Specific case for I() using in a formula
+    labels[grepl("^I\\(.*\\)$", names(labels))] <-
+      names(labels)[grepl("^I\\(.*\\)$", names(labels))]
+  }
+  if (all(labels == ""))
+    labels <- NULL
+
+  labels
 }
 
 .extend_labs_with_interactions <- function(labs, terms) {
@@ -138,11 +158,11 @@ ngettext <- svMisc::ngettext_
   vals <- df[["term"]]
   terms <- labs[names(labs) %in% vals]
 
-  if(any(vals == "(Intercept)"))
-    terms <- c("(Intercept)"= gettext("Intercept", lang = lang)[[1]], terms)
+  if (any(vals == "(Intercept)"))
+    terms <- c("(Intercept)" = gettext("Intercept", lang = lang)[[1]], terms)
 
-  if(any(vals == "Residuals"))
-    terms <- c(terms, "Residuals"= gettext("Residuals", lang = lang)[[1]])
+  if (any(vals == "Residuals"))
+    terms <- c(terms, "Residuals" = gettext("Residuals", lang = lang)[[1]])
 
   terms
 }
@@ -158,9 +178,9 @@ ngettext <- svMisc::ngettext_
   if (isTRUE(equation) || is.na(equation)) {
     equa <-  try({
       if (!is.null(labs)) {
-        tabularise::equation(data, swap_var_names = labs, ...)
+        equation(data, swap_var_names = labs, ...)
       } else {
-        tabularise::equation(data, auto.labs = FALSE, ...)
+        equation(data, auto.labs = FALSE, ...)
       }
     }, silent = TRUE)
     if (inherits(equa, "try-error"))
@@ -225,7 +245,7 @@ ngettext <- svMisc::ngettext_
 
   if (!is.null(x$terms)) {
     vec <- x$terms
-    if(is.character(vec) && !is.null(names(vec)) && all(nzchar(names(vec)))) {
+    if (is.character(vec) && !is.null(names(vec)) && all(nzchar(names(vec)))) {
       ft <- .add_labs(ft, vec)
     } else {
       ft <- .add_params(ft, vec)
@@ -262,16 +282,10 @@ ngettext <- svMisc::ngettext_
 
 format_table <- function(df, kind, header) {
   switch(kind,
-         df = {df},
-         tt = {
-           stop("Not implemented yet")
-         },
-         ft = {
-           .create_flextable(df, header = header)
-         },
-         gt = {
-           stop("Not implemented yet")
-         }
+    df = df,
+    tt = stop("Not implemented yet"),
+    ft = .create_flextable(df, header = header),
+    gt = stop("Not implemented yet")
   )
 }
 
@@ -279,13 +293,12 @@ format_table <- function(df, kind, header) {
 
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-                 ".add_signif_stars()"))}
+      ".add_signif_stars()"))}
 
   ft <- x
   s <- signif
 
-  ft <- add_footer_lines(ft,
-                         values = s)
+  ft <- add_footer_lines(ft, values = s)
   align(ft, i = 1, align = "right", part = "footer")
 }
 
@@ -293,19 +306,17 @@ format_table <- function(df, kind, header) {
 
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-                 ".add_header2()")) }
+      ".add_header2()")) }
 
   ft <- x
 
   if (is.character(equation)) {
-    ft <- add_header_lines(ft,
-                           values = as_paragraph(as_equation(equation)))
+    ft <- add_header_lines(ft, values = as_paragraph(as_equation(equation)))
     ft <- align(ft, i = 1, align = "center", part = "header")
   }
 
   if (is.character(title)) {
-    ft <- add_header_lines(ft,
-                           values = as_paragraph(title))
+    ft <- add_header_lines(ft, values = as_paragraph(title))
     ft <- align(ft, i = 1, align = "center", part = "header")
   }
 
@@ -315,8 +326,8 @@ format_table <- function(df, kind, header) {
     ft |>
       border_inner_h(border = officer::fp_border(width = 0), part = "header") |>
       hline(i = nrow_part(ft, "header") - 1,
-            border = officer::fp_border(width = 1.5, color = "#666666"),
-            part = "header") ->
+        border = officer::fp_border(width = 1.5, color = "#666666"),
+        part = "header") ->
       ft
   }
 
@@ -327,13 +338,13 @@ format_table <- function(df, kind, header) {
 
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-                 ".add_colnames()")) }
+      ".add_colnames()")) }
 
   ft <- x
 
   for (i in seq_along(labs))
     ft <- mk_par(ft, i = 1, j = names(labs)[i],
-                 value = para_md(labs[i]), part = "header")
+      value = para_md(labs[i]), part = "header")
 
   ft
 }
@@ -341,15 +352,15 @@ format_table <- function(df, kind, header) {
 .add_labs <- function(x, labs) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-                 ".add_colnames()")) }
+      ".add_colnames()")) }
 
   ft <- x
 
-  labs_red <- labs[names(labs) %in%ft$body$dataset$term]
+  labs_red <- labs[names(labs) %in% ft$body$dataset$term]
 
   for (i in seq_along(labs_red))
     ft <- mk_par(ft, i = names(labs_red)[i], j = "term",
-                 value = para_md(labs_red[i]), part = "body")
+      value = para_md(labs_red[i]), part = "body")
 
   ft
 }
@@ -358,7 +369,7 @@ format_table <- function(df, kind, header) {
 
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.",
-                 ".add_colnames()")) }
+      ".add_colnames()")) }
 
   ft <- x
 
@@ -395,26 +406,7 @@ format_table <- function(df, kind, header) {
 # }
 #
 # # TODO: this is duplicated in tabularise -> export from there and reuse here!
-# # Extract labels and units
-# # .labels <- function(x, units = TRUE, ...) {
-# #   labels <- sapply(x, data.io::label, units = units)
-# #
-# #   if (any(labels != "")) {
-# #     # Use a \n before labels and the units
-# #     if (isTRUE(units))
-# #       labels <- sub(" +\\[([^]]+)\\]$", "\n [\\1]", labels)
-# #     # set names if empty
-# #     labels[labels == ""] <- names(x)[labels == ""]
-# #     # Specific case for I() using in a formula
-# #     labels[grepl("^I\\(.*\\)$", names(labels))] <- names(labels)[grepl("^I\\(.*\\)$", names(labels))]
-# #   }
-# #
-# #   if (all(labels == ""))
-# #     labels <- NULL
-# #
-# #   labels
-# # }
-#
+
 # # .labels2 <- function(x, origdata = NULL, labs = NULL) {
 # #
 # #   #labs_auto <- NULL

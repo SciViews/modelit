@@ -12,7 +12,7 @@
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
+  lang = getOption("SciViews_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
   ...,
   kind = "ft"
 )
@@ -53,7 +53,7 @@ is \code{NULL} and no label is used.}
 the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{...}{Additional arguments}
 
@@ -78,7 +78,7 @@ tabularise::tabularise$coef(iris_lm)
 
 # If the 'iris' dataset has labels and units, they can be used to enhance
 # the output table
-iris <- data.io::labelise(iris, self = FALSE, label = list(
+iris <- svBase::labelise(iris, self = FALSE, label = list(
     Sepal.Length = "Length of the sepals",
     Petal.Length = "Length of the petals",
     Species = "Species"), units = c(rep("cm", 4), NA))

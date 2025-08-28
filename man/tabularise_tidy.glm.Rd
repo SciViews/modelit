@@ -14,7 +14,7 @@
   labs = NULL,
   conf.int = FALSE,
   conf.level = 0.95,
-  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
+  lang = getOption("SciViews_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
   kind = "ft",
@@ -62,7 +62,7 @@ the table. By default it is \code{NULL} and nothing is changed.}
 \code{conf.int = TRUE}. The default is 0.95.}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
 The default is \code{getOption("show.signif.stars")}}
@@ -88,7 +88,7 @@ Word, PowerPoint), or rearranged later on.
 \examples{
 #' # If the 'iris' dataset has labels and units, they can be used to enhance
 # the output table
-iris <- data.io::labelise(iris, self = FALSE, label = list(
+iris <- svBase::labelise(iris, self = FALSE, label = list(
     Sepal.Length = "Length of the sepals",
     Petal.Length = "Length of the petals",
     Species = "Species"), units = c(rep("cm", 4), NA))

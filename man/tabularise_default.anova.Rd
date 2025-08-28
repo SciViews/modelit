@@ -11,7 +11,7 @@
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
   kind = "ft"
@@ -36,7 +36,7 @@ caption is detected (\code{tbl-cap} YAML entry).}
 table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value is set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
 The default is taken from \code{getOption("show.signif.stars")}.}

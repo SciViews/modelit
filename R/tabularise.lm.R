@@ -31,7 +31,7 @@
 #' @param labs Labels to change the names of elements in the `term` column of
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The natural language to use. The default value can be set with,
-#'   e.g., `options(data.io_lang = "fr")` for French.
+#'   e.g., `options(SciViews_lang = "fr")` for French.
 #' @param ... Additional arguments
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
 #' flextable (default).
@@ -51,7 +51,7 @@
 #'
 #' # If the 'iris' dataset has labels and units, they can be used to enhance
 #' # the output table
-#' iris <- data.io::labelise(iris, self = FALSE, label = list(
+#' iris <- svBase::labelise(iris, self = FALSE, label = list(
 #'     Sepal.Length = "Length of the sepals",
 #'     Petal.Length = "Length of the petals",
 #'     Species = "Species"), units = c(rep("cm", 4), NA))
@@ -66,9 +66,9 @@
 #' tabularise::tabularise$coef(iris_lm2)
 #'
 tabularise_coef.lm <- function(data, header = FALSE, title = header,
-  equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE",unset = "en")),
-  ..., kind = "ft") {
+    equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    lang = getOption("SciViews_lang", default = Sys.getenv("LANGUAGE",unset = "en")),
+    ..., kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -84,7 +84,7 @@ tabularise_coef.lm <- function(data, header = FALSE, title = header,
     origdata = origdata, labs = labs, equation = equation, title = title,
     colnames = colnames_lm, footer = FALSE)
 
-  # formatted table ----
+  # formatted table
  format_table(df_list, kind = kind, header = header)
 }
 
@@ -148,10 +148,10 @@ tabularise_default.lm <- function(data, ..., kind = "ft") {
 #' @param conf.level The confidence level to use for the confidence interval if
 #'   `conf.int = TRUE`. The default is 0.95.
 #' @param lang The natural language to use. The default value can be set with,
-#'   e.g., `options(data.io_lang = "fr")` for French.
+#'   e.g., `options(SciViews_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is `getOption("show.signif.stars")`
-#' @param ... Additional arguments passed to [tabularise::equation()]
+#' @param ... Additional arguments passed to [equatiomatic::equation()]
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
 #' flextable (default).
 #'
@@ -165,9 +165,9 @@ tabularise_default.lm <- function(data, ..., kind = "ft") {
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$tidy(iris_lm)
 tabularise_tidy.lm <- function(data, header = TRUE, title = header,
-  equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-  conf.int = FALSE, conf.level = 0.95, lang = getOption("data.io_lang", "en"),
-  show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
+    equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    conf.int = FALSE, conf.level = 0.95, lang = getOption("SciViews_lang", "en"),
+    show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -184,7 +184,7 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = header,
     colnames = colnames_lm, footer = FALSE, ...)
 
 
-  # formatted table ----
+  # formatted table
  format_table(df_list, kind = kind, header = header)
 }
 
@@ -220,8 +220,8 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = header,
 #' @param labs Labels to change the names of elements in the `term` column of
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The natural language to use. The default value can be set with,
-#'   e.g., `options(data.io_lang = "fr")` for French.
-#' @param ... Additional arguments passed to [tabularise::equation()]
+#'   e.g., `options(SciViews_lang = "fr")` for French.
+#' @param ... Additional arguments passed to [equatiomatic::equation()]
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
 #' flextable (default).
 #'
@@ -234,8 +234,9 @@ tabularise_tidy.lm <- function(data, header = TRUE, title = header,
 #' iris_lm <- lm(data = iris, Petal.Length ~ Sepal.Length)
 #' tabularise::tabularise$glance(iris_lm)
 tabularise_glance.lm <- function(data, header = TRUE, title = header,
-  equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-  lang = getOption("data.io_lang", "en"), ..., kind = "ft") {
+    equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    lang = getOption("SciViews_lang", "en"), ..., kind = "ft") {
+
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
     title <- header # Default to same as header, but...
@@ -250,7 +251,7 @@ tabularise_glance.lm <- function(data, header = TRUE, title = header,
     origdata = origdata, labs = labs, equation = equation, title = title,
     colnames = colnames_lm, footer = FALSE, ...)
 
-  # formatted table ----
+  # formatted table
  format_table(df_list, kind = kind, header = header)
 }
 
@@ -287,7 +288,7 @@ tabularise_glance.lm <- function(data, header = TRUE, title = header,
 #' @param conf.level The confidence level to use for the confidence interval if
 #'   `conf.int = TRUE`. The default is 0.95.
 #' @param lang The natural language to use. The default value can be set with,
-#'   e.g., `options(data.io_lang = "fr")` for French.
+#'   e.g., `options(SciViews_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is `getOption("show.signif.stars")`
 #' @param ... Additional arguments
@@ -309,7 +310,7 @@ tabularise_glance.lm <- function(data, header = TRUE, title = header,
 tabularise_coef.summary.lm <- function(data, header = TRUE, title = header,
     equation = header, footer = FALSE, auto.labs = TRUE, origdata = NULL,
     labs = NULL, conf.int = FALSE, conf.level = 0.95,
-    lang = getOption("data.io_lang", "en"),
+    lang = getOption("SciViews_lang", "en"),
     show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
@@ -326,7 +327,7 @@ tabularise_coef.summary.lm <- function(data, header = TRUE, title = header,
     origdata = origdata, labs = labs, equation = equation, title = title,
     colnames = colnames_lm, footer = footer, ...)
 
-  # formatted table ----
+  # formatted table
  format_table(df_list, kind = kind, header = header)
 }
 
@@ -352,7 +353,7 @@ tabularise_default.summary.lm <- function(data, ..., footer = TRUE) {
 }
 
 
-# A list of internals functions ------
+# A list of internals functions
 colnames_lm <- c(
   term = "Term",
   estimate = "Estimate",
@@ -376,26 +377,25 @@ colnames_lm <- c(
   "(Intercept)" = "Intercept")
 
 .trads <- gettext(term = "Term",
-        estimate = "Estimate",
-        conf.low = "Lower bound (CI)",
-        conf.high = "Upper bound (CI)",
-        std.error = "Standard Error",
-        t.value = "t value",
-        sigma = "RSE",
-        r.squared = "R^2^",
-        adj.r.squared = "Adj.R^2^",
-        AIC = "AIC",
-        BIC = "BIC",
-        deviance = "Deviance",
-        logLik = "Log-likelihood",
-        statistic = "*t* value",
-        p.value = "*p* value",
-        df = "Model df",
-        df.residual = "Residuals df",
-        nobs = "N",
-        "header" = "Linear model",
-        "(Intercept)" = "Intercept", lang = "fr")
-#.trads
+  estimate = "Estimate",
+  conf.low = "Lower bound (CI)",
+  conf.high = "Upper bound (CI)",
+  std.error = "Standard Error",
+  t.value = "t value",
+  sigma = "RSE",
+  r.squared = "R^2^",
+  adj.r.squared = "Adj.R^2^",
+  AIC = "AIC",
+  BIC = "BIC",
+  deviance = "Deviance",
+  logLik = "Log-likelihood",
+  statistic = "*t* value",
+  p.value = "*p* value",
+  df = "Model df",
+  df.residual = "Residuals df",
+  nobs = "N",
+  header = "Linear model",
+  "(Intercept)" = "Intercept", lang = "fr")
 
 # See utils.R for internal functions used by various .extract_infos_***
 
@@ -403,23 +403,23 @@ colnames_lm <- c(
   digits <- max(3L, getOption("digits") - 3L)
   domain <- "R-modelit"
   res <- paste(gettextf("Residuals range: [%.*g, %.*g]",
-              digits, min(data$residuals, na.rm = TRUE),
-              digits, max(data$residuals, na.rm = TRUE),
-              domain = domain, lang = lang),
-        gettextf("Residuals standard error: %.*g on %.*g degrees of freedom",
-              digits, data$sigma, digits, max(data$df),
-              domain = domain, lang = lang),
-        gettextf("Multiple *R*^2^: %.*g - adjusted *R*^2^: %.*g",
-              digits, data$r.squared, digits, data$adj.r.squared,
-              domain = domain, lang = lang),
-        gettextf("*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s",
-              digits, data$fstatistic[1L],
-              digits, data$fstatistic[2L],
-              digits, data$fstatistic[3L],
-              format.pval(pf(data$fstatistic[1L], data$fstatistic[2L],
-                            data$fstatistic[3L], lower.tail = FALSE)),
-              domain = domain, lang = lang),
-        sep = "\n")
+    digits, min(data$residuals, na.rm = TRUE),
+    digits, max(data$residuals, na.rm = TRUE),
+    domain = domain, lang = lang),
+    gettextf("Residuals standard error: %.*g on %.*g degrees of freedom",
+      digits, data$sigma, digits, max(data$df),
+      domain = domain, lang = lang),
+    gettextf("Multiple *R*^2^: %.*g - adjusted *R*^2^: %.*g",
+      digits, data$r.squared, digits, data$adj.r.squared,
+      domain = domain, lang = lang),
+    gettextf("*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s",
+      digits, data$fstatistic[1L],
+      digits, data$fstatistic[2L],
+      digits, data$fstatistic[3L],
+      format.pval(pf(data$fstatistic[1L], data$fstatistic[2L],
+        data$fstatistic[3L], lower.tail = FALSE)),
+        domain = domain, lang = lang),
+      sep = "\n")
   res
 }
 
@@ -434,34 +434,35 @@ colnames_lm <- c(
   type <- match.arg(type, choices = c("coef", "glance", "tidy"))
 
   if (inherits(data, "summary.lm") && type == "coef") {
-    message(".extract_infos_lm() cannot apply type = 'coef' to a summary.lm
-            object. Use type = 'tidy' instead to extract a detailed coefficient table.")
+    message(".extract_infos_lm() cannot apply type = 'coef' to a summary.lm object. Use type = 'tidy' instead to extract a detailed coefficient table.")
     type <- "tidy"
-    }
+  }
 
   df <- switch(type,
-    coef = {df <- coef(data)
-            data.frame(term = names(df), estimate = df)},
-    glance = {df <- as.data.frame(broom::glance(x = data))
-              rownames(df) <- df$term
-              df
-               },
-    tidy = {df <- as.data.frame(broom::tidy(x = data, conf.int = conf.int,
-                                                 conf.level = conf.level))
-            rownames(df) <- df$term
+    coef = {
+      df <- coef(data)
+      data.frame(term = names(df), estimate = df)},
+    glance = {
+      df <- as.data.frame(broom::glance(x = data))
+      rownames(df) <- df$term
+      df},
+    tidy = {
+      df <- as.data.frame(broom::tidy(x = data, conf.int = conf.int,
+        conf.level = conf.level))
+      rownames(df) <- df$term
 
-            if (isTRUE(conf.int)) {
-                df <- df[, c("term", "estimate", "conf.low", "conf.high",
-                                "std.error", "statistic", "p.value")]
-                }
-            if (isTRUE(show.signif.stars)) {
-                df$signif <- .pvalue_format(df$p.value)
-                 }
-              df}
+      if (isTRUE(conf.int)) {
+        df <- df[, c("term", "estimate", "conf.low", "conf.high",
+          "std.error", "statistic", "p.value")]
+      }
+      if (isTRUE(show.signif.stars)) {
+        df$signif <- .pvalue_format(df$p.value)
+      }
+      df}
   )
 
 
-  if(isTRUE(show.signif.stars)) {
+  if (isTRUE(show.signif.stars)) {
     psignif <- "0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
   } else {
     psignif <- NULL
@@ -473,16 +474,14 @@ colnames_lm <- c(
   data_obj <- attr(data, "object")
 
   if (is.null(data_obj)) {
-
     labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
-                              origdata = origdata, labs = labs)
+      origdata = origdata, labs = labs)
 
     equa <- .extract_equation(data, equation = equation, labs = labels)
 
   } else {
-
     labels <- .extract_labels(df = df, data = data_obj, auto.labs = auto.labs,
-                              origdata = origdata, labs = labs)
+      origdata = origdata, labs = labs)
 
     equa <- .extract_equation(data_obj, equation = equation, labs = labels)
   }
@@ -499,7 +498,7 @@ colnames_lm <- c(
 
   title <- .extract_title(title, lang = lang, default = "Linear model")
 
-   if(isTRUE(footer)) {
+   if (isTRUE(footer)) {
      footer <- .extract_footer_lm(data, lang = lang)
    } else {
     footer <- NULL
@@ -517,7 +516,7 @@ colnames_lm <- c(
 }
 
 
-# # TODO: Migrate this translation system into the 'svMisc' package
+# # TODO: Migrate this translation system into the 'svBase' package
 #
 # # This function creates a translation handler that caches translations
 # # for different languages and object types (e.g., "lm", "nls", etc.).

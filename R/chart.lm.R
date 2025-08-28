@@ -65,7 +65,7 @@
 #' chart(trees_lm5, origdata = trees) # origdata required here!
 chart.lm <- function(data, type = "model", ..., origdata = NULL, title,
 labels = "AUTO", name = deparse(substitute(data)),
-lang = getOption("data.io_lang", "en"), env = parent.frame()) {
+lang = getOption("SciViews_lang", "en"), env = parent.frame()) {
   if (type == "residuals") {
     a <- autoplot.lm(data, ..., name = name, type = "resfitted",
       title = "", lang = lang, env = env)
@@ -95,7 +95,7 @@ autoplot.lm <- function(object, origdata = NULL,
 type = c("model", "resfitted", "qqplot", "scalelocation", "cooksd",
 "resleverage", "cookleverage", "reshist", "resautocor"), title, xlab, ylab,
 ..., name = deparse(substitute(object)),
-lang = getOption("data.io_lang", "en"), env = parent.frame()) {
+lang = getOption("SciViews_lang", "en"), env = parent.frame()) {
   # TODO: chart style if invoked via chart(), otherwise default ggplot theme
   # TODO: lindia::resx() but several plots for more complex formulas and one
   # could question the validity of this plot as the distrubition of residuals

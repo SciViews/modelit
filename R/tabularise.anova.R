@@ -12,7 +12,7 @@
 #' @param labs Labels to change the default names in the `term` column of the
 #'   table. By default it is `NULL` and nothing is changed.
 #' @param lang The natural language to use. The default value is set with,
-#'   e.g., `options(data.io_lang = "fr")` for French.
+#'   e.g., `options(SciViews_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is taken from `getOption("show.signif.stars")`.
 #' @param ... Additional arguments (not used for now)
@@ -46,9 +46,9 @@
 #' anova_(is_lm1, is_lm2) |> tabularise()
 #'
 tabularise_default.anova <- function(data, header = TRUE, title = header,
-auto.labs = TRUE, origdata = NULL, labs = NULL,
-lang = getOption("data.io_lang", "en"),
-show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
+    auto.labs = TRUE, origdata = NULL, labs = NULL,
+    lang = getOption("SciViews_lang", "en"),
+    show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -63,7 +63,7 @@ show.signif.stars = getOption("show.signif.stars", TRUE), ..., kind = "ft") {
     origdata = origdata, labs = labs, title = title,
     colnames = colnames_anova)
 
-  # formatted table ----
+  # formatted table
   format_table(df_list, kind = kind, header = header)
 }
 
@@ -128,7 +128,7 @@ tabularise_tidy.aov <- function(data, ...) {
   tabularise_default.anova(anova_(data), ...)
 }
 
-# A list of internals functions and objects ------
+# A list of internals functions and objects
 
 colnames_anova <-  c(
   term = "Term",
@@ -189,9 +189,10 @@ colnames_anova <-  c(
 
 # See utils.R for internal functions used by various .extract_infos_***
 #
-.extract_infos_anova <- function(data, show.signif.stars = getOption("show.signif.stars", TRUE),
-      lang = "en", auto.labs = TRUE, origdata = NULL , labs = NULL,
-      title = TRUE, colnames = colnames_anova, ...) {
+.extract_infos_anova <- function(data,
+    show.signif.stars = getOption("show.signif.stars", TRUE),
+    lang = "en", auto.labs = TRUE, origdata = NULL , labs = NULL,
+    title = TRUE, colnames = colnames_anova, ...) {
 
   if (!inherits(data, c("anova")))
     stop(".extract_infos_anova() can apply only anova object.")
@@ -202,19 +203,18 @@ colnames_anova <-  c(
 
   # statistic variable has 3 possible signification: "F value", "F", "Chisq"
   statistic_cols <- c("F value", "F", "Chisq")
-  names(df)[names(df) == "statistic"] <- statistic_cols[statistic_cols %in% names(data)][1]
+  names(df)[names(df) == "statistic"] <-
+    statistic_cols[statistic_cols %in% names(data)][1]
 
   # the term variable
-  if (grepl("^Model", attr(data, "heading")[2])) {
+  if (grepl("^Model", attr(data, "heading")[2]))
     names(df)[names(df) == "term"] <- "model"
-  }
 
-  if (isTRUE(show.signif.stars)) {
+  if (isTRUE(show.signif.stars))
     df$signif <- .pvalue_format(df$p.value)
-  }
 
   # psignif
-  if(isTRUE(show.signif.stars)) {
+  if (isTRUE(show.signif.stars)) {
     psignif <- "0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
   } else {
     psignif <- NULL
@@ -227,11 +227,11 @@ colnames_anova <-  c(
 
   if (is.null(data_obj)) {
     labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
-                              origdata = origdata, labs = labs)
+      origdata = origdata, labs = labs)
   } else {
     labels <- .extract_labels(df = df, data = data_obj, auto.labs = auto.labs,
-                              origdata = origdata, labs = labs)
-    }
+      origdata = origdata, labs = labs)
+  }
 
   if (is.null(df[["term"]])) {
     if (isTRUE(title)) {
@@ -310,12 +310,12 @@ colnames_anova <-  c(
   }
 
   list(
-    df = df,
-    title = title,
-    cols = cols,
-    equa = NULL,
-    terms = terms,
+    df      = df,
+    title   = title,
+    cols    = cols,
+    equa    = NULL,
+    terms   = terms,
     psignif = psignif,
-    footer = NULL)
+    footer  = NULL)
 }
 

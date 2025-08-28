@@ -14,7 +14,7 @@
   labs = NULL,
   conf.int = FALSE,
   conf.level = 0.95,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
   kind = "ft"
@@ -62,12 +62,12 @@ the table. By default it is \code{NULL} and no term is changed.}
 \code{conf.int = TRUE}. The default is 0.95.}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
 The default is \code{getOption("show.signif.stars")}}
 
-\item{...}{Additional arguments passed to \code{\link[tabularise:equation]{tabularise::equation()}}}
+\item{...}{Additional arguments passed to \code{\link[equatiomatic:equation]{equatiomatic::equation()}}}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}

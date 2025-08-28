@@ -4,7 +4,7 @@
 #' `lm_()` is an **experimental** wrapper around the base [stats::lm()] function.
 #' It behaves similarly to `lm()`, but enriches the returned object with additional metadata.
 #' The order of the arguments differs from `lm()`, and the function uses evaluation
-#' through [svMisc::prepare_data_dot] and [svMisc::recall_with_data_dot] to support flexible data referencing.
+#' through [svBase::prepare_data_dot] and [svBase::recall_with_data_dot] to support the data-dot mechanism.
 #'
 #' @param data A `data.frame` containing the variables in the model.
 #' @param formula An object of class `formula`: a symbolic description of the model to be fitted.
@@ -173,8 +173,8 @@ anova.lm_ <- function(object, ...) {
 #' `glm_()` is an **experimental** wrapper around the base [stats::glm()]
 #' function. It behaves similarly to `glm()`, but enriches the returned object
 #' with additional metadata. The order of the arguments differs from `glm()`,
-#' and the function uses evaluation through  [svMisc::prepare_data_dot] and
-#' [svMisc::recall_with_data_dot] to support flexible data referencing.
+#' and the function uses evaluation through  [svBase::prepare_data_dot] and
+#' [svBase::recall_with_data_dot] to support the data-dot mechanism.
 #'
 #' @param data A `data.frame` containing the variables in the model.
 #' @param formula An object of class `formula`: a symbolic description of the
@@ -237,8 +237,8 @@ glm_ <- function(data = (.), formula, ..., .data = data) {
 #' `nls_()` is an **experimental** wrapper around the base [stats::nls()]
 #' function. It behaves similarly to `glm()`, but enriches the returned object
 #' with additional metadata. The order of the arguments differs from `glm()`,
-#' and the function uses evaluation through [svMisc::recall_with_data_dot()] to support
-#' flexible data referencing.
+#' and the function uses evaluation through [svBase::recall_with_data_dot()] to support
+#' the data-dot mechanism.
 #'
 #' @param data A `data.frame` containing the variables in the model.
 #' @param formula An object of class `formula`: a symbolic description of the

@@ -13,7 +13,7 @@
   title,
   labels = "AUTO",
   name = deparse(substitute(data)),
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   env = parent.frame()
 )
 
@@ -27,7 +27,7 @@ autoplot.lm(
   ylab,
   ...,
   name = deparse(substitute(object)),
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   env = parent.frame()
 )
 }

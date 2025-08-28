@@ -13,7 +13,7 @@
   origdata = NULL,
   labs = NULL,
   footer = FALSE,
-  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
+  lang = getOption("SciViews_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
   ...,
   kind = "ft",
   env = parent.frame()
@@ -56,7 +56,7 @@ the table. By default it is \code{NULL} and nothing is changed.}
 \item{footer}{If \code{TRUE} (\code{FALSE} by default), add a footer to the table}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{...}{Additional arguments}
 

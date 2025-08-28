@@ -12,7 +12,7 @@
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   footer = FALSE,
   show.signif.stars = getOption("show.signif.stars", TRUE),
   ...,
@@ -42,7 +42,7 @@ is \code{NULL} and no label is used (only the name of the variables).}
 the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The language to use. The default value can be set with, e.g.,
-\code{options(data.io_lang = "fr")} for French.}
+\code{options(SciViews_lang = "fr")} for French.}
 
 \item{footer}{If \code{FALSE} (by default), add a footer to the table.}
 

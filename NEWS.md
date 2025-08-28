@@ -1,5 +1,7 @@
 # modelit 1.4.8
 
+-   Dependency to svBase and equatiomatic updated, and dependencies to data.io and svMisc eliminated.
+
 -   Refactored all tabularise\_\*\*\*() methods for glm, summary.glm, anova, aov objects (e.g., tabularise_glance.glm(), tabularise_default.glm(), tabularise_tidy.glm(), etc.) to improve internal consistency and prepare for multi-format table rendering using {flextable}, {tinytable}, and {gt}.
 
 -   added summary\_() and anova\_() functions. These two functions provide the same information as the summary() and anova() functions. They add an attribute that preserves a link to the object used in these two functions. Adding this argument makes it possible to retrieve information from the original object that would otherwise be lost when using summary() or anova().

@@ -20,7 +20,7 @@
 #' @param labs Labels to change the names of elements in the `term` column of
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The language to use. The default value can be set with, e.g.,
-#'   `options(data.io_lang = "fr")` for French.
+#'   `options(SciViews_lang = "fr")` for French.
 #' @param footer If `TRUE` (by default), add a footer to the table.
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is `getOption("show.signif.stars")`
@@ -55,11 +55,11 @@
 #' tabularise::tabularise(summary(growth_logis)) # No labels
 #' tabularise::tabularise(summary(growth_logis), origdata = growth) # with labels
 #' tabularise::tabularise(summary(growth_logis), origdata = growth,
-#'       equation = FALSE, show.signif.stars = FALSE)
+#'   equation = FALSE, show.signif.stars = FALSE)
 #'
 tabularise_default.summary.nls <- function(data, header = TRUE, title = header,
     equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-    lang = getOption("data.io_lang", "en"), footer = TRUE,
+    lang = getOption("SciViews_lang", "en"), footer = TRUE,
     show.signif.stars = getOption("show.signif.stars", TRUE), ...,
     kind = "ft") {
 
@@ -77,7 +77,7 @@ tabularise_default.summary.nls <- function(data, header = TRUE, title = header,
     title = title, colnames = colnames_nls, footer = footer)
   # print(df_list) # use only for development
 
-  # formatted table ----
+  # formatted table
   format_table(df_list, kind = kind, header = header)
 }
 
@@ -102,7 +102,7 @@ tabularise_default.summary.nls <- function(data, header = TRUE, title = header,
 #' @param labs Labels to change the names of elements in the `term` column of
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The language to use. The default value can be set with, e.g.,
-#'   `options(data.io_lang = "fr")` for French.
+#'   `options(SciViews_lang = "fr")` for French.
 #' @param footer If `FALSE` (by default), add a footer to the table.
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is `getOption("show.signif.stars")`
@@ -126,15 +126,15 @@ tabularise_default.summary.nls <- function(data, header = TRUE, title = header,
 #' tabularise::tabularise$coef(chick1_logis_sum)
 #' tabularise::tabularise$coef(chick1_logis_sum, header = FALSE, equation = TRUE)
 tabularise_coef.summary.nls <- function(data, header = TRUE, title = header,
-     equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-     lang = getOption("data.io_lang", "en"), footer = FALSE,
+    equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    lang = getOption("SciViews_lang", "en"), footer = FALSE,
     show.signif.stars = getOption("show.signif.stars", TRUE), ...,
     kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
     title <- header # Default to same as header, but...
-    # if a caption is defined in the chunk, it defauts to FALSE
+    # if a caption is defined in the chunk, it defaults to FALSE
     if (!is.null(knitr::opts_current$get('tbl-cap')))
       title <- FALSE
   }
@@ -145,7 +145,7 @@ tabularise_coef.summary.nls <- function(data, header = TRUE, title = header,
     title = title, colnames = colnames_nls, footer = footer)
   # print(df_list) # use only for development
 
-  # formatted table ----
+  # formatted table
   format_table(df_list, kind = kind, header = header)
 }
 
@@ -170,7 +170,7 @@ tabularise_coef.summary.nls <- function(data, header = TRUE, title = header,
 #' @param labs Labels to change the names of elements in the `term` column of
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The language to use. The default value can be set with, e.g.,
-#'   `options(data.io_lang = "fr")` for French.
+#'   `options(SciViews_lang = "fr")` for French.
 #' @param footer If `TRUE` (by default, it is TRUE), add a footer to the table.
 #' @param ... Not used
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
@@ -191,7 +191,7 @@ tabularise_coef.summary.nls <- function(data, header = TRUE, title = header,
 #' tabularise::tabularise(chick1_logis)
 tabularise_default.nls <- function(data, header = TRUE, title = header,
     equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-    lang = getOption("data.io_lang", "en"), footer = TRUE, ..., kind = "ft") {
+    lang = getOption("SciViews_lang", "en"), footer = TRUE, ..., kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -207,7 +207,7 @@ tabularise_default.nls <- function(data, header = TRUE, title = header,
     title = title, colnames = colnames_nls, footer = footer)
   # print(df_list) # use only for development
 
-  # formatted table ----
+  # formatted table
   format_table(df_list, kind = kind, header = header)
 }
 
@@ -232,7 +232,7 @@ tabularise_default.nls <- function(data, header = TRUE, title = header,
 #' @param labs Labels to change the names of elements in the `term` column of
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The language to use. The default value can be set with, e.g.,
-#'   `options(data.io_lang = "fr")` for French.
+#'   `options(SciViews_lang = "fr")` for French.
 #' @param footer If `TRUE` (by default, it is TRUE), add a footer to the table.
 #' @param ... Not used
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
@@ -253,7 +253,7 @@ tabularise_default.nls <- function(data, header = TRUE, title = header,
 #' tabularise::tabularise$coef(chick1_logis)
 tabularise_coef.nls <- function(data, header = TRUE, title = header,
     equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-    lang = getOption("data.io_lang", "en"), footer = TRUE, ..., kind = "ft") {
+    lang = getOption("SciViews_lang", "en"), footer = TRUE, ..., kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -269,9 +269,8 @@ tabularise_coef.nls <- function(data, header = TRUE, title = header,
     title = title, colnames = colnames_nls, footer = footer)
   # print(df_list) # use only for development
 
-  # formatted table ----
+  # formatted table
   format_table(df_list, kind = kind, header = header)
-
 }
 
 #' Tidy version of the nls object into a flextable object
@@ -297,7 +296,7 @@ tabularise_coef.nls <- function(data, header = TRUE, title = header,
 #' @param labs Labels to change the names of elements in the `term` column of
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The language to use. The default value can be set with, e.g.,
-#'   `options(data.io_lang = "fr")` for French.
+#'   `options(SciViews_lang = "fr")` for French.
 #' @param show.signif.stars If `TRUE`, add the significance stars to the table.
 #'   The default is `getOption("show.signif.stars")`
 #' @param ... Not used
@@ -322,10 +321,10 @@ tabularise_coef.nls <- function(data, header = TRUE, title = header,
 #' tabularise::tabularise$tidy(chick1_logis)
 #' tabularise::tabularise$tidy(chick1_logis, lang = "fr")
 tabularise_tidy.nls <- function(data, header = TRUE, title = header,
-       equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
-       lang = getOption("data.io_lang", "en"),
-       show.signif.stars = getOption("show.signif.stars", TRUE), ...,
-       kind = "ft") {
+    equation = header, auto.labs = TRUE, origdata = NULL, labs = NULL,
+    lang = getOption("SciViews_lang", "en"),
+    show.signif.stars = getOption("show.signif.stars", TRUE), ...,
+    kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -341,7 +340,7 @@ tabularise_tidy.nls <- function(data, header = TRUE, title = header,
     title = title, colnames = colnames_nls, footer = FALSE)
   # print(df_list) # use only for development
 
-  # formatted table ----
+  # formatted table
   format_table(df_list, kind = kind, header = header)
 }
 
@@ -367,7 +366,7 @@ tabularise_tidy.nls <- function(data, header = TRUE, title = header,
 #' @param labs Labels to change the names of elements in the `term` column of
 #'   the table. By default it is `NULL` and nothing is changed.
 #' @param lang The language to use. The default value can be set with, e.g.,
-#'   `options(data.io_lang = "fr")` for French.
+#'   `options(SciViews_lang = "fr")` for French.
 #' @param ... Not used
 #' @param kind The kind of table to produce: "tt" for tinytable, or "ft" for
 #' flextable (default).
@@ -390,7 +389,7 @@ tabularise_tidy.nls <- function(data, header = TRUE, title = header,
 #' tabularise::tabularise$glance(chick1_logis, lang = "fr")
 tabularise_glance.nls <- function(data, header = TRUE, title = header,
     equation = header, auto.labs = TRUE, origdata = NULL,
-    labs = NULL, lang = getOption("data.io_lang", "en"), ..., kind = "ft") {
+    labs = NULL, lang = getOption("SciViews_lang", "en"), ..., kind = "ft") {
 
   # If title is not provided, determine if we have to use TRUE or FALSE
   if (missing(title)) {
@@ -406,7 +405,7 @@ tabularise_glance.nls <- function(data, header = TRUE, title = header,
     title = title, colnames = colnames_nls, footer = FALSE)
   # print(df_list) # use only for development
 
-  # formatted table ----
+  # formatted table
   format_table(df_list, kind = kind, header = header)
 }
 
@@ -437,7 +436,7 @@ tabularise_glance.nls <- function(data, header = TRUE, title = header,
 #' @method equation nls
 #'
 #' @examples
-#' equation <- tabularise::equation
+#' equation <- equatiomatic::equation
 #' chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 #' chick1_nls <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 #' summary(chick1_nls)
@@ -608,8 +607,8 @@ op_latex = c("\\cdot", "\\times"), ...) {
 #' @export
 #' @method equation summary.nls
 equation.summary.nls <- function(object, ital_vars = FALSE, use_coefs = FALSE,
-coef_digits = 2L, fix_signs = TRUE, swap_var_names = NULL,
-op_latex = c("\\cdot", "\\times"), ...) {
+    coef_digits = 2L, fix_signs = TRUE, swap_var_names = NULL,
+    op_latex = c("\\cdot", "\\times"), ...) {
   # Same as equation.nls()
   equation.nls(object, ital_vars = ital_vars, use_coefs = use_coefs,
     coef_digits = coef_digits, fix_signs = fix_signs,
@@ -673,31 +672,30 @@ model_nls <- c(
 # Internal function for nls and summary.nls object
 
 .extract_footer_nls <- function(data, lang) {
-   digits <- max(3L, getOption("digits") - 3L)
-   domain <- "R-modelit"
+  digits <- max(3L, getOption("digits") - 3L)
+  domain <- "R-modelit"
 
-   if (inherits(data, "nls")) {
-     val <- gettextf("Residual sum-of-squares: %.*g",
-              digits, data$m$deviance(), domain = domain, lang = lang)
-   } else {
-     val <- gettextf("Residuals standard error: %.*g on %.*g degrees of freedom",
-                     digits, data$sigma, digits, max(data$df),
-                     domain = domain, lang = lang)
-   }
+  if (inherits(data, "nls")) {
+    val <- gettextf("Residual sum-of-squares: %.*g",
+      digits, data$m$deviance(), domain = domain, lang = lang)
+  } else {
+    val <- gettextf("Residuals standard error: %.*g on %.*g degrees of freedom",
+      digits, data$sigma, digits, max(data$df), domain = domain, lang = lang)
+  }
 
-   conv <- data$convInfo
-   if (isTRUE(conv$isConv)) {
-       convinfo <- paste(
-         gettextf("Number of iterations to convergence: %.*g",
-                  digits, conv$finIter, domain = domain, lang = lang),
-         gettextf("Achieved convergence tolerance: %.*g",
-                  digits, conv$finTol, domain = domain, lang = lang),
-         sep = "\n")
-       val <- c(val, convinfo)
-       } else {
-         val <- c(val, gettext("The model does not converge", lang = lang))
-         }
-   return(val)
+  conv <- data$convInfo
+  if (isTRUE(conv$isConv)) {
+    convinfo <- paste(
+      gettextf("Number of iterations to convergence: %.*g",
+        digits, conv$finIter, domain = domain, lang = lang),
+      gettextf("Achieved convergence tolerance: %.*g",
+        digits, conv$finTol, domain = domain, lang = lang),
+      sep = "\n")
+    val <- c(val, convinfo)
+  } else {
+    val <- c(val, gettext("The model does not converge", lang = lang))
+  }
+  return(val)
 }
 
 .extract_infos_nls <- function(data, type = "coef",
@@ -706,11 +704,11 @@ model_nls <- c(
     equation = TRUE, title = TRUE, footer = TRUE, ...) {
 
   if (!inherits(data, c("nls", "summary.nls")))
-      stop(".extract_infos_nls() can apply only nls and summary.nls object.")
+    stop(".extract_infos_nls() can apply only nls and summary.nls object.")
 
   type <- match.arg(type, choices = c("coef", "glance", "tidy"))
 
-  # Extract df ---------------------------------------------------------------
+  # Extract df
   if (inherits(data, "nls")) {
     df <- switch(type,
       coef = as.data.frame(t(coef(data))),
@@ -737,23 +735,21 @@ model_nls <- c(
       }
     )
   } else {
-    # only for summary.nls oject
-    if(type == "glance") {
-      stop(".extract_infos_nls() cannot apply type = 'glance' to a summary.nls
-            object.")
+    # Only for summary.nls oject
+    if (type == "glance") {
+      stop(".extract_infos_nls() cannot apply type = 'glance' to a summary.nls object.")
     }
     res1 <- coef(data)
     df <- data.frame(term = rownames(res1), estimate = res1)
     names(df) <- c("term", "estimate", "std.error", "statistic", "p.value")
 
-    if (isTRUE(show.signif.stars)) {
+    if (isTRUE(show.signif.stars))
       df$signif <- .pvalue_format(df$p.value)
-    }
 
     df
   }
 
-  if(isTRUE(show.signif.stars)) {
+  if (isTRUE(show.signif.stars)) {
     psignif <- "0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
   } else {
     psignif <- NULL
@@ -765,31 +761,27 @@ model_nls <- c(
   data_obj <- attr(data, "object")
 
   if (is.null(data_obj)) {
-
     labels <- .extract_labels(df = df, data = data, auto.labs = auto.labs,
-                              origdata = origdata, labs = labs)
+      origdata = origdata, labs = labs)
 
     equa <- .extract_equation(data, equation = equation, labs = labels,...)
 
   } else {
-
     labels <- .extract_labels(df = df, data = data_obj, auto.labs = auto.labs,
-                              origdata = origdata, labs = labs)
+      origdata = origdata, labs = labs)
 
     equa <- .extract_equation(data_obj, equation = equation, labs = labels,...)
   }
 
-  if (is.na(equation)) {
+  if (is.na(equation))
     equa <- NULL
-  }
 
   terms <- NULL
 
   # title
   if (!isTRUE(title)) {
     title <- NULL
-  }
-  if (isTRUE(title)) {
+  } else {
     rhs <- as.character(rlang::f_rhs(formula(data)))[1]
     if (!is.na(model_nls[rhs])) {
       title <- gettext(model_nls[rhs], lang = lang)
@@ -798,9 +790,8 @@ model_nls <- c(
     }
   }
 
-  if (is.character(title)) {
+  if (is.character(title))
     title <- title
-  }
 
   # footer
   if(isTRUE(footer)) {
@@ -812,11 +803,10 @@ model_nls <- c(
   # List with all elements
   list(
     df = df,
-    title = title,
-    cols = cols,
-    equa = equa,
-    terms = terms,
+    title   = title,
+    cols    = cols,
+    equa    = equa,
+    terms   = terms,
     psignif = psignif,
-    footer = footer)
+    footer  = footer)
 }
-

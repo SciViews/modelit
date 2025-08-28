@@ -1,4 +1,4 @@
-#' Statistical Models for 'SciViews::R'
+#' 'SciViews::R' - Statistical Models
 #'
 #' The \{modelit\} package provides an extension to base R functions for model
 #' fitting like [lm()], [glm()] or [nls()] with enhanced plots and utilitarian
@@ -19,7 +19,6 @@
 ## usethis namespace: start
 #' @importFrom broom augment glance tidy
 #' @importFrom chart chart combine_charts
-#' @importFrom data.io label
 #' @importFrom flextable add_footer_lines add_header_lines align as_equation
 #' @importFrom flextable as_paragraph autofit border_inner_h flextable
 #' @importFrom flextable hline italic mk_par ncol_keys nrow_part width
@@ -30,7 +29,8 @@
 #' @importFrom stats AIC anova BIC coef confint cooks.distance deviance family fitted formula hatvalues nobs predict residuals rstandard variable.names vcov
 #' @importFrom stats coef pf
 #' @importFrom svFlow %>.%
-#' @importFrom svMisc gettext_ gettextf_ ngettext_ stop_ warning_ prepare_data_dot recall_with_data_dot
-#' @importFrom tabularise colformat_sci equation para_md
+#' @importFrom svBase label gettext_ gettextf_ ngettext_ stop_ warning_ prepare_data_dot recall_with_data_dot
+#' @importFrom tabularise colformat_sci para_md tabularise
+#' @importFrom equatiomatic equation
 ## usethis namespace: end
 "_PACKAGE"

@@ -12,7 +12,7 @@
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   ...,
   kind = "ft"
 )
@@ -53,9 +53,9 @@ is \code{NULL} and no label is used (only the name of the variables).}
 the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
-\item{...}{Additional arguments passed to \code{\link[tabularise:equation]{tabularise::equation()}}}
+\item{...}{Additional arguments passed to \code{\link[equatiomatic:equation]{equatiomatic::equation()}}}
 
 \item{kind}{The kind of table to produce: "tt" for tinytable, or "ft" for
 flextable (default).}

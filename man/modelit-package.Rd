@@ -4,7 +4,7 @@
 \name{modelit-package}
 \alias{modelit}
 \alias{modelit-package}
-\title{Statistical Models for 'SciViews::R'}
+\title{'SciViews::R' - Statistical Models}
 \description{
 The \{modelit\} package provides an extension to base R functions for model
 fitting like \code{\link[=lm]{lm()}}, \code{\link[=glm]{glm()}} or \code{\link[=nls]{nls()}} with enhanced plots and utilitarian

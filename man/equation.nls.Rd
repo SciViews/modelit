@@ -62,7 +62,7 @@ Create the model equation of several self-starting nonlinear
 models available in the stats package.
 }
 \examples{
-equation <- tabularise::equation
+equation <- equatiomatic::equation
 chick1 <- ChickWeight[ChickWeight$Chick == 1, ]
 chick1_nls <- nls(data = chick1, weight ~ SSlogis(Time, Asym, xmid, scal))
 summary(chick1_nls)

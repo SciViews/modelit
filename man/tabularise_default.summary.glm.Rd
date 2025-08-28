@@ -12,7 +12,7 @@
   auto.labs = TRUE,
   origdata = NULL,
   labs = NULL,
-  lang = getOption("data.io_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
+  lang = getOption("SciViews_lang", default = Sys.getenv("LANGUAGE", unset = "en")),
   show.signif.stars = getOption("show.signif.stars", TRUE),
   footer = TRUE,
   ...,
@@ -42,7 +42,7 @@ is \code{NULL} and no label is used.}
 the table. By default it is \code{NULL} and nothing is changed.}
 
 \item{lang}{The natural language to use. The default value can be set with,
-e.g., \code{options(data.io_lang = "fr")} for French.}
+e.g., \code{options(SciViews_lang = "fr")} for French.}
 
 \item{show.signif.stars}{If \code{TRUE}, add the significance stars to the table.
 The default is \code{getOption("show.signif.stars")}}

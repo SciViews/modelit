@@ -1,13 +1,12 @@
-Statistical Models for ‘SciViews::R’
-<a href='https://www.sciviews.org/modelit'><img src='man/figures/logo.png' align='right' height='139'/></a>
-================
 
-<!-- Do not edit the README.md file directly. It is generated from README.Rmd. -->
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# ‘SciViews::R’ - Statistical Models <a href='https://www.sciviews.org/modelit'><img src='man/figures/logo.png' align='right' height='138'/></a>
+
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main)
+[![codeecov](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/modelit)](https://cran.r-project.org/package=modelit)
 [![r-universe
@@ -16,7 +15,6 @@ status](https://sciviews.r-universe.dev/badges/modelit)](https://sciviews.r-univ
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-
 <!-- badges: end -->
 
 The {modelit} package adds the statistical models to the SciViews::R
@@ -37,12 +35,12 @@ alternate formula interface to {ggplot2}. {tabularise} produces
 publication-ready (rich-formatted) tabular output. The {equatags} and
 {equatiomatic} packages are optional, but they are useful to display
 equations, both inline in R Markdown/Quarto documents and in
-{tabularise} tables. {data.io} is useful too because it manages labels
+{tabularise} tables. {svBase} is useful too because it manages labels
 and units that {chart} uses. To install these six packages and their
 dependencies, run the following command in R:
 
 ``` r
-install.packages(c('modelit', 'chart', 'tabularise', 'equatags', 'equatiomatic', 'data.io'),
+install.packages(c('modelit', 'chart', 'tabularise', 'equatags', 'equatiomatic', 'svBase'),
   repos = c('https://sciviews.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
