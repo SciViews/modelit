@@ -27,6 +27,7 @@ Useful links:
 \itemize{
   \item \url{https://github.com/SciViews/modelit}
   \item \url{https://www.sciviews.org/modelit/}
+  \item \url{https://sciviews.r-universe.dev/modelit}
   \item Report bugs at \url{https://github.com/SciViews/modelit/issues}
 }
 

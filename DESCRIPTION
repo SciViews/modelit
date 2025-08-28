@@ -47,7 +47,7 @@ Remotes:
   SciViews/svFlow,
   SciViews/tabularise
 License: MIT + file LICENSE
-URL: https://github.com/SciViews/modelit, https://www.sciviews.org/modelit/
+URL: https://github.com/SciViews/modelit, https://www.sciviews.org/modelit/, https://sciviews.r-universe.dev/modelit
 BugReports: https://github.com/SciViews/modelit/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2

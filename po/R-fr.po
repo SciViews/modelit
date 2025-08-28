@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.7\n"
-"POT-Creation-Date: 2025-08-20 09:35\n"
-"PO-Revision-Date: 2025-08-19 15:04+0200\n"
+"POT-Creation-Date: 2025-08-28 12:39\n"
+"PO-Revision-Date: 2025-08-28 12:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 msgid "Can only transform a model with 2 variables for now."
 msgstr "Pour l’instant, on ne peut transformer qu’un modèle à 2 variables."
@@ -25,7 +25,7 @@ msgstr "Vous ne pouvez pas utiliser une formule unilatérale, comme ~x."
 
 msgid "Impossible to plot in 2D a model with more than 2 variables"
 msgstr ""
-"Impossible de représenter en 2D un modèle contenant plus de deux variables."
+"Impossible de représenter en 2D un modèle contenant plus de 2 variables"
 
 msgid "Can only plot a model involving numeric variables for now."
 msgstr ""
@@ -50,6 +50,9 @@ msgstr ""
 "'scalelocation', 'cooksd', 'resleverage', 'cookleverage', 'reshist' ou "
 "'resautocor'"
 
+msgid "Only one independent variable is supported for now"
+msgstr "Une seule variable indépendante est prise en charge pour l'instant"
+
 msgid ""
 "Unrecognized type, must be 'model', 'resfitted', 'qqplot',\n"
 "      'scalelocation' or 'reshist'"
@@ -65,20 +68,58 @@ msgstr ""
 "L'argument type= doit fournir un objet model_spec ou son nom sous forme de "
 "chaîne de caractères."
 
-msgid "`data` must be a `data.frame`."
-msgstr "`data` doit être un`data.frame`."
-
 msgid "Unable to summarize the object."
 msgstr "Impossible de calculer le résumé de l'objet."
 
 msgid "Unable to compute ANOVA for the object."
 msgstr "Impossible de calculer l'ANOVA pour l'objet."
 
+msgid "labs is not character vector"
+msgstr "l’argument labs n’est pas un vecteur de caractères"
+
+msgid "labs must be named character vector"
+msgstr "l’argument ‘labs’ doit être un vecteur de caractères nommé"
+
+msgid "all element must be named"
+msgstr "tous les éléments doivent être nommés"
+
+msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
+msgstr ""
+"Les termes suivants sont manquant dans 'labs' pour les interactions %s’: %s"
+
+msgid ","
+msgstr ","
+
+msgid "Intercept"
+msgstr "Ordonnée à l’origine"
+
+msgid "Residuals"
+msgstr "Résidus"
+
+msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
+msgstr ""
+"L’argument 'equation' doit être TRUE, FALSE, NA, ou une chaine de caractère."
+
+msgid "Not implemented yet"
+msgstr "Ce n'est pas encore implémenté"
+
+msgid "Function `%s` supports only flextable objects."
+msgstr "La fonction `%s` supporte uniquement des objets flextable."
+
+msgid ".add_signif_stars()"
+msgstr ".add_signif_stars()"
+
+msgid ".add_header2()"
+msgstr ".add_header2()"
+
+msgid ".add_colnames()"
+msgstr ".add_colnames()"
+
 msgid "You must give either 'h=' or 'v='."
 msgstr "Il faut fournir 'h=' ou 'v=‘."
 
 msgid "Type III analysis of variance with Satterthwaite's method"
-msgstr "Analyse de la variance de type III avec m\\u00e9thode Sattertwaite"
+msgstr "Analyse de la variance de type III avec méthode Sattertwaite"
 
 msgid "Analysis of deviance"
 msgstr "Analyse de la déviance"
@@ -155,14 +196,11 @@ msgstr "$\\chi2_{obs.}$"
 msgid "None"
 msgstr "Aucun"
 
-msgid "Residuals"
-msgstr "Résidus"
-
 msgid "Number of parameters"
 msgstr "Nombre de paramètres"
 
 msgid ".extract_infos_anova() can apply only anova object."
-msgstr ".extract_infos_anova()  ne s’applique qu’au objet anova."
+msgstr ".extract_infos_anova() ne s’applique qu’aux objets anova."
 
 msgid "Estimate"
 msgstr "Valeur estimée"
@@ -186,7 +224,7 @@ msgid "R^2^"
 msgstr "R^2^"
 
 msgid "Adj.R^2^"
-msgstr "R^2^ ajustée"
+msgstr "R^2^ ajusté"
 
 msgid "AIC"
 msgstr "AIC"
@@ -215,14 +253,11 @@ msgstr "Ddl résidus"
 msgid "N"
 msgstr "N"
 
-msgid "Intercept"
-msgstr "Ordonnée à l’origine"
-
 msgid "Generalized Linear Model"
 msgstr "Modèle linéaire généralisé"
 
 msgid "fr"
-msgstr "Fr"
+msgstr "fr"
 
 msgid "(Dispersion parameter for %s: %.*g)"
 msgstr "(Paramètre de dispersion pour une %s: %.*g)"
@@ -247,13 +282,12 @@ msgid "Residual deviance: %.*g AIC: %.*g"
 msgstr "Déviance résiduelle %.*g AIC : %.*g"
 
 msgid ".extract_infos_glm() can apply only glm and summary.glm object."
-msgstr ".extract_infos_nls() ne s’applique qu’au objet glm et summary.glm."
+msgstr ".extract_infos_glm() ne s’applique qu’aux objets glm et summary.glm."
 
 msgid ""
-".extract_infos_glm() can only apply type = 'coef' to a summary.glm\n"
-"            object."
+".extract_infos_glm() can only apply type = 'coef' to a summary.glm object."
 msgstr ""
-"extract_infos_nls() ne peut appliquer  type=‘chef’ à un objet summary.nls."
+".extract_infos_glm() ne peut appliquer type=‘coef’ à un objet summary.glm."
 
 msgid "t value"
 msgstr "Valeur de *t*"
@@ -283,25 +317,24 @@ msgid "*F*-statistic: %.*g on %.*g and %.*g df - *p* value: %s"
 msgstr "Statistique *F* : %.*g sur %.*g et %.*g ddl - valeur de *p* : %s"
 
 msgid ".extract_infos_lm() can apply only lm and summary.lm object."
-msgstr ".extract_infos_nls()  ne s’applique qu’au objet lm et summary.lm."
+msgstr ".extract_infos_lm() ne s’applique qu’aux objets lm et summary.lm."
 
 msgid ""
-".extract_infos_lm() cannot apply type = 'coef' to a summary.lm\n"
-"            object. Use type = 'tidy' instead to extract a detailed "
-"coefficient table."
+".extract_infos_lm() cannot apply type = 'coef' to a summary.lm object. Use "
+"type = 'tidy' instead to extract a detailed coefficient table."
 msgstr ""
-".extract_infos_lm() ne peut appliquer type ='coef' à summary.lm\n"
-"  type = 'tidy' est employé pour extraire le tableau des coefficients."
+".extract_infos_lm() ne peut appliquer type ='coef' à un objet summary.lm. "
+"Type = 'tidy' est employé pour extraire le tableau des coefficients."
 
-#, fuzzy
 msgid "`x` must be an object of class 'nls' or 'summary.nls'."
-msgstr "x doit être un objet nls ou summary.nls"
+msgstr "‘x’ doit être un objet ‘nls’ ou ‘summary.nls’."
 
 msgid "An error occurred when trying to extract the formula from 'x'"
-msgstr "Une erreur s’est produit lors de l’essais d’extraire la formule de 'x'"
+msgstr ""
+"Une erreur s’est produite lors de la tentative d’extraire la formule de 'x'"
 
 msgid "The formula is not a Self-Starting nls formula"
-msgstr "La formule n'est pas une formule Self-Starting nls"
+msgstr "La formule n'est pas une formule ‘Self-Start’ nls"
 
 msgid "The %s is not available."
 msgstr "Le %s n'est pas disponible."
@@ -313,7 +346,7 @@ msgid "var_names must be named character vector"
 msgstr "var_names doit être un vecteur de caractère nommé"
 
 msgid "all elements must be named"
-msgstr "Tous les éléments doivent être nommé."
+msgstr "tous les éléments doivent être nommé."
 
 msgid "*t*~obs.~ value"
 msgstr "Valeur de *t*~obs.~"
@@ -325,7 +358,7 @@ msgid "Convergence tolerance"
 msgstr "Tolérance de convergence"
 
 msgid "df"
-msgstr "Degrés de liberté"
+msgstr "Ddl"
 
 msgid "Nonlinear least squares asymptotic regression model (von Bertalanffy)"
 msgstr "Modèle non linéaire de régression asymptotique (von Bertalanffy)"
@@ -337,7 +370,7 @@ msgid ""
 "Nonlinear least squares asymptotic regression model through the origin (von "
 "Bertalanffy)"
 msgstr ""
-"Modèle non linéaire de régression asymptotique forcée à l'origine (von "
+"Modèle non linéaire de régression asymptotique forcé à l'origine (von "
 "Bertalanffy)"
 
 msgid "Nonlinear least squares biexponential model"
@@ -374,51 +407,18 @@ msgid "The model does not converge"
 msgstr "Le modèle ne converge pas"
 
 msgid ".extract_infos_nls() can apply only nls and summary.nls object."
-msgstr ".extract_infos_nls()  ne s’applique qu’au objet nls et summary.nls."
+msgstr ".extract_infos_nls() ne s’applique qu’aux objets nls et summary.nls."
 
 msgid ""
-".extract_infos_nls() cannot apply type = 'glance' to a summary.nls\n"
-"            object."
+".extract_infos_nls() cannot apply type = 'glance' to a summary.nls object."
 msgstr ""
-"extract_infos_nls() ne peut appliquer  type=‘lance’ à un objet summary.nls."
+".extract_infos_nls() ne peut appliquer type=‘glance’ à un objet summary.nls."
 
-msgid "Package 'data.io' is required but not installed."
-msgstr "Le package “data.io” est requis mais n'est pas installé."
+#~ msgid "`data` must be a `data.frame`."
+#~ msgstr "`data` doit être un`data.frame`."
 
-msgid "labs is not character vector"
-msgstr "L’argument labs n’est pas un vecteur de caractères"
-
-msgid "labs must be named character vector"
-msgstr "l’argument ‘labs’ doit être un vecteur de caractères nommé"
-
-msgid "all element must be named"
-msgstr "tous les éléments doivent être nommés"
-
-msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
-msgstr ""
-"Les termes suivants sont manquant dans 'labs' pour les interactions %s’: %s"
-
-msgid ","
-msgstr ","
-
-msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
-msgstr ""
-"L’argument 'equation' doit être TRUE, FALSE, NA, ou une chaine de caractère."
-
-msgid "Not implemented yet"
-msgstr "Ce n'est pas encore implémenté"
-
-msgid "Function `%s` supports only flextable objects."
-msgstr "La fonction `%s` supporte uniquement des objets flextable."
-
-msgid ".add_signif_stars()"
-msgstr ".add_signif_stars()"
-
-msgid ".add_header2()"
-msgstr ".add_header2()"
-
-msgid ".add_colnames()"
-msgstr ".add_colnames()"
+#~ msgid "Package 'data.io' is required but not installed."
+#~ msgstr "Le package “data.io” est requis mais n'est pas installé."
 
 #~ msgid "header_labels_lm()"
 #~ msgstr "header_labels_lm()"

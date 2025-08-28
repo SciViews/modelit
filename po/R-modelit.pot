@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: modelit 1.4.8\n"
-"POT-Creation-Date: 2025-08-20 09:35\n"
+"POT-Creation-Date: 2025-08-28 12:39\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,19 +34,58 @@ msgstr ""
 msgid "Unrecognized type, must be 'model', 'resfitted', 'qqplot', 'scalelocation', 'cooksd', 'resleverage', 'cookleverage', 'reshist', or 'resautocor'"
 msgstr ""
 
+msgid "Only one independent variable is supported for now"
+msgstr ""
+
 msgid "Unrecognized type, must be 'model', 'resfitted', 'qqplot',\n      'scalelocation' or 'reshist'"
 msgstr ""
 
 msgid "The type= argument must provide a model_spec object or its name in a character string."
 msgstr ""
 
-msgid "`data` must be a `data.frame`."
-msgstr ""
-
 msgid "Unable to summarize the object."
 msgstr ""
 
 msgid "Unable to compute ANOVA for the object."
+msgstr ""
+
+msgid "labs is not character vector"
+msgstr ""
+
+msgid "labs must be named character vector"
+msgstr ""
+
+msgid "all element must be named"
+msgstr ""
+
+msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "Intercept"
+msgstr ""
+
+msgid "Residuals"
+msgstr ""
+
+msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
+msgstr ""
+
+msgid "Not implemented yet"
+msgstr ""
+
+msgid "Function `%s` supports only flextable objects."
+msgstr ""
+
+msgid ".add_signif_stars()"
+msgstr ""
+
+msgid ".add_header2()"
+msgstr ""
+
+msgid ".add_colnames()"
 msgstr ""
 
 msgid "You must give either 'h=' or 'v='."
@@ -130,9 +169,6 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-msgid "Residuals"
-msgstr ""
-
 msgid "Number of parameters"
 msgstr ""
 
@@ -190,9 +226,6 @@ msgstr ""
 msgid "N"
 msgstr ""
 
-msgid "Intercept"
-msgstr ""
-
 msgid "Generalized Linear Model"
 msgstr ""
 
@@ -223,7 +256,7 @@ msgstr ""
 msgid ".extract_infos_glm() can apply only glm and summary.glm object."
 msgstr ""
 
-msgid ".extract_infos_glm() can only apply type = 'coef' to a summary.glm\n            object."
+msgid ".extract_infos_glm() can only apply type = 'coef' to a summary.glm object."
 msgstr ""
 
 msgid "t value"
@@ -256,7 +289,7 @@ msgstr ""
 msgid ".extract_infos_lm() can apply only lm and summary.lm object."
 msgstr ""
 
-msgid ".extract_infos_lm() cannot apply type = 'coef' to a summary.lm\n            object. Use type = 'tidy' instead to extract a detailed coefficient table."
+msgid ".extract_infos_lm() cannot apply type = 'coef' to a summary.lm object. Use type = 'tidy' instead to extract a detailed coefficient table."
 msgstr ""
 
 msgid "`x` must be an object of class 'nls' or 'summary.nls'."
@@ -337,41 +370,5 @@ msgstr ""
 msgid ".extract_infos_nls() can apply only nls and summary.nls object."
 msgstr ""
 
-msgid ".extract_infos_nls() cannot apply type = 'glance' to a summary.nls\n            object."
-msgstr ""
-
-msgid "Package 'data.io' is required but not installed."
-msgstr ""
-
-msgid "labs is not character vector"
-msgstr ""
-
-msgid "labs must be named character vector"
-msgstr ""
-
-msgid "all element must be named"
-msgstr ""
-
-msgid "The following terms are missing in 'labs' for the interaction '%s': %s"
-msgstr ""
-
-msgid ","
-msgstr ""
-
-msgid "The 'equation' argument must be TRUE, FALSE, NA, or a character string."
-msgstr ""
-
-msgid "Not implemented yet"
-msgstr ""
-
-msgid "Function `%s` supports only flextable objects."
-msgstr ""
-
-msgid ".add_signif_stars()"
-msgstr ""
-
-msgid ".add_header2()"
-msgstr ""
-
-msgid ".add_colnames()"
+msgid ".extract_infos_nls() cannot apply type = 'glance' to a summary.nls object."
 msgstr ""

@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/modelit/actions/workflows/R-CMD-check.yaml)
-[![codeecov](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg)](https://codecov.io/gh/SciViews/modelit?branch=main)
+[![codeecov](https://codecov.io/gh/SciViews/modelit/branch/main/graph/badge.svg?token=6FYPRdhoFJ)](https://codecov.io/gh/SciViews/modelit?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/modelit)](https://cran.r-project.org/package=modelit)
 [![r-universe
