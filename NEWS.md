@@ -30,7 +30,9 @@
 
 # modelit 1.4.6
 
--   Bug correction in `tabularise()` for **lm** and **glm** object. Managing a conflict between auto.labs= and equation=.
+-   Better selection of X and Y variables in `chart.nls()` and `autoplot.nls()`.
+
+-   Bug correction in `tabularise()` for **lm** and **glm** object. Managing a conflict between `auto.labs=` and `equation=`.
 
 # modelit 1.4.5
 

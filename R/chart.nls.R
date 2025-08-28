@@ -84,6 +84,7 @@ type = c("model", "resfitted", "qqplot", "scalelocation", "reshist",
 
   # Needed to avoid spurious R CMD check errors
   . <- NULL
+  .data <- NULL
   .std.resid <- NULL
 
   lang <- tolower(lang)
@@ -107,13 +108,20 @@ type = c("model", "resfitted", "qqplot", "scalelocation", "reshist",
   res <- switch(type,
     model = object %>.% # scatterplot + model (TODO: + confidence)
       (function(nls) {
+        X <- names(nls$dataClasses)
+        if (length(X) > 1)
+          stop("Only one independent variable is supported for now")
         adata <- augment(nls)
         ndata <- names(adata)
-        X <- as.name(ndata[2])
-        Y <- as.name(ndata[1])
-        chart(data = adata, aes(x = {{ X }}, y = {{ Y }})) + # Was: aes_string(x = X, y = Y)) +
+        if (ndata[1] == X) {
+          Y <- ndata[2]
+        } else {
+          Y <- ndata[1]
+        }
+        chart(data = adata, aes(x = .data[[X]], y = .data[[Y]])) + # Was aes(x = {{ X }}, y = {{ Y }})) + # Was: aes_string(x = X, y = Y)) +
           geom_point() +
-          stat_function(fun = as.function(nls), col = "skyblue3", size = 1)
+          stat_function(fun = as.function(nls), col = "skyblue3", size = 1) +
+          labs(x = X, y = Y)
       })(.),
 
     resfitted = object %>.% #plot(lm., which = 1)
