@@ -94,24 +94,27 @@ ngettext <- svBase::ngettext_
 }
 
 # Extract labels and units
-.labels <- function(x, units = TRUE, ...) {
-  labels <- sapply(x, svBase::label, units = units)
-  if (any(labels != "")) {
-    # Use a \n before labels and the units
-    if (isTRUE(units))
-      labels <- sub(" +\\[([^]]+)\\]$", "\n [\\1]", labels)
+.labels <- equatiomatic:::.labels
+# .labels <- function(x, units = TRUE, ...) {
+#   labels <- sapply(x, svBase::label, units = units)
+#   if (any(labels != "")) {
+#     # Use a \n before labels and the units
+#     if (isTRUE(units))
+#       labels <- sub(" +\\[([^]]+)\\]$", "\n [\\1]", labels)
+#
+#     # set names if empty
+#     labels[labels == ""] <- names(x)[labels == ""]
+#     # Specific case for I() using in a formula
+#     labels[grepl("^I\\(.*\\)$", names(labels))] <-
+#       names(labels)[grepl("^I\\(.*\\)$", names(labels))]
+#   }
+#   if (all(labels == ""))
+#     labels <- NULL
+#
+#   labels
+# }
 
-    # set names if empty
-    labels[labels == ""] <- names(x)[labels == ""]
-    # Specific case for I() using in a formula
-    labels[grepl("^I\\(.*\\)$", names(labels))] <-
-      names(labels)[grepl("^I\\(.*\\)$", names(labels))]
-  }
-  if (all(labels == ""))
-    labels <- NULL
 
-  labels
-}
 
 .extend_labs_with_interactions <- function(labs, terms) {
   if (!is.character(labs) || is.null(names(labs))) {
