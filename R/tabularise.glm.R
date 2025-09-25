@@ -565,6 +565,9 @@ colnames_glm <- c(
 
     rownames(df) <- df$term
 
+    if (isTRUE(show.signif.stars))
+      df$signif <- .pvalue_format(df$p.value)
+
   } else {
     df <- switch(type,
       coef = {
